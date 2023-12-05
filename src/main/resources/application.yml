@@ -6,7 +6,7 @@ spring:
 
   # 데이터베이스 연결 정보 (Oracle)
   datasource:
-    url: jdbc:oracle:thin:@localhost:1521:ORCL
+    url: jdbc:oracle:thin:@localhost:1521/xe
     username: scott
     password: tiger
     driver-class-name: oracle.jdbc.OracleDriver
