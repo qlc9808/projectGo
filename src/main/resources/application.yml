@@ -1,0 +1,30 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+  # 데이터베이스 연결 정보 (Oracle)
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:ORCL
+    username: scott
+    password: tiger
+    driver-class-name: oracle.jdbc.OracleDriver
+
+  # Hibernate 설정 (MyBatis 사용하지 않을 경우 필요 없음)
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+  # Spring Security 설정
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: <ISSUER_URI>
+
+# Spring Boot 애플리케이션 설정
+server:
+  port: 8585
+
+
