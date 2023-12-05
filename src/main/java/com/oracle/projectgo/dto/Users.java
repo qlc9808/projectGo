@@ -8,7 +8,7 @@ import java.util.Date;
 public class Users {
     private int    id;          // 회원번호
     private String nickname;    // 아이디
-    private String type;        // 회원구분
+    private String userType;    // 회원구분 관리자:1, 교육자:2, 학습자:3, 일반인:4
     private String name;        // 이름
     private String password;    // 비밀번호
     private String birthdate;   // 생년월일
@@ -17,7 +17,7 @@ public class Users {
     private String email;       // 이메일
     private String consent1;    // 수신동의1
     private String consent2;    // 수신동의2
-    private Date   createdAt;   // 가입일자
     private String isDeleted;   // 삭제여부
+    private Date   createdAt;   // 가입일자
     private Date   updateAt;    // 수정일
 }
