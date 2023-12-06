@@ -10,5 +10,6 @@
     </settings>
     <typeAliases>
         <typeAlias alias="Homeworks"         type="com.oracle.projectGo.dto.Homeworks"/>
+        <typeAlias alias="gameContents"      type="com.oracle.projectGo.dto.gameContents"/>
     </typeAliases>
 </configuration>
