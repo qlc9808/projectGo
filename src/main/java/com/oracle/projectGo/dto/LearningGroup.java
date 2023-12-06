@@ -7,6 +7,7 @@ import java.util.Date;
 @Data
 public class LearningGroup {
     private int    id;               // 그룹번호
+    private int    contentId;        // 게임번호
     private int    userId;           // 회원번호
     private String name;             // 그룹명
     private String contentName;      // 콘텐츠명

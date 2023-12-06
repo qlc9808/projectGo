@@ -7,7 +7,7 @@ import java.util.Date;
 @Data
 public class Board {
     private int    id;              // 게시판ID
-    private int    userid;          // 회원번호
+    private int    userId;          // 회원번호
     private String boardType;       // 게시판유형 공지:1, FAQ:2, QnA:3
     private String title;           // 제목
     private String content;         // 내용

@@ -6,8 +6,8 @@ import java.util.Date;
 
 @Data
 public class Homeworks {
-    private int    groupId;           // 그룹번호
     private int    id;                // 숙제ID
+    private int    userId;            // 회원번호
     private String title;             // 숙제명
     private String content;           // 숙제내용
     private int    progress;          // 진도

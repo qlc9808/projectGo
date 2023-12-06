@@ -7,7 +7,7 @@ import java.util.Date;
 @Data
 public class DistributedHomeworks {
     private int    homeworkId;      // 숙제ID
-    private int    studentId;       // 학습자ID
+    private int    userId;          // 회원번호
     private Date   submissionDate;  // 숙제 제출일
     private String content;         // 학습 제출내용
     private int    progress;        // 학습 진도
