@@ -10,4 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @RequestMapping(value = "/admin/resource")
 public class AdminResourceController {
+
+    @RequestMapping(value = "/enrollEducation")
+    public String insertEducation() {
+
+        return "admin/resource/enrollEducation";
+    }
 }

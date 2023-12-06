@@ -10,4 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @RequestMapping(value = "/learning")
 public class LearningController {
+
+    @RequestMapping("/learningSign")
+    public String test(){
+        return "learning/learningSign";
+    }
 }
