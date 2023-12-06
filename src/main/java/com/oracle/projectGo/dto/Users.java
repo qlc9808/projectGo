@@ -12,6 +12,7 @@ public class Users {
     private String name;        // 이름
     private String password;    // 비밀번호
     private String birthdate;   // 생년월일
+    private String gender;      // 성별
     private String address;     // 주소
     private String phoneNumber; // 연락처
     private String email;       // 이메일

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oracle.projectGo.UsersMapper">
+
+    <select id="getUserByNickname" resultType="Users">
+    </select>
+
+    <insert id="insertUser"  parameterType="Users" >
+    </insert>
+
+    <select id="getUserList" resultType="Users">
+    </select>
+
+    <select id="totalUsers" resultType="int">
+    </select>
+
+    
+</mapper>

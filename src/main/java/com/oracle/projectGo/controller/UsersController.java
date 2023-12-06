@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping(value = "/login")
-public class AuthController {
+@RequestMapping(value = "/usersList")
+public class UsersController {
 }
