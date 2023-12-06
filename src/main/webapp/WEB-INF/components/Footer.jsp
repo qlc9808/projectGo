@@ -6,11 +6,18 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
+<style>
+    footer {
+        margin-top: auto;
+        text-align: center;
+        background-color: #EEFFC2;
+    }
+</style>
+<footer class="py-5 fixed-bottom">
+    <div class="container footer-banner-custom">
+        <div class="row  row-cols-1">
+ㅇㅇ
+        </div>
+    </div>
+</footer>
 
-</body>
-</html>

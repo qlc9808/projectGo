@@ -35,14 +35,17 @@ public class HomeworkController {
             homework.setStart(page.getStart());
             homework.setEnd(page.getEnd());
             /* TODO: GET HOMEWORK LIST */
-            List<Homeworks> hwList = new ArrayList<Homeworks>();
+            List<Homeworks> homeworkList = new ArrayList<Homeworks>();
             for (int i = 0; i < 10; i++) {
                 Homeworks hw = new Homeworks();
                 hw.setId(i);
                 hw.setTitle("title"+i);
-                hwList.add(hw);
+                homeworkList.add(hw);
             }
             /* TODO: SET ATTRIBUTE */
+            model.addAttribute("page", page);
+            model.addAttribute("homeworkList", homeworkList);
+            model.addAttribute("currentPage", currentPage);
 
         } catch (Exception e) {
             log.error("[{}]{}:{}:{}", transactionId, this.getClass().getSimpleName(), "listHomework", e.getMessage());
