@@ -16,4 +16,8 @@ public class Homeworks {
     private Date   createdAt;         // 생성일
     private Date   updatedAt;         // 수정일
 
+    /* 페이지 처리 */
+    private String pageNum;
+    private int    start;
+    private int    end;
 }
