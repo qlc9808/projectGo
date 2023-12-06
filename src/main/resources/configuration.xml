@@ -4,7 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+    <!-- 파라미터가 null이어도 DB에 insert / update할 수 있도록 -->
+    <settings>
+        <setting name="jdbcTypeForNull" value="NULL"/>
+    </settings>
     <typeAliases>
-
+        <typeAlias alias="Homeworks"         type="com.oracle.projectGo.dto.Homeworks"/>
     </typeAliases>
 </configuration>
