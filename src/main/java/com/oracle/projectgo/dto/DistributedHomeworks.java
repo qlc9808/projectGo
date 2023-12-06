@@ -8,7 +8,6 @@ import java.util.Date;
 public class DistributedHomeworks {
     private int    homeworkId;      // 숙제ID
     private int    studentId;       // 학습자ID
-    private int    groupId;         // 그룹번호
     private Date   submissionDate;  // 숙제 제출일
     private String content;         // 학습 제출내용
     private int    progress;        // 학습 진도

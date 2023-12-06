@@ -20,4 +20,6 @@ public class GameContents {
     private String content;             // 게임 패키지 내용
     private Date   createdAt;           // 생성일
     private Date   updatedAt;           // 수정일
+    private int    discountRate;        // 할인율
+    private int    discountPrice;       // 판매가
 }
