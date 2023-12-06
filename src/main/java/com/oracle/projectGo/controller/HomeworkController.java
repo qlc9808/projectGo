@@ -29,11 +29,13 @@ public class HomeworkController {
             log.info("[{}]{}:{}:{}", transactionId, this.getClass().getSimpleName(),"listHomework", "start");
 
             /* TODO: GET TOTAL HOMEWORK COUNT  */
+            int totalHomeworksCnt = 30;
 
             /* TODO: PAGING PROCESS */
-            Paging page = new Paging(30, currentPage);
+            Paging page = new Paging(totalHomeworksCnt, currentPage);
             homework.setStart(page.getStart());
             homework.setEnd(page.getEnd());
+
             /* TODO: GET HOMEWORK LIST */
             List<Homeworks> homeworkList = new ArrayList<Homeworks>();
             for (int i = 0; i < 10; i++) {
@@ -55,24 +57,24 @@ public class HomeworkController {
         return "educate/homework/listHomework";
     }
 
-    @RequestMapping(value = "getRecommendations", method = RequestMethod.POST)
-    public ResponseEntity getRecommendations(@RequestBody Homeworks homework) {
+    @RequestMapping(value = "insertHomework", method = RequestMethod.POST)
+    public ResponseEntity insertHomework(@RequestBody Homeworks homework) {
         UUID transactionId = UUID.randomUUID();
         try {
-            log.info("[{}]{}:{}:{}", transactionId, this.getClass().getSimpleName(), "listHomework", "start");
+            log.info("[{}]{}:{}:{}", transactionId, this.getClass().getSimpleName(), "insertHomework", "start");
 
             /* TODO: */
-
+            log.info(homework.toString());
             /* TODO: */
 
             /* TODO: */
             return ResponseEntity.ok().build();
 
         } catch (Exception e) {
-            log.error("[{}]{}:{}:{}", transactionId, this.getClass().getSimpleName(), "listHomework", e.getMessage());
+            log.error("[{}]{}:{}:{}", transactionId, this.getClass().getSimpleName(), "insertHomework", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         } finally {
-            log.info("[{}]{}:{}:{}", transactionId, this.getClass().getSimpleName(), "listHomework", "end");
+            log.info("[{}]{}:{}:{}", transactionId, this.getClass().getSimpleName(), "insertHomework", "end");
         }
     }
 }
