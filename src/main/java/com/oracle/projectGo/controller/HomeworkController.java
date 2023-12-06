@@ -1,7 +1,8 @@
 package com.oracle.projectGo.controller;
 
 
-import com.oracle.projectGo.dto.Homeworks;
+import com.oracle.projectGo.model.Board;
+//import com.oracle.projectGo.model.Homeworks;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -23,9 +24,10 @@ public class HomeworkController {
     @RequestMapping(value = "listHomework")
     public String listHomework(String currentPage, Model model) {
         UUID transactionId = UUID.randomUUID();
+        Board board = null;
         try {
             log.info("[{}]{}:{}:{}", transactionId, this.getClass().getSimpleName(),"listHomework", "start");
-            Homeworks hw = null;
+
             /* TODO: GET TOTAL HOMEWORK COUNT  */
 
             /* TODO: PAGING PROCESS */
@@ -41,28 +43,28 @@ public class HomeworkController {
         return "educate/homework/listHomework";
     }
 
-    @ResponseBody
-    @RequestMapping(value = "insertHomework", method = RequestMethod.POST)
-    public ResponseEntity<Integer> insertHomework(@RequestBody Homeworks homeworks) {
-        UUID transactionId = UUID.randomUUID();
-        try {
-            log.info("[{}]{}:{}:{}", transactionId, this.getClass().getSimpleName(),"insertHomework", "start");
-
-            /* TODO: GET TOTAL HOMEWORK COUNT  */
-
-            /* TODO: PAGING PROCESS */
-
-            /* TODO: GET HOMEWORK LIST */
-
-            return ResponseEntity.ok(1);
-
-        } catch (Exception e) {
-            log.error("[{}]{}:{}:{}", transactionId, this.getClass().getSimpleName(), "insertHomework", e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(0);
-
-        } finally {
-            log.info("[{}]{}:{}:{}", transactionId,  this.getClass().getSimpleName(), "insertHomework", "end");
-        }
-    }
+//    @ResponseBody
+//    @RequestMapping(value = "insertHomework", method = RequestMethod.POST)
+//    public ResponseEntity<Integer> insertHomework(@RequestBody Homeworks homeworks) {
+//        UUID transactionId = UUID.randomUUID();
+//        try {
+//            log.info("[{}]{}:{}:{}", transactionId, this.getClass().getSimpleName(),"insertHomework", "start");
+//
+//            /* TODO: GET TOTAL HOMEWORK COUNT  */
+//
+//            /* TODO: PAGING PROCESS */
+//
+//            /* TODO: GET HOMEWORK LIST */
+//
+//            return ResponseEntity.ok(1);
+//
+//        } catch (Exception e) {
+//            log.error("[{}]{}:{}:{}", transactionId, this.getClass().getSimpleName(), "insertHomework", e.getMessage());
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(0);
+//
+//        } finally {
+//            log.info("[{}]{}:{}:{}", transactionId,  this.getClass().getSimpleName(), "insertHomework", "end");
+//        }
+//    }
 
 }

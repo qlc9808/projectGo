@@ -9,6 +9,6 @@
         <setting name="jdbcTypeForNull" value="NULL"/>
     </settings>
     <typeAliases>
-        <typeAlias alias="Homeworks"         type="com.oracle.projectGo.dto.Homeworks"/>
+        <typeAlias alias="Homeworks"         type="com.oracle.projectGo.model.Homeworks"/>
     </typeAliases>
 </configuration>
