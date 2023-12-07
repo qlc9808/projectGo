@@ -6,8 +6,9 @@ spring:
 
   # 데이터베이스 연결 정보 (Oracle)
   datasource:
-    url: jdbc:oracle:thin:@localhost:1521/xe
-    username: scott
+#    url: jdbc:oracle:thin:@localhost:1521/xe
+    url: jdbc:oracle:thin:@172.30.1.75:1521/xe
+    username: projectGo
     password: tiger
     driver-class-name: oracle.jdbc.OracleDriver
 
@@ -16,12 +17,16 @@ spring:
     hibernate:
       ddl-auto: create
 
+mybatis:
+  config-location: classpath:configuration.xml
+  mapper-locations: classpath:mappers/*.xml
+
   # Spring Security 설정
-  security:
-    oauth2:
-      resource-server:
-        jwt:
-          issuer-uri: <ISSUER_URI>
+#  security:
+#    oauth2:
+#      resource-server:
+#        jwt:
+#          issuer-uri: <ISSUER_URI>
 
 # Spring Boot 애플리케이션 설정
 server:
