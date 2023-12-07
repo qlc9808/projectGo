@@ -15,7 +15,7 @@ import java.util.List;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-
+@RequestMapping(value = "/admin/board")
 public class AdminBoardController {
 
 	@Autowired
@@ -53,7 +53,7 @@ public class AdminBoardController {
 		model.addAttribute("BoardType", BoardType);
 		model.addAttribute("userId", userId);
 
-		return "board/noticBoardList";
+		return "/admin/board/noticBoardList";
 	}
 
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oracle.projectGo.BoardMapper">
+
+    <select id="boardCount" resultType="int">
+        select count(*)
+        from board a, users b
+        where a.userId = b.id
+        and a.commentIndent = 0
+        <if test="keyword != null and keyword != ''">
+            and a.title like '%' || #{keyword} || '%'
+        </if>
+        <if test="userI != null and userId != ''">
+            and a.userId = #{userId}
+        </if>
+    </select>
+
+    <select id="noticAllList" resultType="Board">
+        select *
+        from (
+        select rownum rn, c.*
+        from (
+        select a.id, a.title, a.content, b.name, a.createdAt, a.updatedAt,
+        a.readCount,  a.status
+        from board a, users b
+        where a.userId = b.id
+        and a.boardType = 1
+        <if test="status != null and status != ''">
+            and a.status = #{status}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            and a.title like '%' || #{keyword} || '%'
+        </if>
+        ) c
+        )
+        where rn between #{start} and #{end}
+    </select>
+
+
+
+</mapper>
