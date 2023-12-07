@@ -5,106 +5,112 @@
     <title>Title</title>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+            populateYear();
+            populateMonth();
+            populateDay();
+            populateHour();
+            updateBirthday();
+        });
 
+        function populateYear() {
             const yearSelect = document.getElementById("year");
             const currentYear = new Date().getFullYear();
             for (let i = currentYear; i >= currentYear - 100; i--) {
-                const option = document.createElement("option");
-                option.value = i;
-                option.text = i;
-                yearSelect.appendChild(option);
+                addOption(yearSelect, i);
             }
+        }
 
-            // 월 옵션 생성
+        function populateMonth() {
             const monthSelect = document.getElementById("month");
             for (let j = 1; j <= 12; j++) {
-                const option = document.createElement("option");
-                option.value = j;
-                option.text = j;
-                monthSelect.appendChild(option);
+                addOption(monthSelect, j);
             }
+        }
 
-            // 일 옵션 생성
+        function populateDay() {
             const daySelect = document.getElementById("day");
             for (let k = 1; k <= 31; k++) {
-                const option = document.createElement("option");
-                option.value = k;
-                option.text = k;
-                daySelect.appendChild(option);
+                addOption(daySelect, k);
             }
+        }
 
-
-            function updateBirthday() {
-                const yearSelect = document.getElementById("year");
-                const monthSelect = document.getElementById("month");
-                const daySelect = document.getElementById("day");
-
-
-                const year = yearSelect.value;
-                const month = monthSelect.value.padStart(2, '0');
-                const day = daySelect.value.padStart(2, '0');
-                const birthday = year + month + day;
-                document.getElementById("birthday").value = birthday;
+        function populateHour() {
+            const hourSelect = document.getElementById("hour");
+            for (let l = 1; l <= 31; l++) {
+                addOption(hourSelect, l);
             }
+        }
 
-            updateBirthday();
 
+        function addOption(selectElement, value) {
+            const option = document.createElement("option");
+            option.value = value;
+            option.text = value;
+            selectElement.appendChild(option);
+        }
 
-            const maxTextLength = 2000;
-            const textarea = document.getElementById('content');
-            const textValidator = document.getElementById('textarea-validate');
-
-            textarea.addEventListener('input', function () {
-                const length = this.value.length;
-
-                if (length > maxTextLength) {
-                    // 4000자를 초과하면 더 이상 입력하지 못하도록 합니다.
-                    this.value = this.value.substring(0, maxTextLength);
-                } else {
-                    // 현재 입력된 글자 수를 표시합니다.
-                    textValidator.innerText = length + "/" + maxTextLength;
-                }
-            });
-
-        });
-
+        function updateBirthday() {
+            const today = new Date();
+            document.getElementById("year").value = today.getFullYear();
+            document.getElementById("month").value = today.getMonth() + 1;
+            document.getElementById("day").value = today.getDate();
+            document.getElementById("hour").value = today.getHours();
+        }
 
         function submitForm(event) {
             event.preventDefault();
+            const body = getFormData();
+            sendRequest(body);
+        }
 
-            // Form data를 가져옵니다.
-            var title = document.getElementById("title").value;
-            var content = document.getElementById("content").value;
-            var progress = document.getElementById("progress").value;
-            const yearSelect = document.getElementById("year");
-            const monthSelect = document.getElementById("month");
-            const daySelect = document.getElementById("day");
+        function getFormData() {
+            const title = document.getElementById("title").value;
+            const content = document.getElementById("content").value;
+            const progress = document.getElementById("progress").value;
+            const year = document.getElementById("year").value;
+            const month = document.getElementById("month").value;
+            const day = document.getElementById("day").value;
+            const hour = document.getElementById("hour").value;
+            const deadline = new Date(year, month - 1, day, hour); 
 
-
-            const year = yearSelect.value;
-            const month = monthSelect.value;
-            const day = daySelect.value;
-            const deadline = new Date(year, month, day);
-            // 데이터를 객체로 만듭니다.
-            var data = {
+            return {
                 'title': title,
+                'userId': 1,
                 'content': content,
                 'progress': progress,
                 'deadline': deadline
             };
+        }
+
+        function sendRequest(body) {
             $.ajax({
                 url: "<%=request.getContextPath()%>/homework/insertHomework",
                 method: "POST",
                 dataType: "json",
-                data: JSON.stringify(data),
+                data: JSON.stringify(body),
                 contentType: "application/json",
-                success: function () {
-                    console.log("insertHomework() success")
+                success: function (response) {
+                    console.log("insertHomework() success");
+                    alert(response.message);
+                    window.location.href = "/homework/listHomework";
                 },
-                error: function () {
-                    console.log("insertHomework() failed")
+                error: function (jqXHR) {
+                    console.log("insertHomework() failed");
+                    const errorResponse = JSON.parse(jqXHR.responseText);
+                    console.log(errorResponse);
+                    alert(errorResponse.message + ": " + errorResponse.error);
                 }
             })
+        }
+
+        function createQueryURL(page) {
+
+            const params = {
+                currentPage: page
+            };
+            return '/homework/listHomework?' + Object.entries(params)
+                .filter(([key, value]) => value !== undefined && value !== null && value !== '')
+                .map(([key, value]) => key + '=' + value).join('&');
         }
 
     </script>
@@ -114,6 +120,14 @@
             font-weight: 600;
             margin-right: 20px;
             margin-left: 10px;
+            text-align: center;
+        }
+
+        h1 {
+            color: black;
+            font-size: 32px;
+            font-weight: 600;
+            word-wrap: break-word;
             text-align: center;
         }
     </style>
@@ -126,73 +140,88 @@
             <%@ include file="/WEB-INF/components/Sidebar.jsp" %>
         </div>
         <div id="main-content" class="container p-5 col-10">
-            <%-- 이곳에 작성을 해주세요 --%>
-            <div class="container border">
-                <h1>숙제정보입력</h1>
-                <form action="/signUp" method="post">
-                    <input type="hidden" name="status" value="1">
-                    <input type="text" id="birthday" name="birthday" style="display: none;">
+            <div class="container border my-4 py-3">
+                <div class="container my-3 py-3">
+                    <h1>숙제정보입력</h1>
+                </div>
+                <div>
+                    <form action="/homework/listHomework" method="post">
+                        <input type="hidden" name="status" value="1">
+                        <input type="text" id="birthday" name="birthday" style="display: none;">
 
-                    <div class="my-4 row align-items-baseline ">
-                        <label for="title" class="col-sm-2 col-form-label fw-bold text-end"
-                               style="font-size: 20px;">숙제명</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="title" name="title">
+                        <div class="my-4 row align-items-baseline ">
+                            <label for="title" class="col-sm-2 col-form-label fw-bold text-end"
+                                   style="font-size: 20px;">숙제명</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="title" name="title">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="my-4 row align-items-baseline ">
-                        <label for="content" class="col-sm-2 col-form-label fw-bold text-end"
-                               style="font-size: 20px;">숙제내용</label>
-                        <div class="col-sm-8">
-                            <textarea class="form-control" aria-label="With textarea" id="content"
+                        <div class="my-4 row align-items-baseline ">
+                            <label for="progress" class="col-sm-2 col-form-label fw-bold text-end"
+                                   style="font-size: 20px;">숙제진도</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control" id="progress" name="progress">
+                                <p class="helptext text-start">숙제 진도는 숫자만 입력바랍니다.</p>
+                            </div>
+                        </div>
+
+
+                        <div class="my-4 row align-items-center ">
+                            <label class="col-sm-2 col-form-label fw-bold text-end"
+                                   style="font-size: 20px;">제출기한</label>
+                            <div class="col-sm-8 d-flex align-items-center">
+                                <div class="col-3">
+                                    <select class="form-select text-center" id="year">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <span class="date-text">년</span>
+                                <div class="col-2">
+                                    <select class="form-select text-center" id="month">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <span class="date-text">월</span>
+                                <div class="col-2 ">
+                                    <select class="form-select text-center" id="day">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <span class="date-text">일</span>
+                                <div class="col-2 ">
+                                    <select class="form-select text-center" id="hour">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                                <span class="date-text">시</span>
+                            </div>
+                        </div>
+
+                        <div class="my-4 row align-items-baseline ">
+                            <label for="content" class="col-sm-2 col-form-label fw-bold text-end"
+                                   style="font-size: 20px;">숙제내용</label>
+                            <div class="col-sm-8">
+                            <textarea class="form-control" aria-label="With textarea" id="content" rows="5"
                                       name="content"></textarea>
-                            <p id="textarea-validate" class="helptext text-start"></p>
-                        </div>
-                    </div>
-                    <div class="my-4 row align-items-baseline ">
-                        <label for="progress" class="col-sm-2 col-form-label fw-bold text-end"
-                               style="font-size: 20px;">숙제진도</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" id="progress" name="progress">
-                        </div>
-                    </div>
-
-
-                    <div class="my-4 row align-items-center ">
-                        <label class="col-sm-2 col-form-label fw-bold text-end"
-                               style="font-size: 20px;">제출기한</label>
-                        <div class="col-sm-8 d-flex align-items-center">
-                            <div class="col-4">
-                                <select class="form-select text-center" id="year">
-                                    <option value=""></option>
-                                </select>
+                                <p id="textarea-validate" class="helptext text-end"></p>
                             </div>
-                            <span class="date-text">년</span>
-                            <div class="col-3">
-                                <select class="form-select text-center" id="month">
-                                    <option value=""></option>
-                                </select>
-                            </div>
-                            <span class="date-text">월</span>
-                            <div class="col-3 ">
-                                <select class="form-select text-center" id="day">
-                                    <option value=""></option>
-                                </select>
-                            </div>
-                            <span class="date-text">일</span>
                         </div>
-                    </div>
-                    <div class="container row justify-content-center my-5">
 
-                        <button type="submit" class="btn btn-primary col-4 px-3 mx-2"
-                                style="background: #52525C; border: none"
-                                onclick="submitForm(event);">저장하기
-                        </button>
-                        <button type="reset" class="btn btn-primary col-4 px-3 mx-2">취소</button>
 
-                    </div>
-                </form>
+                        <div class="container row justify-content-center my-5">
+
+                            <button type="submit" class="btn btn-primary col-4 px-3 mx-2"
+                                    style="background: #52525C; border: none"
+                                    onclick="submitForm(event);event.preventDefault();">저장하기
+                            </button>
+                            <button type="reset" class="btn btn-primary col-4 px-3 mx-2">취소</button>
+
+                        </div>
+                    </form>
+
+                </div>
+
             </div>
             <div class="container border">
                 <div class="table-responsive">
@@ -205,6 +234,7 @@
                             <th scope="col">진도</th>
                             <th scope="col">제출기한</th>
                             <th scope="col">전송일자</th>
+                            <th scope="col">생성일자</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -215,8 +245,9 @@
                                 <td>${homework.title}</td>
                                 <td>${homework.content}</td>
                                 <td>${homework.progress}</td>
-                                <td>${homework.deadline}</td>
+                                <td><fmt:formatDate value="${homework.deadline}" pattern="yyyy/MM/dd (HH시)"/></td>
                                 <td>${homework.distributionDate}</td>
+                                <td><fmt:formatDate value="${homework.createdAt}" pattern="yyyy/MM/dd HH:mm:ss"/></td>
                                     <%--                            <td><a class="detail-btn" href="userDetail/${user.id}?currentPage=${page.currentPage}">관리</a></td>--%>
                             </tr>
                             <c:set var="num" value="${num + 1}"/>
