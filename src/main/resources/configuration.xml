@@ -12,5 +12,6 @@
         <typeAlias alias="homeworks"         type="com.oracle.projectGo.dto.Homeworks"/>
         <typeAlias alias="gameContents"      type="com.oracle.projectGo.dto.GameContents"/>
         <typeAlias alias="Users"             type="com.oracle.projectGo.dto.Users"/>
+        <typeAlias alias="Board"             type="com.oracle.projectGo.dto.Board"/>
     </typeAliases>
 </configuration>

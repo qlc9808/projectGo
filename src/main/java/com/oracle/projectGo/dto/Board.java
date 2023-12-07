@@ -21,4 +21,9 @@ public class Board {
     private String commentStep;     // 댓글최신
     private Date   createdAt;       // 생성일
     private Date   updateAt;        // 수정일
+
+    /* 페이지 처리 */
+    private String pageNum;
+    private int    start;
+    private int    end;
 }
