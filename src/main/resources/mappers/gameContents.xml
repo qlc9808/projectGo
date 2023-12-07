@@ -2,7 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.oracle.projectGo.gameContents">
+<mapper namespace="com.oracle.projectGo.gameContentsMapper">
+
+    <!--게임콘텐츠 insert-->
+    <insert id="gameContentInsert" parameterType="GameContents">
+        INSERT INTO GameContents(ID, USERID, TITLE, IMAGENAME,
+                                 IMAGEPATH,  SUBSCRIBEDATE, GAMELEVEL,
+                                 MAXSUBSCRIBERS, CONTENT, CREATEDAT, PRICE,
+                                 DISCOUNTRATE, DISCOUNTPRICE)
+                        VALUES  (GAMECONTENTS_ID_SEQ.nextval, #{USERID}, #{TITLE}, #{IMAGENAME},
+                                 #{IMAGEPATH}, #{SUBSCRIBEDATE}, #{GAMELEVEL},
+                                 #{MAXSUBSCRIBERS}, #{CONTENT} ,  sysdate,  #{PRICE},
+                                 #{DISCOUNTRATE},  #{DISCOUNTPRICE} )
+    </insert>
+
 
 
 </mapper>
