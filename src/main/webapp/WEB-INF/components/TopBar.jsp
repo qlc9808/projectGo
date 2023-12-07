@@ -10,7 +10,7 @@
     <div class="container d-flex justify-content-between align-items-center">
         <div>
             <a class="navbar-brand" href="/">
-                <img src="/asset/logo.png" width="170" height="70" alt="Logo">
+                <img src="/asset/logo.png" height="70" alt="Logo">
             </a>
         </div>
         <div>
