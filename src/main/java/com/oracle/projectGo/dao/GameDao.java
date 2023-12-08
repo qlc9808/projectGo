@@ -20,10 +20,15 @@ public class GameDao {
         int gameContentInsert = 0;
         try {
             gameContentInsert = session.insert("gameContentInsert", gameContents);
+            System.out.println("GameDao gameContentInsert-> " + gameContentInsert);
         }catch(Exception e){
             System.out.println("GameDao gameContentInsert Exception-> " + e);
         }
     return gameContentInsert;
     }
+
+
+
+
 
 }
