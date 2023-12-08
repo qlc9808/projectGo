@@ -17,7 +17,21 @@
         </if>
     </select>
 
-    <select id="noticeAllList" resultType="Board">
+    <select id="noticeboardCount" resultType="int">
+        select count(*)
+        from board a, users b
+        where a.userId = b.id
+        and a.commentIndent = 0
+        and a.boardType = 1
+        <if test="keyword != null and keyword != ''">
+            and a.title like '%' || #{keyword} || '%'
+        </if>
+        <if test="userId != null and userId != ''">
+            and a.userId = #{userId}
+        </if>
+    </select>
+
+    <select id="listnoticeBoard" resultType="Board">
         select *
         from (
         select rownum rn, c.*

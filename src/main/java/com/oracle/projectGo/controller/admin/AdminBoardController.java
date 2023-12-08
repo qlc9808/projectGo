@@ -22,38 +22,44 @@ public class AdminBoardController {
 
 	//공지사항 리스트
 	@RequestMapping(value = "/noticeBoardList")
-	public String noticBoardList(Board board, int currentPage, Model model) {
+	public String noticeBoardList(Board board, String currentPage, Model model) {
 
-		log.info("BoardController noticBoardList Start!!");
+		try {
+			log.info("[{}]:{}", "Noticeboard", "start");
 
-		board.setBoardType(String.valueOf(1)); // 분류 code 강제 지정
+			int path = 0;
 
-		// boardType를 이용해 countBoard 설정
-		String countBoard = String.valueOf(boardService.boardCount(board));
+			board.setBoardType("1");
 
-		// Paging 작업
-		// Parameter board page 추가
-		Paging page = new Paging(currentPage, countBoard);
-		board.setStart(page.getStart());
-		board.setEnd(page.getEnd());
+			int totalnoticeboard = boardService.totalnoticeboard();
 
-		List<Board> noticAllList = boardService.getNoticAllList(board);
+			Paging page = new Paging(totalnoticeboard, currentPage);
+			board.setStart(page.getStart());
+			board.setEnd(page.getEnd());
 
-		String BoardType = "";
+			List<Board> listnoticeBoard = boardService.listnoticeBoard(board);
 
 
-		model.addAttribute("board", noticAllList);
-		model.addAttribute("page", page);
-		model.addAttribute("BoardType", BoardType);
+			model.addAttribute("totalnoticeboard", totalnoticeboard);
+			model.addAttribute("listBoard", listnoticeBoard);
+			model.addAttribute("page", page);
+			model.addAttribute("path", path);
+
+		} catch (Exception e) {
+			log.error("[{}]:{}", "Noticeboard", e.getMessage());
+		} finally {
+			log.info("[{}]:{}", "Noticeboard", "end");
+		}
 
 		return "admin/notice/notice";
 	}
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
 
