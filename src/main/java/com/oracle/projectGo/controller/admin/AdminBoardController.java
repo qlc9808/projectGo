@@ -53,6 +53,24 @@ public class AdminBoardController {
 
 		return "admin/notice/notice";
 	}
+	@RequestMapping(value = "noticeInsert")
+	public String noticeInsert(Board board, Model model) {
+
+		try {
+			log.info("[{}]:{}", "admin noticeInsert", "start");
+
+			board.setBoardType("1");
+			boardService.noticeInsert(board);
+
+		} catch (Exception e) {
+			log.error("[{}]:{}", "admin noticeInsert", e.getMessage());
+		} finally {
+			log.info("[{}]:{}", "admin noticeInsert", "end");
+		}
+
+			return "redirect:/admin/notice/notice";
+	}
+
 }
 
 

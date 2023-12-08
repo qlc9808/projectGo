@@ -58,4 +58,16 @@ public class BoardDao {
 
         return listnoticeBoard;
     }
+
+    public int InsertnoticeBoard(Board board) {
+        int result = 0;
+        try {
+            result = session.insert("InsertnoticeBoard", board);
+        } catch(Exception e) {
+            log.info("BoardDaoImpl InsertnoticeBoard Exception => " + e.getMessage());
+        }
+
+        return result;
+
+    }
 }

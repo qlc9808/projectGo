@@ -38,4 +38,15 @@ public class BoardService {
 
         return listnoticeBoard;
     }
+
+    public void noticeInsert(Board board) {
+
+        int noticeBoardResult = 0;
+        noticeBoardResult = boardDao.InsertnoticeBoard(board);
+
+        if(noticeBoardResult <= 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "숙박 정보 등록에 실패하였습니다.");
+        }
+
+    }
 }
