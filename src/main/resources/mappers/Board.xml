@@ -54,7 +54,7 @@
 
     <insert id="InsertnoticeBoard" parameterType="Board">
         INSERT INTO contents(id, title, content, status, readCount, fileName, fileSize, filePath, createdAt)
-        VALUES(contents_id_seq.nextval, #{id}, #{title}, #{content}, #{status}, 0, #{fileName}, #{fileSize},
+        VALUES(contents_id_seq.nextval, #{title}, #{content}, #{status}, 0, #{fileName}, #{fileSize},
                #{filePath}, sysdate)
     </insert>
 
