@@ -41,4 +41,6 @@ public class BoardDao {
 
         return noticAllList;
     }
+
+
 }
