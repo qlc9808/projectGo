@@ -3,7 +3,6 @@ package com.oracle.projectGo.controller.admin;
 import com.oracle.projectGo.dto.Board;
 import com.oracle.projectGo.service.BoardService;
 import com.oracle.projectGo.service.Paging;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
