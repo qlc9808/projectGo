@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.util.List;
 
@@ -65,6 +67,24 @@ public class BoardDao {
             result = session.insert("InsertnoticeBoard", board);
         } catch(Exception e) {
             log.info("BoardDaoImpl InsertnoticeBoard Exception => " + e.getMessage());
+        }
+
+        return result;
+
+    }
+
+    public int noticeUpdate(Board board) {
+        int result = 0;
+        TransactionStatus txStatus =
+                transactionManager.getTransaction(new DefaultTransactionDefinition());
+        try {
+            result = session.update("noticeUpdate", board);
+            log.info("noticeUpdate noticeUpdate result => " + result);
+            transactionManager.commit(txStatus);
+        } catch(Exception e) {
+            transactionManager.rollback(txStatus);
+            log.info("AccomodationDaoImpl updateAccomodation Exception => " + e.getMessage());
+            result = -1;
         }
 
         return result;

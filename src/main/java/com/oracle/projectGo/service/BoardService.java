@@ -49,4 +49,12 @@ public class BoardService {
         }
 
     }
+
+    public int noticeUpdate(Board board) {
+        int result = boardDao.noticeUpdate(board);
+        if(result <= 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "공지 정보 수정에 실패하였습니다.");
+        }
+        return result;
+    }
 }

@@ -58,6 +58,12 @@
                #{filePath}, sysdate)
     </insert>
 
+    <update id="noticeUpdate" parameterType="Board">
+        UPDATE board
+        SET title = #{title},	content = #{content}, status = #{status}
+        WHERE userId = #{userId}
+    </update>
+
 
 
 </mapper>

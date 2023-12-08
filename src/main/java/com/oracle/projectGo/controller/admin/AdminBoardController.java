@@ -71,6 +71,44 @@ public class AdminBoardController {
 			return "redirect:/admin/notice/notice";
 	}
 
+	@RequestMapping(value = "noticeInsertForm")
+	public String noticeInsertForm(Model model) {
+
+
+		try {
+			log.info("[{}]:{}", "admin noticeInsertForm", "start");
+
+		} catch (Exception e) {
+			log.error("[{}]:{}", "admin accomodationInsertForm", e.getMessage());
+		} finally {
+			log.info("[{}]:{}", "admin accomodationInsertForm", "end");
+		}
+		return "admin/notice/noticeInsertForm";
+	}
+
+	@RequestMapping(value = "notice/update")
+	public String noticeUpdate(Board board, String currentPage, Model model) {
+
+		int userId = board.getUserId();
+
+		log.info("userId->"+userId);
+
+		try {
+			log.info("[{}]:{}", "admin noticeUpdate", "start");
+			int result = boardService.noticeUpdate(board);
+
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("userId", board.getUserId());
+		} catch (Exception e) {
+			log.error("[{}]:{}", "admin noticeUpdate", e.getMessage());
+		} finally {
+			log.info("[{}]:{}", "admin noticeUpdate", "end");
+		}
+		return "redirect:/admin/notice/noticeDetail?userId="+userId;
+	}
+
+
+
 }
 
 
