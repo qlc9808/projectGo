@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ContentService {
 
-    private GameDao gd;
+    private final GameDao gd;
 
 //------------------------------------------------------
 

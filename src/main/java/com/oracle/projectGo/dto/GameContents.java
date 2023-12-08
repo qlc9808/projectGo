@@ -18,13 +18,12 @@ public class GameContents {
     private String imagePath;           // 이미지경로
 
     @NotEmpty(message = "필수 입력란입니다")
-    private Date   subscribeDate;       // 구독기간
+    private String   subscribeDate;       // 구독기간
 
     @NotEmpty(message = "필수 입력란입니다")
-    private String gameLevel;           // 난이도 초급:1, 중급:2, 고급:3
+    private String  gameLevel;           // 난이도 초급:1, 중급:2, 고급:3
 
-    @NotEmpty(message = "필수 입력란입니다")
-    private int    maxSubscribers;      // 구독 가능인원
+    private int     maxSubscribers;      // 구독 가능인원
 
     @NotEmpty(message = "필수 입력란입니다")
     private String content;             // 게임 패키지 내용
@@ -33,10 +32,8 @@ public class GameContents {
 
     private Date   updatedAt;           // 수정일
 
-    @NotEmpty(message = "필수 입력란입니다")
     private int    price;               // 정가
 
-    @NotEmpty(message = "필수 입력란입니다")
     private int    discountRate;        // 할인율
 
     private int    discountPrice;       // 판매가

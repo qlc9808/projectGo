@@ -4,6 +4,29 @@
 <head>
     <%@ include file="/WEB-INF/components/Header.jsp"%>
     <title>Title</title>
+    <script>
+        function calculateDiscountedPrice(){
+            // 사용자한테 정가(price)와 할인율 입력 받기
+            const priceInput = document.getElementById("price");
+            const discountRateInput = document.getElementById("discountRate");
+            const discountPriceInput = document.getElementById("discountPrice");
+
+            // 정가와 할인율 값 가져오기
+            const price = parseFloat(priceInput.value);
+            const discountRate = parseFloat(discountRateInput.value);
+
+            // 판매가 계산
+            const discountedPrice = calculateDiscountedPriceValue(price, discountRate);
+
+            // 결과 출력
+            discountPriceInput.value = discountedPrice.toFixed(0);
+        }
+
+        function calculateDiscountedPriceValue(price, discountRate){
+            return price * (1 - discountRate / 100);
+        }
+
+    </script>
 </head>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
@@ -16,7 +39,7 @@
             <%-- 이곳에 작성을 해주세요 --%>
             <h5>gameContent insert</h5>
 
-            <form:form action="/gameContentInsert" method="post" enctype="multipart/form-data">
+            <form action="gameContentInsert" method="post" enctype="multipart/form-data">
                 <table border="1">
                     <tr>
                         <th>게임 콘텐츠명</th>
@@ -41,7 +64,18 @@
                     <tr>
                         <th>구독 기간</th>
                         <td>
-                            <input type="month" name="subscribeDate">
+                            <select name="subscribeDate">
+                                <c:forEach var="i" begin="1" end="12">
+                                    <c:choose>
+                                        <c:when test="${i lt 13}">
+                                            <option value="${i * 30}">${i}개월</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${i}">${i}개월</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </select>
                             <form:errors path="subscribeDate"/>
                         </td>
                     </tr>
@@ -49,31 +83,32 @@
                     <tr>
                         <th>구독 가능 인원 수</th>
                         <td>
-                            <input type="number" name="maxSubscribers">
-                            <form:errors path="maxSubscribers"/>
+                            <input type="number" min="1" name="maxSubscribers">
                         </td>
                     </tr>
 
                     <tr>
-                        <th>정가</th>
+                        <th>
+                            <label for="price">정가</label>
+                        </th>
                         <td>
-                            <input type="number" name="price">
-                            <form:errors path="price"/>
+                            <input type="number" name="price" id="price" oninput="calculateDiscountedPrice()" placeholder="정가를 입력하세요">
                         </td>
                     </tr>
 
                     <tr>
-                        <th>할인율</th>
+                        <th>
+                            <label for="discountRate">할인율</label>
+                        </th>
                         <td>
-                            <input type="number" name="discountRate">
-                            <form:errors path="discountRate"/>
+                            <input type="number" name="discountRate" id="discountRate" oninput="calculateDiscountedPrice()" placeholder="할인율을 입력하세요">
                         </td>
                     </tr>
 
                     <tr>
                         <th>판매가</th>
                         <td>
-                            <input type="number" name="discountPrice">
+                            <input type="number" name="discountPrice" id="discountPrice" readonly>
                         </td>
                     </tr>
 
@@ -85,19 +120,19 @@
                         </td>
                     </tr>
 
-                    <tr>
+ <%--               <tr>
                         <th>썸네일</th>
                         <td>
                             <input type="file" id="file" name="file1">
                         </td>
-                    </tr>
+                    </tr>--%>
 
                     <tr>
                         <td><button type="submit">등록하기</button></td>
                     </tr>
 
                 </table>
-            </form:form>
+            </form>
 
         </div>
     </div>
