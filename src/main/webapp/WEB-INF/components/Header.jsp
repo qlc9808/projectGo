@@ -17,6 +17,10 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
         crossorigin="anonymous"
 />
+<link rel="stylesheet" href="https://uicdn.toast.com/grid/latest/tui-grid.css" />
+<script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
+<link rel="stylesheet" href="https://uicdn.toast.com/chart/latest/toastui-chart.min.css" />
+<script src="https://uicdn.toast.com/chart/latest/toastui-chart.min.js"></script>
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
@@ -25,3 +29,4 @@
 <!-- jQuery 라이브러리 불러오기 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link href="/css/global.css" rel="stylesheet" type="text/css">
+

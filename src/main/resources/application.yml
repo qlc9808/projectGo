@@ -19,7 +19,7 @@ spring:
 
 mybatis:
   config-location: classpath:configuration.xml
-  mapper-locations: classpath:mappers/*.xml
+  mapper-locations: classpath:mappers/*.xml, classpath:mappers/**/*.xml
 
   # Spring Security 설정
 #  security:
