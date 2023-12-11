@@ -48,16 +48,4 @@ public class HomeworkController {
 
         return "educate/homework/listHomework";
     }
-
-    @ResponseBody
-    @RequestMapping(value = "insertHomework", method = RequestMethod.POST)
-    public ResponseEntity<String> insertHomework(@Valid @RequestBody Homeworks homework)  {
-        /* TODO: CHECK PARAMETERS  */
-        log.info(homework.toString());
-
-        /* TODO: INSERT PROCESS */
-        int result = homeworkService.insertHomework(homework);
-
-        return ResponseEntity.ok("{\"message\": \"숙제가 정상적으로 등록 되었습니다.\"}");
-    }
 }
