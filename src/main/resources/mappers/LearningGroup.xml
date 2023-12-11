@@ -8,6 +8,12 @@
     </select>
 
     <select id="NoLearningGroupList" resultType="LearningGroup">
-        SELECT * FROM learningGroup
+        SELECT  a.id, a.contentid, a.userid, a.name, a.startdate, a.enddate, a.availableslots,
+                b.id, b.title, b.subscribedate, b.gamelevel, b.maxsubscribers, b.content,
+                b.subscribleStart, b.subscribleEnd
+        FROM    learningGroup a, gameContents b
+        WHERE   a.contentid = b.id
+
+        /*SELECT * FROM learningGroup*/
     </select>
 </mapper>
