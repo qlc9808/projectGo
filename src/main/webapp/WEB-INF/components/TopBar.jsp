@@ -17,7 +17,7 @@
             <h1>게임으로 배우는 바둑 교실</h1>
         </div>
         <div>
-            <a>로그인</a>
+            <a href="/login" methods="get">로그인</a>
         </div>
 
     </div>
