@@ -43,7 +43,7 @@
     <ul class="nav flex-column mt-5 pt-4">
         <li class="nav-item my-page-nav-item">
             <div>
-                <a href="#"
+                <a href="/group/listGroupContent"
                    class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi-people-fill px-3"></i>
                     학습 그룹 등록

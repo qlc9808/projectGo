@@ -1,5 +1,6 @@
 package com.oracle.projectGo.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import java.util.Date;
@@ -20,4 +21,13 @@ public class LearningGroup {
     private String pageNum;
     private int    start;
     private int    end;
+
+    /* 조회용 */
+    private String title;               // 게임명
+    private int    subscribeDate;       // 구독기간
+    private String gameLevel;           // 난이도 초급:1, 중급:2, 고급:3
+    private int    maxSubscribers;      // 구독 가능인원
+    private String content;             // 게임 패키지 내용
+    private Date   subscribleStart;     // 구독시작 날짜
+    private Date   subscribleEnd;       // 구독종료 날짜
 }
