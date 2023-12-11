@@ -13,12 +13,13 @@
 </head>
 <body>
     <h1>${board.title}</h1>
-    <p>작성자: ${board.writer}</p>
-    <p>작성일: ${board.date}</p>
+    <p>작성일: ${board.createdAt}</p>
+    <p>조회수: ${board.readCount}</p>
     <p>${board.content}</p>
 
-    <a href="noticeUpdateForm?userId=${userId}&currentPage=${currentPage}">수정</a>
-    <a href="noticeDelete?userId=${userId}&currentPage=${currentPage}">삭제</a>
+    <a href="noticeUpdateForm?userId=${board.userId}&currentPage=${currentPage}">수정</a>
+    <a href="noticeDelete?userId=${board.userId}&currentPage=${currentPage}">삭제</a>
+
 
 
 </body>

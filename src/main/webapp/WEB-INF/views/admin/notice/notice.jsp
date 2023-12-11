@@ -16,35 +16,21 @@
     <main>
         <%@ include file="/WEB-INF/components/Sidebar.jsp"%>
         <div id="main-content">
-            <h2>Notice Board List</h2>
+            <h1>공지사항</h1>
 
-            <table border="1">
-                <thead>
+            <table>
                 <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Content</th>
-                    <th>Author</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
-                    <th>Read Count</th>
-                    <th>Status</th>
+                    <th>제목</th>
+                    <th>작성일</th>
+                    <th>조회수</th>
                 </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="board" items="${board}">
+                <c:forEach items="${listBoard}" var="board">
                     <tr>
-                        <td>${board.id}</td>
-                        <td>${board.title}</td>
-                        <td>${board.content}</td>
-                        <td>${board.userId}</td>
+                        <td><a href="noticeDetail?userId=${board.userId}">${board.title}</a></td>
                         <td>${board.createdAt}</td>
-                        <td>${board.updatedAt}</td>
                         <td>${board.readCount}</td>
-                        <td>${board.status}</td>
                     </tr>
                 </c:forEach>
-                </tbody>
             </table>
 
         </div>
