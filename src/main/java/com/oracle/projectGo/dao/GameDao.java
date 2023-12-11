@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class GameDao {
@@ -27,6 +29,33 @@ public class GameDao {
     return gameContentInsert;
     }
 
+    // 총 갯수
+    public int gameContentsTotalCount() {
+        System.out.println("GameDao gameContentsTotalCount Start !");
+
+        int gameContentsTotalCount = 0;
+        try {
+            gameContentsTotalCount = session.selectOne("gameContentsTotalCount");
+            System.out.println("GameDao gameContentsTotalCount-> " + gameContentsTotalCount);
+        }catch(Exception e) {
+            System.out.println("GameDao gameContentsTotalCount Exception-> " + e);
+        }
+    return gameContentsTotalCount;
+    }
+
+    // 리스트 조회
+    public List<GameContents> gameContentsList(GameContents gameContents) {
+        System.out.println("GameDao gameContentsList Start !");
+
+        List<GameContents> gameContentsList = null;
+        try{
+            gameContentsList = session.selectList("gameContentsList", gameContents);
+            System.out.println("GameDao gameContentsList.size()-> " + gameContentsList.size());
+        }catch (Exception e){
+            System.out.println("GameDao gameContentsList Exception-> " + e);
+        }
+    return  gameContentsList;
+    }
 
 
 

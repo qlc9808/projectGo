@@ -8,13 +8,30 @@
     <insert id="gameContentInsert" parameterType="GameContents">
         INSERT INTO GameContents(id, userId, title,
                                  subscribeDate, gameLevel,
-                                 maxSubscribers, content, createdat,
+                                 maxSubscribers, content,
+                                 subscribleStart, subscribleEnd,
                                  price, discountRate, discountPrice)
                         VALUES  (GAMECONTENTS_ID_SEQ.nextval, 1, #{title},
                                  #{subscribeDate}, #{gameLevel},
-                                 #{maxSubscribers}, #{content}, sysdate,
+                                 #{maxSubscribers}, #{content},
+                                 #{subscribleStart}, #{subscribleEnd},
                                  #{price}, #{discountRate},  #{discountPrice} )
     </insert>
+
+
+    <!-- 게임콘텐츠 총 갯수   -->
+    <select id="gameContentsTotalCount" resultType="int">
+        select      count(*)
+        from        gamecontents
+    </select>
+
+
+    <!-- 게임콘텐츠 select   -->
+    <select id="gameContentsList" resultType="GameContents">
+        select      *
+        from        gameContents
+        order by    subscriblestart desc
+    </select>
 
 
 

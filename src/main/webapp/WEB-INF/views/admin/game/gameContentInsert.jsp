@@ -39,7 +39,7 @@
             <%-- 이곳에 작성을 해주세요 --%>
             <h5>gameContent insert</h5>
 
-            <form action="gameContentInsert" method="post" enctype="multipart/form-data">
+            <form:form action="gameContentInsert" method="post" enctype="multipart/form-data">
                 <table border="1">
                     <tr>
                         <th>게임 콘텐츠명</th>
@@ -62,21 +62,17 @@
                     </tr>
 
                     <tr>
+                        <th>구독 시작 날짜</th>
+                        <td>
+                            <input type="date" name="subscribleStart" id="subscribleStart">
+                        </td>
+                    </tr>
+
+                    <tr>
                         <th>구독 기간</th>
                         <td>
-                            <select name="subscribeDate">
-                                <c:forEach var="i" begin="1" end="12">
-                                    <c:choose>
-                                        <c:when test="${i lt 13}">
-                                            <option value="${i * 30}">${i}개월</option>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <option value="${i}">${i}개월</option>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </c:forEach>
-                            </select>
-                            <form:errors path="subscribeDate"/>
+                            <label for="months">개월수 입력</label>
+                            <input type="number" id="months" name="subscribeDate" min="1" max="12">
                         </td>
                     </tr>
 
@@ -132,7 +128,7 @@
                     </tr>
 
                 </table>
-            </form>
+            </form:form>
 
         </div>
     </div>
