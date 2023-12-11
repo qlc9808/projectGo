@@ -45,7 +45,7 @@
             <div>
                 <a href="#"
                    class="nav-link my-page-nav-link px-3 ">
-                    <i class="title-bi bi bi-gear-fill px-3"></i>
+                    <i class="title-bi bi-people-fill px-3"></i>
                     학습 그룹 등록
                 </a>
             </div>
@@ -54,7 +54,7 @@
             <div>
                 <a href="#"
                    class="nav-link my-page-nav-link px-3 ">
-                    <i class="title-bi bi bi-journal-richtext px-3"></i>
+                    <i class="title-bi bi-people-fill px-3"></i>
                     학습 그룹 조회
                 </a>
             </div>
@@ -63,7 +63,7 @@
             <div>
                 <a href="#"
                    class="nav-link my-page-nav-link px-3 ">
-                    <i class="title-bi bi bi-journal-richtext px-3"></i>
+                    <i class="title-bi bi-people-fill px-3"></i>
                     학습 그룹 상세조회
                 </a>
             </div>
@@ -72,7 +72,7 @@
             <div>
                 <a href="#"
                    class="nav-link my-page-nav-link px-3 ">
-                    <i class="title-bi bi bi-journal-richtext px-3"></i>
+                    <i class="title-bi bi-person-check-fill px-3"></i>
                     그룹가입 승인
                 </a>
             </div>
@@ -81,7 +81,7 @@
             <div>
                 <a href="#"
                    class="nav-link my-page-nav-link px-3 ">
-                    <i class="title-bi bi bi-journal-richtext px-3"></i>
+                    <i class="title-bi bi-journal-plus px-3"></i>
                     숙제 생성
                 </a>
             </div>
@@ -90,7 +90,7 @@
             <div>
                 <a href="#"
                    class="nav-link my-page-nav-link px-3 ">
-                    <i class="title-bi bi bi-journal-richtext px-3"></i>
+                    <i class="title-bi bi-journal-arrow-up px-3"></i>
                     숙제 전송
                 </a>
             </div>
