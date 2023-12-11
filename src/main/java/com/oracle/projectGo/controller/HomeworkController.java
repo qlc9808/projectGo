@@ -31,7 +31,7 @@ public class HomeworkController {
     public String listHomework(Homeworks homework, String currentPage, Model model, RedirectAttributes redirectAttributes) {
 
         /* TODO: GET TOTAL HOMEWORK COUNT  */
-        int totalHomeworksCnt = homeworkService.getTotalHomeworksCnt();
+        int totalHomeworksCnt = homeworkService.getTotalHomeworksCnt(homework);
 
         /* TODO: PAGING PROCESS */
         Paging page = new Paging(totalHomeworksCnt, currentPage);

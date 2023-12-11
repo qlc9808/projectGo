@@ -24,8 +24,8 @@ public class HomeworkService {
         return homeworkDao.insertHomework(homework);
     }
 
-    public  int getTotalHomeworksCnt(){
-        return homeworkDao.getTotalHomeworksCnt();
+    public  int getTotalHomeworksCnt(Homeworks homework){
+        return homeworkDao.getTotalHomeworksCnt(homework);
     }
 
     public List<Homeworks> getHomeworksList(Homeworks homework){

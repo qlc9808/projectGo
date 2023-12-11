@@ -22,7 +22,10 @@
             WHERE rn >= #{start}
         ]]>
     </select>
-    <select id="getTotalHomeworksCnt" resultType="int">
-        SELECT count(*) FROM homeworks
+    <select id="getTotalHomeworksCnt" resultType="int" parameterType="Homeworks">
+        SELECT count(*)
+        FROM homeworks
+        WHERE 1=1
+
     </select>
 </mapper>

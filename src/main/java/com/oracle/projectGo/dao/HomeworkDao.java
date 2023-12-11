@@ -20,8 +20,8 @@ public class HomeworkDao {
         return session.insert("insertHomework", homework);
     }
 
-    public int getTotalHomeworksCnt() {
-        return session.selectOne("getTotalHomeworksCnt");
+    public int getTotalHomeworksCnt(Homeworks homework) {
+        return session.selectOne("getTotalHomeworksCnt", homework);
     }
 
     public List<Homeworks> getHomeworksList(Homeworks homework){
