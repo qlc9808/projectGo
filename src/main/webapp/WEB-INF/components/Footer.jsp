@@ -16,7 +16,7 @@
 <footer class="py-5 fixed-bottom">
     <div class="container footer-banner-custom">
         <div class="row  row-cols-1">
-ㅇㅇ
+
         </div>
     </div>
 </footer>
