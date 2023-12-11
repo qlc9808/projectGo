@@ -42,7 +42,7 @@ public class AdminBoardController {
 
 
 			model.addAttribute("totalnoticeboard", totalnoticeboard);
-			model.addAttribute("listBoard", listnoticeBoard);
+			model.addAttribute("listnoticeBoard", listnoticeBoard);
 			model.addAttribute("page", page);
 			model.addAttribute("path", path);
 

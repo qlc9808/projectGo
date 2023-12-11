@@ -18,35 +18,25 @@
     </select>
 
     <select id="noticeboardCount" resultType="int">
-        select count(*)
-        from board a, users b
-        where a.userId = b.id
-        and a.commentIndent = 0
-        and a.boardType = 1
-        <if test="keyword != null and keyword != ''">
-            and a.title like '%' || #{keyword} || '%'
-        </if>
-        <if test="userId != null and userId != ''">
-            and a.userId = #{userId}
-        </if>
+        SELECT COUNT(*)
+        FROM BOARD
+        WHERE boardType = 1 AND status != 0
     </select>
 
     <select id="listnoticeBoard" resultType="Board">
-        select *
-        from (
-        select rownum rn, c.*
-        from (
-        select a.id, a.userId, a.boardType, a.title, a.content, a.status, a.readCount,
-        a.fileName, a.fileSize, a.filePath, a.createdAt, a.updatedAt
-        from board a
-        where a.boardType = 1
-        <if test="status != null and status != ''">
-            and a.status = #{status}
-        </if>
+        SELECT *
+        FROM (
+        SELECT ROWNUM RN, C.*
+        FROM (
+        SELECT A.*
+        FROM BOARD A
+        WHERE A.boardType = 1
+        AND A.status != 0
         <if test="keyword != null and keyword != ''">
-            and a.title like '%' || #{keyword} || '%'
+            AND A.title LIKE '%' || #{keyword} || '%'
         </if>
-        ) c
+        ORDER BY A.id DESC
+        ) C
         )
         where rn between #{start} and #{end}
     </select>

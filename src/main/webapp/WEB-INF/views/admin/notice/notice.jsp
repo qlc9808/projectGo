@@ -24,7 +24,7 @@
                     <th>작성일</th>
                     <th>조회수</th>
                 </tr>
-                <c:forEach items="${listBoard}" var="board">
+                <c:forEach items="${listnoticeBoard}" var="board">
                     <tr>
                         <td><a href="noticeDetail?userId=${board.userId}">${board.title}</a></td>
                         <td>${board.createdAt}</td>
