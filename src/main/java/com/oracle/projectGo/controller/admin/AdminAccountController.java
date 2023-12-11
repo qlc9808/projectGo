@@ -5,6 +5,8 @@ import com.oracle.projectGo.service.AdminAccountService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpCookie;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +40,31 @@ public class AdminAccountController {
         List<Payments> salesInfo = adminAccountService.listSales();
         log.info("listSales=>"+salesInfo.toString());
 
+        for (Payments item: salesInfo) {
+            switch (item.getPaymentType()) {
+                case "1":
+                    item.setPaymentType("무통장입금");
+                    break;
+                case "2":
+                    item.setPaymentType("계좌이체");
+                    break;
+                case "3":
+                    item.setPaymentType("카카오페이");
+                    break;
+            }
+        }
+
+        for (Payments item: salesInfo) {
+            switch (item.getStatus()) {
+                case "1":
+                    item.setStatus("결제완료");
+                    break;
+                case "2":
+                    item.setStatus("미결제");
+                    break;
+            }
+        }
+
         // 결제 list count
         int count = adminAccountService.listSalesCount();
         log.info("listSalesCount=>"+count);
@@ -45,6 +72,8 @@ public class AdminAccountController {
         Map<String, Object> response = new HashMap<>();
         response.put("salesInfo", salesInfo);
         response.put("count", count);
+
+        System.out.println(salesInfo);
 
         return ResponseEntity.ok(response);
     }
@@ -59,10 +88,37 @@ public class AdminAccountController {
             @RequestParam(value = "searchType", required = false) String searchType
     ) {
         Map<String, Object> response = new HashMap<>();
-        System.out.println("여기왔다.");
-
+        System.out.println("status->"+status);
+        System.out.println("date->"+keywordDate1);
+        System.out.println("date2->+"+keywordDate2);
         if (status == 3) {
             List<Payments> searchInfo = adminAccountService.listSales();
+
+            for (Payments item: searchInfo) {
+                switch (item.getPaymentType()) {
+                    case "1":
+                        item.setPaymentType("무통장입금");
+                        break;
+                    case "2":
+                        item.setPaymentType("계좌이체");
+                        break;
+                    case "3":
+                        item.setPaymentType("카카오페이");
+                        break;
+                }
+            }
+
+            for (Payments item: searchInfo) {
+                switch (item.getStatus()) {
+                    case "1":
+                        item.setStatus("결제완료");
+                        break;
+                    case "2":
+                        item.setStatus("미결제");
+                        break;
+                }
+            }
+
             response.put("searchInfo", searchInfo);
             return ResponseEntity.ok(response);
         }
@@ -75,10 +131,34 @@ public class AdminAccountController {
         search.setStatus(status);
         search.setSearchType(searchType);
 
-        System.out.println("서치객체->"+search);
-
         List<Payments> saleSearchList = adminAccountService.saleSearchList(search);
 
+        for (Payments item: saleSearchList) {
+            switch (item.getPaymentType()) {
+                case "1":
+                    item.setPaymentType("무통장입금");
+                    break;
+                case "2":
+                    item.setPaymentType("계좌이체");
+                    break;
+                case "3":
+                    item.setPaymentType("카카오페이");
+                    break;
+            }
+        }
+
+        for (Payments item: saleSearchList) {
+            switch (item.getStatus()) {
+                case "1":
+                    item.setStatus("결제완료");
+                    break;
+                case "2":
+                    item.setStatus("미결제");
+                    break;
+            }
+        }
+
+        response.put("searchInfo", saleSearchList);
 
         return ResponseEntity.ok(response);
     }

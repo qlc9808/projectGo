@@ -9,8 +9,8 @@
         margin: auto;
     }
     #main-content {
-         border: 0px solid red;
-         margin-left: 280px;
+        border: 0px solid red;
+        margin: auto auto auto 400px;
     }
     .search-form {
         border: 1px solid black;
@@ -22,6 +22,10 @@
         margin-bottom: 20px;
         margin-top: 50px;
         border-radius: 16px;
+    }
+    #chart-area {
+        width: 110%;
+        height: 1000px;
     }
 </style>
 <body>
@@ -38,13 +42,15 @@
                 <div class="search-form">
                     기간조회:&nbsp;&nbsp;
                     <input type="date" name="keyword" id="keywordDate1" style="border-radius: 5px;">&nbsp;-&nbsp;
-                    <input type="date" name="keyword" id="keywordDate2" style="margin-right: 200px; border-radius: 5px;">
+                    <input type="date" name="keyword" id="keywordDate2" style="margin-right: 100px; border-radius: 5px;">
+
+                    카테고리:&nbsp;&nbsp;
+                    <select id="searchType" style="margin-right: 100px;">
+                        <option value="content" selected="selected">게임</option>
+                        <option value="user">이름</option>
+                    </select>
 
                     검색:&nbsp;&nbsp;
-                    <select id="searchType">
-                        <option value="content" selected="selected">결제한컨텐츠</option>
-                        <option value="user">결제회원</option>
-                    </select>
                     <input type="text" name="keyword" id="keyword" style="border-radius: 5px;">
                     <button id="btnSearch2" onclick="search()" style="border-radius: 5px;">조회</button>
                 </div>
