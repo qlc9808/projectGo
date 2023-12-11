@@ -7,25 +7,47 @@
         INSERT INTO homeworks(id, userId, title, content, progress, deadline, createdAt)
         VALUES (homeworks_id_seq.NEXTVAL, #{userId}, #{title}, #{content}, #{progress}, #{deadline}, sysdate)
     </insert>
-    <select id="getHomeworksList" resultType="Homeworks">
-        <![CDATA[
-            SELECT *
+    <select id="getHomeworksList" resultType="Homeworks" parameterType="Homeworks">
+        SELECT *
+        FROM (
+            SELECT a.*, ROWNUM rn
             FROM (
-                SELECT a.*, ROWNUM rn
-                FROM (
-                    SELECT *
-                    FROM homeworks
-                    ORDER BY createdAt DESC
-                    ) a
-                WHERE ROWNUM <= #{end}
+                SELECT *
+                FROM homeworks
+                WHERE 1=1
+                <if test="title != null and title != ''">
+                    AND title = #{title}
+                </if>
+                ORDER BY createdAt DESC
+            ) a
+        <choose>
+            <when test=" start != end">
+                <![CDATA[ WHERE ROWNUM <= #{end}]]>
                 )
-            WHERE rn >= #{start}
-        ]]>
+                WHERE rn >= #{start}
+            </when>
+            <otherwise>
+                )
+            </otherwise>
+        </choose>
+
+
     </select>
+
     <select id="getTotalHomeworksCnt" resultType="int" parameterType="Homeworks">
         SELECT count(*)
         FROM homeworks
         WHERE 1=1
-
+        <if test="title != null and title != ''">
+            AND title = #{title}
+        </if>
     </select>
+
+    <select id="getDistinctHomeworkTitles" resultType="string">
+        SELECT DISTINCT title
+        FROM homeworks
+        WHERE userId = #{userId}
+    </select>
+
+
 </mapper>

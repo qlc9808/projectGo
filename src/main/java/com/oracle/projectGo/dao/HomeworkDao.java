@@ -27,4 +27,8 @@ public class HomeworkDao {
     public List<Homeworks> getHomeworksList(Homeworks homework){
         return session.selectList("getHomeworksList",homework);
     }
+
+    public List<String> getDistinctHomeworkTitles(int educatorId) {
+        return session.selectList("getDistinctHomeworkTitles",educatorId);
+    }
 }

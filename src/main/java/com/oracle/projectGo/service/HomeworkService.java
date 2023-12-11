@@ -31,4 +31,8 @@ public class HomeworkService {
     public List<Homeworks> getHomeworksList(Homeworks homework){
         return homeworkDao.getHomeworksList(homework);
     }
+
+    public List<String> getDistinctHomeworkTitles(int educatorId) {
+        return homeworkDao.getDistinctHomeworkTitles(educatorId);
+    }
 }

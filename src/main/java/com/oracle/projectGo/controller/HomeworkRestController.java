@@ -9,10 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping(value = "api/homework")
+@RequestMapping(value = "/homework")
 public class HomeworkRestController {
     private final HomeworkService homeworkService;
 
@@ -26,6 +28,17 @@ public class HomeworkRestController {
         int result = homeworkService.insertHomework(homework);
 
         return ResponseEntity.ok("{\"message\": \"숙제가 정상적으로 등록 되었습니다.\"}");
+    }
+
+    @ResponseBody
+    @RequestMapping(value="getHomeworkTitleList",method = RequestMethod.GET)
+    public ResponseEntity<List<String>> getHomeworkTitleList() {
+        int educatorId = 1;
+//        int userId = getLogginedUserId();
+
+        List<String> homeworkTitleList = homeworkService.getDistinctHomeworkTitles(educatorId);
+
+        return ResponseEntity.ok(homeworkTitleList);
     }
 
 }
