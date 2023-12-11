@@ -77,3 +77,30 @@ body {
     padding: 0;
     font-family: 'Noto Sans', sans-serif;
 }
+
+.notification {
+    position: fixed;
+    right: 20px;
+    top: 150px;
+    padding: 20px 30px;
+    min-width: 300px;
+    color: #000;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateX(100%);
+    border-left: 10px solid #000;
+    font-size: 20px;
+    font-weight: 600;
+    word-wrap: break-word;
+    text-align: center;
+}
+.notification.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+.notification.success { border-left-color: #3c763d; }
+.notification.warn { border-left-color: #ff9800; }
+.notification.error { border-left-color: #f44336; }
