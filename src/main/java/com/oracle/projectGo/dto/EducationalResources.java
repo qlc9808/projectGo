@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class EducationResources {
+public class EducationalResources {
     private int    id;           // 교육ID(게시판번호)
     private int    contentId;    // 게임콘텐츠ID
     private int    userId;       // 회원번호

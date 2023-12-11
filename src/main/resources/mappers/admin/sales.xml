@@ -12,4 +12,94 @@
         SELECT count(*)
         FROM   payments
     </select>
+    <select id="saleSearchList" resultType="Payments">
+
+        SELECT *
+        FROM   payments
+    <choose>
+        <when test="status == 1">
+            <if test="searchType == 'user'">
+                WHERE userId =
+                (
+                SELECT id
+                FROM users
+                WHERE name like '%'|| #{keyword} || '%'
+                )
+                AND purchaseDate BETWEEN #{keywordDate1} and #{keywordDate2}
+
+            </if>
+            <if test="searchType == 'content'">
+                WHERE contentId =
+                (
+                SELECT id
+                FROM   gamecontents
+                WHERE  title like '%'|| #{keyword} || '%'
+                )
+                AND purchaseDate BETWEEN #{keywordDate1} and #{keywordDate2}
+
+            </if>
+        </when>
+        <when test="status == 2">
+            <if test="searchType == 'user'">
+                WHERE userId =
+                (
+                SELECT id
+                FROM users
+                WHERE name like '%'|| #{keyword} || '%'
+                )
+            </if>
+            <if test="searchType == 'content'">
+                WHERE contentId =
+                (
+                SELECT id
+                FROM   gamecontents
+                WHERE  title like '%'|| #{keyword} || '%'
+                )
+            </if>
+        </when>
+
+        <when test="status == 4">
+            <if test="searchType == 'user'">
+                WHERE userId =
+                (
+                SELECT id
+                FROM users
+                WHERE name like '%'|| #{keyword} || '%'
+                )
+                AND purchaseDate <![CDATA[ >= ]]> #{keywordDate1}
+            </if>
+            <if test="searchType == 'content'">
+                WHERE contentId =
+                (
+                SELECT id
+                FROM   gamecontents
+                WHERE  title like '%'|| #{keyword} || '%'
+                )
+                AND purchaseDate <![CDATA[ >= ]]> #{keywordDate1}
+            </if>
+        </when>
+        <when test="status == 5">
+            <if test="searchType == 'user'">
+                WHERE userId =
+                (
+                SELECT id
+                FROM users
+                WHERE name like '%'|| #{keyword} || '%'
+                )
+                AND purchaseDate <![CDATA[ <= ]]> #{keywordDate2}
+            </if>
+            <if test="searchType == 'content'">
+                WHERE contentId =
+                (
+                SELECT id
+                FROM   gamecontents
+                WHERE  title like '%'|| #{keyword} || '%'
+                )
+                AND purchaseDate <![CDATA[ <= ]]> #{keywordDate2}
+            </if>
+        </when>
+
+
+    </choose>
+    </select>
 </mapper>

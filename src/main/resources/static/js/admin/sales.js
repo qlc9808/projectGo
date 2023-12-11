@@ -1,3 +1,5 @@
+var grid;
+
 $.ajax({
     url: '/admin/account/api/listSales',
     method: 'GET',
@@ -24,7 +26,7 @@ $.ajax({
             };
         });
 
-        const grid = new tui.Grid({
+        grid = new tui.Grid({
             el: document.getElementById('grid1'),
             data: gridData,
             scrollX: false,
@@ -67,7 +69,12 @@ $.ajax({
                     name: 'price',
                     align: 'center'
                 }
-            ]
+            ],
+            pageOptions: {
+                useClient: true,
+                perPage: 10
+            },
+
 
 
 
@@ -96,4 +103,64 @@ $.ajax({
 
     }
 });
+
+function search() {
+    let keyword = document.getElementById('keyword').value;
+    let keywordDate1 = document.getElementById('keywordDate1').value
+    let keywordDate2 = document.getElementById('keywordDate2').value
+    let searchType = document.getElementById('searchType').value
+    let status = 1;
+
+    if (keywordDate1 == null || keywordDate1 === "" && keywordDate2 == null || keywordDate2 === "") {
+        status = 2;
+        keywordDate1 = null;
+        keywordDate2 = null;
+    }
+
+    if (keywordDate1 == null || keywordDate1 === "" && keywordDate2 == null || keywordDate2 === "" && keyword == null || keyword === "") {
+        status = 3;
+        keywordDate1 = null;
+        keywordDate2 = null;
+        keyword = null;
+    }
+
+    if (keywordDate1 != null || keywordDate1 !== "" && keywordDate2 == null || keywordDate2 === "") {
+        status = 4;
+        keywordDate2 = null;
+    }
+
+    if (keywordDate1 == null || keywordDate1 === "" && keywordDate2 != null || keywordDate2 !== "") {
+        status = 5;
+        keywordDate1 = null;
+    }
+
+        console.log(status);
+    console.log(searchType);
+    console.log(keywordDate1,keywordDate2);
+    console.log(keyword);
+
+    if (grid) {  // grid가 정의되어 있을 때만 실행
+        grid.clear();
+    }
+
+    $.ajax({
+        url: '/admin/account/api/listSaleSearch',
+        method: 'GET',
+        data: {
+            keyword:keyword,
+            keywordDate1: keywordDate1,
+            keywordDate2: keywordDate2,
+            searchType: searchType,
+            status: status
+        },
+        success: function(response) {
+            const searchInfo = response.searchInfo;
+            console.log(searchInfo);
+
+            for (let item of searchInfo) {
+                grid.appendRow(item);
+            }
+        }
+    })
+}
 
