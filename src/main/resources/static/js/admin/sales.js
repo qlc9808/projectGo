@@ -1,4 +1,5 @@
 var grid;
+var gridData
 
 $.ajax({
     url: '/admin/account/api/listSales',
@@ -6,19 +7,33 @@ $.ajax({
     success: function(response) {
         var listSales = response.salesInfo;
         var count = response.count;
+        gridData = listSales.map(function(item) {
 
-     //   var pagination = new tui.Pagination('pagination', {
-     //       totalItems: 100,
-     //       itemsPerPage: 10,
-     //       visiblePages: 10,
-     //       centerAlign: true
-     //   });
+            // let paymentMethod;
+            // let statusMethod;
+            //
+            // switch (item.paymentType) {
+            //     case '1':
+            //         paymentMethod = "무통장입금";
+            //         break;
+            //     case '2':
+            //         paymentMethod = "계좌이체";
+            //         break;
+            //     case '3':
+            //         paymentMethod = "카카오페이";
+            //         break;
+            // }
+            //
+            // if (item.status === '1') {
+            //     statusMethod = "결제완료";
+            // } else if (item.status === '2') {
+            //     statusMethod = "미결제";
+            // }
 
-        var gridData = listSales.map(function(item) {
             return {
                 id: item.id,
-                userid: item.userid,
-                contentId: item.contentId,
+                name: item.name,
+                title: item.title,
                 paymentType: item.paymentType,
                 status: item.status,
                 purchaseDate: item.purchaseDate,
@@ -34,18 +49,21 @@ $.ajax({
             rowHeaders: ['checkbox'],
             columns: [
                 {
-                    header: '결제 번호',
+                    header: '결제번호',
                     name: 'id',
-                    align: 'center'
+                    align: 'center',
+                    sortable: true,
+                    sortingType: 'desc'
                 },
                 {
-                    header: '회원 번호',
-                    name: 'userid',
+                    header: '이름',
+                    name: 'name',
                     align: 'center'
+
                 },
                 {
-                    header: '게임 번호',
-                    name: 'contentId',
+                    header: '게임',
+                    name: 'title',
                     align: 'center'
                 },
                 {
@@ -62,7 +80,9 @@ $.ajax({
                     header: '구매일자',
                     name: 'purchaseDate',
                     align: 'center',
-                    width: 250
+                    width: 250,
+                    sortable: true,
+                    sortingType: 'desc'
                 },
                 {
                     header: '결제금액',
@@ -74,36 +94,35 @@ $.ajax({
                 useClient: true,
                 perPage: 10
             },
-
-
-
-
         });
 
         const el = document.getElementById('chart-area');
         const data = {
-            categories: ['6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+            categories: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
             series: [
                 {
                     name: 'Sales',
-                    data: [5000, 3000, 5000, 7000, 6000, 4000, 1000],
+                    data: [1000, 5000, 3000, 5000, 1000, 5000, 3000, 5000, 7000, 6000, 4000, 1000],
                 },
             ],
         };
         const options = {
-            chart: { title: '월별 평균매출내역', width: 1100, height: 400 },
-            series: {
-                stack: {
-                    type: 'normal',
-                },
+            chart: { title: '월간 매출내역' },
+            xAxis : {
+                title: 'Month',
             },
+            yAxis : {
+                title: 'Amount',
+            },
+            series: { showDot: true, dataLabels: { visible: true, offsetY: -25 } },
         };
 
-        const chart = toastui.Chart.barChart({ el, data, options });
+        const chart = toastui.Chart.areaChart({ el, data, options });
 
     }
 });
 
+// 매출 조회 검색 시
 function search() {
     let keyword = document.getElementById('keyword').value;
     let keywordDate1 = document.getElementById('keywordDate1').value
@@ -111,35 +130,38 @@ function search() {
     let searchType = document.getElementById('searchType').value
     let status = 1;
 
-    if (keywordDate1 == null || keywordDate1 === "" && keywordDate2 == null || keywordDate2 === "") {
+    if ((keywordDate1 == null || keywordDate1 === "") && (keywordDate2 == null || keywordDate2 === "")) {
         status = 2;
-        keywordDate1 = null;
-        keywordDate2 = null;
     }
 
-    if (keywordDate1 == null || keywordDate1 === "" && keywordDate2 == null || keywordDate2 === "" && keyword == null || keyword === "") {
+    if ((keywordDate1 == null || keywordDate1 === "") && (keywordDate2 == null || keywordDate2 === "") && (keyword == null || keyword === "")) {
         status = 3;
-        keywordDate1 = null;
-        keywordDate2 = null;
-        keyword = null;
     }
 
-    if (keywordDate1 != null || keywordDate1 !== "" && keywordDate2 == null || keywordDate2 === "") {
+    if ((keywordDate1 != null && keywordDate1 !== "") && (keywordDate2 == null || keywordDate2 === "")) {
         status = 4;
-        keywordDate2 = null;
     }
 
-    if (keywordDate1 == null || keywordDate1 === "" && keywordDate2 != null || keywordDate2 !== "") {
+    console.log("keywordDate1 ->" + keywordDate1);
+    console.log("keywordDate2 ->" + keywordDate2);
+
+    if ((keywordDate1 == null || keywordDate1 === "") && (keywordDate2 != null && keywordDate2 !== "")) {
         status = 5;
-        keywordDate1 = null;
     }
 
-        console.log(status);
-    console.log(searchType);
-    console.log(keywordDate1,keywordDate2);
-    console.log(keyword);
+    if ((keywordDate1 != null && keywordDate1 !== "") && (keywordDate2 == null || keywordDate2 === "") && (keyword == null || keyword === "") ) {
+        status = 6;
+    }
 
-    if (grid) {  // grid가 정의되어 있을 때만 실행
+    if ((keywordDate1 == null || keywordDate1 === "") && (keywordDate2 != null && keywordDate2 !== "") && (keyword == null || keyword === "")) {
+        status = 7;
+    }
+
+    if ((keywordDate1 != null && keywordDate1 !== "") && (keywordDate2 != null && keywordDate2 !== "") && (keyword == null || keyword === "")) {
+        status = 8;
+    }
+
+    if (grid) {
         grid.clear();
     }
 
@@ -154,6 +176,7 @@ function search() {
             status: status
         },
         success: function(response) {
+
             const searchInfo = response.searchInfo;
             console.log(searchInfo);
 
