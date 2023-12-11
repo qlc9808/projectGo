@@ -90,4 +90,30 @@ public class BoardDao {
         return result;
 
     }
+
+    public Board detailnotice(int userId) {
+        Board board = new Board();
+
+        try {
+            board = session.selectOne("noticeDetail", userId);
+            log.info("Board noticeDetail() notice.getTitle ->" + board.getTitle());
+
+        } catch (Exception e) {
+            log.info("Board noticeDetail() ->" + e.getMessage());
+        }
+        return board;
+
+    }
+
+    public int noticeDelete(int userId) {
+        int noticeDelete = 0;
+        try {
+            noticeDelete = session.delete("noticeDelete",userId);
+        } catch (Exception e) {
+        }
+
+        return noticeDelete;
+
+
+    }
 }

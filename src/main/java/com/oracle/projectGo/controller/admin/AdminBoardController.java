@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -53,7 +54,27 @@ public class AdminBoardController {
 
 		return "admin/notice/notice";
 	}
-	@RequestMapping(value = "noticeInsert")
+
+	@RequestMapping(value = "noticeDetail")
+	public String noticeDetail(int userId, String currentPage, Model model) {
+
+		try {
+			log.info("[{}]:{}", "admin noticeDetail", "start");
+			Board board = boardService.detailnotice(userId);
+
+			model.addAttribute("currentPage", currentPage);
+
+		} catch (Exception e) {
+			log.error("[{}]:{}", "admin noticeDetail", e.getMessage());
+		} finally {
+			log.info("[{}]:{}", "admin noticeDetail", "end");
+		}
+		return "admin/notice/noticeDetail";
+	}
+
+
+
+	@RequestMapping(value = "/noticeInsert")
 	public String noticeInsert(Board board, Model model) {
 
 		try {
@@ -71,7 +92,7 @@ public class AdminBoardController {
 			return "redirect:/admin/notice/notice";
 	}
 
-	@RequestMapping(value = "noticeInsertForm")
+	@RequestMapping(value = "/noticeInsertForm")
 	public String noticeInsertForm(Model model) {
 
 
@@ -86,9 +107,10 @@ public class AdminBoardController {
 		return "admin/notice/noticeInsertForm";
 	}
 
-	@RequestMapping(value = "notice/update")
+	@RequestMapping(value = "/noticeUpdate")
 	public String noticeUpdate(Board board, String currentPage, Model model) {
 
+		board.setBoardType("1");
 		int userId = board.getUserId();
 
 		log.info("userId->"+userId);
@@ -106,6 +128,49 @@ public class AdminBoardController {
 		}
 		return "redirect:/admin/notice/noticeDetail?userId="+userId;
 	}
+
+	@GetMapping(value="/noticeUpdateForm")
+	public String noticeUpdateForm(int userId, String currentPage, Model model) {
+		try {
+			log.info("[{}]:{}", "admin noticeUpdateForm", "start");
+
+			Board board = boardService.detailnotice(userId);
+
+
+			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("userId",userId);
+			model.addAttribute("board", board);
+
+		} catch (Exception e) {
+			log.error("[{}]:{}", "admin noticeUpdateForm", e.getMessage());
+		} finally {
+			log.info("[{}]:{}", "admin noticeUpdateForm", "end");
+		}
+		return "admin/notice/noticeUpdateForm";
+	}
+
+	@RequestMapping(value = "noticeDelete")
+	public String noticeDelete(int userId) {
+		try {
+			log.info("[{}]:{}", "admin noticeDelete", "start");
+			int result = boardService.noticeDelete(userId);
+			log.info("Delete result: " + result);
+		} catch (Exception e) {
+			log.error("[{}]:{}", "admin noticeDelete", e.getMessage());
+		} finally {
+			log.info("[{}]:{}", "admin noticeDelete", "end");
+		}
+		return "forward:admin/notice/notice";
+	}
+
+
+
+
+
+
+
+
+
 
 
 

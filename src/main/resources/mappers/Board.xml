@@ -64,6 +64,21 @@
         WHERE userId = #{userId}
     </update>
 
+    <select id="noticeDetail" resultType="Board" parameterType="int">
+        SELECT *
+        FROM BOARD
+        WHERE boardType 1
+    </select>
+
+    <delete id="noticeDelete" parameterType="int">
+        update board
+        where  boardType 1
+    </delete>
+
+
+
+
+
 
 
 </mapper>

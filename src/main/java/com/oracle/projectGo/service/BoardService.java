@@ -57,4 +57,24 @@ public class BoardService {
         }
         return result;
     }
+
+    public Board detailnotice(int userId) {
+        Board board = boardDao.detailnotice(userId);
+        log.info("noticeImpl detailnotice Strart...");
+        if(board==null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "공지 정보가 존재하지 않습니다");
+        }
+
+        return board;
+
+
+    }
+
+    public int noticeDelete(int userId) {
+        int noticeDelete = 0;
+
+        noticeDelete = boardDao.noticeDelete(userId);
+
+        return noticeDelete;
+    }
 }
