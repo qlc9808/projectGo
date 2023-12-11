@@ -1,5 +1,6 @@
 package com.oracle.projectGo.controller;
 
+import com.oracle.projectGo.dto.DistributionRequest;
 import com.oracle.projectGo.dto.Homeworks;
 import com.oracle.projectGo.service.HomeworkService;
 import jakarta.validation.Valid;
@@ -40,5 +41,12 @@ public class HomeworkRestController {
 
         return ResponseEntity.ok(homeworkTitleList);
     }
-
+    @ResponseBody
+    @RequestMapping(value = "distributeHomework", method = RequestMethod.POST)
+    public ResponseEntity<String> distributeHomework(@RequestBody DistributionRequest request)  {
+        // 숙제 배포 로직...
+        // selectedStudentIds와 homeworkIds는 request 객체에서 얻을 수 있습니다.
+        log.info(request.toString());
+        return ResponseEntity.ok("{\"message\": \"숙제가 성공적으로 배포되었습니다.\"}");
+    }
 }
