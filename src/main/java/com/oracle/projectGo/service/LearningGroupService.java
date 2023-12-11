@@ -2,6 +2,7 @@ package com.oracle.projectGo.service;
 
 import com.oracle.projectGo.dao.LearningGroupDao;
 import com.oracle.projectGo.dto.LearningGroup;
+import com.oracle.projectGo.dto.Users;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -28,5 +29,13 @@ public class LearningGroupService {
         }
 
         return learningGroupList;
+    }
+
+    public List<Users> getGroupMemberByGroupId(int groupId) {
+        return groupDao.getGroupMemberByGroupId(groupId);
+    }
+
+    public List<Users> getGroupMembersByEducatorId(int educatorId) {
+        return groupDao.getGroupMembersByEducatorId(educatorId);
     }
 }

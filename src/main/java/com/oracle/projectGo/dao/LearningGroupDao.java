@@ -1,6 +1,7 @@
 package com.oracle.projectGo.dao;
 
 import com.oracle.projectGo.dto.LearningGroup;
+import com.oracle.projectGo.dto.Users;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
@@ -29,5 +30,14 @@ public class LearningGroupDao {
 
         }
         return learningGroupList;
+    }
+
+
+    public List<Users> getGroupMemberByGroupId(int educatorId) {
+        return session.selectList("getGroupMemberByGroupId",educatorId);
+    }
+
+    public List<Users> getGroupMembersByEducatorId(int educatorId) {
+        return session.selectList("getGroupMembersByEducatorId",educatorId);
     }
 }

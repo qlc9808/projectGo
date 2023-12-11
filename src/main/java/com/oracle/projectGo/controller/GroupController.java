@@ -1,13 +1,18 @@
 package com.oracle.projectGo.controller;
 
 import com.oracle.projectGo.dto.LearningGroup;
+import com.oracle.projectGo.dto.Users;
 import com.oracle.projectGo.service.LearningGroupService;
 import com.oracle.projectGo.service.Paging;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -45,5 +50,23 @@ public class GroupController {
         }
 
         return "/educate/learningGroup/listGroupContent";
+    }
+
+    @ResponseBody
+    @RequestMapping(value="getGroupMemberByGroupId",method = RequestMethod.GET)
+    public ResponseEntity<List<Users>> getGroupMemberByGroupId(@RequestParam int groupId) {
+
+        List<Users> homeworkTitleList = groupService.getGroupMemberByGroupId(groupId);
+
+        return ResponseEntity.ok(homeworkTitleList);
+    }
+
+    @ResponseBody
+    @RequestMapping(value="getGroupMembersByEducatorId",method = RequestMethod.GET)
+    public ResponseEntity<List<Users>> getGroupMembersByEducatorId(@RequestParam int educatorId) {
+
+        List<Users> homeworkTitleList = groupService.getGroupMembersByEducatorId(educatorId);
+
+        return ResponseEntity.ok(homeworkTitleList);
     }
 }

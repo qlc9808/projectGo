@@ -16,4 +16,20 @@
 
         /*SELECT * FROM learningGroup*/
     </select>
+
+
+    <select id="getGroupMemberByGroupId" resultType="Users">
+        SELECT users.*
+        FROM learningGroupMember lgm
+        JOIN users ON lgm.userid = users.id
+        WHERE lgm.groupId = #{groupId}
+    </select>
+    <select id="getGroupMembersByEducatorId" resultType="Users">
+        SELECT u.id, u.nickname, u.userType, u.name, lg.name as groupName
+        FROM learningGroup lg
+        JOIN learningGroupMember lgm ON lg.id = lgm.groupId
+        JOIN users u ON lgm.userId = u.id
+        WHERE lg.userId = #{educatorId}
+    </select>
+
 </mapper>
