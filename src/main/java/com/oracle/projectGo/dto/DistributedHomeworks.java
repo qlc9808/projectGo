@@ -1,5 +1,6 @@
 package com.oracle.projectGo.dto;
 
+import com.oracle.projectGo.type.HomeworksEvaluateType;
 import lombok.Data;
 
 import java.util.Date;
@@ -12,8 +13,11 @@ public class DistributedHomeworks {
     private String content;         // 학습 제출내용
     private int    progress;        // 학습 진도
     private String questions;       // 추가 질문내용
-    private String evaluation;      // 평가  미흡:1, 보통:2, 우수:3
+    private HomeworksEvaluateType evaluation;      // 평가  미흡:1, 보통:2, 우수:3
     private Date   createdAt;       // 생성일
     private Date   updatedAt;       // 수정일
-    private String level;           // 난이도
+    private String homeLevel;           // 난이도
+
+    // 조회
+    private String userName;
 }
