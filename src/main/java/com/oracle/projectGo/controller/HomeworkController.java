@@ -13,10 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -56,7 +53,7 @@ public class HomeworkController {
     // 숙제 리스트와 회원 리스트를 보여주는 화면
     @RequestMapping(value = "/distributeHomeworkForm")
     public String distributeHomeworkForm(Homeworks homework, Model model) {
-        log.info(homework.toString());
+//        log.info(homework.toString());
 
         /* TODO: 학습 그룹 리스트 받아오기 */
         LearningGroup learningGroup = new LearningGroup();
@@ -74,6 +71,20 @@ public class HomeworkController {
 
         return "educate/homework/distributeHomeworkForm";
     }
+    @RequestMapping(value = "/evaluateHomeworkForm")
+    public String evaluateHomeworkForm(Homeworks homework, Model model) {
+//        log.info(homework.toString());
 
 
+        /* TODO: 숙제명에 따라 숙제를 받아오는 로직 */
+        List<Homeworks> homeworkList = homeworkService.getHomeworksList(homework);
+
+        /* 학습 그룹은 AJAX로. */
+
+        /* TODO: SET ATTRIBUTES */
+        model.addAttribute("homeworkList", homeworkList);
+        model.addAttribute("searchOptions", homework);
+
+        return "educate/homework/evaluateHomeworkForm";
+    }
 }

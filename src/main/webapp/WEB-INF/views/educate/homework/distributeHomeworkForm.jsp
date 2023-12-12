@@ -3,12 +3,13 @@
 <head>
     <%@ include file="/WEB-INF/components/Header.jsp" %>
     <title>Title</title>
+    <link href="/css/homework.css" rel="stylesheet" type="text/css">
     <script type="module">
         import homeworkTitleOption from '/js/homework/distribute/homeworkTitleOption.js';
         import studentSelection from '/js/homework/distribute/studentSelection.js';
         import homeworkSelection from '/js/homework/distribute/homeworkSelection.js';
         import homeworkDistributor from '/js/homework/distribute/homeworkDistributor.js';
-        import {showStoredNotification }from '/js/utils/notificationManager.js'; // 모듈을 불러옵니다.
+        import {showStoredNotification }from '/js/utils/notificationManager.js';
 
         $(document).ready(function() {
             const stateManager = {
@@ -25,45 +26,6 @@
       });
 
     </script>
-    <style>
-        h1 {
-            color: black;
-            font-size: 32px;
-            font-weight: 600;
-            word-wrap: break-word;
-            text-align: center;
-        }
-        h2 {
-            color: #FF4379;
-            font-size: 24px;
-            font-weight: 800;
-            word-wrap: break-word
-        }
-        h3 {
-            color: #6D6A6A;
-            font-size: 20px;
-            font-weight: 600;
-            word-wrap: break-word
-        }
-        h4 {
-            color: black;
-            font-size: 15px;
-            font-weight: 500;
-            word-wrap: break-word
-        }
-
-        .btn-remove {
-            padding: 0 7px;
-            height: 15px;
-            flex-shrink: 0;
-            border-radius: 10px;
-            background: #FF4379;
-            text-decoration: none;
-            color: #F8FCF4;
-            justify-content: center;
-            align-items: center;
-        }
-    </style>
 </head>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp" %>
@@ -92,7 +54,7 @@
                 </div>
                 <div class="container border p-2 m-2" style="height: auto;">
                     <div class="table-responsive">
-                        <table id="homework-table-header" style="width: 98%" class="table text-center">
+                        <table id="homework-table"  class="table text-center">
                             <thead>
                             <tr>
                                 <th scope="col" style="width: 5%">선택</th>
@@ -104,10 +66,6 @@
                                 <th scope="col" style="width: 15%">생성일자</th>
                             </tr>
                             </thead>
-                        </table>
-                    </div>
-                    <div class="table-responsive" style="height: 200px; overflow: auto;">
-                        <table id="homework-table-body" class="table text-center">
                             <tbody>
                             <c:forEach var="homework" items="${homeworkList}" varStatus="st">
                                 <tr id="${homework.id}">
@@ -163,24 +121,24 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <!-- 학생 목록이 여기에 추가됩니다 -->
+                            <!-- 학생 목록 -->
                             </tbody>
                         </table>
                     </div>
                     <div class="col-6 px-2">
                         <h3>선택된 학습자</h3>
                         <table id="selectedStudents" class="table border text-center">
-                        <thead>
-                        <tr>
-                            <th>아이디</th>
-                            <th>학습자명</th>
-                            <th>전화번호</th>
-                            <th>제외</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!-- 선택된 학생 목록이 여기에 추가됩니다 -->
-                        </tbody>
+                            <thead>
+                                <tr>
+                                    <th>아이디</th>
+                                    <th>학습자명</th>
+                                    <th>전화번호</th>
+                                    <th>제외</th>
+                                </tr>
+                            </thead>
+                                <tbody>
+                                <!-- 선택된 학생 목록 -->
+                                </tbody>
                         </table>
                     </div>
                 </div>

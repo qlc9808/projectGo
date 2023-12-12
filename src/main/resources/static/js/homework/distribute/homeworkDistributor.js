@@ -1,4 +1,5 @@
-import {storeNotification} from '/js/utils/notificationManager.js'; // 모듈을 불러옵니다.
+import showNotification from '/js/utils/notification.js'; // 모듈을 불러옵니다.
+import {storeNotification }from '/js/utils/notificationManager.js';
 export default function homeworkDistributor(stateManager) {
     $('#distributeHomework').click(function(e) {
         e.preventDefault();
@@ -28,8 +29,9 @@ export default function homeworkDistributor(stateManager) {
 
                 // 페이지를 새로고침합니다.
                 location.reload();            },
-            error: function(error) {
-                console.log("Error: ", error);
+            error: function(jqXHR, textStatus, errorThrown) {
+                const error = jqXHR.responseJSON;
+                showNotification(error.message, "error", 3000);
             }
         });
     });

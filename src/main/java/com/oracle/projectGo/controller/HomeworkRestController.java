@@ -1,15 +1,16 @@
 package com.oracle.projectGo.controller;
 
-import com.oracle.projectGo.dto.DistributionRequest;
+import com.oracle.projectGo.dto.DistributedHomeworks;
+import com.oracle.projectGo.dto.DistributionRequestDto;
 import com.oracle.projectGo.dto.Homeworks;
 import com.oracle.projectGo.service.HomeworkService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -43,10 +44,42 @@ public class HomeworkRestController {
     }
     @ResponseBody
     @RequestMapping(value = "distributeHomework", method = RequestMethod.POST)
-    public ResponseEntity<String> distributeHomework(@RequestBody DistributionRequest request)  {
-        // 숙제 배포 로직...
-        // selectedStudentIds와 homeworkIds는 request 객체에서 얻을 수 있습니다.
+    public ResponseEntity<String> distributeHomework(@RequestBody DistributionRequestDto request)  {
         log.info(request.toString());
-        return ResponseEntity.ok("{\"message\": \"숙제가 성공적으로 배포되었습니다.\"}");
+        try{
+            List<DistributedHomeworks> distributedHomeworksList = new ArrayList<>();
+            for (int studentId : request.getStudentIds()) {
+                for (int homeworkId : request.getHomeworkIds()) {
+                    DistributedHomeworks distributedHomeworks = new DistributedHomeworks();
+                    distributedHomeworks.setHomeworkId(homeworkId);
+                    distributedHomeworks.setUserId(studentId);
+                    distributedHomeworksList.add(distributedHomeworks);
+                }
+            }
+            homeworkService.distributedHomeworksBulkInsert(distributedHomeworksList);
+            return ResponseEntity.ok("{\"message\": \"숙제가 성공적으로 배포되었습니다.\"}");
+        } catch (Exception e){
+            return ResponseEntity.internalServerError().body("{\"message\": \"숙제 배포에 실패했습니다.\"}");
+        }
+    }
+
+    @PostMapping("/getDistributedHomeworks")
+    public ResponseEntity<List<DistributedHomeworks>> getDistributedHomeworks(@RequestBody DistributedHomeworks pDistributedHomework) {
+        log.info("{}",pDistributedHomework);
+        List<DistributedHomeworks> distributedHomeworks = homeworkService.getDistributedHomeworks(pDistributedHomework);
+        log.info(distributedHomeworks.toString());
+        return ResponseEntity.ok(distributedHomeworks);
+    }
+
+    @PostMapping("/updateEvaluations")
+    public ResponseEntity<String> updateEvaluations(@RequestBody List<DistributedHomeworks> evaluations) {
+        try {
+            log.info("{}",evaluations);
+            homeworkService.updateEvaluation(evaluations);
+            return ResponseEntity.ok("{\"message\": \"평가가 성공적으로 저장되었습니다.\"}");
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.internalServerError().body("{\"message\": \"평가 저장에 실패했습니다.\"}");
+        }
     }
 }
