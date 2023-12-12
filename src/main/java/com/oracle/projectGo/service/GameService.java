@@ -39,12 +39,19 @@ public class GameService {
         return gameContentsList;
     }
 
+    // 각 아이디의 리스트 조회
+    public GameContents getGameContentsById(Integer gameId) {
+        System.out.println("ContentService getGameContentsById Start !");
+        GameContents getGameContentsById = gd.getGameContentsById(gameId);
 
-    public List<GameContents> gameContentsListByIds(List<Integer> gameIds) {
-        return gd.gameContentsListByIds(gameIds);
+        return getGameContentsById;
     }
 
-//    public GameContents getGameContentsById(Integer gameId) {
-//
-//    }
+
+
+
+
+
+
+
 }

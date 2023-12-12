@@ -33,7 +33,7 @@
           order by    subscriblestart desc
     </select>
 
-<!--
+<!-- 버전1
     <select id="gameContentsListByIds" parameterType="java.util.List" >
         SELECT *
         FROM gameContents
@@ -44,10 +44,11 @@
     </select>
 -->
     <select id="gameContentsById" parameterType="int" resultType="GameContents">
-        SELECT *
-        FROM gameContents
-        WHERE id = #{gameId}
+        SELECT  *
+        FROM    gameContents
+        WHERE   id = #{gameId}
     </select>
+
 </mapper>
 
 

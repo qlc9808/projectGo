@@ -57,8 +57,31 @@ public class GameDao {
     return  gameContentsList;
     }
 
+// 버전1
+//    public List<GameContents> gameContentsListByIds(List<Integer> gameIds) {
+//        return session.selectList("gameContentsListByIds",gameIds);
+//    }
 
-    public List<GameContents> gameContentsListByIds(List<Integer> gameIds) {
-        return session.selectList("gameContentsListByIds",gameIds);
+    // 각 아이디의 리스트 조회
+    public GameContents getGameContentsById(Integer gameId) {
+        System.out.println("GameDao getGameContentsById Start !");
+
+        GameContents getGameContentsById = null;
+        try {
+            getGameContentsById = session.selectOne("gameContentsById", gameId);
+            System.out.println("GameDao getGameContentsById-> " + getGameContentsById);
+        }catch (Exception e){
+            System.out.println("GameDao gameContentsList Exception-> " + e);
+        }
+    return getGameContentsById;
     }
+
+
+
+
+
+
+
+
+
 }
