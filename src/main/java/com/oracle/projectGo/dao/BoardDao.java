@@ -106,15 +106,175 @@ public class BoardDao {
 
     }
 
-    public int noticeDelete(int userId) {
+    public int noticeDelete(int id) {
         int noticeDelete = 0;
         try {
-            noticeDelete = session.delete("noticeDelete",userId);
+            noticeDelete = session.delete("noticeDelete",id);
         } catch (Exception e) {
         }
 
         return noticeDelete;
 
 
+    }
+
+    public int totalQNAboard() {
+
+        int totalQNAboard = 0;
+
+        try {
+            totalQNAboard = session.selectOne("QNAboardCount");
+        } catch (Exception e) {
+            log.error("BoardDao boardCount Exception : {}", e.getMessage());
+        }
+
+        return totalQNAboard;
+
+    }
+
+    public List<Board> listQNABoard(Board board) {
+
+        List<Board> listQNABoard = null;
+
+        try {
+            log.info("board->{}",board.toString());
+            listQNABoard = session.selectList("listQNABoard", board);
+            log.info("BoardDao getlistQNABoard size : {}", listQNABoard.size());
+
+        } catch (Exception e) {
+            log.error("BoardDao getlistQNABoard Exception : {}", e.getMessage());
+        }
+
+        return listQNABoard;
+    }
+
+    public Board detailQNA(int id) {
+        Board board = new Board();
+
+        try {
+            board = session.selectOne("detailQNA", id);
+            log.info("Board detailQNA() QNA.getTitle ->" + board.getTitle());
+
+        } catch (Exception e) {
+            log.info("Board detailQNA() ->" + e.getMessage());
+        }
+        return board;
+    }
+
+    public int InsertQNABoard(Board board) {
+        int result = 0;
+        try {
+            result = session.insert("InsertQNABoard", board);
+        } catch(Exception e) {
+            log.info("BoardDaoImpl InsertQNABoard Exception => " + e.getMessage());
+        }
+
+        return result;
+    }
+
+
+    public int QNAUpdate(Board board) {
+        int result = 0;
+        TransactionStatus txStatus =
+                transactionManager.getTransaction(new DefaultTransactionDefinition());
+        try {
+            result = session.update("QNAUpdate", board);
+            log.info("QNAUpdate QNAUpdate result => " + result);
+            transactionManager.commit(txStatus);
+        } catch(Exception e) {
+            transactionManager.rollback(txStatus);
+            log.info("BoardDaoImpl QNAUpdate Exception => " + e.getMessage());
+            result = -1;
+        }
+
+        return result;
+    }
+
+    public int QNADelete(int id) {
+        int QNADelete = 0;
+        try {
+            QNADelete = session.delete("QNADelete",id);
+        } catch (Exception e) {
+        }
+
+        return QNADelete;
+    }
+
+    public int totalFAQboard() {
+        int totalFAQboard = 0;
+
+        try {
+            totalFAQboard = session.selectOne("FAQboardCount");
+        } catch (Exception e) {
+            log.error("BoardDao boardCount Exception : {}", e.getMessage());
+        }
+
+        return totalFAQboard;
+    }
+
+    public List<Board> listFAQBoard(Board board) {
+        List<Board> listFAQBoard = null;
+
+        try {
+            log.info("board->{}",board.toString());
+            listFAQBoard = session.selectList("listFAQBoard", board);
+            log.info("BoardDao getlistFAQBoard size : {}", listFAQBoard.size());
+
+        } catch (Exception e) {
+            log.error("BoardDao getlistFAQBoard Exception : {}", e.getMessage());
+        }
+
+        return listFAQBoard;
+    }
+
+    public Board detailFAQ(int id) {
+        Board board = new Board();
+
+        try {
+            board = session.selectOne("detailFAQ", id);
+            log.info("Board detailFAQ() QNA.getTitle ->" + board.getTitle());
+
+        } catch (Exception e) {
+            log.info("Board detailQNA() ->" + e.getMessage());
+        }
+        return board;
+    }
+
+    public int InsertFAQBoard(Board board) {
+        int result = 0;
+        try {
+            result = session.insert("InsertFAQBoard", board);
+        } catch(Exception e) {
+            log.info("BoardDaoImpl InsertFAQBoard Exception => " + e.getMessage());
+        }
+
+        return result;
+    }
+
+    public int FAQUpdate(Board board) {
+        int result = 0;
+        TransactionStatus txStatus =
+                transactionManager.getTransaction(new DefaultTransactionDefinition());
+        try {
+            result = session.update("FAQUpdate", board);
+            log.info("FAQUpdate FAQUpdate result => " + result);
+            transactionManager.commit(txStatus);
+        } catch(Exception e) {
+            transactionManager.rollback(txStatus);
+            log.info("BoardDaoImpl FAQUpdate Exception => " + e.getMessage());
+            result = -1;
+        }
+
+        return result;
+    }
+
+    public int FAQDelete(int id) {
+        int FAQDelete = 0;
+        try {
+            FAQDelete = session.delete("FAQDelete",id);
+        } catch (Exception e) {
+        }
+
+        return FAQDelete;
     }
 }

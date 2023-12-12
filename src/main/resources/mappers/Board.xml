@@ -38,15 +38,15 @@
     </select>
 
     <insert id="InsertnoticeBoard" parameterType="Board">
-        INSERT INTO contents(id, title, content, status, readCount, fileName, fileSize, filePath, createdAt)
-        VALUES(contents_id_seq.nextval, #{title}, #{content}, #{status}, 0, #{fileName}, #{fileSize},
+        INSERT INTO contents(id, userId, boardType, title, content, status, readCount, fileName, fileSize, filePath, createdAt)
+        VALUES(contents_id_seq.nextval, #{userId}, 1, #{title}, #{content}, #{status}, 0, #{fileName}, #{fileSize},
                #{filePath}, sysdate)
     </insert>
 
     <update id="noticeUpdate" parameterType="Board">
         UPDATE board
         SET title = #{title}, content = #{content}, status = #{status}
-        WHERE userId = #{userId}
+        WHERE id = #{id}
     </update>
 
     <select id="noticeDetail" resultType="Board" parameterType="int">
@@ -57,8 +57,96 @@
 
     <delete id="noticeDelete" parameterType="int">
         update board
-        where  boardType 1
+        where  id = #{id}
     </delete>
+
+    <select id="QNAboardCount" resultType="int">
+        SELECT COUNT(*)
+        FROM BOARD
+        WHERE boardType = 3
+    </select>
+
+    <select id="listQNABoard" resultType="Board">
+        SELECT *
+        FROM (
+                 SELECT ROWNUM RN, C.*
+                 FROM (
+                          SELECT A.*
+                          FROM BOARD A
+                          WHERE A.boardType = 3
+                          ORDER BY A.id DESC
+                      ) C
+             )
+        where rn between #{start} and #{end}
+    </select>
+
+    <insert id="InsertQNABoard" parameterType="Board">
+        INSERT INTO contents(id, userId, boardType, title, content, status, readCount, fileName, fileSize, filePath, createdAt)
+        VALUES(contents_id_seq.nextval, #{userId}, 3, #{title}, #{content}, #{status}, 0, #{fileName}, #{fileSize},
+               #{filePath}, sysdate)
+    </insert>
+
+    <update id="QNAUpdate" parameterType="Board">
+        UPDATE board
+        SET title = #{title}, content = #{content}, status = #{status}
+        WHERE id = #{id}
+    </update>
+
+    <select id="detailQNA" resultType="Board" parameterType="int">
+        SELECT *
+        FROM BOARD
+        WHERE id = #{id}
+    </select>
+
+    <delete id="QNADelete" parameterType="int">
+        update board
+        where  id = #{id}
+    </delete>
+
+    <select id="FAQboardCount" resultType="int">
+        SELECT COUNT(*)
+        FROM BOARD
+        WHERE boardType = 2
+    </select>
+
+    <select id="listFAQBoard" resultType="Board">
+        SELECT *
+        FROM (
+                 SELECT ROWNUM RN, C.*
+                 FROM (
+                          SELECT A.*
+                          FROM BOARD A
+                          WHERE A.boardType = 2
+                          ORDER BY A.id DESC
+                      ) C
+             )
+        where rn between #{start} and #{end}
+    </select>
+
+    <insert id="InsertFAQBoard" parameterType="Board">
+        INSERT INTO contents(id, userId, boardType, title, content, status, readCount, fileName, fileSize, filePath, createdAt)
+        VALUES(contents_id_seq.nextval, #{userId}, 2, #{title}, #{content}, #{status}, 0, #{fileName}, #{fileSize},
+               #{filePath}, sysdate)
+    </insert>
+
+    <update id="FAQUpdate" parameterType="Board">
+        UPDATE board
+        SET title = #{title}, content = #{content}, status = #{status}
+        WHERE id = #{id}
+    </update>
+
+    <select id="detailFAQ" resultType="Board" parameterType="int">
+        SELECT *
+        FROM BOARD
+        WHERE id = #{id}
+    </select>
+
+    <delete id="FAQDelete" parameterType="int">
+        update board
+        where  id = #{id}
+    </delete>
+
+
 
 
 
