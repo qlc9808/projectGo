@@ -49,22 +49,22 @@ public class GroupController {
             log.info("GroupController listGroupContent end");
         }
 
-        return "/educate/learningGroup/listGroupContent";
+        return "educate/learningGroup/listGroupContent";
     }
 
     @RequestMapping(value = "detailGroupContent")
-    public String groupContentDetail(int userId, Model model){
-//        log.info("userId : " + userId);
+    public String groupContentDetail(int contentId, Model model){
+        log.info("contentId : " + contentId);
 //        try {
-//            LearningGroup learningGroup = groupService.groupContentDetail(userId);
-//            log.info("learningGroup : " + learningGroup);
+//            LearningGroup detailGroupContent = groupService.detailGroupContent(contentId);
+//            log.info("detailGroupContent : " + detailGroupContent);
 //
-//            model.addAttribute("learningGroup", learningGroup);
+//            model.addAttribute("detailGroupContent", detailGroupContent);
 //
 //        } catch (Exception e) {
-//            log.error("GroupController groupContentDetail e.getMessage() -> " + e.getMessage());
+//            log.error("GroupController detailGroupContent e.getMessage() -> " + e.getMessage());
 //        } finally {
-//            log.info("GroupController groupContentDetail end");
+//            log.info("GroupController detailGroupContent end");
 //        }
 
         return "educate/learningGroup/detailGroupContent";

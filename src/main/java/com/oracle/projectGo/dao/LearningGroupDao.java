@@ -32,15 +32,15 @@ public class LearningGroupDao {
         return learningGroupList;
     }
 
-    public LearningGroup groupContentDetail(int userId) {
-        LearningGroup groupContentDetail = null;
+    public LearningGroup detailGroupContent(int userId) {
+        LearningGroup detailGroupContent = null;
 
         try {
-            groupContentDetail = session.selectOne("", userId);
+            detailGroupContent = session.selectOne("NoDetailGroupContent", userId);
         } catch (Exception e) {
-            log.info("LearningGroupDao groupContentDetail e.getMessage() -> " + e.getMessage());
+            log.info("LearningGroupDao detailGroupContent e.getMessage() -> " + e.getMessage());
         }
-        return groupContentDetail;
+        return detailGroupContent;
     }
 
 

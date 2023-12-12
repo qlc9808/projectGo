@@ -17,7 +17,7 @@
             }
         }
         if (checkedValue) {
-            location.href = '/group/detailGroupContent?userId=' + checkedValue;
+            location.href = '/group/detailGroupContent?contentId=' + checkedValue;
         } else {
             alert('학습그룹을 선택해주세요.');
         }
@@ -45,7 +45,7 @@
                         </tr>
                         <c:forEach var="GroupList" items="${learningGroupList}">
                             <tr>
-                                <td><input type="radio" name="gameContent" id="gameContent" value="${GroupList.userId}"></td>
+                                <td><input type="radio" name="gameContent" id="gameContent" value="${GroupList.contentId}"></td>
                                 <td>${GroupList.title}</td>
                                 <td>
                                     <fmt:formatDate value="${GroupList.startDate}" type="date" pattern="yyyy.MM.dd"></fmt:formatDate>

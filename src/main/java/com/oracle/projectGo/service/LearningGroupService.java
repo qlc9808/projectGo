@@ -31,10 +31,10 @@ public class LearningGroupService {
         return learningGroupList;
     }
 
-    public LearningGroup groupContentDetail(int userId) {
-        LearningGroup groupContentDetail = groupDao.groupContentDetail(userId);
+    public LearningGroup detailGroupContent(int userId) {
+        LearningGroup detailGroupContent = groupDao.detailGroupContent(userId);
 
-        return groupContentDetail;
+        return detailGroupContent;
     }
 
     public List<Users> getGroupMemberByGroupId(int groupId) {
