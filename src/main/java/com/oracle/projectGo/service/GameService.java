@@ -40,4 +40,11 @@ public class GameService {
     }
 
 
+    public List<GameContents> gameContentsListByIds(List<Integer> gameIds) {
+        return gd.gameContentsListByIds(gameIds);
+    }
+
+//    public GameContents getGameContentsById(Integer gameId) {
+//
+//    }
 }

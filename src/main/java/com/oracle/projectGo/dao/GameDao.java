@@ -58,6 +58,7 @@ public class GameDao {
     }
 
 
-
-
+    public List<GameContents> gameContentsListByIds(List<Integer> gameIds) {
+        return session.selectList("gameContentsListByIds",gameIds);
+    }
 }
