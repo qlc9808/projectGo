@@ -54,12 +54,13 @@ public class AdminBoardController {
 	}
 
 	@RequestMapping(value = "noticeDetail")
-	public String noticeDetail(int userId, String currentPage, Model model) {
+	public String noticeDetail(int id, String currentPage, Model model) {
 
 		try {
 			log.info("[{}]:{}", "admin noticeDetail", "start");
-			Board board = boardService.detailnotice(userId);
+			Board board = boardService.detailnotice(id);
 
+			model.addAttribute("board", board);
 			model.addAttribute("currentPage", currentPage);
 
 		} catch (Exception e) {

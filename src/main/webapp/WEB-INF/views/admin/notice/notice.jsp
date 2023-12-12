@@ -26,7 +26,7 @@
                 </tr>
                 <c:forEach items="${listnoticeBoard}" var="board">
                     <tr>
-                        <td><a href="noticeDetail?userId=${board.userId}">${board.title}</a></td>
+                        <td><a href="noticeDetail?id=${board.id}">${board.title}</a></td>
                         <td>${board.createdAt}</td>
                         <td>${board.readCount}</td>
                     </tr>
