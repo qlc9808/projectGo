@@ -9,7 +9,8 @@
         <setting name="jdbcTypeForNull" value="NULL"/>
     </settings>
     <typeAliases>
-        <typeAlias alias="homeworks"                type="com.oracle.projectGo.dto.Homeworks"/>
+        <typeAlias alias="Homeworks"                type="com.oracle.projectGo.dto.Homeworks"/>
+        <typeAlias alias="DistributedHomeworks"     type="com.oracle.projectGo.dto.DistributedHomeworks"/>
         <typeAlias alias="gameContents"             type="com.oracle.projectGo.dto.GameContents"/>
         <typeAlias alias="Users"                    type="com.oracle.projectGo.dto.Users"/>
         <typeAlias alias="Board"                    type="com.oracle.projectGo.dto.Board"/>
