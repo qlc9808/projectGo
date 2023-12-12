@@ -28,7 +28,7 @@ public class PaymentController {
 
 //-----------------------------------------------------------------
 
-    // 구독 신청 - 리스트 조회
+    // 구독 신청 - 리스트에서 구독할 컨텐츠 조회 페이지
     @RequestMapping(value = "/gameSubscribe")
     public String gameSubscribe(GameContents gameContents, Model model){
 
@@ -42,7 +42,7 @@ public class PaymentController {
 
 //-----------------------------------------------------------------
 
-    // 구독 신청 - 리스트에서 구독할 컨텐츠 클릭
+    // 구독 신청 - 리스트에서 구독할 컨텐츠 클릭해서 페이지 이동됨
     @RequestMapping(value = "gameSubscribeClick", method = RequestMethod.POST)
     public String gameSubscribePay(@RequestParam List<Integer> gameIds, Model model){
         log.info("gameIds: {}", gameIds);
@@ -83,6 +83,7 @@ public class PaymentController {
         return "redirect:/subscribe/index";
     }
 
+//-----------------------------------------------------------------
 
     // 결제 - 결제 방법 선택 후 결제
     @PostMapping(value = "subscriblePay")
