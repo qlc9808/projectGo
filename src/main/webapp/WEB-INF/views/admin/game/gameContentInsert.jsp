@@ -57,7 +57,6 @@
                                     <option value="2">중급</option>
                                     <option value="3">고급</option>
                             </select>
-                            <form:errors path="gameLevel"/>
                         </td>
                     </tr>
 

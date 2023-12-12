@@ -2,7 +2,7 @@ package com.oracle.projectGo.dto;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 public class Payments {
