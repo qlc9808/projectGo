@@ -30,8 +30,6 @@ public class AdminBoardController {
 
 			int path = 0;
 
-			board.setBoardType("1");
-
 			int totalnoticeboard = boardService.totalnoticeboard();
 
 			Paging page = new Paging(totalnoticeboard, currentPage);
@@ -111,22 +109,22 @@ public class AdminBoardController {
 	public String noticeUpdate(Board board, String currentPage, Model model) {
 
 		board.setBoardType("1");
-		int userId = board.getUserId();
+		int id = board.getId();
 
-		log.info("userId->"+userId);
+		log.info("id->"+id);
 
 		try {
 			log.info("[{}]:{}", "admin noticeUpdate", "start");
 			int result = boardService.noticeUpdate(board);
 
 			model.addAttribute("currentPage", currentPage);
-			model.addAttribute("userId", board.getUserId());
+			model.addAttribute("id", board.getId());
 		} catch (Exception e) {
 			log.error("[{}]:{}", "admin noticeUpdate", e.getMessage());
 		} finally {
 			log.info("[{}]:{}", "admin noticeUpdate", "end");
 		}
-		return "redirect:/admin/notice/noticeDetail?userId="+userId;
+		return "redirect:/admin/notice/noticeDetail?id="+id;
 	}
 
 	@GetMapping(value="/noticeUpdateForm")

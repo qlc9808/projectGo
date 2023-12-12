@@ -33,7 +33,7 @@ public class BoardService {
     public List<Board> listnoticeBoard(Board board) {
         List<Board> listnoticeBoard = boardDao.listnoticeBoard(board);
         if(listnoticeBoard==null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "숙소 리스트가 존재하지 않습니다");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "공지 리스트가 존재하지 않습니다");
         }
 
         return listnoticeBoard;
@@ -45,7 +45,7 @@ public class BoardService {
         noticeBoardResult = boardDao.InsertnoticeBoard(board);
 
         if(noticeBoardResult <= 0) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "숙박 정보 등록에 실패하였습니다.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "공지 정보 등록에 실패하였습니다.");
         }
 
     }
@@ -58,8 +58,8 @@ public class BoardService {
         return result;
     }
 
-    public Board detailnotice(int userId) {
-        Board board = boardDao.detailnotice(userId);
+    public Board detailnotice(int id) {
+        Board board = boardDao.detailnotice(id);
         log.info("noticeImpl detailnotice Strart...");
         if(board==null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "공지 정보가 존재하지 않습니다");

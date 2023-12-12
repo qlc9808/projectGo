@@ -17,8 +17,8 @@
     <p>조회수: ${board.readCount}</p>
     <p>${board.content}</p>
 
-    <a href="noticeUpdateForm?userId=${board.userId}&currentPage=${currentPage}">수정</a>
-    <a href="noticeDelete?userId=${board.userId}&currentPage=${currentPage}">삭제</a>
+    <a href="noticeUpdateForm?userId=${board.id}&currentPage=${currentPage}">수정</a>
+    <a href="noticeDelete?userId=${board.id}&currentPage=${currentPage}">삭제</a>
 
 
 

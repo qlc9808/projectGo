@@ -51,7 +51,8 @@ public class BoardDao {
         List<Board> listnoticeBoard = null;
 
         try {
-            listnoticeBoard = session.selectList("listnoticeBoard", board);
+            log.info("board->{}",board.toString());
+            listnoticeBoard = session.selectList("listNoticeBoard", board);
             log.info("BoardDao getlistnoticeBoard size : {}", listnoticeBoard.size());
 
         } catch (Exception e) {
@@ -91,11 +92,11 @@ public class BoardDao {
 
     }
 
-    public Board detailnotice(int userId) {
+    public Board detailnotice(int id) {
         Board board = new Board();
 
         try {
-            board = session.selectOne("noticeDetail", userId);
+            board = session.selectOne("noticeDetail", id);
             log.info("Board noticeDetail() notice.getTitle ->" + board.getTitle());
 
         } catch (Exception e) {

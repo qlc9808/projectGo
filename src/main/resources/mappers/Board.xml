@@ -20,23 +20,19 @@
     <select id="noticeboardCount" resultType="int">
         SELECT COUNT(*)
         FROM BOARD
-        WHERE boardType = 1 AND status != 0
+        WHERE boardType = 1
     </select>
 
-    <select id="listnoticeBoard" resultType="Board">
+    <select id="listNoticeBoard" resultType="Board">
         SELECT *
         FROM (
-        SELECT ROWNUM RN, C.*
-        FROM (
-        SELECT A.*
-        FROM BOARD A
-        WHERE A.boardType = 1
-        AND A.status != 0
-        <if test="keyword != null and keyword != ''">
-            AND A.title LIKE '%' || #{keyword} || '%'
-        </if>
-        ORDER BY A.id DESC
-        ) C
+            SELECT ROWNUM RN, C.*
+            FROM (
+                SELECT A.*
+                FROM BOARD A
+                WHERE A.boardType = 1
+                ORDER BY A.id DESC
+            ) C
         )
         where rn between #{start} and #{end}
     </select>
@@ -49,14 +45,14 @@
 
     <update id="noticeUpdate" parameterType="Board">
         UPDATE board
-        SET title = #{title},	content = #{content}, status = #{status}
+        SET title = #{title}, content = #{content}, status = #{status}
         WHERE userId = #{userId}
     </update>
 
     <select id="noticeDetail" resultType="Board" parameterType="int">
         SELECT *
         FROM BOARD
-        WHERE boardType 1
+        WHERE id = #{id}
     </select>
 
     <delete id="noticeDelete" parameterType="int">
