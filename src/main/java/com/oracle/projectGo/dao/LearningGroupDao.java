@@ -27,9 +27,20 @@ public class LearningGroupDao {
             learningGroupList = session.selectList("NoLearningGroupList",learningGroup);
             log.info("learningGroupList : " + learningGroupList);
         } catch (Exception e) {
-
+            log.info("LearningGroupDao learningGroupList e.getMessage() -> " + e.getMessage());
         }
         return learningGroupList;
+    }
+
+    public LearningGroup groupContentDetail(int userId) {
+        LearningGroup groupContentDetail = null;
+
+        try {
+            groupContentDetail = session.selectOne("", userId);
+        } catch (Exception e) {
+            log.info("LearningGroupDao groupContentDetail e.getMessage() -> " + e.getMessage());
+        }
+        return groupContentDetail;
     }
 
 

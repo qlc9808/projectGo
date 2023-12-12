@@ -17,6 +17,9 @@
         /*SELECT * FROM learningGroup*/
     </select>
 
+    <!--    <select id="NoGroupContentDetail" parameterType="userId" resultType="LearningGroup">-->
+    <!--        SELECT COUNT(*) FROM learningGroup-->
+    <!--    </select>-->
 
     <select id="getGroupMemberByGroupId" resultType="Users">
         SELECT users.*

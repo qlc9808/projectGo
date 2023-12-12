@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ASUS
-  Date: 2023-12-11
-  Time: 오전 9:12
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -12,6 +5,24 @@
     <%@ include file="/WEB-INF/components/Header.jsp"%>
     <title>Title</title>
 </head>
+<script>
+    // 버튼 클릭 시 선택된 라디오 버튼의 userId 값을 가져와 URL에 추가하는 함수를 추가합니다.
+    function goToDetailGroupContent() {
+        var radios = document.getElementsByName('gameContent');
+        var checkedValue;
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                checkedValue = radios[i].value;
+                break;
+            }
+        }
+        if (checkedValue) {
+            location.href = '/group/detailGroupContent?userId=' + checkedValue;
+        } else {
+            alert('학습그룹을 선택해주세요.');
+        }
+    }
+</script>
 <body>
     <%@ include file="/WEB-INF/components/TopBar.jsp"%>
     <main>
@@ -34,9 +45,12 @@
                         </tr>
                         <c:forEach var="GroupList" items="${learningGroupList}">
                             <tr>
-                                <td><input type="checkbox" name="gameContent" id="gameContent"></td>
+                                <td><input type="radio" name="gameContent" id="gameContent" value="${GroupList.userId}"></td>
                                 <td>${GroupList.title}</td>
-                                <td>${GroupList.startDate} ~ ${GroupList.endDate}</td>
+                                <td>
+                                    <fmt:formatDate value="${GroupList.startDate}" type="date" pattern="yyyy.MM.dd"></fmt:formatDate>
+                                     ~ <fmt:formatDate value="${GroupList.endDate}" type="date" pattern="yyyy.MM.dd"></fmt:formatDate>
+                                </td>
                                 <td>${GroupList.maxSubscribers}</td>
                                 <td>${GroupList.availableSlots}</td>
                             </tr>
@@ -44,7 +58,7 @@
                     </table>
                 </div>
                 <div class="text-center">
-                    <button onclick="">학습그룹 상세입력</button>
+                    <button onclick="goToDetailGroupContent()">학습그룹 상세입력</button>
                 </div>
             </div>
         </div>

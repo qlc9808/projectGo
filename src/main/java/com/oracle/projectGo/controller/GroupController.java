@@ -52,6 +52,24 @@ public class GroupController {
         return "/educate/learningGroup/listGroupContent";
     }
 
+    @RequestMapping(value = "detailGroupContent")
+    public String groupContentDetail(int userId, Model model){
+//        log.info("userId : " + userId);
+//        try {
+//            LearningGroup learningGroup = groupService.groupContentDetail(userId);
+//            log.info("learningGroup : " + learningGroup);
+//
+//            model.addAttribute("learningGroup", learningGroup);
+//
+//        } catch (Exception e) {
+//            log.error("GroupController groupContentDetail e.getMessage() -> " + e.getMessage());
+//        } finally {
+//            log.info("GroupController groupContentDetail end");
+//        }
+
+        return "educate/learningGroup/detailGroupContent";
+    }
+
     @ResponseBody
     @RequestMapping(value="getGroupMemberByGroupId",method = RequestMethod.GET)
     public ResponseEntity<List<Users>> getGroupMemberByGroupId(@RequestParam int groupId) {
