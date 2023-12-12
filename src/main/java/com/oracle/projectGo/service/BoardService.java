@@ -60,7 +60,7 @@ public class BoardService {
 
     public Board detailnotice(int id) {
         Board board = boardDao.detailnotice(id);
-        log.info("noticeImpl detailnotice Strart...");
+        log.info("noticeImpl detailnotice Start...");
         if(board==null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "공지 정보가 존재하지 않습니다");
         }
@@ -70,11 +70,111 @@ public class BoardService {
 
     }
 
-    public int noticeDelete(int userId) {
+    public int noticeDelete(int id) {
         int noticeDelete = 0;
 
-        noticeDelete = boardDao.noticeDelete(userId);
+        noticeDelete = boardDao.noticeDelete(id);
 
         return noticeDelete;
+    }
+
+    public int totalQNAboard() {
+        int totalQNAboard = boardDao.totalQNAboard();
+
+        return totalQNAboard;
+    }
+
+    public List<Board> listQNABoard(Board board) {
+        List<Board> listQNABoard = boardDao.listQNABoard(board);
+        if(listQNABoard==null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "공지 리스트가 존재하지 않습니다");
+        }
+
+        return listQNABoard;
+    }
+
+    public Board detailQNA(int id) {
+        Board board = boardDao.detailQNA(id);
+        log.info("QNAImpl detailQNA Start...");
+        if(board==null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "QNA 정보가 존재하지 않습니다");
+        }
+
+        return board;
+    }
+
+    public void QNAInsert(Board board) {
+        int QNAInsert = 0;
+        QNAInsert = boardDao.InsertQNABoard(board);
+
+        if(QNAInsert <= 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "공지 정보 등록에 실패하였습니다.");
+        }
+    }
+
+    public int QNAUpdate(Board board) {
+        int result = boardDao.QNAUpdate(board);
+        if(result <= 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "공지 정보 수정에 실패하였습니다.");
+        }
+        return result;
+    }
+
+    public int QNADelete(int id) {
+        int QNADelete = 0;
+
+        QNADelete = boardDao.QNADelete(id);
+
+        return QNADelete;
+    }
+
+    public int totalFAQboard() {
+        int totalFAQboard = boardDao.totalFAQboard();
+
+        return totalFAQboard;
+    }
+
+    public List<Board> listFAQBoard(Board board) {
+        List<Board> listFAQBoard = boardDao.listFAQBoard(board);
+        if(listFAQBoard==null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "FAQ 리스트가 존재하지 않습니다");
+        }
+
+        return listFAQBoard;
+    }
+
+    public Board detailFAQ(int id) {
+        Board board = boardDao.detailFAQ(id);
+        log.info("FAQImpl detailFAQ Start...");
+        if(board==null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "FAQ 정보가 존재하지 않습니다");
+        }
+
+        return board;
+    }
+
+    public void FAQInsert(Board board) {
+        int FAQInsert = 0;
+        FAQInsert = boardDao.InsertFAQBoard(board);
+
+        if(FAQInsert <= 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "공지 정보 등록에 실패하였습니다.");
+        }
+    }
+
+    public int FAQUpdate(Board board) {
+        int result = boardDao.FAQUpdate(board);
+        if(result <= 0) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "공지 정보 수정에 실패하였습니다.");
+        }
+        return result;
+    }
+
+    public int FAQDelete(int id) {
+        int FAQDelete = 0;
+
+        FAQDelete = boardDao.FAQDelete(id);
+
+        return FAQDelete;
     }
 }
