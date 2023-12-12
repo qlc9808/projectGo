@@ -1,7 +1,7 @@
 package com.oracle.projectGo.controller;
 
 import com.oracle.projectGo.dto.GameContents;
-import com.oracle.projectGo.service.ContentService;
+import com.oracle.projectGo.service.GameService;
 import com.oracle.projectGo.service.Paging;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,10 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.text.ParseException;
@@ -36,7 +33,8 @@ import java.util.List;
 @RequestMapping(value = "/game")
 public class GameController {
 
-    private final ContentService cs;
+    private final GameService gs;
+
 //-----------------------------------------------------------------
     @RequestMapping(value = "gameContent")
     public String gameContent(){
@@ -74,7 +72,7 @@ public class GameController {
 
         gameContents.setSubscribleEnd((java.sql.Date) resultSqlDate);
         //----------------------------------------------------------
-        int gameContentInsert = cs.gameContentInsert(gameContents);
+        int gameContentInsert = gs.gameContentInsert(gameContents);
         //----------------------------------------------------------
         System.out.println("GameController gameContentInsert-> " + gameContentInsert);
 
@@ -108,12 +106,12 @@ public class GameController {
     public String gameSelect(GameContents gameContents, String currentPage, Model model){
 
         // 총 갯수
-        int gameContentsTotalCount = cs.gameContentsTotalCount();
+        int gameContentsTotalCount = gs.gameContentsTotalCount();
         System.out.println("GameController gameContentsTotalCount-> " + gameContentsTotalCount);
         model.addAttribute("gameContentsTotalCount", gameContentsTotalCount);
 
         // 리스트 조회
-        List<GameContents> gameContentsList = cs.gameContentsList(gameContents);
+        List<GameContents> gameContentsList = gs.gameContentsList(gameContents);
         System.out.println("GameController gameContentsList.size()-> " + gameContentsList.size());
         model.addAttribute("gameContentsList", gameContentsList);
 
@@ -125,8 +123,6 @@ public class GameController {
 
         return "admin/game/gameSelect";
     }
-
-
 
 
 

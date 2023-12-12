@@ -19,7 +19,6 @@ public class GameContents {
 
     private int   subscribeDate;       // 구독기간
 
-    @NotEmpty(message = "필수 입력란입니다")
     private String  gameLevel;              // 난이도 초급:1, 중급:2, 고급:3
 
     private int     maxSubscribers;         // 구독 가능인원

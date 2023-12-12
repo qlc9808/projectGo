@@ -26,13 +26,17 @@
     </select>
 
 
-    <!-- 게임콘텐츠 select   -->
+    <!-- 게임콘텐츠 select -->
     <select id="gameContentsList" resultType="GameContents">
-        select      *
-        from        gameContents
-        order by    subscriblestart desc
+          select      *
+          from        gameContents
+          order by    subscriblestart desc
     </select>
 
 
-
 </mapper>
+
+
+
+
+

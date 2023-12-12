@@ -18,7 +18,7 @@
             <table border="1">
                 <tr>
                     <th>No.</th> <th>콘텐츠 이미지</th> <th>게임컨텐츠명</th> <th>패키지 내용</th> <th>난이도</th> <th>구독가능인원</th>
-                    <th>구독 기간</th> <th>구독 시작 날짜</th> <th>구독 종료 날짜</th> <th>정가</th> <th>할인율</th> <th>판매가</th>
+                    <th>구독 기간(개월)</th> <th>구독 시작 날짜</th> <th>구독 종료 날짜</th> <th>정가</th> <th>할인율</th> <th>판매가</th>
                 </tr>
 
                 <c:forEach var="gameContent" items="${gameContentsList}" varStatus="status">
@@ -41,17 +41,17 @@
 
 
             <!-- 페이징 작업 -->
-            <div style="text-align: center;">
-                <c:if test="${page.startPage > page.pageBlock }">
-                    <a href="gameSelect?currentPage=${page.startPage - page.pageBlock }">[이전]</a>
-                </c:if>
-                <c:forEach var="i" begin="${page.startPage }" end="${page.endPage }">
-                    <a href="gameSelect?currentPage=${i }">[${i}]</a>
-                </c:forEach>
-                <c:if test="${page.endPage < page.totalPage }">
-                    <a href='gameSelect?currentPage=${page.startPage + page.pageBlock}'>[다음]</a>
-                </c:if>
-            </div>
+            <c:if test="${page.startPage > page.pageBlock}">
+                <a href="gameSelect?currentPage=${page.startPage - page.pageBlock}">[이전]</a>
+            </c:if>
+
+            <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+                <a href="gameSelect?currentPage=${i}">[${i}]</a>
+            </c:forEach>
+
+            <c:if test="${page.endPage < page.totalPage}">
+                <a href="gameSelect?currentPage=${page.startPage + page.pageBlock}">[다음]</a>
+            </c:if>
 
 
         </div>
