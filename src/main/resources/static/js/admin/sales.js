@@ -1,5 +1,5 @@
 var grid;
-var gridData
+var gridData;
 
 $.ajax({
     url: '/admin/account/api/listSales',

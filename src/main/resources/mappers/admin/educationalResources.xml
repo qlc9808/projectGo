@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oracle.projectGo.EducationalResourcesMapper">
+
+    <insert id="educationUpload" parameterType="EducationalResources">
+        INSERT INTO EducationalResources
+        VALUES (EDUCATIONALRESOURCES_ID_SEQ.NEXTVAL, #{contentId}, #{userId}, #{title},
+                #{resourceType}, #{fileType}, #{fileAddress}, #{serviceType}, #{content},
+                #{image}, 0, sysdate, null)
+    </insert>
+    <select id="listEdu" resultType="EducationalResources">
+        SELECT *
+        FROM   EducationalResources
+    </select>
+
+</mapper>

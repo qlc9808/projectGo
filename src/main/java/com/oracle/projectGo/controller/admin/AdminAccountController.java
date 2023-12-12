@@ -28,8 +28,8 @@ public class AdminAccountController {
 
 
     @GetMapping("/listSales")
-    public String listSales(Payments payments, Model model) {
-        return "/admin/account/listSales";
+    public String listSales() {
+        return "admin/account/listSales";
     }
 
 
@@ -40,30 +40,7 @@ public class AdminAccountController {
         List<Payments> salesInfo = adminAccountService.listSales();
         log.info("listSales=>"+salesInfo.toString());
 
-        for (Payments item: salesInfo) {
-            switch (item.getPaymentType()) {
-                case "1":
-                    item.setPaymentType("무통장입금");
-                    break;
-                case "2":
-                    item.setPaymentType("계좌이체");
-                    break;
-                case "3":
-                    item.setPaymentType("카카오페이");
-                    break;
-            }
-        }
-
-        for (Payments item: salesInfo) {
-            switch (item.getStatus()) {
-                case "1":
-                    item.setStatus("결제완료");
-                    break;
-                case "2":
-                    item.setStatus("미결제");
-                    break;
-            }
-        }
+        transNaming(salesInfo);
 
         // 결제 list count
         int count = adminAccountService.listSalesCount();
@@ -72,8 +49,6 @@ public class AdminAccountController {
         Map<String, Object> response = new HashMap<>();
         response.put("salesInfo", salesInfo);
         response.put("count", count);
-
-        System.out.println(salesInfo);
 
         return ResponseEntity.ok(response);
     }
@@ -88,36 +63,10 @@ public class AdminAccountController {
             @RequestParam(value = "searchType", required = false) String searchType
     ) {
         Map<String, Object> response = new HashMap<>();
-        System.out.println("status->"+status);
-        System.out.println("date->"+keywordDate1);
-        System.out.println("date2->+"+keywordDate2);
         if (status == 3) {
             List<Payments> searchInfo = adminAccountService.listSales();
 
-            for (Payments item: searchInfo) {
-                switch (item.getPaymentType()) {
-                    case "1":
-                        item.setPaymentType("무통장입금");
-                        break;
-                    case "2":
-                        item.setPaymentType("계좌이체");
-                        break;
-                    case "3":
-                        item.setPaymentType("카카오페이");
-                        break;
-                }
-            }
-
-            for (Payments item: searchInfo) {
-                switch (item.getStatus()) {
-                    case "1":
-                        item.setStatus("결제완료");
-                        break;
-                    case "2":
-                        item.setStatus("미결제");
-                        break;
-                }
-            }
+            transNaming(searchInfo);
 
             response.put("searchInfo", searchInfo);
             return ResponseEntity.ok(response);
@@ -133,30 +82,7 @@ public class AdminAccountController {
 
         List<Payments> saleSearchList = adminAccountService.saleSearchList(search);
 
-        for (Payments item: saleSearchList) {
-            switch (item.getPaymentType()) {
-                case "1":
-                    item.setPaymentType("무통장입금");
-                    break;
-                case "2":
-                    item.setPaymentType("계좌이체");
-                    break;
-                case "3":
-                    item.setPaymentType("카카오페이");
-                    break;
-            }
-        }
-
-        for (Payments item: saleSearchList) {
-            switch (item.getStatus()) {
-                case "1":
-                    item.setStatus("결제완료");
-                    break;
-                case "2":
-                    item.setStatus("미결제");
-                    break;
-            }
-        }
+        transNaming(saleSearchList);
 
         response.put("searchInfo", saleSearchList);
 
@@ -170,6 +96,34 @@ public class AdminAccountController {
         private String keywordDate2;
         private String searchType;
         private int status;
+    }
+
+    private void transNaming(List<Payments> list) {
+        // 결제방법, 결제상태를 필요한 문자열로 변환
+        for (Payments item : list) {
+            switch (item.getPaymentType()) {
+                case "1":
+                    item.setPaymentType("무통장입금");
+                    break;
+                case "2":
+                    item.setPaymentType("계좌이체");
+                    break;
+                case "3":
+                    item.setPaymentType("카카오페이");
+                    break;
+            }
+        }
+
+        for (Payments item : list) {
+            switch (item.getStatus()) {
+                case "1":
+                    item.setStatus("결제완료");
+                    break;
+                case "2":
+                    item.setStatus("미결제");
+                    break;
+            }
+        }
     }
 }
 

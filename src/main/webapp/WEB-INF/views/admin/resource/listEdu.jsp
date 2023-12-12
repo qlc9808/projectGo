@@ -29,12 +29,11 @@
             </div>
         </div>
         <div id="main-content" class="container p-5 col-10">
-            <h1>학습정보등록ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</h1>
+            <div id="grid1"></div>
         </div>
     </main>
         <%@ include file="/WEB-INF/components/Footer.jsp"%>
-</body>
-<script>
+    <script src="/js/admin/educationalList.js"></script>
 
-</script>
+</body>
 </html>
