@@ -17,7 +17,16 @@
             <h1>게임으로 배우는 바둑 교실</h1>
         </div>
         <div>
-            <a href="/login" methods="get">로그인</a>
+            <c:choose>
+                <c:when test="${isAuthenticated == false}">
+                    <!-- 사용자가 인증되어 있음 -->
+                    <a href="/logout" method="get">로그아웃</a>
+                </c:when>
+                <c:otherwise>
+                    <!-- 사용자가 로그인되어 있지 않음 -->
+                    <a href="/login" method="get">로그인</a>
+                </c:otherwise>
+            </c:choose>
         </div>
 
     </div>

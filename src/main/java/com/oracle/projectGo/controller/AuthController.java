@@ -24,21 +24,16 @@ public class AuthController {
 
     private final UsersService us;
 
-    @RequestMapping("/")
-    public String home(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("username", auth.getName());
-        return "home";
-    }
+
 
     @GetMapping("/login")
     public String login() {
         return "auth/loginForm";
     }
 
-    /*@GetMapping("/logout")
+    @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/login";
-    }*/
+    }
 }
