@@ -30,4 +30,9 @@ public class LearningGroup {
     private String content;             // 게임 패키지 내용
     private Date   subscribleStart;     // 구독시작 날짜
     private Date   subscribleEnd;       // 구독종료 날짜
+
+    /* LearningGroupMember */
+    private int    groupId;      // 그룹번호
+    private String status;       // 승인여부 승인:1 , 미승인:0
+    private Date   approvalDate; // 승인요청일자
 }

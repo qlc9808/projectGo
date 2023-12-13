@@ -19,7 +19,7 @@
         if (checkedValue) {
             location.href = '/group/insertFormLearningContent?id=' + checkedValue;
         } else {
-            alert('학습그룹을 선택해주세요.');
+            alert('게임콘텐츠를 선택해주세요.');
         }
     }
 </script>

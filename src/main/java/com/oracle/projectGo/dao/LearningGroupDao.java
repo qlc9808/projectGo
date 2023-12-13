@@ -73,6 +73,16 @@ public class LearningGroupDao {
         return learningGroupList;
     }
 
+    public LearningGroup detailLearningGroup(int id) {
+        LearningGroup detailLearningGroup = null;
+        try {
+            detailLearningGroup = session.selectOne("NoDetailLearningGroup", id);
+
+        } catch (Exception e) {
+            log.info("LearningGroupDao detailLearningGroup e.getMessage() : " + e.getMessage());
+        }
+        return detailLearningGroup;
+    }
 
 
     public List<Users> getGroupMemberByGroupId(int educatorId) {
@@ -82,6 +92,7 @@ public class LearningGroupDao {
     public List<Users> getGroupMembersByEducatorId(int educatorId) {
         return session.selectList("getGroupMembersByEducatorId",educatorId);
     }
+
 
 
 }

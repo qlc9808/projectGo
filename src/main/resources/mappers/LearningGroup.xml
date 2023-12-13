@@ -38,6 +38,15 @@
         FROM learninggroup
     </select>
 
+    <select id="NoDetailLearningGroup" parameterType="int" resultType="LearningGroup">
+        SELECT *
+        FROM   learninggroup a
+        Join   learninggroupmember b
+        ON     a.id = b.groupId
+        WHERE  a.id = #{id}
+    </select>
+
+
     <select id="getGroupMemberByGroupId" resultType="Users">
         SELECT users.*
         FROM learningGroupMember lgm

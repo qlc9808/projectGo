@@ -5,10 +5,13 @@ import com.oracle.projectGo.dto.LearningGroup;
 import com.oracle.projectGo.dto.Users;
 import com.oracle.projectGo.service.LearningGroupService;
 import com.oracle.projectGo.service.Paging;
+import com.oracle.projectGo.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +29,12 @@ import java.util.Map;
 public class GroupController {
 
     private final LearningGroupService groupService;
+    private final UsersService usersService;
 
     @RequestMapping(value = "listLearningContent")
     public String listlearningContent(GameContents gameContents, String currentPage, Model model) {
+        Users users = usersService.getLoggedInUserInfo();
+        log.info("users : " + users.getName());
 
         try {
             // LearningContent Count 조회
@@ -46,39 +52,12 @@ public class GroupController {
             model.addAttribute("learningContentList", learningContentList);
             model.addAttribute("currentPage", currentPage);
         } catch (Exception e) {
-            log.error("GroupController listlearningContent e.getMessage() -> " + e.getMessage());
+            log.error("GroupController listlearningContent e.getMessage() : " + e.getMessage());
         } finally {
             log.info("GroupController listlearningContent end");
         }
         return "educate/learningGroup/listLearningContent";
     }
-
-//    public String listGroupContent(LearningGroup learningGroup, String currentPage, Model model) {
-//
-//        try {
-//            // GroupContent Count 조회
-//            int totalGroupContentCnt = groupService.totalGroupContentCnt();
-//
-//            // LearningGroupList 조회
-//            List<LearningGroup> learningGroupList = groupService.learningGroupList(learningGroup);
-//
-//            // paging 처리
-//            Paging page = new Paging(totalGroupContentCnt, currentPage);
-//            learningGroup.setStart(page.getCurrentPage());
-//            learningGroup.setEnd(page.getEnd());
-//
-//            model.addAttribute("GroupContentCnt", totalGroupContentCnt);
-//            model.addAttribute("learningGroupList", learningGroupList);
-//            model.addAttribute("currentPage", currentPage);
-//
-//        } catch (Exception e) {
-//            log.error("GroupController listGroupContent e.getMessage() -> " + e.getMessage());
-//        } finally {
-//            log.info("GroupController listGroupContent end");
-//        }
-//
-//        return "educate/learningGroup/listGroupContent";
-//    }
 
     @RequestMapping(value = "insertFormLearningContent")
     public String insertFormLearningContent(int id, Model model){
@@ -90,7 +69,7 @@ public class GroupController {
 
             model.addAttribute("insertFormLearningContent", insertFormLearningContent);
         } catch (Exception e) {
-            log.error("GroupController insertFormLearningContent e.getMessage() -> " + e.getMessage());
+            log.error("GroupController insertFormLearningContent e.getMessage() : " + e.getMessage());
         } finally {
             log.info("GroupController insertFormLearningContent end");
         }
@@ -123,7 +102,7 @@ public class GroupController {
         try {
             int insertLearningGroup = groupService.insertLearningGroup(params);
         } catch (Exception e) {
-            log.error("GroupController insertLearningGroup e.getMessage() -> " + e.getMessage());
+            log.error("GroupController insertLearningGroup e.getMessage() : " + e.getMessage());
         } finally {
             log.info("GroupController insertLearningGroup end");
         }
@@ -152,12 +131,29 @@ public class GroupController {
             model.addAttribute("currentPage", currentPage);
 
         } catch (Exception e) {
-            log.error("GroupController listGroupContent e.getMessage() -> " + e.getMessage());
+            log.error("GroupController listGroupContent e.getMessage() : " + e.getMessage());
         } finally {
             log.info("GroupController listGroupContent end");
         }
         return "educate/learningGroup/listLearningGroup";
     }
+
+    @RequestMapping(value = "detailLearningGroup")
+    public String detailLearningGroup(int id, Model model){
+        log.info("id : " + id);
+        try {
+            LearningGroup detailLearningGroup = groupService.detailLearningGroup(id);
+            log.info("detailLearningGroup : " + detailLearningGroup);
+
+            model.addAttribute("detailLearningGroup", detailLearningGroup);
+        } catch (Exception e) {
+            log.error("GroupController detailLearningGroup e.getMessage() : " + e.getMessage());
+        } finally {
+            log.info("GroupController detailLearningGroup end");
+        }
+        return "educate/learningGroup/detailLearningGroup";
+    }
+
 
     @ResponseBody
     @RequestMapping(value="getGroupMemberByGroupId",method = RequestMethod.GET)

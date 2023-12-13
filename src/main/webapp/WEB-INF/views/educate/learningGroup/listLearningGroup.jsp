@@ -5,6 +5,24 @@
     <%@ include file="/WEB-INF/components/Header.jsp"%>
     <title>Title</title>
 </head>
+<script>
+    //
+    function goToDetailLearningGroup() {
+        var radios = document.getElementsByName('learningGroup');
+        var checkedValue;
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                checkedValue = radios[i].value;
+                break;
+            }
+        }
+        if (checkedValue) {
+            location.href = '/group/detailLearningGroup?id=' + checkedValue;
+        } else {
+            alert('학습그룹을 선택해주세요.')
+        }
+    }
+</script>
 <body>
     <%@ include file="/WEB-INF/components/TopBar.jsp"%>
     <main>
