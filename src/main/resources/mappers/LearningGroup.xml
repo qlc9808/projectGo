@@ -3,23 +3,40 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.oracle.projectGo.learningGroupMapper">
-    <select id="NoTotalGroupContentCnt" resultType="int">
+    <select id="NoTotalLearningContentCnt" resultType="int">
+        SELECT COUNT(*) FROM gameContents
+    </select>
+
+    <select id="NoLearningContentList" resultType="GameContents">
+        SELECT *
+        FROM gamecontents
+
+--         SELECT  a.id, a.contentid, a.userid, a.name, a.startdate, a.enddate, a.availableslots,
+--                 b.id, b.title, b.subscribedate, b.gamelevel, b.maxsubscribers, b.content,
+--                 b.subscribleStart, b.subscribleEnd
+--         FROM    learningGroup a, gameContents b
+--         WHERE   a.contentid = b.id
+    </select>
+
+    <select id="NoInsertFormLearningContent" parameterType="int" resultType="GameContents">
+        SELECT *
+        FROM gamecontents
+        WHERE id = #{id}
+    </select>
+
+    <insert id="NoInsertLearningGroup" parameterType="Map">
+        INSERT INTO learningGroup(id, contentId, userId, name, startDate, endDate, groupSize, etc1, etc2)
+        VALUES(LEARNINGGROUP_ID_SEQ.NEXTVAL, #{id}, #{userId}, #{GroupName}, #{startDate}, #{endDate}, #{GroupSize}, #{GroupEtc1}, #{GroupEtc2})
+    </insert>
+
+    <select id="NoTotalLearningGroupCnt" resultType="int">
         SELECT COUNT(*) FROM learningGroup
     </select>
 
     <select id="NoLearningGroupList" resultType="LearningGroup">
-        SELECT  a.id, a.contentid, a.userid, a.name, a.startdate, a.enddate, a.availableslots,
-                b.id, b.title, b.subscribedate, b.gamelevel, b.maxsubscribers, b.content,
-                b.subscribleStart, b.subscribleEnd
-        FROM    learningGroup a, gameContents b
-        WHERE   a.contentid = b.id
-
-        /*SELECT * FROM learningGroup*/
+        SELECT *
+        FROM learninggroup
     </select>
-
-<!--        <select id="NoDetailGroupContent" parameterType="userId" resultType="LearningGroup">-->
-<!--            SELECT * FROM learningGroup-->
-<!--        </select>-->
 
     <select id="getGroupMemberByGroupId" resultType="Users">
         SELECT users.*

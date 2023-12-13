@@ -1,20 +1,23 @@
 package com.oracle.projectGo.controller;
 
+import com.oracle.projectGo.dto.GameContents;
 import com.oracle.projectGo.dto.LearningGroup;
 import com.oracle.projectGo.dto.Users;
 import com.oracle.projectGo.service.LearningGroupService;
 import com.oracle.projectGo.service.Paging;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -24,22 +27,127 @@ public class GroupController {
 
     private final LearningGroupService groupService;
 
-    @RequestMapping(value = "listGroupContent")
-    public String listGroupContent(LearningGroup learningGroup, String currentPage, Model model) {
+    @RequestMapping(value = "listLearningContent")
+    public String listlearningContent(GameContents gameContents, String currentPage, Model model) {
 
         try {
-            // GroupContent Count 조회
-            int totalGroupContentCnt = groupService.totalGroupContentCnt();
+            // LearningContent Count 조회
+            int totalLearningContentCnt = groupService.totalLearningContentCnt();
 
-            // LearningGroupList 조회
-            List<LearningGroup> learningGroupList = groupService.learningGroupList(learningGroup);
+            // LearningContentList 조회
+            List<GameContents> learningContentList = groupService.learningContentList(gameContents);
 
             // paging 처리
-            Paging page = new Paging(totalGroupContentCnt, currentPage);
+            Paging page = new Paging(totalLearningContentCnt, currentPage);
+            gameContents.setStart(page.getCurrentPage());
+            gameContents.setEnd(page.getEnd());
+
+            model.addAttribute("learningContentCnt", totalLearningContentCnt);
+            model.addAttribute("learningContentList", learningContentList);
+            model.addAttribute("currentPage", currentPage);
+        } catch (Exception e) {
+            log.error("GroupController listlearningContent e.getMessage() -> " + e.getMessage());
+        } finally {
+            log.info("GroupController listlearningContent end");
+        }
+        return "educate/learningGroup/listLearningContent";
+    }
+
+//    public String listGroupContent(LearningGroup learningGroup, String currentPage, Model model) {
+//
+//        try {
+//            // GroupContent Count 조회
+//            int totalGroupContentCnt = groupService.totalGroupContentCnt();
+//
+//            // LearningGroupList 조회
+//            List<LearningGroup> learningGroupList = groupService.learningGroupList(learningGroup);
+//
+//            // paging 처리
+//            Paging page = new Paging(totalGroupContentCnt, currentPage);
+//            learningGroup.setStart(page.getCurrentPage());
+//            learningGroup.setEnd(page.getEnd());
+//
+//            model.addAttribute("GroupContentCnt", totalGroupContentCnt);
+//            model.addAttribute("learningGroupList", learningGroupList);
+//            model.addAttribute("currentPage", currentPage);
+//
+//        } catch (Exception e) {
+//            log.error("GroupController listGroupContent e.getMessage() -> " + e.getMessage());
+//        } finally {
+//            log.info("GroupController listGroupContent end");
+//        }
+//
+//        return "educate/learningGroup/listGroupContent";
+//    }
+
+    @RequestMapping(value = "insertFormLearningContent")
+    public String insertFormLearningContent(int id, Model model){
+        log.info("id : " + id);
+
+        try {
+            GameContents insertFormLearningContent = groupService.insertFormLearningContent(id);
+            log.info("insertFormLearningContent : " + insertFormLearningContent);
+
+            model.addAttribute("insertFormLearningContent", insertFormLearningContent);
+        } catch (Exception e) {
+            log.error("GroupController insertFormLearningContent e.getMessage() -> " + e.getMessage());
+        } finally {
+            log.info("GroupController insertFormLearningContent end");
+        }
+
+        return "educate/learningGroup/insertFormLearningContent";
+    }
+
+    @RequestMapping(value = "insertLearningGroup", method = RequestMethod.POST)
+    public String insertLearningGroup(@RequestParam("id")        int id,
+                                      @RequestParam("userId")    int userId,
+                                      @RequestParam("GroupName") String groupName,
+                                      @RequestParam("GroupSize") int groupSize,
+                                      @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
+                                      @RequestParam("endDate")   @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
+                                      @RequestParam("GroupEtc1") String groupEtc1,
+                                      @RequestParam("GroupEtc2") String groupEtc2, Model model) {
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("id",        id);
+        params.put("userId",    userId);
+        params.put("GroupName", groupName);
+        params.put("GroupSize", groupSize);
+        params.put("startDate", startDate);
+        params.put("endDate",   endDate);
+        params.put("GroupEtc1", groupEtc1);
+        params.put("GroupEtc2", groupEtc2);
+
+        log.info("params : " + params);
+
+        try {
+            int insertLearningGroup = groupService.insertLearningGroup(params);
+        } catch (Exception e) {
+            log.error("GroupController insertLearningGroup e.getMessage() -> " + e.getMessage());
+        } finally {
+            log.info("GroupController insertLearningGroup end");
+        }
+
+        return "redirect:/group/listLearningGroup";
+    }
+
+    @RequestMapping(value = "listLearningGroup")
+    public String listLearningGroup(LearningGroup learningGroup, String currentPage, Model model) {
+
+        try {
+            // LearningGroup Count 조회
+            int totalLearningGroupCnt = groupService.totalLearningGroupCnt();
+            log.info("totalLearningGroupCnt : " + totalLearningGroupCnt);
+
+            List<LearningGroup> learningGroupList = groupService.learningGroupList();
+            log.info("learningGroupList : " + learningGroupList);
+
+            // paging 처리
+            Paging page = new Paging(totalLearningGroupCnt, currentPage);
             learningGroup.setStart(page.getCurrentPage());
             learningGroup.setEnd(page.getEnd());
 
-            model.addAttribute("GroupContentCnt", totalGroupContentCnt);
+            model.addAttribute("totalLearningGroupCnt", totalLearningGroupCnt);
             model.addAttribute("learningGroupList", learningGroupList);
             model.addAttribute("currentPage", currentPage);
 
@@ -48,26 +156,7 @@ public class GroupController {
         } finally {
             log.info("GroupController listGroupContent end");
         }
-
-        return "educate/learningGroup/listGroupContent";
-    }
-
-    @RequestMapping(value = "detailGroupContent")
-    public String groupContentDetail(int contentId, Model model){
-        log.info("contentId : " + contentId);
-//        try {
-//            LearningGroup detailGroupContent = groupService.detailGroupContent(contentId);
-//            log.info("detailGroupContent : " + detailGroupContent);
-//
-//            model.addAttribute("detailGroupContent", detailGroupContent);
-//
-//        } catch (Exception e) {
-//            log.error("GroupController detailGroupContent e.getMessage() -> " + e.getMessage());
-//        } finally {
-//            log.info("GroupController detailGroupContent end");
-//        }
-
-        return "educate/learningGroup/detailGroupContent";
+        return "educate/learningGroup/listLearningGroup";
     }
 
     @ResponseBody

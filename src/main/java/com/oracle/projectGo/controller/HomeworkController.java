@@ -57,7 +57,7 @@ public class HomeworkController {
 
         /* TODO: 학습 그룹 리스트 받아오기 */
         LearningGroup learningGroup = new LearningGroup();
-        List<LearningGroup> learningGroupList = learningGroupService.learningGroupList(learningGroup);
+        List<LearningGroup> learningGroupList = learningGroupService.learningGroupList();
 
         /* TODO: 숙제명에 따라 숙제를 받아오는 로직 */
         List<Homeworks> homeworkList = homeworkService.getHomeworksList(homework);

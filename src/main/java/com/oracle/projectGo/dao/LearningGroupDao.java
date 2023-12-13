@@ -1,5 +1,6 @@
 package com.oracle.projectGo.dao;
 
+import com.oracle.projectGo.dto.GameContents;
 import com.oracle.projectGo.dto.LearningGroup;
 import com.oracle.projectGo.dto.Users;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -15,33 +18,61 @@ import java.util.List;
 public class LearningGroupDao {
     private final SqlSession session;
 
-    public int totalGroupContentCnt() {
+    public int totalLearningContentCnt() {
 
-        return session.selectOne("NoTotalGroupContentCnt");
+        return session.selectOne("NoTotalLearningContentCnt");
     }
 
-    public List<LearningGroup> learningGroupList(LearningGroup learningGroup) {
+    public List<GameContents> learningContentList(GameContents gameContents) {
+        List<GameContents> learningContentList = null;
+
+        try {
+            learningContentList = session.selectList("NoLearningContentList", gameContents);
+            log.info("learningContentList : " + learningContentList);
+        } catch (Exception e) {
+            log.info("LearningGroupDao learningContentList e.getMessage() : " + e.getMessage());
+        }
+        return learningContentList;
+    }
+
+    public GameContents insertFormLearningContent(int id) {
+        GameContents insertFormLearningContent = null;
+
+        try {
+            insertFormLearningContent = session.selectOne("NoInsertFormLearningContent", id);
+        } catch (Exception e) {
+            log.info("LearningGroupDao insertFormLearningContent e.getMessage() : " + e.getMessage());
+        }
+        return insertFormLearningContent;
+    }
+
+    public int insertLearningGroup(Map<String, Object> params) {
+        int insertLearningGroup = 0;
+
+        try {
+            insertLearningGroup = session.insert("NoInsertLearningGroup", params);
+            log.info("insertLearningGroup : " + insertLearningGroup);
+        } catch (Exception e) {
+            log.info("LearningGroupDao insertLearningGroup e.getMessage() : " + e.getMessage());
+        }
+        return insertLearningGroup;
+    }
+
+    public int totalLearningGroupCnt() {
+        return session.selectOne("NoTotalLearningGroupCnt");
+    }
+
+    public List<LearningGroup> learningGroupList() {
         List<LearningGroup> learningGroupList = null;
 
         try {
-            learningGroupList = session.selectList("NoLearningGroupList",learningGroup);
-            log.info("learningGroupList : " + learningGroupList);
+            learningGroupList = session.selectList("NoLearningGroupList");
         } catch (Exception e) {
-            log.info("LearningGroupDao learningGroupList e.getMessage() -> " + e.getMessage());
+            log.info("LearningGroupDao learningGroupList e.getMessage() : " + e.getMessage());
         }
         return learningGroupList;
     }
 
-    public LearningGroup detailGroupContent(int userId) {
-        LearningGroup detailGroupContent = null;
-
-        try {
-            detailGroupContent = session.selectOne("NoDetailGroupContent", userId);
-        } catch (Exception e) {
-            log.info("LearningGroupDao detailGroupContent e.getMessage() -> " + e.getMessage());
-        }
-        return detailGroupContent;
-    }
 
 
     public List<Users> getGroupMemberByGroupId(int educatorId) {
@@ -51,4 +82,6 @@ public class LearningGroupDao {
     public List<Users> getGroupMembersByEducatorId(int educatorId) {
         return session.selectList("getGroupMembersByEducatorId",educatorId);
     }
+
+
 }
