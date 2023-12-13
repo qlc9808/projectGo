@@ -14,17 +14,26 @@
     <select id="getDistributedHomeworks" parameterType="DistributedHomeworks" resultType="DistributedHomeworks">
         SELECT
             D.*,
-            U.name AS userName
+            H.title AS homeworkTitle,
+            H.content AS homeworkContent,
+            H.progress AS homeworkProgress,
+            H.deadline AS homeworkDeadline,
+            STD.name AS userName,
+            EDU.name AS educatorName
         FROM
             DistributedHomeworks D
         LEFT JOIN
-            users U ON D.userId = U.id
+            Homeworks H ON D.homeworkId = H.id
+        LEFT JOIN
+            users STD ON D.userId = STD.id
+        LEFT JOIN
+            users EDU ON H.userId = EDU.id
         WHERE 1=1
         <if test="homeworkId != null and homeworkId != '' and homeworkId != 0  ">
-            AND homeworkId = #{homeworkId}
+            AND D.homeworkId = #{homeworkId}
         </if>
         <if test="userId != null and userId != '' and userId != 0  ">
-            AND userId = #{userId}
+            AND D.userId = #{userId}
         </if>
     </select>
 
@@ -66,6 +75,5 @@
         </foreach>
         END;
     </update>
-
 
 </mapper>

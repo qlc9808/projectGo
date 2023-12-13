@@ -18,6 +18,16 @@ public class DistributedHomeworks {
     private Date   updatedAt;       // 수정일
     private String homeLevel;           // 난이도
 
-    // 조회
+    // 조회용
     private String userName;
+    private String educatorName;
+    private String homeworkTitle;
+    private String homeworkContent;
+    private Date homeworkDeadline;
+    private int homeworkProgress;
+
+    /* 페이지 처리 */
+    private String pageNum;
+    private int    start;
+    private int    end;
 }
