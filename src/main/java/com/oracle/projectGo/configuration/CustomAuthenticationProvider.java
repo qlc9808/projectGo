@@ -53,6 +53,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         } finally {
             log.info("[{}]{}:{}",transactionId, "AuthenticationProvider", "end");
         }
+        
         return new UsernamePasswordAuthenticationToken(username, password);
     }
 

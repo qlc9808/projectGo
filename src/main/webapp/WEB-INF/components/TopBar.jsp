@@ -1,4 +1,5 @@
-<%--
+<%@ page import="org.springframework.security.core.Authentication" %>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %><%--
   Created by IntelliJ IDEA.
   User: admin
   Date: 2023-12-05
@@ -17,16 +18,23 @@
             <h1>게임으로 배우는 바둑 교실</h1>
         </div>
         <div>
-            <c:choose>
-                <c:when test="${isAuthenticated == false}">
-                    <!-- 사용자가 인증되어 있음 -->
-                    <a href="/logout" method="get">로그아웃</a>
-                </c:when>
-                <c:otherwise>
-                    <!-- 사용자가 로그인되어 있지 않음 -->
-                    <a href="/login" method="get">로그인</a>
-                </c:otherwise>
-            </c:choose>
+            <%
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                if ((auth != null && auth.isAuthenticated()) == false){
+            %>
+
+            <a href="/logout">로그아웃 </a>
+
+            <%
+            } else {
+            %>
+
+            <a href="/login">로그인  </a>
+
+            <%
+                }
+            %>
+
         </div>
 
     </div>

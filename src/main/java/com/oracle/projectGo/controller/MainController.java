@@ -14,9 +14,7 @@ public class MainController {
 
     @GetMapping("/")
     public String home(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("isAuthenticated", auth.isAuthenticated());
-        log.info(String.valueOf(auth.isAuthenticated()));
+        
         return "home";
     }
 }

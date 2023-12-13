@@ -2,6 +2,7 @@ package com.oracle.projectGo.configuration;
 
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +19,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Autowired
+    private  CustomAuthenticationProvider authProvider;
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -37,13 +41,14 @@ public class SecurityConfig {
             .loginPage("/login")
             .permitAll()
             .defaultSuccessUrl("/")
-                .usernameParameter("nickname")
+            .usernameParameter("nickname")
         );
       http.logout(logout -> logout
             .logoutSuccessUrl("/")
             .invalidateHttpSession(true)
             .permitAll());
 
+        http.authenticationProvider(authProvider);
         return http.build();
     }
 
