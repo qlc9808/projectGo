@@ -25,4 +25,8 @@ public class DistributedHomeworksDao {
     public int updateEvaluation(List<DistributedHomeworks> evaluations) {
         return session.update("updateDistributedHomeworks",evaluations);
     }
+
+    public int updateSubmission(List<DistributedHomeworks> submissions) {
+        return session.update("updateSubmissions", submissions);
+    }
 }

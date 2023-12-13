@@ -71,6 +71,7 @@ public class HomeworkRestController {
         return ResponseEntity.ok(distributedHomeworks);
     }
 
+    @ResponseBody
     @PostMapping("/updateEvaluations")
     public ResponseEntity<String> updateEvaluations(@RequestBody List<DistributedHomeworks> evaluations) {
         try {
@@ -82,4 +83,19 @@ public class HomeworkRestController {
             return ResponseEntity.internalServerError().body("{\"message\": \"평가 저장에 실패했습니다.\"}");
         }
     }
+    @ResponseBody
+    @PostMapping("submissionHomework")
+    public ResponseEntity<String> submissionHomework(@RequestBody List<DistributedHomeworks> submissions) {
+        try {
+            for (DistributedHomeworks distributedHomework : submissions) {
+                log.info("distributedHomework:{}",distributedHomework);
+            }
+            homeworkService.updateSubmission(submissions);
+            return ResponseEntity.ok("{\"message\": \"숙제가 성공적으로 제출되었습니다.\"}");
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.internalServerError().body("{\"message\": \"숙제 제출에 실패했습니다.\"}");
+        }
+    }
+
 }

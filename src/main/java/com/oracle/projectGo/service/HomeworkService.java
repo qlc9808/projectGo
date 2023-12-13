@@ -51,4 +51,8 @@ public class HomeworkService {
     public int updateEvaluation(List<DistributedHomeworks> evaluations) {
         return distributedHomeworksDao.updateEvaluation(evaluations);
     }
+
+    public int updateSubmission(List<DistributedHomeworks> submissions) {
+        return distributedHomeworksDao.updateSubmission(submissions);
+    }
 }

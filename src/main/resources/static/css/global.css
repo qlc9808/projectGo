@@ -49,6 +49,9 @@
     background-color: #FF4379;
     border-color: #FF4379;
 }
+.form-check-input {
+    border-color: #FF4379;
+}
 
 .app-navbar {
     background-color: #F8FCF4; /* 배경색을 변경합니다. */
@@ -70,7 +73,7 @@
 }
 
 main {
-    padding-top:90px;
+    padding-top:130px;
 }
 body {
     margin: 0;
