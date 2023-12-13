@@ -19,9 +19,8 @@
             <h6>모바일에서도 신용카드, 무통장 입금 등 결제가 가능합니다.</h6><hr>
 
             <form action="/payment/subscriblePay" method="post">
-                <%--<c:forEach var="gameContent" items="${gameContents}" varStatus="loop">
-                    <input type="hidden" name="contentId_${loop.index}" value="${gameContent.id}" />
-                </c:forEach>--%>
+                <input type="hidden" name="contentId" value="${gameIds}"/>
+                구독한 게임 아이디(여러 개 가능) : ${gameIds}
 
                 <table>
                     <tr>
@@ -40,7 +39,7 @@
                    </tr>
 
                     <tr>
-                        <th>주문합계</th> <th>${totalPrice}</th>
+                        <th>주문합계</th> <th>${totalPrice}원</th>
                     </tr>
 
                     <tr>
@@ -51,10 +50,10 @@
                     </tr>
 
                     <tr>
-                        <th>입금자명</th> <td>${user.name}</td>
+                        <th>입금자명</th> <td>${users.name}</td>
                     </tr>
-
                 </table>
+                <button type="button">결제하기</button>
             </form>
 
         </div>

@@ -1,0 +1,20 @@
+25일
+오라클
+
+--------------------------------------------------------
+--  DDL for Table MEMBER1
+--------------------------------------------------------
+DROP  TABLE   Member1;
+
+CREATE TABLE MEMBER1
+        ( id                      VARCHAR2(10) 
+         CONSTRAINT PK_MEMBER1_ID PRIMARY KEY,    -- ID
+         password       VARCHAR2(20),    -- 비밀번호
+         name                VARCHAR2(100),   -- 이름 
+         reg_date         Date                   -- 일자
+       )  TABLESPACE "SYSTEM" ;
+
+Insert into SCOTT.MEMBER1 (ID,password,NAME,REG_DATE) 
+values ('aa','1234','김유신',to_date('23/06/18' ,'RR/MM/DD'));
+
+알 랴 뷰 ~

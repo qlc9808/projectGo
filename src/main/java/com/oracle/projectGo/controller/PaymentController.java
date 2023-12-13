@@ -23,10 +23,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping(value = "/payment")
 public class PaymentController {
+
     private final UsersService us;
     private final GameService gs;
     private final PaymentService ps;
-
 //-----------------------------------------------------------------
 
     // 구독 신청 - 리스트에서 구독할 컨텐츠 조회 페이지
@@ -49,50 +49,43 @@ public class PaymentController {
     public String gameSubscribePay(@RequestParam List<Integer> gameIds, Model model){
         log.info("gameIds: {}", gameIds);
 
-        /* TODO : 로그인 한 유저 정보 = 구매자 정보 */
+        // 로그인 한 유저 정보 = 구매자 정보
         Users users = us.getLoggedInUserInfo();
         log.info("로그인 userName : {}", users.getName());
         log.info("로그인 userId : {}", users.getId());
         log.info("로그인 userPhone : {}", users.getPhone());
 
-//        Users users = new Users();
-//        users.setId(6);
-//        users.setName("차예지");
-//        users.setPhone("010-1232-5674");
+        // 게임 ID 리스트들로 게임정보 받아오기 (버전1)
+//      List<GameContents> gameContentsList =  gs.gameContentsListByIds(gameIds);
+//      log.info("gameContentsList:{}",gameContentsList);
 
-        /* TODO : 게임 ID리스트들로 게임정보 받아오기. 버전1 */
-//        List<GameContents> gameContentsList =  gs.gameContentsListByIds(gameIds);
-//        log.info("gameContentsList:{}",gameContentsList);
-
-        /* TODO : 게임 ID리스트들로 게임정보 받아오기. 버전2 */
+        // 게임 ID 리스트들로 게임 정보 받아오기 (버전2)
         List<GameContents> gameContentsList = new ArrayList<>();
         int totalPrice = 0;
         String title = "";
 
         for (Integer gameId : gameIds) {
-            GameContents gameContents = gs.getGameContentsById(gameId);     // 각 아이디의 리스트 조회
-            model.addAttribute("gameContents", gameContents);   // model 사용 안해도 될 것 같은데 확인하기
-
-            // 결제 총 금액
-            totalPrice += gameContents.getPrice();
-
-            gameContentsList.add(gameContents);     // add()-> ArrayList에서 맨 뒤에 데이터 추가
+            GameContents gameContents = gs.getGameContentsById(gameId);     // 각 아이디들의 리스트 조회
+            totalPrice += gameContents.getPrice();                          // 결제 총 금액
+            gameContentsList.add(gameContents);                             // add()-> ArrayList에서 맨 뒤에 데이터 추가
         }
-        System.out.println("-----------------");
-        // 나중에 아무 클릭 안하고 구독하기 눌렀을 때 validation 커스텀으로 하기
+
+        // 나중에 아무 클릭 안하고 구독 하기 눌렀을 때 validation 커스텀으로 하기
         if(!gameContentsList.isEmpty()){
-            title = gameContentsList.get(0).getTitle()+"외" + (gameContentsList.size()-1);
+            title = gameContentsList.get(0).getTitle()+"외 " + (gameContentsList.size()-1);
         }
 
+        model.addAttribute("gameIds", gameIds);
         model.addAttribute("title", title);
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("users", users);
 
-        return "subscribe/subscribePay";        // 값들 처리 후 결제 페이지로 이동
+        return "subscribe/subscribePay";
     }
 
 //-----------------------------------------------------------------
 
+    // 여기부터 하면 됨 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // 결제 - 결제 방법 선택 후 결제
     @PostMapping(value = "subscriblePay")
     public String subscriblePay(){

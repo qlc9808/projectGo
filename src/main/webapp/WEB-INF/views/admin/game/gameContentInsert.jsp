@@ -37,9 +37,10 @@
         </div>
         <div id="main-content" class="container p-5 col-10">
             <%-- 이곳에 작성을 해주세요 --%>
-            <h5>gameContent insert</h5>
+            <h3>게임콘텐츠 등록</h3>
 
             <form:form action="gameContentInsert" method="post" enctype="multipart/form-data">
+
                 <table border="1">
                     <tr>
                         <th>게임 콘텐츠명</th>
@@ -115,15 +116,17 @@
                         </td>
                     </tr>
 
- <%--               <tr>
+              <tr>
                         <th>썸네일</th>
                         <td>
                             <input type="file" id="file" name="file1">
                         </td>
-                    </tr>--%>
+                    </tr>
 
                     <tr>
-                        <td><button type="submit">등록하기</button></td>
+                        <%--<c:if test="${result == 1}">--%>
+                            <td><button type="submit">등록하기</button></td>
+<%--                        </c:if>--%>
                     </tr>
 
                 </table>

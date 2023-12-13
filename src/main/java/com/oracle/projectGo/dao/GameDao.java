@@ -57,7 +57,7 @@ public class GameDao {
     return  gameContentsList;
     }
 
-// 버전1
+//    버전1
 //    public List<GameContents> gameContentsListByIds(List<Integer> gameIds) {
 //        return session.selectList("gameContentsListByIds",gameIds);
 //    }
