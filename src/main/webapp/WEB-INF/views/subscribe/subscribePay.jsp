@@ -35,8 +35,8 @@
                         <th>구매자 정보</th>
                     </tr>
                    <tr>
-                       <th>구매자명</th> <td>${user.name}</td>
-                       <th>연락처</th> <td>${user.phone}</td>
+                       <th>구매자명</th> <td>${users.name}</td>
+                       <th>연락처</th> <td>${users.phone}</td>
                    </tr>
 
                     <tr>
