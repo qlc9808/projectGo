@@ -5,6 +5,7 @@
 <mapper namespace="com.oracle.projectGo.UsersMapper">
 
     <select id="getUserByNickname" resultType="Users">
+        SELECT * FROM users WHERE nickname = #{nickname}
     </select>
 
     <insert id="insertUser"  parameterType="Users" >
@@ -15,6 +16,4 @@
 
     <select id="totalUsers" resultType="int">
     </select>
-
-    
 </mapper>
