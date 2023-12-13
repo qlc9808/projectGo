@@ -2,12 +2,10 @@ var grid;
 var gridData;
 
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("실행된거??");
     listEdu();
 });
 
 function listEdu() {
-    console.log("함수들어온거?")
     $.ajax({
         url: '/admin/resource/api/listEdu',
         method: 'GET',
@@ -18,12 +16,12 @@ function listEdu() {
 
                 return {
                     id: item.id,
-                    name: item.name,
+                    gameTitle: item.gameTitle,
                     title: item.title,
-                    paymentType: item.paymentType,
-                    status: item.status,
-                    purchaseDate: item.purchaseDate,
-                    price: item.price
+                    resourceType: item.resourceType,
+                    serviceType: item.serviceType,
+                    createdAt: item.createdAt,
+                    readCount: item.readCount
                 };
             });
 
@@ -32,48 +30,50 @@ function listEdu() {
                 data: gridData,
                 scrollX: false,
                 scrollY: false,
-                rowHeaders: ['checkbox'],
                 columns: [
                     {
-                        header: '결제번호',
+                        header: 'NO',
                         name: 'id',
                         align: 'center',
                         sortable: true,
-                        sortingType: 'desc'
+                        sortingType: 'desc',
+                        width: 50
                     },
                     {
-                        header: '이름',
-                        name: 'name',
-                        align: 'center'
-
-                    },
-                    {
-                        header: '게임',
+                        header: '학습자료',
                         name: 'title',
+                        align: 'center',
+                        width: 300
+                    },
+                    {
+                        header: '자료구분',
+                        name: 'resourceType',
                         align: 'center'
                     },
                     {
-                        header: '결제방법',
-                        name: 'paymentType',
+                        header: '서비스',
+                        name: 'serviceType',
                         align: 'center'
                     },
                     {
-                        header: '결제상태',
-                        name: 'status',
-                        align: 'center'
-                    },
-                    {
-                        header: '구매일자',
-                        name: 'purchaseDate',
+                        header: '자료업로드일자',
+                        name: 'createdAt',
                         align: 'center',
                         width: 250,
                         sortable: true,
                         sortingType: 'desc'
                     },
                     {
-                        header: '결제금액',
-                        name: 'price',
-                        align: 'center'
+                        header: '관련컨텐츠',
+                        name: 'gameTitle',
+                        align: 'center',
+                        width: 300
+                    },
+                    {
+                        header: '조회수',
+                        name: 'readCount',
+                        align: 'center',
+                        width: 70
                     }
                 ],
                 pageOptions: {
@@ -81,7 +81,22 @@ function listEdu() {
                     perPage: 10
                 },
             });
+
+            grid.on('click', function(ev) {
+                var column = ev.columnName;
+                var rowKey = ev.rowKey;
+
+                console.log(column, rowKey);
+
+                if (column === 'title') {
+                    var id = grid.getValue(rowKey, 'id');
+                    window.location.href = '/admin/resource/detailEdu?id='+id;
+                }
+            });
+
         }
     });
+
 }
+
 

@@ -9,27 +9,6 @@ $.ajax({
         var count = response.count;
         gridData = listSales.map(function(item) {
 
-            // let paymentMethod;
-            // let statusMethod;
-            //
-            // switch (item.paymentType) {
-            //     case '1':
-            //         paymentMethod = "무통장입금";
-            //         break;
-            //     case '2':
-            //         paymentMethod = "계좌이체";
-            //         break;
-            //     case '3':
-            //         paymentMethod = "카카오페이";
-            //         break;
-            // }
-            //
-            // if (item.status === '1') {
-            //     statusMethod = "결제완료";
-            // } else if (item.status === '2') {
-            //     statusMethod = "미결제";
-            // }
-
             return {
                 id: item.id,
                 name: item.name,
@@ -46,14 +25,15 @@ $.ajax({
             data: gridData,
             scrollX: false,
             scrollY: false,
-            rowHeaders: ['checkbox'],
+//          rowHeaders: ['checkbox'],
             columns: [
                 {
-                    header: '결제번호',
+                    header: 'NO',
                     name: 'id',
                     align: 'center',
                     sortable: true,
-                    sortingType: 'desc'
+                    sortingType: 'desc',
+                    width: 50
                 },
                 {
                     header: '이름',
@@ -64,12 +44,15 @@ $.ajax({
                 {
                     header: '게임',
                     name: 'title',
-                    align: 'center'
+                    align: 'center',
+                    width: 300
                 },
                 {
                     header: '결제방법',
                     name: 'paymentType',
-                    align: 'center'
+                    align: 'center',
+                    sortable: true,
+                    sortingType: 'desc'
                 },
                 {
                     header: '결제상태',
@@ -161,10 +144,6 @@ function search() {
         status = 8;
     }
 
-    if (grid) {
-        grid.clear();
-    }
-
     $.ajax({
         url: '/admin/account/api/listSaleSearch',
         method: 'GET',
@@ -176,7 +155,7 @@ function search() {
             status: status
         },
         success: function(response) {
-
+            grid.clear();
             const searchInfo = response.searchInfo;
             console.log(searchInfo);
 
@@ -186,4 +165,17 @@ function search() {
         }
     })
 }
+
+window.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        search();
+    }
+});
+
+document.getElementById('keyword').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // 기본 Enter 키 이벤트를 방지합니다(예를 들어, 폼 제출)
+        search();
+    }
+});
 

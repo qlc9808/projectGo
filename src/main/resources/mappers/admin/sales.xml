@@ -4,10 +4,11 @@
 
 <mapper namespace="com.oracle.projectGo.paymentsMapper">
     <select id="listSales" resultType="Payments">
-        SELECT p.id, p.userId, p.contentId, p.paymentType, p.status, p.purchaseDate, p.price, u.name, g.title
-        FROM   payments p, users u, gamecontents g
-        WHERE  p.userid = u.id
-        AND    p.contentId = g.id
+        SELECT   p.id, p.userId, p.contentId, p.paymentType, p.status, p.purchaseDate, p.price, u.name, g.title
+        FROM     payments p, users u, gamecontents g
+        WHERE    p.userid = u.id
+        AND      p.contentId = g.id
+        ORDER BY p.id desc
 
     </select>
     <select id="listSalesCount" resultType="int">
@@ -15,8 +16,9 @@
         FROM   payments
     </select>
     <select id="saleSearchList" resultType="Payments">
-        SELECT p.id, p.userId, p.contentId, p.paymentType, p.status, p.purchaseDate, p.price, u.name, g.title
-        FROM   payments p, users u, gamecontents g
+        SELECT   p.id, p.userId, p.contentId, p.paymentType, p.status, p.purchaseDate, p.price, u.name, g.title
+        FROM     payments p, users u, gamecontents g
+        ORDER BY p.id desc
         <choose>
             <when test="status == 1">
                 <if test="searchType == 'user'">

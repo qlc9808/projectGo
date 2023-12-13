@@ -2,6 +2,7 @@ package com.oracle.projectGo.service;
 
 import com.oracle.projectGo.dao.AdminResourceDao;
 import com.oracle.projectGo.dto.EducationalResources;
+import com.oracle.projectGo.dto.Users;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,15 @@ public class AdminResourceService {
         return adminResourceDao.educationUpload(educationalResources);
     }
 
-    public List<EducationalResources> listEdu() {
-        return adminResourceDao.listEdu();
+    public List<EducationalResources> listEdu(Users users) {
+        return adminResourceDao.listEdu(users);
+    }
+
+    public int deleteEdu(int id) {
+        return adminResourceDao.deleteEdu(id);
+    }
+
+    public EducationalResources detailEdu(int id) {
+        return adminResourceDao.detailEdu(id);
     }
 }
