@@ -39,10 +39,19 @@ public class BoardService {
         return listnoticeBoard;
     }
 
+
+
     public void noticeInsert(Board board) {
+
+        /*if (board.getFile() != null) {
+            // 파일을 원하는 위치에 저장
+            storageService.store(board.getFile());
+        }*/
 
         int noticeBoardResult = 0;
         noticeBoardResult = boardDao.InsertnoticeBoard(board);
+
+
 
         if(noticeBoardResult <= 0) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "공지 정보 등록에 실패하였습니다.");

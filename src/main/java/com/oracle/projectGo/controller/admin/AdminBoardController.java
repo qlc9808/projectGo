@@ -9,7 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -74,11 +79,34 @@ public class AdminBoardController {
 
 
 	@RequestMapping(value = "/noticeInsert")
-	public String noticeInsert(Board board, Model model) {
+	public String noticeInsert(Board board, @RequestParam("publishDate") String publishDateStr, @RequestParam("publishOption") String publishOption, @RequestParam("isPinned") boolean isPinned,
+							   @RequestParam("file") MultipartFile file, Model model) {
 
 		try {
 			log.info("[{}]:{}", "admin noticeInsert", "start");
 
+			// 게시일자 처리
+			LocalDateTime publishDate;
+			if ("immediate".equals(publishOption)) {
+				publishDate = LocalDateTime.now();
+			} else {
+				publishDate = LocalDateTime.parse(publishDateStr, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+			}
+			board.setPublishDate(publishDate);
+
+			if (!file.isEmpty()) {
+				// 파일을 파일시스템에 저장
+				String filePath = "path/to/your/directory/" + file.getOriginalFilename();
+				File dest = new File(filePath);
+				file.transferTo(dest);
+
+				// 파일 경로를 Board에 설정
+				board.setFilePath(filePath);
+				board.setFileName(file.getOriginalFilename());
+			}
+
+
+			board.setIsPinned(isPinned);
 			board.setBoardType("1");
 			boardService.noticeInsert(board);
 

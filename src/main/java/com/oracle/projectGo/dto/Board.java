@@ -1,11 +1,14 @@
 package com.oracle.projectGo.dto;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
 public class Board {
+
     private int    id;              // 게시판ID
     private int    userId;          // 회원번호
     private String boardType;       // 게시판유형 공지:1, FAQ:2, QnA:3
@@ -13,9 +16,7 @@ public class Board {
     private String content;         // 내용
     private String status;          // 상태 공개:1, 비공개:0
     private int    readCount;       // 조회수
-    private String fileName;        // 파일이름
-    private int    fileSize;        // 파일용량
-    private String filePath;        // 저장경로
+
     private int    commentGroupId;  // 댓글그룹
     private int    commentIndent;   // 댓글밀기
     private String commentStep;     // 댓글최신
@@ -26,4 +27,24 @@ public class Board {
     private String pageNum;
     private int    start;
     private int    end;
+
+    /*스케줄 처리*/
+
+    private LocalDateTime publishDate;
+
+    /*파일 업로드*/
+    private String fileName;        // 파일이름
+    private int    fileSize;        // 파일용량
+    private String filePath;        // 저장경로
+
+    /*고정처리*/
+    private boolean isPinned;
+
+    public boolean getIsPinned() {
+        return this.isPinned;
+    }
+
+    public void setIsPinned(boolean isPinned) {
+        this.isPinned = isPinned;
+    }
 }
