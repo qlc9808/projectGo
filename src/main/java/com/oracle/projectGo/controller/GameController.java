@@ -102,7 +102,7 @@ public class GameController {
 //-------------------------------------------------------------------------
 
     // 게임컨텐츠 구독 전 모든 리스트 조회(운영자 화면)
-    @RequestMapping(value = "/gameSelect")
+    @RequestMapping(value = "/gameContentSelect")
     public String gameSelect(GameContents gameContents, String currentPage, Model model){
 
         // 총 갯수
@@ -121,7 +121,7 @@ public class GameController {
         gameContents.setEnd(page.getEnd());
         model.addAttribute("page", page);
 
-        return "admin/game/gameSelect";
+        return "admin/game/gameContentSelect";
     }
 
 

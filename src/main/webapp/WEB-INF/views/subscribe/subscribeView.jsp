@@ -15,7 +15,7 @@
             <%-- 이곳에 작성을 해주세요 --%>
             <h5>컨텐츠 조회 및 구독 신청</h5>
 
-            <form action="/payment/gameSubscribeClick" method="post">
+            <form action="/payment/subscribeClick" method="post">
                 <table border="1">
                     <tr>
                         <th>구독</th> <th>No.</th> <th>콘텐츠 이미지</th> <th>가격/구독기간</th> <th>상품소개</th>

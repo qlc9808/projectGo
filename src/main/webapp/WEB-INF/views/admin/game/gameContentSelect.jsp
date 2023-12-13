@@ -42,15 +42,15 @@
 
             <!-- 페이징 작업 -->
             <c:if test="${page.startPage > page.pageBlock}">
-                <a href="gameSelect?currentPage=${page.startPage - page.pageBlock}">[이전]</a>
+                <a href="gameContentSelect?currentPage=${page.startPage - page.pageBlock}">[이전]</a>
             </c:if>
 
             <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-                <a href="gameSelect?currentPage=${i}">[${i}]</a>
+                <a href="gameContentSelect?currentPage=${i}">[${i}]</a>
             </c:forEach>
 
             <c:if test="${page.endPage < page.totalPage}">
-                <a href="gameSelect?currentPage=${page.startPage + page.pageBlock}">[다음]</a>
+                <a href="gameContentSelect?currentPage=${page.startPage + page.pageBlock}">[다음]</a>
             </c:if>
 
 
