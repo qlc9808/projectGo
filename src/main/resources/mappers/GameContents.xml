@@ -33,16 +33,15 @@
           order by    subscriblestart desc
     </select>
 
-<!-- 버전1
-    <select id="gameContentsListByIds" parameterType="java.util.List" >
+    <select id="gameContentsListByIds"  parameterType="java.util.List" resultType="GameContents" >
         SELECT *
         FROM gameContents
         WHERE id IN
-        <foreach item="item" index="index" collection="int" open="(" separator="," close=")">
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
             #{item}
         </foreach>
     </select>
--->
+
     <select id="gameContentsById" parameterType="int" resultType="GameContents">
         SELECT  *
         FROM    gameContents
