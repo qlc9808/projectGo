@@ -3,13 +3,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.oracle.projectGo.learningGroupMapper">
-    <select id="NoTotalLearningContentCnt" resultType="int">
-        SELECT COUNT(*) FROM gameContents
+    <select id="NoTotalLearningContentCnt" parameterType="int" resultType="int">
+        SELECT  COUNT(*)
+        FROM    gameContents
+        WHERE   userId = #{userId}
     </select>
 
-    <select id="NoLearningContentList" resultType="GameContents">
+    <select id="NoLearningContentList" parameterType="int" resultType="GameContents">
         SELECT *
-        FROM gamecontents
+        FROM   gamecontents
+        WHERE  userId = #{userId}
 
 --         SELECT  a.id, a.contentid, a.userid, a.name, a.startdate, a.enddate, a.availableslots,
 --                 b.id, b.title, b.subscribedate, b.gamelevel, b.maxsubscribers, b.content,
@@ -30,12 +33,15 @@
     </insert>
 
     <select id="NoTotalLearningGroupCnt" resultType="int">
-        SELECT COUNT(*) FROM learningGroup
+        SELECT COUNT(*)
+        FROM   learningGroup
+        WHERE  userId = #{userId}
     </select>
 
-    <select id="NoLearningGroupList" resultType="LearningGroup">
+    <select id="NoLearningGroupList" parameterType="int" resultType="LearningGroup">
         SELECT *
-        FROM learninggroup
+        FROM   learninggroup
+        WHERE  userId = #{userId}
     </select>
 
     <select id="NoDetailLearningGroup" parameterType="learningGroup" resultType="LearningGroup">

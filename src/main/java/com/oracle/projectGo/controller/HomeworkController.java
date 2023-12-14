@@ -2,9 +2,11 @@ package com.oracle.projectGo.controller;
 
 import com.oracle.projectGo.dto.Homeworks;
 import com.oracle.projectGo.dto.LearningGroup;
+import com.oracle.projectGo.dto.Users;
 import com.oracle.projectGo.service.HomeworkService;
 import com.oracle.projectGo.service.LearningGroupService;
 import com.oracle.projectGo.service.Paging;
+import com.oracle.projectGo.service.UsersService;
 import com.oracle.projectGo.utils.error.BusinessException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,7 @@ import java.util.UUID;
 public class HomeworkController {
     private final HomeworkService homeworkService;
     private final LearningGroupService learningGroupService;
+    private final UsersService usersService;
 
     @RequestMapping(value = "insertHomeworkForm")
     public String insertHomeworkForm(Homeworks homework, String currentPage, Model model, RedirectAttributes redirectAttributes) {
@@ -54,10 +57,12 @@ public class HomeworkController {
     @RequestMapping(value = "/distributeHomeworkForm")
     public String distributeHomeworkForm(Homeworks homework, Model model) {
 //        log.info(homework.toString());
+        Users users = usersService.getLoggedInUserInfo();
+        int userId = users.getId();
 
         /* TODO: 학습 그룹 리스트 받아오기 */
         LearningGroup learningGroup = new LearningGroup();
-        List<LearningGroup> learningGroupList = learningGroupService.learningGroupList();
+        List<LearningGroup> learningGroupList = learningGroupService.learningGroupList(userId);
 
         /* TODO: 숙제명에 따라 숙제를 받아오는 로직 */
         List<Homeworks> homeworkList = homeworkService.getHomeworksList(homework);

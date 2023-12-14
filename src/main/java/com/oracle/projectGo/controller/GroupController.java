@@ -34,14 +34,14 @@ public class GroupController {
     @RequestMapping(value = "listLearningContent")
     public String listlearningContent(GameContents gameContents, String currentPage, Model model) {
         Users users = usersService.getLoggedInUserInfo();
-        log.info("users : " + users.getName());
+        int userId = users.getId();
 
         try {
             // LearningContent Count 조회
-            int totalLearningContentCnt = groupService.totalLearningContentCnt();
+            int totalLearningContentCnt = groupService.totalLearningContentCnt(userId);
 
             // LearningContentList 조회
-            List<GameContents> learningContentList = groupService.learningContentList(gameContents);
+            List<GameContents> learningContentList = groupService.learningContentList(userId);
 
             // paging 처리
             Paging page = new Paging(totalLearningContentCnt, currentPage);
@@ -112,13 +112,16 @@ public class GroupController {
 
     @RequestMapping(value = "listLearningGroup")
     public String listLearningGroup(LearningGroup learningGroup, String currentPage, Model model) {
+        Users users = usersService.getLoggedInUserInfo();
+        int userId = users.getId();
+        log.info("userId : " + userId);
 
         try {
             // LearningGroup Count 조회
-            int totalLearningGroupCnt = groupService.totalLearningGroupCnt();
+            int totalLearningGroupCnt = groupService.totalLearningGroupCnt(userId);
             log.info("totalLearningGroupCnt : " + totalLearningGroupCnt);
 
-            List<LearningGroup> learningGroupList = groupService.learningGroupList();
+            List<LearningGroup> learningGroupList = groupService.learningGroupList(userId);
             log.info("learningGroupList : " + learningGroupList);
 
             // paging 처리

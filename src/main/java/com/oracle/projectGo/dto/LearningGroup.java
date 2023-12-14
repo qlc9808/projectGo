@@ -12,7 +12,7 @@ public class LearningGroup {
     private int    contentId;        // 게임번호
     private int    userId;           // 회원번호
     private String name;             // 그룹명
-    private Date startDate;          // 학습시작날짜
+    private Date   startDate;        // 학습시작날짜
     private Date   endDate;          // 학습종료날짜
     private int    groupSize;        // 등록가능인원
     private String etc1;             // 기타항목1

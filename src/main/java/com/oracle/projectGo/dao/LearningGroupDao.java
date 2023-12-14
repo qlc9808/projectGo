@@ -18,16 +18,16 @@ import java.util.Map;
 public class LearningGroupDao {
     private final SqlSession session;
 
-    public int totalLearningContentCnt() {
-
-        return session.selectOne("NoTotalLearningContentCnt");
+    public int totalLearningContentCnt(int userId) {
+        int totalLearningContentCnt = session.selectOne("NoTotalLearningContentCnt", userId);
+        return totalLearningContentCnt;
     }
 
-    public List<GameContents> learningContentList(GameContents gameContents) {
+    public List<GameContents> learningContentList(int userId) {
         List<GameContents> learningContentList = null;
 
         try {
-            learningContentList = session.selectList("NoLearningContentList", gameContents);
+            learningContentList = session.selectList("NoLearningContentList", userId);
             log.info("learningContentList : " + learningContentList);
         } catch (Exception e) {
             log.info("LearningGroupDao learningContentList e.getMessage() : " + e.getMessage());
@@ -58,15 +58,15 @@ public class LearningGroupDao {
         return insertLearningGroup;
     }
 
-    public int totalLearningGroupCnt() {
-        return session.selectOne("NoTotalLearningGroupCnt");
+    public int totalLearningGroupCnt(int userId) {
+        return session.selectOne("NoTotalLearningGroupCnt", userId);
     }
 
-    public List<LearningGroup> learningGroupList() {
+    public List<LearningGroup> learningGroupList(int userId) {
         List<LearningGroup> learningGroupList = null;
 
         try {
-            learningGroupList = session.selectList("NoLearningGroupList");
+            learningGroupList = session.selectList("NoLearningGroupList", userId);
         } catch (Exception e) {
             log.info("LearningGroupDao learningGroupList e.getMessage() : " + e.getMessage());
         }
