@@ -70,6 +70,11 @@ public class LearningGroupService {
         return groupDao.getGroupMembersByEducatorId(educatorId);
     }
 
+    public List<LearningGroup> signUpLearningGroup() {
+        return groupDao.signUpLearningGroup();
+    }
+
+
 
 
 }

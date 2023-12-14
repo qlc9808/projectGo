@@ -93,6 +93,15 @@ public class LearningGroupDao {
         return session.selectList("getGroupMembersByEducatorId",educatorId);
     }
 
-
+    public List<LearningGroup> signUpLearningGroup() {
+        List<LearningGroup> signUpLearningGroup = null;
+        try {
+            signUpLearningGroup = session.selectList("signUpLearningGroup");
+            log.info(signUpLearningGroup.toString());
+        } catch (Exception e) {
+            log.info(e.getMessage());
+        }
+        return signUpLearningGroup;
+    }
 
 }

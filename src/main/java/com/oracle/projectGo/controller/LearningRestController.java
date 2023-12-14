@@ -25,11 +25,11 @@ public class LearningRestController {
 
     @GetMapping("/api/signUpLearningGroup")
     @ResponseBody
-    public ResponseEntity<Map<Object, String>> signUpLearningGroup() {
-        Map<Object, String> response = new HashMap<>();
+    public ResponseEntity<Map<String, Object>> signUpLearningGroup() {
+        Map<String, Object> response = new HashMap<>();
 
-        List<LearningGroup> learningGroupList = learningGroupService.learningGroupList();
-
+        List<LearningGroup> learningGroupList = learningGroupService.signUpLearningGroup();
+        response.put("learningGroupList", learningGroupList);
 
         return ResponseEntity.ok(response);
     }

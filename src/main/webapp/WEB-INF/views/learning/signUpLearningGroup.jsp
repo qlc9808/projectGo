@@ -24,7 +24,7 @@
     <%@ include file="/WEB-INF/components/TopBar.jsp"%>
     <main>
         <div class="d-flex">
-            <div class="col-second">s
+            <div class="col-second">
                 <%@ include file="/WEB-INF/components/LearningSidebar.jsp"%>
             </div>
         </div>
@@ -36,8 +36,6 @@
         </div>
     </main>
         <%@ include file="/WEB-INF/components/Footer.jsp"%>
+    <script src="/js/learning/signUpLearningGroup.js"></script>
 </body>
-<script>
-
-</script>
 </html>
