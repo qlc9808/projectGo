@@ -18,15 +18,15 @@
             <div class="container p-5">
                 <table class="table table-bordered">
                     <tr>
-                        <th class="col-2">학습그룹 : </th><td class="col-2">#</td>
+                        <th class="col-2">학습그룹 : </th><td class="col-2">${detailLearningGroup[0].name}</td>
                         <th class="col-2">게임콘텐츠 : </th><td class="d-flex">#</td>
                     </tr>
                     <tr>
-                        <th class="col-2">그룹제한인원 : </th><td class="col-2">#</td>
+                        <th class="col-2">그룹제한인원 : </th><td class="col-2">${detailLearningGroup[0].groupSize}</td>
                         <th class="col-2">그룹가입인원 : </th><td class="d-flex">#</td>
                     </tr>
                     <tr>
-                        <th class="col-2">그룹가입내역 : </th><td class="col-2">#</td>
+                        <th colspan="4">그룹가입내역 : </th>
                     </tr>
                 </table>
             </div>

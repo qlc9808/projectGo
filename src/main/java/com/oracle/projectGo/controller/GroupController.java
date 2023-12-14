@@ -31,6 +31,7 @@ public class GroupController {
     private final LearningGroupService groupService;
     private final UsersService usersService;
 
+    // 로그인한 회원(교육자)이 소유한 게임콘텐츠 리스트 조회
     @RequestMapping(value = "listLearningContent")
     public String listlearningContent(GameContents gameContents, String currentPage, Model model) {
         Users users = usersService.getLoggedInUserInfo();
@@ -59,6 +60,7 @@ public class GroupController {
         return "educate/learningGroup/listLearningContent";
     }
 
+    // 게임콘텐츠에서 그룹을 생성하는 폼
     @RequestMapping(value = "insertFormLearningContent")
     public String insertFormLearningContent(int id, Model model){
         log.info("id : " + id);
@@ -77,6 +79,7 @@ public class GroupController {
         return "educate/learningGroup/insertFormLearningContent";
     }
 
+    // 게임콘텐츠에서 그룹을 생성
     @RequestMapping(value = "insertLearningGroup", method = RequestMethod.POST)
     public String insertLearningGroup(@RequestParam("id")        int id,
                                       @RequestParam("userId")    int userId,
@@ -110,11 +113,11 @@ public class GroupController {
         return "redirect:/group/listLearningGroup";
     }
 
+    // 로그인한 유저(교육자)의 학습그룹 리스트 조회
     @RequestMapping(value = "listLearningGroup")
     public String listLearningGroup(LearningGroup learningGroup, String currentPage, Model model) {
         Users users = usersService.getLoggedInUserInfo();
         int userId = users.getId();
-        log.info("userId : " + userId);
 
         try {
             // LearningGroup Count 조회
@@ -141,6 +144,7 @@ public class GroupController {
         return "educate/learningGroup/listLearningGroup";
     }
 
+    // 학습그룹의 상세조회
     @RequestMapping(value = "detailLearningGroup")
     public String detailLearningGroup(LearningGroup learningGroup, Model model){
         log.info("learningGroup : " + learningGroup);
@@ -157,14 +161,15 @@ public class GroupController {
         return "educate/learningGroup/detailLearningGroup";
     }
 
+    //
     @RequestMapping(value = "approvalGroupMember")
     public String approvalGroupMember(int id, Model model, String currentPage) {
         Users users = usersService.getLoggedInUserInfo();
-        log.info("users : " + users.getName());
+        int userId = users.getId();
+        log.info("userId : " + userId);
 
-        log.info("id : " + id);
         try {
-            int totalApprovalGroupMemberCnt = groupService.totalApprovalGroupMemberCnt(id);
+            int totalApprovalGroupMemberCnt = groupService.totalApprovalGroupMemberCnt(userId);
             log.info("totalApprovalGroupMemberCnt : " + totalApprovalGroupMemberCnt);
 
 
