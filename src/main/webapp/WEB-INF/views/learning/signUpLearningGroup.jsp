@@ -14,23 +14,21 @@
         .d-flex {
             margin: auto;
         }
-        #main-content {
-            border: 0px solid red;
-            margin: auto auto auto 350px;
-        }
+        /*#main-content {*/
+        /*    border: 0px solid red;*/
+        /*    margin: auto auto auto 350px;*/
+        /*}*/
     </style>
 </head>
 <body>
     <%@ include file="/WEB-INF/components/TopBar.jsp"%>
     <main>
         <div class="d-flex">
-            <div class="col-second">
+            <div class="col-2">
                 <%@ include file="/WEB-INF/components/LearningSidebar.jsp"%>
             </div>
-        </div>
-        <div id="main-content" class="container p-5 col-10">
-            <h1 style="text-align: center; font-weight: bold;">학습그룹 가입신청</h1>
-            <div class="container border my-4 py-3">
+            <div id="main-content" class=" p-5 col-10">
+                <h1 style="text-align: center; font-weight: bold;">학습그룹 가입신청</h1>
                 <div id="grid1"></div>
             </div>
         </div>
