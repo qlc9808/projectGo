@@ -66,6 +66,7 @@
             </div>
         </div>
     </main>
+    <%@ include file="/WEB-INF/components/Footer.jsp"%>
 
 </body>
 </html>

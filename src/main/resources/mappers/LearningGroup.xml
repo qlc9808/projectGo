@@ -38,12 +38,20 @@
         FROM learninggroup
     </select>
 
-    <select id="NoDetailLearningGroup" parameterType="int" resultType="LearningGroup">
-        SELECT *
-        FROM   learninggroup a
-        Join   learninggroupmember b
-        ON     a.id = b.groupId
-        WHERE  a.id = #{id}
+    <select id="NoDetailLearningGroup" parameterType="learningGroup" resultType="LearningGroup">
+        SELECT  *
+        FROM    learninggroupmember a
+        JOIN    learninggroup b
+        ON      a.groupid = b.id
+        join    users c
+        on      a.userid = c.id
+        WHERE   a.groupid = #{id}
+    </select>
+
+    <select id="NoTotalApprovalGroupMemberCnt" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM learningGroupMember
+        WHERE groupId = #{id}
     </select>
 
 

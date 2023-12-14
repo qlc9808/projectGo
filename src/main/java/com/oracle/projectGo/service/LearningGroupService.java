@@ -56,9 +56,14 @@ public class LearningGroupService {
         return learningGroupList;
     }
 
-    public LearningGroup detailLearningGroup(int id) {
-        LearningGroup detailLearningGroup = groupDao.detailLearningGroup(id);
+    public List<LearningGroup> detailLearningGroup(LearningGroup learningGroup) {
+        List<LearningGroup> detailLearningGroup = groupDao.detailLearningGroup(learningGroup);
         return detailLearningGroup;
+    }
+
+    public int totalApprovalGroupMemberCnt(int id) {
+//        int totalApprovalGroupMemberCnt = groupDao.totalApprovalGroupMemberCnt(id);
+        return "";
     }
 
 

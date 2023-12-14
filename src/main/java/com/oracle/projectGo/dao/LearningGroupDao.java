@@ -73,11 +73,10 @@ public class LearningGroupDao {
         return learningGroupList;
     }
 
-    public LearningGroup detailLearningGroup(int id) {
-        LearningGroup detailLearningGroup = null;
+    public List<LearningGroup> detailLearningGroup(LearningGroup learningGroup) {
+        List<LearningGroup> detailLearningGroup = null;
         try {
-            detailLearningGroup = session.selectOne("NoDetailLearningGroup", id);
-
+            detailLearningGroup = session.selectList("NoDetailLearningGroup", learningGroup);
         } catch (Exception e) {
             log.info("LearningGroupDao detailLearningGroup e.getMessage() : " + e.getMessage());
         }

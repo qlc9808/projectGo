@@ -37,4 +37,11 @@ public class LearningGroup {
     private int    groupId;      // 그룹번호
     private String status;       // 승인여부 승인:1 , 미승인:0
     private Date   approvalDate; // 승인요청일자
+
+    /* users */
+    private String nickname;    // 아이디
+    private String address;     // 주소
+    private String phone;       // 연락처
+    private String email;       // 이메일
+    private Date   createdAt;   // 가입일자
 }

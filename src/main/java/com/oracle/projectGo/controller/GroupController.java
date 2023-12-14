@@ -139,10 +139,10 @@ public class GroupController {
     }
 
     @RequestMapping(value = "detailLearningGroup")
-    public String detailLearningGroup(int id, Model model){
-        log.info("id : " + id);
+    public String detailLearningGroup(LearningGroup learningGroup, Model model){
+        log.info("learningGroup : " + learningGroup);
         try {
-            LearningGroup detailLearningGroup = groupService.detailLearningGroup(id);
+            List<LearningGroup> detailLearningGroup = groupService.detailLearningGroup(learningGroup);
             log.info("detailLearningGroup : " + detailLearningGroup);
 
             model.addAttribute("detailLearningGroup", detailLearningGroup);
@@ -152,6 +152,27 @@ public class GroupController {
             log.info("GroupController detailLearningGroup end");
         }
         return "educate/learningGroup/detailLearningGroup";
+    }
+
+    @RequestMapping(value = "approvalGroupMember")
+    public String approvalGroupMember(int id, Model model, String currentPage) {
+        Users users = usersService.getLoggedInUserInfo();
+        log.info("users : " + users.getName());
+
+        log.info("id : " + id);
+        try {
+            int totalApprovalGroupMemberCnt = groupService.totalApprovalGroupMemberCnt(id);
+            log.info("totalApprovalGroupMemberCnt : " + totalApprovalGroupMemberCnt);
+
+
+            model.addAttribute("totalApprovalMemberCnt", totalApprovalGroupMemberCnt);
+        } catch (Exception e) {
+            log.error("GroupController approvalGroupMember e.getMessage() : " + e.getMessage());
+        } finally {
+            log.info("GroupController approvalGroupMember end");
+        }
+
+        return "educate/learningGroup/approvalGroupMember";
     }
 
 
