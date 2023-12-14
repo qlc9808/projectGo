@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.oracle.projectGo.LearningRequestMapper">
+    <insert id="requestSignUp" parameterType="LearningGroupMember">
+        INSERT INTO LearningGroupMember
+        VALUES (#{groupId}, #{userId}, 0, sysdate)
+    </insert>
+    <delete id="cancelSignUp" parameterType="LearningGroupMember">
+        DELETE LearningGroupMember
+        WHERE  groupId = #{groupId}
+        AND    userId =  #{userId}
+    </delete>
+    <select id="remainRequest" parameterType="int" resultType="LearningGroupMember">
+        SELECT *
+        FROM   LearningGroupMember
+        WHERE  userId = #{userId}
+    </select>
+</mapper>

@@ -17,7 +17,6 @@
                 FROM   EducationalResources e
                 JOIN   GameContents g ON e.contentId = g.id
                 WHERE  e.servicetype = 1
-                ORDER by e.id desc
                 <if test="id != 0">
                     UNION
                     SELECT e.id, e.contentId, e.userId, e.title, e.resourceType, e.fileType, e.fileAddress, e.serviceType, e.content, e.image, e.readCount, e.createdAt, e.updatedAt, g.title as gameTitle
@@ -26,7 +25,7 @@
                     JOIN   users u ON u.id = l.userId
                     JOIN   GameContents g ON e.contentId = g.id
                     WHERE u.id = #{id}
-                    AND   e.serviceType = 2;
+                    AND   e.serviceType = 2
                 </if>
             </when>
             <otherwise>

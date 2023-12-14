@@ -1,15 +1,16 @@
 package com.oracle.projectGo.controller;
 
 import com.oracle.projectGo.dto.LearningGroup;
+import com.oracle.projectGo.dto.LearningGroupMember;
+import com.oracle.projectGo.dto.Users;
 import com.oracle.projectGo.service.LearningGroupService;
+import com.oracle.projectGo.service.LearningRequestService;
+import com.oracle.projectGo.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,18 +25,64 @@ import java.util.Map;
 @RequestMapping(value = "/learning")
 public class LearningRestController {
     private final LearningGroupService learningGroupService;
-
+    private final LearningRequestService learningRequestService;
+    private final UsersService usersService;
 
     @GetMapping("/api/signUpLearningGroup")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> signUpLearningGroup() throws ParseException {
         Map<String, Object> response = new HashMap<>();
+        Users users = usersService.getLoggedInUserInfo();
+        int userId = users.getId();
 
         List<LearningGroup> learningGroupList = learningGroupService.signUpLearningGroup();
         formatDate(learningGroupList);
         log.info(learningGroupList.toString());
+        LearningGroupMember member = learningRequestService.remainRequest(userId);
+        int result = 0;
+        if (member != null) {
+            result = 1;
+        }
 
         response.put("learningGroupList", learningGroupList);
+        response.put("userType", users.getUserType());
+        response.put("result", result);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/api/requestSignUp")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> requestSignUp(int groupId) {
+        Users users = usersService.getLoggedInUserInfo();
+        int userId = users.getId();
+
+        Map<String, Object> response = new HashMap<>();
+        LearningGroupMember member = new LearningGroupMember();
+        member.setUserId(userId);
+        member.setGroupId(groupId);
+        int result = learningRequestService.requestSignUp(member);
+        log.info("성공여부->"+result);
+
+        response.put("result", result);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping(value = "/api/cancelSignUp")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> cancelSignUp(int groupId) {
+        Users users = usersService.getLoggedInUserInfo();
+        int userId = users.getId();
+
+        Map<String, Object> response = new HashMap<>();
+        LearningGroupMember member = new LearningGroupMember();
+        member.setUserId(userId);
+        member.setGroupId(groupId);
+        int result = learningRequestService.cancelSignUp(member);
+        log.info("성공여부->"+result);
+
+        response.put("result", result);
 
         return ResponseEntity.ok(response);
     }
