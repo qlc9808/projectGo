@@ -43,10 +43,8 @@ public class GameController {
 //-----------------------------------------------------------------
     @RequestMapping(value = "gameContent")
     public String gameContent(HttpServletRequest request){
-//        UserInfo user = (UserInfo) request.getSession().getAttribute("userInfo");
-
-        System.out.println("Dddd");
         System.out.println(request.getSession());
+
         return "admin/game/gameContentInsert";
     }
 
@@ -59,9 +57,8 @@ public class GameController {
 
         // file upload
         String uploadPath = request.getServletContext().getRealPath("/upload/gameContents/");
-        String saveName = uploadFile(file1.getOriginalFilename(), file1.getBytes(), uploadPath);  // 저장되는 파일명
-        log.info("saveName: " + saveName);
-
+        String saveName = uploadFile(file1.getOriginalFilename(), file1.getBytes(), uploadPath);
+        log.info("saveName: " + saveName);                              // 저장되는 파일명
         log.info("originalName : " + file1.getOriginalFilename());		// 원본 파일명
         log.info("size : "         + file1.getSize());					// 파일 사이즈
         log.info("contextType : "  + file1.getContentType());			// 파일 타입
@@ -119,16 +116,16 @@ public class GameController {
         System.out.println("GameController gameContentsTotalCount-> " + gameContentsTotalCount);
         model.addAttribute("gameContentsTotalCount", gameContentsTotalCount);
 
-        // 리스트 조회
-        List<GameContents> gameContentsList = gs.gameContentsList(gameContents);
-        System.out.println("GameController gameContentsList.size()-> " + gameContentsList.size());
-        model.addAttribute("gameContentsList", gameContentsList);
-
         // 페이징 작업
         Paging page = new Paging(gameContentsTotalCount, currentPage);
         gameContents.setStart(page.getStart());
         gameContents.setEnd(page.getEnd());
         model.addAttribute("page", page);
+
+        // 리스트 조회
+        List<GameContents> gameContentsList = gs.gameContentsList(gameContents);
+        System.out.println("GameController gameContentsList.size()-> " + gameContentsList.size());
+        model.addAttribute("gameContentsList", gameContentsList);
 
         return "admin/game/gameContentSelect";
     }

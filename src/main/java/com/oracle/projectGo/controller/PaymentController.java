@@ -46,7 +46,7 @@ public class PaymentController {
     // 구독 신청 - 리스트에서 구독할 컨텐츠 클릭한 값들 처리
     @RequestMapping(value = "/subscribeClick", method = RequestMethod.POST)
     public String gameSubscribePay(@RequestParam List<Integer> gameIds, Model model){
-        log.info("gameIds: {}", gameIds);
+        log.info("gameIds: {}", gameIds); // 1차인지 2차 배열인지 확인하기
 
         // 로그인 한 유저 정보 = 구매자 정보
         Users users = us.getLoggedInUserInfo();
@@ -90,23 +90,26 @@ public class PaymentController {
         System.out.println("PaymentController subscriblePay !");
         System.out.println("gameIds 리스트-> " + gameIds);
 
+        // 로그인 한 유저 정보 = 구매자 정보
+        Users users = us.getLoggedInUserInfo();
+        log.info("로그인 loginUserId : {}", users.getId());
+        int loginUserId = users.getId();
+
         // xml 에서 insert 문 한 번만 싫행 : 서비스에서 for문으로 돌아서 구독 신청한 게임id 갯수 만큼 같은 dao가 호출
         // --> 서비스에서 트렌젝션 걸어야 함
-
-        // 리스트를 배열로 변환
-//        List<Integer> gameIdsArr = new ArrayList<>();
-//        System.out.println(gameIdsArr);
 
         // 결제하기 클릭 후 payments 테이블에 insert
         for(String gameId : gameIds){
             Payments payments = new Payments();
+            payments.setUserId(loginUserId);
             payments.setContentId(Integer.parseInt(gameId));
             payments.setPaymentType(paymentType);
 
-            // 서비스 연결
+        //    int subscriblePayInsert = ps.subscriblePayInsert(payments);
         }
 
         // 로그인 한 유저의 구독 상품 조회
+        // 서비스 만들기
 
         return "redirect:/subscribe/subscribeUserPay";
     }
