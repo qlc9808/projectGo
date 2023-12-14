@@ -103,4 +103,8 @@ public class LearningGroupDao {
         return signUpLearningGroup;
     }
 
+    public int totalApprovalGroupMemberCnt(int id) {
+        int totalApprovalGroupMemberCnt = session.selectOne("NoTotalApprovalGroupMemberCnt",id);
+        return totalApprovalGroupMemberCnt;
+    }
 }

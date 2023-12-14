@@ -62,8 +62,8 @@ public class LearningGroupService {
     }
 
     public int totalApprovalGroupMemberCnt(int id) {
-//        int totalApprovalGroupMemberCnt = groupDao.totalApprovalGroupMemberCnt(id);
-        return "";
+        int totalApprovalGroupMemberCnt = groupDao.totalApprovalGroupMemberCnt(id);
+        return totalApprovalGroupMemberCnt;
     }
 
 
