@@ -6,6 +6,7 @@
     <script>
         function changePageSize() {
             var pageSize = document.getElementById("pageSize").value;
+            document.cookie = "pageSize=" + pageSize;
             location.href = "noticeBoardList?pageSize=" + pageSize; // 현재 URL을 수정해야 합니다.
         }
     </script>
@@ -21,9 +22,16 @@
         <div class="container col-9 justify-content-center align-items-center mb-2 p-3 pt-0">
             <div class="container d-flex justify-content-end p-0">
                 <select id="pageSize" onchange="changePageSize()">
-                    <option value="10">10개씩 보기</option>
-                    <option value="20">20개씩 보기</option>
-                    <option value="30">30개씩 보기</option>
+                    <c:forEach var="size" items="${['10', '20', '30']}">
+                        <c:choose>
+                            <c:when test="${param.pageSize eq size or (empty param.pageSize and size eq '10')}">
+                                <option value="${size}" selected>${size}개씩 보기</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${size}">${size}개씩 보기</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
                 </select>
                 <button id="regist-btn" type="button" class="btn btn-primary btn-sm mb-4" onclick="location.href='noticeInsertForm'">등록</button>
             </div>
@@ -31,6 +39,7 @@
                 <div class="table-responsive">
                     <table id="userTable" class="table table-md text-center p-3">
                         <thead>
+                        <h1>공지 리스트</h1>
                         <tr>
                             <th scope="col">순번</th>
                             <th scope="col">분류</th>
@@ -73,17 +82,17 @@
                     <c:when test="${path ==0}">
                         <c:if test="${page.startPage > page.pageBlock}">
                             <li class="page-item">
-                                <a href="noticeBoardList?currentPage=${page.startPage-page.pageBlock}"
+                                <a href="noticeBoardList?pageSize=${pageSize}&currentPage=${page.startPage-page.pageBlock}"
                                    class="pageblock page-link">[이전]</a></li>
                         </c:if>
                         <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
                             <li class="page-item">
-                                <a href="noticeBoardList?currentPage=${i}" class="pageblock page-link ${page.currentPage == i ? 'active':'' }">${i}</a>
+                                <a href="noticeBoardList?pageSize=${pageSize}&currentPage=${i}" class="pageblock page-link ${page.currentPage == i ? 'active':'' }">${i}</a>
                             </li>
                         </c:forEach>
                         <c:if test="${page.endPage < page.totalPage}">
                             <li class="page-item">
-                                <a href="noticeBoardList?currentPage=${page.startPage+page.pageBlock}"
+                                <a href="noticeBoardList?pageSize=${pageSize}&currentPage=${page.startPage+page.pageBlock}"
                                    class="pageblock page-link">[다음]</a></li>
                         </c:if>
                     </c:when>

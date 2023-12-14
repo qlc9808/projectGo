@@ -35,7 +35,7 @@ public class AdminBoardController {
 		if (pageSize == null) {
 			pageSize = 10; // 기본값 설정
 		}
-
+		log.info("PageSize: " + pageSize);
 
 		try {
 			log.info("[{}]:{}", "Noticeboard", "start");
@@ -51,7 +51,7 @@ public class AdminBoardController {
 
 			List<Board> listnoticeBoard = boardService.listnoticeBoard(board);
 
-
+			model.addAttribute("pageSize", pageSize);
 			model.addAttribute("totalnoticeboard", totalnoticeboard);
 			model.addAttribute("listnoticeBoard", listnoticeBoard);
 			model.addAttribute("page", page);
@@ -92,13 +92,12 @@ public class AdminBoardController {
 	public String noticeInsert(@ModelAttribute Board board, @RequestParam("publishDate") String publishDateStr, @RequestParam("publishOption") String publishOption, @RequestParam("isPinned") boolean isPinned,
 							   @RequestParam("file") MultipartFile file, Model model) {
 
-		board.setUserId(0);
+		board.setUserId(1);
 		log.info("userId: {}", board.getUserId());
 
 
 		try {
 			log.info("[{}]:{}", "admin noticeInsert", "start");
-			log.info("userId: {}", board.getUserId());
 
 			// 게시일자 처리
 			LocalDateTime publishDate;
@@ -137,7 +136,7 @@ public class AdminBoardController {
 	@RequestMapping(value = "/noticeInsertForm")
 	public String noticeInsertForm(Board board, Model model) {
 
-		board.setUserId(0);
+		board.setUserId(1);
 		log.info("userId: {}", board.getUserId());
 
 

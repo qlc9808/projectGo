@@ -11,11 +11,13 @@ public class BoardPaging {
     private int total;				private int totalPage;
     int pageSize;
 
-    public BoardPaging(int totalRecord, String currentPage1, int pageSize) {
+    public BoardPaging(int total, String currentPage1, int pageSize) {
         this.total = total;  //140
+        this.rowPage = pageSize;
+
         if (currentPage1 != null) {
             this.currentPage = Integer.parseInt(currentPage1); // 2
-            this.pageSize = pageSize;
+
         }
         //				1				10
         start 	= (currentPage - 1) * rowPage + 1;	//시작시  1	11

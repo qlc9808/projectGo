@@ -15,7 +15,7 @@
     <form action="noticeInsert" method="post" enctype="multipart/form-data">
         <H1>개시등록</H1>
 
-        <input type="hidden" id="userId" name="userId">
+
         <label for="title">제목</label>
         <input type="text" id="title" name="title" required>
 
