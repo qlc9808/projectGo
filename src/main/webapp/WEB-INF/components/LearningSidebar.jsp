@@ -43,10 +43,10 @@
     <ul class="nav flex-column mt-5 pt-4">
         <li class="nav-item my-page-nav-item">
             <div>
-                <a href="/learning/learningSign"
+                <a href="/learning/signUpLearningGroup"
                    class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi-person-check-fill px-3"></i>
-                    그룹 가입 신청
+                    학습그룹 가입신청
                 </a>
             </div>
         </li>

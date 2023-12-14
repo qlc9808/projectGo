@@ -54,7 +54,7 @@
                     <ul class="navbar-nav">
                         <li class="nav-item"><a class="nav-link app-nav-link" href="/festival">이용안내</a></li>
                         <li class="nav-item"><a class="nav-link app-nav-link" href="/restaurant">구독서비스</a></li>
-                        <li class="nav-item"><a class="nav-link app-nav-link" href="/accomodation">학습서비스</a></li>
+                        <li class="nav-item"><a class="nav-link app-nav-link" href="/learning/signUpLearningGroup">학습서비스</a></li>
                         <li class="nav-item"><a class="nav-link app-nav-link" href="/group/listLearningContent">교육자마당</a></li>
                         <li class="nav-item"><a class="nav-link app-nav-link" href="/experience">운영마당</a></li>
                     </ul>

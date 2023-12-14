@@ -16,7 +16,7 @@
         }
         #main-content {
             border: 0px solid red;
-            margin: auto auto auto 400px;
+            margin: auto auto auto 350px;
         }
     </style>
 </head>
@@ -25,11 +25,14 @@
     <main>
         <div class="d-flex">
             <div class="col-second">s
-                <%@ include file="/WEB-INF/components/Sidebar.jsp"%>
+                <%@ include file="/WEB-INF/components/LearningSidebar.jsp"%>
             </div>
         </div>
         <div id="main-content" class="container p-5 col-10">
-            <h1>학습정보등록ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</h1>
+            <h1 style="text-align: center; font-weight: bold;">학습그룹 가입신청</h1>
+            <div class="container border my-4 py-3">
+                <div id="grid1"></div>
+            </div>
         </div>
     </main>
         <%@ include file="/WEB-INF/components/Footer.jsp"%>

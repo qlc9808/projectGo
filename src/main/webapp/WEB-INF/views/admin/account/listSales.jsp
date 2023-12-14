@@ -24,8 +24,8 @@
         border-radius: 16px;
     }
     #chart-area {
-        width: 110%;
-        height: 1000px;
+        width: 100%;
+        height: 700px;
     }
 </style>
 <body>
@@ -38,26 +38,28 @@
         </div>
         <div id="main-content" class="container p-5 col-10">
             <h1 style="text-align: center;">매출 정보 조회(관리자입장)</h1>
-            <div id="search" style="display: flex; align-items: end; justify-content: end;">
-                <div class="search-form">
-                    기간조회:&nbsp;&nbsp;
-                    <input type="date" name="keyword" id="keywordDate1" style="border-radius: 5px;">&nbsp;-&nbsp;
-                    <input type="date" name="keyword" id="keywordDate2" style="margin-right: 100px; border-radius: 5px;">
+            <div class="container border my-4 py-3">
+                <div id="search" style="display: flex; align-items: end; justify-content: end;">
+                    <div class="search-form">
+                        기간조회:&nbsp;&nbsp;
+                        <input type="date" name="keyword" id="keywordDate1" style="border-radius: 5px;">&nbsp;-&nbsp;
+                        <input type="date" name="keyword" id="keywordDate2" style="margin-right: 100px; border-radius: 5px;">
 
-                    카테고리:&nbsp;&nbsp;
-                    <select id="searchType" style="margin-right: 100px;">
-                        <option value="content" selected="selected">게임</option>
-                        <option value="user">이름</option>
-                    </select>
+                        카테고리:&nbsp;&nbsp;
+                        <select id="searchType" style="margin-right: 100px;">
+                            <option value="content" selected="selected">게임</option>
+                            <option value="user">이름</option>
+                        </select>
 
-                    검색:&nbsp;&nbsp;
-                    <input type="text" name="keyword" id="keyword" style="border-radius: 5px;">
-                    <button id="btnSearch2" onclick="search()" style="border-radius: 5px;">조회</button>
+                        검색:&nbsp;&nbsp;
+                        <input type="text" name="keyword" id="keyword" style="border-radius: 5px;">
+                        <button id="btnSearch2" onclick="search()" style="border-radius: 5px;">조회</button>
+                    </div>
                 </div>
+                <div id="grid1"></div>
+                <div id="chart-area"></div>
             </div>
-            <div id="grid1"></div>
-            <div></div>
-            <div id="chart-area"></div>
+
         </div>
     </main>
     <%@ include file="/WEB-INF/components/Footer.jsp"%>

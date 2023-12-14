@@ -1,0 +1,25 @@
+.detailEdu-header {
+    border-bottom: 2px solid black;
+    height: 100px;
+    display: flex;
+}
+.detailEdu-header > .detailEdu-title {
+    border: 0px solid red;
+    height: 100%;
+    width: 85%;
+}
+.detailEdu-header > .detailEdu-object {
+    border: 0px solid red;
+    height: 100%;
+    width: 15%;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+}
+.detailEdu-header > .detailEdu-object button {
+    border: 0px solid black;
+}
+.detailEdu-header > .detailEdu-object button:hover {
+    opacity: 0.6; transition: 0.2s all;
+}
+

@@ -21,9 +21,9 @@ import java.util.List;
 public class LearningController {
     private final HomeworkService homeworkService;
 
-    @RequestMapping("/learningSign")
+    @RequestMapping("/signUpLearningGroup")
     public String test(){
-        return "learning/learningSign";
+        return "learning/signUpLearningGroup";
     }
 
     @RequestMapping(value = "submitHomeworkForm")
