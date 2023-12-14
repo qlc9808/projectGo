@@ -1,56 +1,89 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: gyuco
-  Date: 2023-12-05
-  Time: 오후 2:45
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <html>
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function changePageSize() {
+            var pageSize = document.getElementById("pageSize").value;
+            location.href = "noticeBoardList?pageSize=" + pageSize; // 현재 URL을 수정해야 합니다.
+        }
+    </script>
+
     <%@ include file="/WEB-INF/components/Header.jsp"%>
+
     <title>Title</title>
 </head>
 <body>
     <%@ include file="/WEB-INF/components/TopBar.jsp"%>
     <main>
         <%@ include file="/WEB-INF/components/Sidebar.jsp"%>
-        <div id="main-content">
-            <h1>공지사항</h1>
+        <div class="container col-9 justify-content-center align-items-center mb-2 p-3 pt-0">
+            <div class="container d-flex justify-content-end p-0">
+                <select id="pageSize" onchange="changePageSize()">
+                    <option value="10">10개씩 보기</option>
+                    <option value="20">20개씩 보기</option>
+                    <option value="30">30개씩 보기</option>
+                </select>
+                <button id="regist-btn" type="button" class="btn btn-primary btn-sm mb-4" onclick="location.href='noticeInsertForm'">등록</button>
+            </div>
+            <div class="container table-container p-4">
+                <div class="table-responsive">
+                    <table id="userTable" class="table table-md text-center p-3">
+                        <thead>
+                        <tr>
+                            <th scope="col">순번</th>
+                            <th scope="col">분류</th>
+                            <th scope="col">제목</th>
+                            <th scope="col">작성자</th>
+                            <th scope="col">등록일시</th>
+                            <th scope="col">조회수</th>
+                            <th scope="col">댓글수</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        <c:set var="num" value="${page.start}"/>
+                        <c:forEach var="notice" items="${listnoticeBoard}" varStatus="st">
+                            <tr id="notice${st.index}">
+                                <td><input type="hidden" value="${notice.id}" id="id${st.index}">${num}</td>
+                                <td>
+                                <c:choose>
+                                    <c:when test="${notice.boardType == 1}">공지</c:when>
+                                    <c:when test="${notice.boardType == 2}">FAQ</c:when>
+                                    <c:when test="${notice.boardType == 3}">QnA</c:when>
+                                </c:choose>
+                                </td>
+                                <td><a href="noticeDetail?id=${notice.id}">${notice.title}</a></td>
+                                <td>${notice.userId}</td>
+                                <td><fmt:formatDate value="${notice.createdAt}" type="date" pattern="YY/MM/dd"/></td>
+                                <td>${notice.readCount}</td>
+                                <td>???</td>
 
-            <table>
-                <tr>
-                    <th>제목</th>
-                    <th>작성일</th>
-                    <th>조회수</th>
-                </tr>
-                <c:forEach items="${listnoticeBoard}" var="board">
-                    <tr>
-                        <td><a href="noticeDetail?id=${board.id}">${board.title}</a></td>
-                        <td>${board.createdAt}</td>
-                        <td>${board.readCount}</td>
-                    </tr>
-                </c:forEach>
-            </table>
+                            </tr>
+                            <c:set var="num" value="${num + 1}"/>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-        </div>
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <c:choose>
                     <c:when test="${path ==0}">
                         <c:if test="${page.startPage > page.pageBlock}">
                             <li class="page-item">
-                                <a href="admin/noticeBoardList?currentPage=${page.startPage-page.pageBlock}"
+                                <a href="noticeBoardList?currentPage=${page.startPage-page.pageBlock}"
                                    class="pageblock page-link">[이전]</a></li>
                         </c:if>
                         <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
                             <li class="page-item">
-                                <a href="admin/noticeBoardList?currentPage=${i}" class="pageblock page-link ${page.currentPage == i ? 'active':'' }">${i}</a>
+                                <a href="noticeBoardList?currentPage=${i}" class="pageblock page-link ${page.currentPage == i ? 'active':'' }">${i}</a>
                             </li>
                         </c:forEach>
                         <c:if test="${page.endPage < page.totalPage}">
                             <li class="page-item">
-                                <a href="admin/noticeBoardList?currentPage=${page.startPage+page.pageBlock}"
+                                <a href="noticeBoardList?currentPage=${page.startPage+page.pageBlock}"
                                    class="pageblock page-link">[다음]</a></li>
                         </c:if>
                     </c:when>
@@ -74,6 +107,7 @@
                 </c:choose>
             </ul>
         </nav>
+        </div>
     </main>
     <%@ include file="/WEB-INF/components/Footer.jsp"%>
 </body>

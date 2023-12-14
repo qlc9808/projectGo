@@ -3,18 +3,19 @@ package com.oracle.projectGo.service;
 import lombok.Data;
 
 @Data
-public class Paging {
+public class BoardPaging {
     private int currentPage = 1;	private int rowPage = 10;
     private int pageBlock   = 10;
     private int start;				private int end;
     private int startPage;			private int endPage;
     private int total;				private int totalPage;
+    int pageSize;
 
-
-    public Paging(int total, String currentPage1) {
+    public BoardPaging(int totalRecord, String currentPage1, int pageSize) {
         this.total = total;  //140
         if (currentPage1 != null) {
             this.currentPage = Integer.parseInt(currentPage1); // 2
+            this.pageSize = pageSize;
         }
         //				1				10
         start 	= (currentPage - 1) * rowPage + 1;	//시작시  1	11

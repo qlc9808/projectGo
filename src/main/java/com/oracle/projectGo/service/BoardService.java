@@ -186,4 +186,8 @@ public class BoardService {
 
         return FAQDelete;
     }
+
+    public void increaseReadCount(int id) {
+        boardDao.increaseReadCount(id);
+    }
 }

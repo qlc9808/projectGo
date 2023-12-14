@@ -277,4 +277,8 @@ public class BoardDao {
 
         return FAQDelete;
     }
+
+    public void increaseReadCount(int id) {
+        session.update("increaseReadCount", id);
+    }
 }

@@ -1,6 +1,7 @@
 package com.oracle.projectGo.controller.admin;
 
 import com.oracle.projectGo.dto.Board;
+import com.oracle.projectGo.service.BoardPaging;
 import com.oracle.projectGo.service.BoardService;
 import com.oracle.projectGo.service.Paging;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,7 +30,12 @@ public class AdminBoardController {
 
 	//공지사항 리스트
 	@RequestMapping(value = "/noticeBoardList")
-	public String noticeBoardList(Board board, String currentPage, Model model) {
+	public String noticeBoardList(Integer pageSize, Board board, String currentPage, Model model) {
+
+		if (pageSize == null) {
+			pageSize = 10; // 기본값 설정
+		}
+
 
 		try {
 			log.info("[{}]:{}", "Noticeboard", "start");
@@ -37,9 +44,10 @@ public class AdminBoardController {
 
 			int totalnoticeboard = boardService.totalnoticeboard();
 
-			Paging page = new Paging(totalnoticeboard, currentPage);
+			BoardPaging page = new BoardPaging(totalnoticeboard, currentPage, pageSize);
 			board.setStart(page.getStart());
 			board.setEnd(page.getEnd());
+
 
 			List<Board> listnoticeBoard = boardService.listnoticeBoard(board);
 
@@ -65,6 +73,8 @@ public class AdminBoardController {
 			log.info("[{}]:{}", "admin noticeDetail", "start");
 			Board board = boardService.detailnotice(id);
 
+
+			boardService.increaseReadCount(id); // 조회수 증가
 			model.addAttribute("board", board);
 			model.addAttribute("currentPage", currentPage);
 
@@ -79,11 +89,16 @@ public class AdminBoardController {
 
 
 	@RequestMapping(value = "/noticeInsert")
-	public String noticeInsert(Board board, @RequestParam("publishDate") String publishDateStr, @RequestParam("publishOption") String publishOption, @RequestParam("isPinned") boolean isPinned,
+	public String noticeInsert(@ModelAttribute Board board, @RequestParam("publishDate") String publishDateStr, @RequestParam("publishOption") String publishOption, @RequestParam("isPinned") boolean isPinned,
 							   @RequestParam("file") MultipartFile file, Model model) {
+
+		board.setUserId(0);
+		log.info("userId: {}", board.getUserId());
+
 
 		try {
 			log.info("[{}]:{}", "admin noticeInsert", "start");
+			log.info("userId: {}", board.getUserId());
 
 			// 게시일자 처리
 			LocalDateTime publishDate;
@@ -116,11 +131,14 @@ public class AdminBoardController {
 			log.info("[{}]:{}", "admin noticeInsert", "end");
 		}
 
-			return "redirect:/admin/notice/notice";
+			return "redirect:/admin/board/noticeBoardList";
 	}
 
 	@RequestMapping(value = "/noticeInsertForm")
-	public String noticeInsertForm(Model model) {
+	public String noticeInsertForm(Board board, Model model) {
+
+		board.setUserId(0);
+		log.info("userId: {}", board.getUserId());
 
 
 		try {
@@ -191,7 +209,7 @@ public class AdminBoardController {
 	}
 
 	@RequestMapping(value = "/QNABoardList")
-	public String QNABoardList(Board board, String currentPage, Model model) {
+	public String QNABoardList(int pageSize, Board board, String currentPage, Model model) {
 
 		try {
 			log.info("[{}]:{}", "Noticeboard", "start");
@@ -200,7 +218,7 @@ public class AdminBoardController {
 
 			int totalQNAboard = boardService.totalQNAboard();
 
-			Paging page = new Paging(totalQNAboard, currentPage);
+			BoardPaging page = new BoardPaging(totalQNAboard, currentPage, pageSize);
 			board.setStart(page.getStart());
 			board.setEnd(page.getEnd());
 
