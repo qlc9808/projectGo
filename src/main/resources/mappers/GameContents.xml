@@ -6,19 +6,20 @@
 
     <!--게임콘텐츠 insert-->
     <insert id="gameContentInsert" parameterType="GameContents">
-        INSERT INTO GameContents(id, userId, title, imagename, imagepath,
+        INSERT INTO GameContents(
+                                 id, userId, title, imagename, imagepath,
                                  subscribeDate, gameLevel,
                                  maxSubscribers, content,
                                  subscribleStart, subscribleEnd,
                                  price, discountRate, discountPrice
-
-
-        )
-                        VALUES  (GAMECONTENTS_ID_SEQ.nextval, #{userId}, #{title},#{imagename},#{imagepath},
+                                )
+                        VALUES  (
+                                 GAMECONTENTS_ID_SEQ.nextval, #{userId}, #{title},#{imagename},#{imagepath},
                                  #{subscribeDate}, #{gameLevel},
                                  #{maxSubscribers}, #{content},
                                  #{subscribleStart}, #{subscribleEnd},
-                                 #{price}, #{discountRate},  #{discountPrice} )
+                                 #{price}, #{discountRate},  #{discountPrice}
+                                )
     </insert>
 
 

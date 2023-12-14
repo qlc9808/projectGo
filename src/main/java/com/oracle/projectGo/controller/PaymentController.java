@@ -21,7 +21,7 @@ import java.util.List;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping(value = "/payment")
+@RequestMapping(value = "/subscribe")
 public class PaymentController {
 
     private final UsersService us;
@@ -44,7 +44,6 @@ public class PaymentController {
 //-----------------------------------------------------------------
 
     // 구독 신청 - 리스트에서 구독할 컨텐츠 클릭한 값들 처리
-    // 교육자와 일반인만 구독할 수 있게 처리하기 !
     @RequestMapping(value = "/subscribeClick", method = RequestMethod.POST)
     public String gameSubscribePay(@RequestParam List<Integer> gameIds, Model model){
         log.info("gameIds: {}", gameIds);
@@ -72,7 +71,7 @@ public class PaymentController {
 
         // 나중에 아무 클릭 안하고 구독 하기 눌렀을 때 validation 커스텀으로 하기
         if(!gameContentsList.isEmpty()){
-            title = gameContentsList.get(0).getTitle()+"외 " + (gameContentsList.size()-1);
+            title = gameContentsList.get(0).getTitle() + " 외 " + (gameContentsList.size()-1);
         }
 
         model.addAttribute("gameIds", gameIds);
@@ -85,16 +84,31 @@ public class PaymentController {
 
 //-----------------------------------------------------------------
 
-    // 여기부터 하면 됨 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // 결제 - 결제 방법 선택 후 결제
-    @PostMapping(value = "subscriblePay")
-    public String subscriblePay(){
+    @PostMapping(value = "/subscriblePay")
+    public String subscriblePay(@RequestParam List<String> gameIds, @RequestParam String paymentType){
+        System.out.println("PaymentController subscriblePay !");
+        System.out.println("gameIds 리스트-> " + gameIds);
 
-        // 1. xml 에서 foreach문 비슷한 거 사용
-        // 2. xml 에서 insert 문 하나가 서비스에서 for문으로 돌아가서 구독 신청한 게임id 갯수만큼 돌아간만틈 같은 dao가 호출
+        // xml 에서 insert 문 한 번만 싫행 : 서비스에서 for문으로 돌아서 구독 신청한 게임id 갯수 만큼 같은 dao가 호출
         // --> 서비스에서 트렌젝션 걸어야 함
 
-        return "redirect:/subscribe/내 구독 상품 페이지";
+        // 리스트를 배열로 변환
+//        List<Integer> gameIdsArr = new ArrayList<>();
+//        System.out.println(gameIdsArr);
+
+        // 결제하기 클릭 후 payments 테이블에 insert
+        for(String gameId : gameIds){
+            Payments payments = new Payments();
+            payments.setContentId(Integer.parseInt(gameId));
+            payments.setPaymentType(paymentType);
+
+            // 서비스 연결
+        }
+
+        // 로그인 한 유저의 구독 상품 조회
+
+        return "redirect:/subscribe/subscribeUserPay";
     }
 
 

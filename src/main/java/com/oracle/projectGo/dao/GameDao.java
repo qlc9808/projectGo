@@ -26,7 +26,7 @@ public class GameDao {
         }catch(Exception e){
             System.out.println("GameDao gameContentInsert Exception-> " + e);
         }
-    return gameContentInsert;
+        return gameContentInsert;
     }
 
     // 총 갯수
@@ -40,7 +40,7 @@ public class GameDao {
         }catch(Exception e) {
             System.out.println("GameDao gameContentsTotalCount Exception-> " + e);
         }
-    return gameContentsTotalCount;
+        return gameContentsTotalCount;
     }
 
     // 리스트 조회
@@ -54,7 +54,7 @@ public class GameDao {
         }catch (Exception e){
             System.out.println("GameDao gameContentsList Exception-> " + e);
         }
-    return  gameContentsList;
+        return  gameContentsList;
     }
 
 //    버전1
@@ -73,7 +73,7 @@ public class GameDao {
         }catch (Exception e){
             System.out.println("GameDao gameContentsList Exception-> " + e);
         }
-    return getGameContentsById;
+        return getGameContentsById;
     }
 
 

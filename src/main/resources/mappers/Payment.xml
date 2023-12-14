@@ -4,5 +4,23 @@
 
 <mapper namespace="com.oracle.projectGo.PaymentsMapper">
 
+    <!-- 결제하기 클릭 후 payments 테이블에 insert (트렌젝션 사용 전) -->
+    <insert id="subscriblePay" parameterType="payments">
+        insert into paymetns (id,                       userid, contentid, paymenttype, status, purchasedate)
+                      values (PAYMENTS_ID_SEQ.nextval, #{userid}, #{contentid}, #{paymenttype}, 1, sysdate)
+    </insert>
+
+
+    <!-- 로그인 한 유저의 구독 상품 조회 -->
+<!--    <select id="" parameterType="payments" resultType="payments">
+        select  p.*, l.name
+        from    gamecontents g, learninggroup l, payments p
+        where   g.id = l.id
+        and     g.id = p.id
+        and     p.status = 1
+        and     p.userid = #{userid}
+    </select>-->
+
+
 
 </mapper>

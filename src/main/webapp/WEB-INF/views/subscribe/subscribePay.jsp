@@ -13,16 +13,17 @@
         </div>
         <div id="main-content" class="container p-5 col-10">
             <%-- 이곳에 작성을 해주세요 --%>
-            <%--${user.id}, ${user.name}, ${user.phone} 이 값들은 못 가지고 옴 --%>
 
             <h3>결제 선택 방법</h3>
             <h6>모바일에서도 신용카드, 무통장 입금 등 결제가 가능합니다.</h6><hr>
 
-            <form action="/payment/subscriblePay" method="post">
-                <input type="hidden" name="contentId" value="${gameIds}"/>
-                구독한 게임 아이디(여러 개 가능) : ${gameIds}
+            <form action="/subscribe/subscriblePay" method="post">
 
-                <table>
+                <input type="hidden" name="gameIds" value="${gameIds}"/>
+                <%--<input type="hidden" name="gameIds" value="${fn:join(gameIds, ',')}" />--%>
+                확인용 - 구독한 게임 아이디(여러 개 가능) : ${gameIds}
+
+                <table class="table table-bordered">
                     <tr>
                         <th>주문하실 상품</th>
                     </tr>
@@ -53,7 +54,7 @@
                         <th>입금자명</th> <td>${users.name}</td>
                     </tr>
                 </table>
-                <button type="button">결제하기</button>
+                <button type="submit">결제하기</button>
             </form>
 
         </div>

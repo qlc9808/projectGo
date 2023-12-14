@@ -41,7 +41,7 @@
 
             <form:form action="gameContentInsert" method="post" enctype="multipart/form-data">
 
-                <table border="1">
+                <table class="table table-bordered">
                     <tr>
                         <th>게임 콘텐츠명</th>
                         <td>
@@ -116,7 +116,7 @@
                         </td>
                     </tr>
 
-              <tr>
+                    <tr>
                         <th>썸네일</th>
                         <td>
                             <input type="file" id="file" name="file1">
@@ -124,9 +124,7 @@
                     </tr>
 
                     <tr>
-                        <%--<c:if test="${result == 1}">--%>
-                            <td><button type="submit">등록하기</button></td>
-<%--                        </c:if>--%>
+                        <td><button type="submit">등록하기</button></td>
                     </tr>
 
                 </table>

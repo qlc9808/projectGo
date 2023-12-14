@@ -15,7 +15,7 @@
             <%-- 이곳에 작성을 해주세요 --%>
             <h5>총 건수: ${gameContentsTotalCount}</h5>
 
-            <table border="1">
+            <table class="table table-bordered">
                 <tr>
                     <th>No.</th> <th>콘텐츠 이미지</th> <th>게임컨텐츠명</th> <th>패키지 내용</th> <th>난이도</th> <th>구독가능인원</th>
                     <th>구독 기간(개월)</th> <th>구독 시작 날짜</th> <th>구독 종료 날짜</th> <th>정가</th> <th>할인율</th> <th>판매가</th>

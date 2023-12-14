@@ -15,8 +15,8 @@
             <%-- 이곳에 작성을 해주세요 --%>
             <h5>컨텐츠 조회 및 구독 신청</h5>
 
-            <form action="/payment/subscribeClick" method="post">
-                <table border="1">
+            <form action="/subscribe/subscribeClick" method="post">
+                <table class="table table-bordered">
                     <tr>
                         <th>구독</th> <th>No.</th> <th>콘텐츠 이미지</th> <th>가격/구독기간</th> <th>상품소개</th>
                     </tr>
@@ -26,7 +26,7 @@
                             <td><input type="checkbox" name="gameIds" value="${gameContent.id}"></td>
                             <td>${status.count}</td>
                             <td>${gameContent.imageName}</td>
-                            <td>${gameContent.price}/${gameContent.subscribeDate}개월</td>
+                            <td>${gameContent.price}원 / ${gameContent.subscribeDate}개월</td>
                             <td>${gameContent.content}</td>
                         </tr>
                     </c:forEach>

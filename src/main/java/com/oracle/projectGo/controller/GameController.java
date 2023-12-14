@@ -57,50 +57,33 @@ public class GameController {
                                     HttpServletRequest request, Model model) throws IOException {
         System.out.println("GameController gameContentInsert Start !");
 
-        //  file upload
-//        String imagePath = "upload"; // 실제 파일이 저장되는 폴더명, uploadPath의 이름과 동일하게 해야 오류 X
-         String uploadPath = request.getServletContext().getRealPath("/upload/gameContents/");
-//        System.out.println("GameController File Upload Post Start");
-//
-        log.info("originalName : " + file1.getOriginalFilename());		// 원본 파일명
-        log.info("size : "         + file1.getSize());					// 파일 사이즈
-        log.info("contextType : "  + file1.getContentType());			    // 파일 타입
-        log.info("uploadPath : "   + uploadPath);						    // 파일 저장되는 주소
-
+        // file upload
+        String uploadPath = request.getServletContext().getRealPath("/upload/gameContents/");
         String saveName = uploadFile(file1.getOriginalFilename(), file1.getBytes(), uploadPath);  // 저장되는 파일명
         log.info("saveName: " + saveName);
 
+        log.info("originalName : " + file1.getOriginalFilename());		// 원본 파일명
+        log.info("size : "         + file1.getSize());					// 파일 사이즈
+        log.info("contextType : "  + file1.getContentType());			// 파일 타입
+        log.info("uploadPath : "   + uploadPath);						// 파일 저장되는 주소
+
+        // 로그인한 유저 정보 세팅
         Users users = us.getLoggedInUserInfo();
         log.info("로그인 getUserType : {}", users.getUserType());
         gameContents.setUserId(users.getId());
+        gameContents.setImagePath(uploadPath);
+        gameContents.setImageName(saveName);
 
         // subscribleStart(구독 시작 날짜) + subscribleDate(구독 기간) = subscribleEnd(구독 종료 날짜)
         LocalDate resultDate = gameContents.getSubscribleStart().toLocalDate().plusMonths(gameContents.getSubscribeDate());
         Date resultSqlDate = java.sql.Date.valueOf(resultDate);
         gameContents.setSubscribleEnd((java.sql.Date) resultSqlDate);
-
-        gameContents.setImagePath(uploadPath);
-        gameContents.setImageName(saveName);
-
         System.out.println("구독 시작 날짜-> "    + gameContents.getSubscribleStart());
         System.out.println("구독 기간(개월수)-> " + gameContents.getSubscribeDate());
         System.out.println("구독 종료 날짜-> "    + resultSqlDate);
 
-        // 관리자(1)만 게임 콘텐츠 등록 버튼 보임
-//        int userTypeResult = Integer.parseInt(users.getUserType());
-//        int result = 0;
-//        if(userTypeResult == 1){
-//            result = 1;
-//        } else {
-//            result = 0;
-//        }
-
-        //----------------------------------------------------------
         int gameContentInsert = gs.gameContentInsert(gameContents);
-        //----------------------------------------------------------
         System.out.println("GameController gameContentInsert-> " + gameContentInsert);
-
-//        model.addAttribute("result", result);
 
         return "redirect:gameContent";  // 나중에 url 변경하기
     }
