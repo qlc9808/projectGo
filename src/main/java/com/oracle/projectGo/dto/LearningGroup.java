@@ -45,4 +45,8 @@ public class LearningGroup {
     private String phone;       // 연락처
     private String email;       // 이메일
     private Date   createdAt;   // 가입일자
+
+    // date 타입 변환용
+    private String formatStartDate;
+    private String formatEndDate;
 }

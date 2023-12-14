@@ -14,10 +14,10 @@
         .d-flex {
             margin: auto;
         }
-        /*#main-content {*/
-        /*    border: 0px solid red;*/
-        /*    margin: auto auto auto 350px;*/
-        /*}*/
+        #main-content {
+            border: 0px solid red;
+            margin: auto auto auto 100px;
+        }
     </style>
 </head>
 <body>
@@ -27,9 +27,11 @@
             <div class="col-2">
                 <%@ include file="/WEB-INF/components/LearningSidebar.jsp"%>
             </div>
-            <div id="main-content" class=" p-5 col-10">
+            <div id="main-content" class="container p-5 col-10">
                 <h1 style="text-align: center; font-weight: bold;">학습그룹 가입신청</h1>
-                <div id="grid1"></div>
+                <div class="container my-4 py-3">
+                    <div id="grid1" style="width: 1150px; height: 1000px;"></div>
+                </div>
             </div>
         </div>
     </main>

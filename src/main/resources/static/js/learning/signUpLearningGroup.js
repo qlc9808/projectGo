@@ -21,19 +21,16 @@ function learningGroupList() {
                     userName: item.userName,
                     groupSize: item.groupSize,
                     etc: item.etc1+"/"+item.etc2,
-                    startDate: item.startDate,
-                    endDate: item.endDate
+                    formatStartDate: item.formatStartDate,
+                    formatEndDate: item.formatEndDate
                 };
             });
 
             grid = new tui.Grid({
                 el: document.getElementById('grid1'),
                 data: gridData,
-                scrollX: true,
-                scrollY: true,
-                rowHeaders: [
-                    {type: 'checkbox'}
-                ],
+                scrollX: false,
+                scrollY: false,
                 columns: [
                     {
                         header: 'NO',
@@ -77,15 +74,24 @@ function learningGroupList() {
                     },
                     {
                         header: '학습시작날짜',
-                        name: 'startDate',
+                        name: 'formatStartDate',
                         align: 'center',
-                        width: 250
+                        width: 130
                     },
                     {
                         header: '학습종료날짜',
-                        name: 'endDate',
+                        name: 'formatEndDate',
                         align: 'center',
-                        width: 250
+                        width: 130
+                    },
+                    {
+                        header: '',
+                        name: '',
+                        align: 'center',
+                        width: 100,
+                        formatter: function() {
+                            return '<button style="border-radius: 10px" onclick="location.href=\'/approval-page\'">등록</button>';
+                        }
                     }
                 ],
                 pageOptions: {
