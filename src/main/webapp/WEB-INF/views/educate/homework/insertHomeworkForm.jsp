@@ -108,7 +108,7 @@
             const params = {
                 currentPage: page
             };
-            return '/homework/listHomework?' + Object.entries(params)
+            return '/homework/insertHomeworkForm?' + Object.entries(params)
                 .filter(([key, value]) => value !== undefined && value !== null && value !== '')
                 .map(([key, value]) => key + '=' + value).join('&');
         }
@@ -137,7 +137,7 @@
 <main>
     <div class="d-flex">
         <div class="col-2">
-            <%@ include file="/WEB-INF/components/Sidebar.jsp" %>
+            <%@ include file="/WEB-INF/components/EducateSidebar.jsp" %>
         </div>
         <div id="main-content" class="container p-5 col-10">
             <div class="container border my-4 py-3">
@@ -145,7 +145,7 @@
                     <h1>숙제정보입력</h1>
                 </div>
                 <div>
-                    <form action="/homework/listHomework" method="post">
+                    <form action="/homework/insertHomeworkForm" method="post">
                         <input type="hidden" name="status" value="1">
                         <input type="text" id="birthday" name="birthday" style="display: none;">
 

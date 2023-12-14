@@ -79,7 +79,7 @@
         </li>
         <li class="nav-item my-page-nav-item">
             <div>
-                <a href="#"
+                <a href="/homework/insertHomeworkForm"
                    class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi-journal-plus px-3"></i>
                     숙제 생성
@@ -88,7 +88,7 @@
         </li>
         <li class="nav-item my-page-nav-item">
             <div>
-                <a href="#"
+                <a href="/homework/distributeHomeworkForm"
                    class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi-journal-arrow-up px-3"></i>
                     숙제 전송
@@ -97,7 +97,7 @@
         </li>
         <li class="nav-item my-page-nav-item">
             <div>
-                <a href="#"
+                <a href="/homework/evaluateHomeworkForm"
                    class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi bi-journal-richtext px-3"></i>
                     숙제 평가

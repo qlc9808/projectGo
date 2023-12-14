@@ -32,7 +32,7 @@
 <main>
     <div class="d-flex">
         <div class="col-2">
-            <%@ include file="/WEB-INF/components/Sidebar.jsp" %>
+            <%@ include file="/WEB-INF/components/EducateSidebar.jsp" %>
         </div>
         <div id="main-content" class="container p-5 col-10">
 

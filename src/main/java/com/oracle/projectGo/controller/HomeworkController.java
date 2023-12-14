@@ -28,8 +28,8 @@ public class HomeworkController {
     private final HomeworkService homeworkService;
     private final LearningGroupService learningGroupService;
 
-    @RequestMapping(value = "listHomework")
-    public String listHomework(Homeworks homework, String currentPage, Model model, RedirectAttributes redirectAttributes) {
+    @RequestMapping(value = "insertHomeworkForm")
+    public String insertHomeworkForm(Homeworks homework, String currentPage, Model model, RedirectAttributes redirectAttributes) {
 
         /* TODO: GET TOTAL HOMEWORK COUNT  */
         int totalHomeworksCnt = homeworkService.getTotalHomeworksCnt(homework);
@@ -47,7 +47,7 @@ public class HomeworkController {
         model.addAttribute("homeworkList", homeworkList);
         model.addAttribute("currentPage", currentPage);
 
-        return "educate/homework/listHomework";
+        return "educate/homework/insertHomeworkForm";
     }
 
     // 숙제 리스트와 회원 리스트를 보여주는 화면
