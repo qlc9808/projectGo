@@ -33,10 +33,14 @@ public class HomeworkController {
 
     @RequestMapping(value = "insertHomeworkForm")
     public String insertHomeworkForm(Homeworks homework, String currentPage, Model model, RedirectAttributes redirectAttributes) {
+        /* TODO : PRE-PROCESS*/
+        int userId = usersService.getLoggedInId();
+        homework.setUserId(userId);
 
         /* TODO: GET TOTAL HOMEWORK COUNT  */
         int totalHomeworksCnt = homeworkService.getTotalHomeworksCnt(homework);
         log.info(homework.toString());
+
         /* TODO: PAGING PROCESS */
         Paging page = new Paging(totalHomeworksCnt, currentPage);
         homework.setStart(page.getStart());
@@ -46,6 +50,7 @@ public class HomeworkController {
         List<Homeworks> homeworkList = homeworkService.getHomeworksList(homework);
 
         /* TODO: SET ATTRIBUTE */
+        model.addAttribute("userId",userId);
         model.addAttribute("page", page);
         model.addAttribute("homeworkList", homeworkList);
         model.addAttribute("currentPage", currentPage);
@@ -70,6 +75,7 @@ public class HomeworkController {
         /* 학습 그룹은 AJAX로. */
 
         /* TODO: SET ATTRIBUTES */
+        model.addAttribute("userId",userId);
         model.addAttribute("learningGroupList", learningGroupList);
         model.addAttribute("homeworkList", homeworkList);
         model.addAttribute("searchOptions", homework);
@@ -78,8 +84,9 @@ public class HomeworkController {
     }
     @RequestMapping(value = "/evaluateHomeworkForm")
     public String evaluateHomeworkForm(Homeworks homework, Model model) {
-//        log.info(homework.toString());
-
+        /* TODO : PRE-PROCESS*/
+        int userId = usersService.getLoggedInId();
+        homework.setUserId(userId);
 
         /* TODO: 숙제명에 따라 숙제를 받아오는 로직 */
         List<Homeworks> homeworkList = homeworkService.getHomeworksList(homework);
@@ -87,6 +94,7 @@ public class HomeworkController {
         /* 학습 그룹은 AJAX로. */
 
         /* TODO: SET ATTRIBUTES */
+        model.addAttribute("userId",userId);
         model.addAttribute("homeworkList", homeworkList);
         model.addAttribute("searchOptions", homework);
 
