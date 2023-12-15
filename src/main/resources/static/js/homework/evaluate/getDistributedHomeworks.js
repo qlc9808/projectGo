@@ -19,7 +19,7 @@ export function getDistributedHomeworks(homeworkId) {
                 row.append($('<td>').text(item.questions)); // 질문
 
                 // evaluationSelect 생성
-                var evaluationSelect = $('<select>').attr('id', 'evaluation-' + index);
+                const evaluationSelect = $('<select>').attr('id', 'evaluation-' + index);
                 for (let key in HomeworksEvaluateType) {
                     let evaluateType = HomeworksEvaluateType[key];
                     let option = $('<option>').attr('value', evaluateType.value).text(evaluateType.label);

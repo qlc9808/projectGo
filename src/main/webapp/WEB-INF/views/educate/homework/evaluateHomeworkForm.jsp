@@ -14,7 +14,7 @@
             const title = '${searchOptions.title != null ? searchOptions.title : ""}';
             homeworkTitleOption(title);
 
-            $('#homework-table tbody tr').on('dblclick', function() {
+            $('#homework-table tbody tr').on('click', function() {
                 const homeworkId = $(this).attr('id');
                 console.log(homeworkId)
                 getDistributedHomeworks(homeworkId);

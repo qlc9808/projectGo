@@ -8,6 +8,7 @@ export default function homeworkDistributor(stateManager) {
             studentIds: stateManager.selectedStudentsList,
             homeworkIds: stateManager.selectedHomeworkIdList
         };
+        console.log("homeworkDistributor",data);
 
         if (data.homeworkIds.length === 0) {
             showNotification("숙제를 선택 해주세요","warn",3000)
@@ -21,8 +22,8 @@ export default function homeworkDistributor(stateManager) {
         $.ajax({
             url: '/homework/distributeHomework',
             type: 'POST',
-            // dataType: "json",
-            data: data,
+            dataType: "json",
+            data: JSON.stringify(data),
             contentType: 'application/json',
             success: function(response) {
                 storeNotification(response.message, "success");
