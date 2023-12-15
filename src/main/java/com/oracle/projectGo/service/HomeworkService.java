@@ -52,7 +52,19 @@ public class HomeworkService {
         return distributedHomeworksDao.updateEvaluation(evaluations);
     }
 
-    public int updateSubmission(List<DistributedHomeworks> submissions) {
-        return distributedHomeworksDao.updateSubmission(submissions);
+    public int updateSubmissionList(List<DistributedHomeworks> submissions) {
+        return distributedHomeworksDao.updateSubmissionList(submissions);
+    }
+
+    public int updateSubmission(DistributedHomeworks submission) {
+        return distributedHomeworksDao.updateSubmission(submission);
+    }
+
+    public Homeworks getHomework(int homeworkId) {
+        return homeworkDao.getHomework(homeworkId);
+    }
+
+    public List<String> getDistinctHomeworkTitlesByKeyword(int userId, String keyword) {
+        return homeworkDao.getDistinctHomeworkTitlesByKeyword(userId,keyword);
     }
 }

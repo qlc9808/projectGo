@@ -61,9 +61,9 @@ public class HomeworkController {
     // 숙제 리스트와 회원 리스트를 보여주는 화면
     @RequestMapping(value = "/distributeHomeworkForm")
     public String distributeHomeworkForm(Homeworks homework, Model model) {
-//        log.info(homework.toString());
-        Users users = usersService.getLoggedInUserInfo();
-        int userId = users.getId();
+        /* TODO : PRE-PROCESS*/
+        int userId = usersService.getLoggedInId();
+        homework.setUserId(userId);
 
         /* TODO: 학습 그룹 리스트 받아오기 */
         LearningGroup learningGroup = new LearningGroup();
@@ -90,8 +90,6 @@ public class HomeworkController {
 
         /* TODO: 숙제명에 따라 숙제를 받아오는 로직 */
         List<Homeworks> homeworkList = homeworkService.getHomeworksList(homework);
-
-        /* 학습 그룹은 AJAX로. */
 
         /* TODO: SET ATTRIBUTES */
         model.addAttribute("userId",userId);

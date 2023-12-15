@@ -22,4 +22,7 @@ public class Homeworks {
     private String pageNum;
     private int    start;
     private int    end;
+
+    /* 조회용 */
+    private String keyword;
 }

@@ -3,6 +3,8 @@
 <head>
     <%@ include file="/WEB-INF/components/Header.jsp" %>
     <title>Title</title>
+    <link href="/css/homework.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.2.1/typeahead.bundle.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             populateYear();
@@ -10,6 +12,23 @@
             populateDay();
             populateHour();
             updateBirthday();
+            $('.detail-btn').on('click', function() {
+                var row = $(this).closest('tr');
+                var homeworkId = row.find('td:first').text();
+                console.log(homeworkId)
+                // 숙제 상세정보를 가져오는 AJAX 요청을 실행
+                $.ajax({
+                    url: '/homework/getHomework/' + homeworkId,
+                    type: 'GET',
+                    success: function(response) {
+                        // 응답을 모달창에 출력
+                        $('.modal-body').html(response);
+                        var modal = new bootstrap.Modal(document.getElementById('modal'));
+                        modal.show();
+                    }
+                });
+            });
+
         });
 
         function populateYear() {
@@ -67,6 +86,7 @@
             const title = document.getElementById("title").value;
             const content = document.getElementById("content").value;
             const progress = document.getElementById("progress").value;
+            const userId = document.getElementById("userId").value;
             const year = document.getElementById("year").value;
             const month = document.getElementById("month").value;
             const day = document.getElementById("day").value;
@@ -75,7 +95,7 @@
 
             return {
                 'title': title,
-                'userId': 1,
+                'userId': userId,
                 'content': content,
                 'progress': progress,
                 'deadline': deadline
@@ -92,7 +112,7 @@
                 success: function (response) {
                     console.log("insertHomework() success");
                     alert(response.message);
-                    window.location.href = "/homework/listHomework";
+                    window.location.href = "/homework/insertHomeworkForm";
                 },
                 error: function (jqXHR) {
                     console.log("insertHomework() failed");
@@ -112,24 +132,35 @@
                 .filter(([key, value]) => value !== undefined && value !== null && value !== '')
                 .map(([key, value]) => key + '=' + value).join('&');
         }
+        // $(document).ready(function() {
+        //     var homeworkTitles = new Bloodhound({
+        //         datumTokenizer: Bloodhound.tokenizers.whitespace,
+        //         queryTokenizer: Bloodhound.tokenizers.whitespace,
+        //         remote: {
+        //             url: '/homework/getHomeworkTitleListByKeyword?userId=' + $('#userId').val() + '&keyword=%QUERY',
+        //             wildcard: '%QUERY'
+        //         }
+        //     });
+        //
+        //     $('#title').typeahead({
+        //         hint: true,
+        //         highlight: true,
+        //         minLength: 1
+        //     }, {
+        //         name: 'homework-titles',
+        //         source: homeworkTitles
+        //     });
+        //     $('#title').keydown(function(e){
+        //         if(e.which === 13){
+        //             e.preventDefault();
+        //         }
+        //     });
+        // });
 
     </script>
     <style>
-        .date-text {
-            font-size: 16px;
-            font-weight: 600;
-            margin-right: 20px;
-            margin-left: 10px;
-            text-align: center;
-        }
 
-        h1 {
-            color: black;
-            font-size: 32px;
-            font-weight: 600;
-            word-wrap: break-word;
-            text-align: center;
-        }
+
     </style>
 </head>
 <body>
@@ -146,17 +177,14 @@
                 </div>
                 <div>
                     <form action="/homework/insertHomeworkForm" method="post">
-                        <input type="hidden" name="status" value="1">
-                        <input type="text" id="birthday" name="birthday" style="display: none;">
-
+                        <input type="hidden" name="userId" id="userId" value="${userId}">
                         <div class="my-4 row align-items-baseline ">
                             <label for="title" class="col-sm-2 col-form-label fw-bold text-end"
                                    style="font-size: 20px;">숙제명</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="title" name="title">
+                            <div  id="bloodhound" class="col-sm-8 ">
+                                <input type="text" class="typeahead form-control md-0 pd-0" id="title" name="title">
                             </div>
                         </div>
-
                         <div class="my-4 row align-items-baseline ">
                             <label for="progress" class="col-sm-2 col-form-label fw-bold text-end"
                                    style="font-size: 20px;">숙제진도</label>
@@ -224,34 +252,35 @@
 
             </div>
             <div class="container border">
-                <div class="table-responsive">
+                <div class="">
                     <table id="homework-table" class="table text-center">
                         <thead>
-                        <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">숙제명</th>
-                            <th scope="col">숙제내용</th>
-                            <th scope="col">진도</th>
-                            <th scope="col">제출기한</th>
-                            <th scope="col">전송일자</th>
-                            <th scope="col">생성일자</th>
-                        </tr>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">숙제명</th>
+                                <th scope="col">숙제내용</th>
+                                <th scope="col">진도</th>
+                                <th scope="col">제출기한</th>
+                                <th scope="col">전송일자</th>
+                                <th scope="col">생성일자</th>
+                                <th scope="col"></th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <c:set var="num" value="${page.start}"/>
-                        <c:forEach var="homework" items="${homeworkList}" varStatus="st">
-                            <tr id="homework-${st.index}">
-                                <td>${homework.id}</td>
-                                <td>${homework.title}</td>
-                                <td>${homework.content}</td>
-                                <td>${homework.progress}</td>
-                                <td><fmt:formatDate value="${homework.deadline}" pattern="yyyy/MM/dd (HH시)"/></td>
-                                <td>${homework.distributionDate}</td>
-                                <td><fmt:formatDate value="${homework.createdAt}" pattern="yyyy/MM/dd HH:mm:ss"/></td>
-                                    <%--                            <td><a class="detail-btn" href="userDetail/${user.id}?currentPage=${page.currentPage}">관리</a></td>--%>
-                            </tr>
+                            <c:set var="num" value="${page.start}"/>
+                            <c:forEach var="homework" items="${homeworkList}" varStatus="st">
+                                <tr id="homework-${st.index}">
+                                    <td>${homework.id}</td>
+                                    <td>${homework.title}</td>
+                                    <td>${homework.content}</td>
+                                    <td>${homework.progress}</td>
+                                    <td><fmt:formatDate value="${homework.deadline}" pattern="yyyy/MM/dd (HH시)"/></td>
+                                    <td>${homework.distributionDate}</td>
+                                    <td><fmt:formatDate value="${homework.createdAt}" pattern="yyyy/MM/dd HH:mm:ss"/></td>
+                                    <td><a class="detail-btn">관리</a></td>
+                                </tr>
                             <c:set var="num" value="${num + 1}"/>
-                        </c:forEach>
+                            </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -284,6 +313,27 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">숙제 상세정보</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer container d-flex  justify-content-around ">
+                    <button type="button" class="btn btn-primary col-sm-5">수정</button>
+                    <button type="button" class="btn col-sm-5">삭제</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </main>
 <%@ include file="/WEB-INF/components/Footer.jsp" %>
 </body>

@@ -2,7 +2,9 @@ package com.oracle.projectGo.controller;
 
 import com.oracle.projectGo.dto.DistributedHomeworks;
 import com.oracle.projectGo.dto.Homeworks;
+import com.oracle.projectGo.dto.Users;
 import com.oracle.projectGo.service.HomeworkService;
+import com.oracle.projectGo.service.UsersService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ import java.util.List;
 @RequestMapping(value = "/learning")
 public class LearningController {
     private final HomeworkService homeworkService;
+    private final UsersService usersService;
 
     @RequestMapping("/signUpLearningGroup")
     public String test(){
@@ -28,11 +31,14 @@ public class LearningController {
 
     @RequestMapping(value = "submitHomeworkForm")
     public String submitHomeworkForm(DistributedHomeworks distributedHomeworks, Model model) {
-        distributedHomeworks.setUserId(2);
+        Users user = usersService.getLoggedInUserInfo();
+
+        distributedHomeworks.setUserId(user.getId());
         List<DistributedHomeworks> distributedHomeworksList = homeworkService.getDistributedHomeworks(distributedHomeworks);
         for (DistributedHomeworks homeworks : distributedHomeworksList) {
             log.info("{}", homeworks);
         }
+        model.addAttribute("user", user);
         model.addAttribute("distributedHomeworksList", distributedHomeworksList);
 
         return "learning/submitHomeworkForm";

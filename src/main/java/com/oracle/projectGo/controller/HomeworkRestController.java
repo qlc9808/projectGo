@@ -4,9 +4,11 @@ import com.oracle.projectGo.dto.DistributedHomeworks;
 import com.oracle.projectGo.dto.DistributionRequestDto;
 import com.oracle.projectGo.dto.Homeworks;
 import com.oracle.projectGo.service.HomeworkService;
+import com.oracle.projectGo.service.UsersService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,7 @@ import java.util.List;
 @RequestMapping(value = "/homework")
 public class HomeworkRestController {
     private final HomeworkService homeworkService;
+    private final UsersService usersService;
 
     @ResponseBody
     @RequestMapping(value = "insertHomework", method = RequestMethod.POST)
@@ -33,15 +36,31 @@ public class HomeworkRestController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "getHomework/{homeworkId}", method = RequestMethod.GET)
+    public ResponseEntity<Homeworks> getHomework(@PathVariable int homeworkId) {
+        Homeworks homework = homeworkService.getHomework(homeworkId);
+        if (homework == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok(homework);
+    }
+
+
+    @ResponseBody
     @RequestMapping(value="getHomeworkTitleList",method = RequestMethod.GET)
     public ResponseEntity<List<String>> getHomeworkTitleList() {
-        int educatorId = 1;
-//        int userId = getLogginedUserId();
-
+        int educatorId = usersService.getLoggedInId();
         List<String> homeworkTitleList = homeworkService.getDistinctHomeworkTitles(educatorId);
-
         return ResponseEntity.ok(homeworkTitleList);
     }
+
+    @ResponseBody
+    @RequestMapping(value="getHomeworkTitleListByKeyword",method = RequestMethod.GET)
+    public ResponseEntity<List<String>> getHomeworkTitleListByKeyword(@RequestParam("userId") int userId, @RequestParam("keyword") String keyword) {
+        List<String> homeworkTitleList = homeworkService.getDistinctHomeworkTitlesByKeyword(userId, keyword);
+        return ResponseEntity.ok(homeworkTitleList);
+    }
+
     @ResponseBody
     @RequestMapping(value = "distributeHomework", method = RequestMethod.POST)
     public ResponseEntity<String> distributeHomework(@RequestBody DistributionRequestDto request)  {
@@ -90,12 +109,25 @@ public class HomeworkRestController {
             for (DistributedHomeworks distributedHomework : submissions) {
                 log.info("distributedHomework:{}",distributedHomework);
             }
-            homeworkService.updateSubmission(submissions);
+            homeworkService.updateSubmissionList(submissions);
             return ResponseEntity.ok("{\"message\": \"숙제가 성공적으로 제출되었습니다.\"}");
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.internalServerError().body("{\"message\": \"숙제 제출에 실패했습니다.\"}");
         }
     }
+    @ResponseBody
+    @PostMapping("editSubmissionHomework")
+    public ResponseEntity<String> editSubmissionHomework(@RequestBody DistributedHomeworks submission) {
+        try {
+            log.info("submission:{}",submission);
+            homeworkService.updateSubmission(submission);
+            return ResponseEntity.ok("{\"message\": \"숙제가 성공적으로 수정되었습니다. \"}");
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.internalServerError().body("{\"message\": \"숙제 수정에 실패했습니다.\"}");
+        }
+    }
+
 
 }

@@ -76,7 +76,7 @@
         END;
     </update>
 
-    <update id="updateSubmissions" parameterType="java.util.List">
+    <update id="updateSubmissionList" parameterType="java.util.List">
         BEGIN
         <foreach collection="list" item="item" index="index" open="" close="" separator="">
             UPDATE distributedHomeworks
@@ -90,6 +90,13 @@
         END;
 
     </update>
-
+    <update id="updateSubmission" parameterType="DistributedHomeworks">
+        UPDATE distributedHomeworks
+        SET
+            content = #{content},
+            questions = #{questions},
+            updatedAt = sysdate
+        WHERE homeworkId = #{homeworkId} AND userId = #{userId}
+    </update>
 
 </mapper>

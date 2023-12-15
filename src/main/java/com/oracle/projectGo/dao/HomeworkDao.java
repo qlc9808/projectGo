@@ -9,7 +9,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -31,4 +33,15 @@ public class HomeworkDao {
     public List<String> getDistinctHomeworkTitles(int educatorId) {
         return session.selectList("getDistinctHomeworkTitles",educatorId);
     }
+
+    public List<String> getDistinctHomeworkTitlesByKeyword(int educatorId, String keyword) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", educatorId);
+        params.put("keyword", keyword);
+        return session.selectList("getDistinctHomeworkTitlesByKeyword", params);
+    }
+    public Homeworks getHomework(int homeworkId) {
+        return session.selectOne("getHomework",homeworkId);
+    }
+
 }

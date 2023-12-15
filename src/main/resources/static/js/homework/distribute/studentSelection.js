@@ -1,4 +1,4 @@
-export default function studentSelection(stateManager) {
+export default function studentSelection(stateManager, userId) {
     const studentList = $('#studentList tbody');
     const selectedStudents = $('#selectedStudents tbody');
 
@@ -34,7 +34,7 @@ export default function studentSelection(stateManager) {
 
         if (selectedGroup === "groupAll") {
             url = '/group/getGroupMembersByEducatorId';
-            data = { educatorId: 1 };
+            data = { educatorId:userId  };
         } else {
             url = '/group/getGroupMemberByGroupId';
             data = { groupId: selectedGroup };

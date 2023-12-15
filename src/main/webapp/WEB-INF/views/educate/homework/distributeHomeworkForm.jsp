@@ -12,13 +12,14 @@
         import {showStoredNotification }from '/js/utils/notificationManager.js';
 
         $(document).ready(function() {
+            const userId = document.getElementById("userId").value;
             const stateManager = {
                 selectedStudentsList: [],
-                selectedHomeworkIdList: []
+                selectedHomeworkIdList: [],
             };
             const title = '${searchOptions.title != null ? searchOptions.title : ""}';
             homeworkTitleOption(title);
-            studentSelection(stateManager);
+            studentSelection(stateManager,userId);
             homeworkSelection(stateManager);
             homeworkDistributor(stateManager);
 
@@ -46,6 +47,7 @@
                 </div>
                 <div class="container">
                     <form action="/homework/distributeHomeworkForm" method="post">
+                        <input type="hidden" id="userId" value="${userId}"/>
                         <label for="homeworkTitles" class="form-label" >숙제명:</label>
                         <select class="text-center" id="homeworkTitles">
                         </select>

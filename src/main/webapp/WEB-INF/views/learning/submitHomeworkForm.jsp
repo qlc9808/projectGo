@@ -42,6 +42,45 @@
                     showNotification("선택된 숙제가 없습니다.", "warn", 3000);
                 }
             });
+
+            $("button[type=button]").on("click", function(e){
+                var $this = $(this);
+                var index = $this.data("index");
+                console.log(index);
+
+                if ($this.text() === "수정하기") {
+                    $("#content-" + index + ", #questions-" + index).prop('disabled', false);
+                    $this.text("수정 완료");
+                    $('<button type="button" class="btn">취소</button>').insertAfter($this);
+                } else {
+                    // '수정 완료' 버튼을 클릭했을 때
+                    // AJAX 요청을 보내서 서버에 데이터를 전달하고, 버튼의 텍스트를 '수정하기'로 변경
+                    var item = {
+                        homeworkId: $this.data("homework-id"),
+                        userId: $this.data("user-id"),
+                        content: $("#content-" + index).val(),
+                        questions: $("#questions-" + index).val()
+                    };
+                     console.log(item);
+
+                    $.ajax({
+                        url: "/homework/editSubmissionHomework", // 수정할 URL
+                        type: "POST", // 요청 메서드
+                        dataType: "json",
+                        data: JSON.stringify(item), // 서버로 보낼 데이터
+                        contentType: "application/json", // 데이터의 MIME 타입
+                        success: function(response) {
+                            storeNotification(response.message, "success");
+                            location.reload();
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            const error = jqXHR.responseJSON;
+                            showNotification(error.message, "error", 3000);
+
+                        }
+                    });
+                }
+            });
             showStoredNotification();
         });
     </script>
@@ -51,31 +90,42 @@
 <main>
     <div class="d-flex">
         <div class="col-2">
-            <%@ include file="/WEB-INF/components/Sidebar.jsp" %>
+            <%@ include file="/WEB-INF/components/LearningSidebar.jsp"%>
         </div>
-        <div id="main-content" class="border col-9">
-            <h1>숙제 등록</h1>
-            <form action="/homework/submissionHomework" method="post">
-                <hr/>
-                <div class="container d-flex justify-content-between">
-                   학습자 : ${distributedHomeworksList[0].userName}
-                    <button class="btn btn-primary col-lg-2">제출하기</button>
-                </div>
-                <hr/>
-                <div class="d-flex justify-content-around">
-                    <h2>숙제 내용</h2>
-                    <h2>제출 내용</h2>
-                </div>
+        <div id="main-content" class=" container p-5  col-9">
+            <div class="container  my-4 py-3">
+                <h1>숙제 등록</h1>
+                <form action="/homework/submissionHomework" method="post">
+                    <hr/>
+                    <div class="container d-flex justify-content-between">
+                       학습자 : ${user.name}
+                        <button class="btn btn-primary col-lg-2">제출하기</button>
+                    </div>
+                    <hr/>
+                    <div class="d-flex border justify-content-around" style="border-radius:15px;background-color: #FF4379">
+                        <div class="col-5  d-flex p-3 text-center" >
+                            <div class="col-1 d-flex justify-content-center align-content-center flex-wrap">
+                            </div>
+                            <div class="container ">
+                                <span class="submission-table-header" >숙제 내용</span>
+                            </div>
+                        </div>
+                        <div class="col-5 p-3 text-center">
+                            <span class="submission-table-header">제출 내용</span>
+                        </div>
+                    </div>
+
                 <c:forEach var="distributedHomeworks" items="${distributedHomeworksList}" varStatus="st">
                     <input type="hidden" name="distributedHomeworks[${st.index}].userId" value="${distributedHomeworks.userId}">
                     <input type="hidden" name="distributedHomeworks[${st.index}].homeworkId" value="${distributedHomeworks.homeworkId}">
                     <input type="hidden" name="distributedHomeworks[${st.index}].userId" value="${distributedHomeworks.userId}">
-                    <div class="d-flex">
-                        <div class="col-6 border d-flex p-2">
-                            <div class="col-1 border d-flex justify-content-center align-content-center flex-wrap" style="background-color: #F8FCF4;">
+                    <div id="slot-${st.index}" class="d-flex slot " >
+                        <div class="col-5  d-flex p-3 my-5" >
+                            <div class="col-1 d-flex justify-content-center align-content-center flex-wrap">
                                 <input type="checkbox" class="form-check-input" name="distributedHomeworks[${st.index}].checked"  style="font-size: 30px"
                                        value="true" data-index="${st.index}" ${(distributedHomeworks.submissionDate != null)? 'disabled':''}>
                             </div>
+                            <div class="vr mx-3"></div>
                             <div class="container ">
                                 <h3>${distributedHomeworks.homeworkTitle}</h3>
                                 <h4>교육자 : ${distributedHomeworks.educatorName}</h4>
@@ -85,7 +135,8 @@
                                 <textarea class="form-control" disabled>${distributedHomeworks.homeworkContent}</textarea>
                             </div>
                         </div>
-                        <div class="col-6 border p-2">
+                        <div class="vr my-5"></div>
+                        <div class="col-5 p-3 my-5">
                             <c:choose>
                                 <c:when test="${distributedHomeworks.submissionDate != null}">
                                     <div class="d-flex justify-content-between align-content-center"  >
@@ -138,6 +189,7 @@
                     </ul>
                 </nav>
             </div>
+        </div>
         </div>
     </div>
 </main>

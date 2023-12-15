@@ -46,3 +46,33 @@ h4 {
     background-color: white;
     z-index: 999;
 }
+.detail-btn{
+    color: #FF4379;
+    font-size:15px;
+    font-family: Noto Sans;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 18px; /* 138.462% */
+    text-decoration: none;
+}
+.date-text {
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 20px;
+    margin-left: 10px;
+    text-align: center;
+}
+.slot {
+    border: #FF4379 1px solid;
+    border-radius: 15px;
+    justify-content: space-around;
+    margin-bottom: 5px;
+}
+.submission-table-header{
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+    word-wrap: break-word;
+    text-align: center;
+
+}

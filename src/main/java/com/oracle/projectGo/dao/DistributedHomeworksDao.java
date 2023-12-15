@@ -1,6 +1,7 @@
 package com.oracle.projectGo.dao;
 
 import com.oracle.projectGo.dto.DistributedHomeworks;
+import com.oracle.projectGo.dto.Homeworks;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
@@ -26,7 +27,12 @@ public class DistributedHomeworksDao {
         return session.update("updateDistributedHomeworks",evaluations);
     }
 
-    public int updateSubmission(List<DistributedHomeworks> submissions) {
-        return session.update("updateSubmissions", submissions);
+    public int updateSubmissionList(List<DistributedHomeworks> submissions) {
+        return session.update("updateSubmissionList", submissions);
     }
+
+    public int updateSubmission(DistributedHomeworks submission) {
+        return session.update("updateSubmission", submission);
+    }
+
 }

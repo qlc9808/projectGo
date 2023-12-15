@@ -18,6 +18,7 @@
                 <if test="title != null and title != ''">
                     AND title = #{title}
                 </if>
+                AND userId = #{userId}
                 ORDER BY createdAt DESC
             ) a
         <choose>
@@ -41,6 +42,9 @@
         <if test="title != null and title != ''">
             AND title = #{title}
         </if>
+        <if test="userId != null and userId != '' and userId != 0 ">
+            AND userId = #{userId}
+        </if>
     </select>
 
     <select id="getDistinctHomeworkTitles" resultType="string">
@@ -49,5 +53,17 @@
         WHERE userId = #{userId}
     </select>
 
+    <select id="getDistinctHomeworkTitlesByKeyword" resultType="string" parameterType="hashMap">
+        SELECT DISTINCT title
+        FROM homeworks
+        WHERE userId = #{userId}
+        AND title LIKE '%' || #{keyword} || '%'
+    </select>
+
+    <select id="getHomework" resultType="Homeworks">
+        SELECT *
+        FROM homeworks
+        WHERE id = #{id}
+    </select>
 
 </mapper>
