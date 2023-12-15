@@ -41,4 +41,8 @@ public class GameContents {
     private String search;   	private String keyword;
     private String pageNum;		private int total;
     private int start; 		 	private int end;
+
+    // users
+    private String name;  // 회원 이름
+    private int    pay_userId;       // 회원 번호
 }

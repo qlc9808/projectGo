@@ -37,7 +37,6 @@ public class LearningGroupDao {
 
     public GameContents insertFormLearningContent(int id) {
         GameContents insertFormLearningContent = null;
-
         try {
             insertFormLearningContent = session.selectOne("NoInsertFormLearningContent", id);
         } catch (Exception e) {

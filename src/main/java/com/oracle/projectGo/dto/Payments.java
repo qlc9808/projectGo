@@ -12,9 +12,10 @@ public class Payments {
     private String paymentType;  // 결제방법    무통장입금: 1, 계좌이체: 2, 카카오페이:3
     private String status;       // 결제상태    결제완료:1, 미결제:2
     private Date   purchaseDate; // 구매일자
-    private int    price;        // 결제금액
 
     // 조회용 by 강한빛
     private String name;  // 회원 이름
     private String title; // 게임컨텐츠 제목
+
+    //
 }

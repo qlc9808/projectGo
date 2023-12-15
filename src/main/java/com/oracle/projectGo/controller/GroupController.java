@@ -44,6 +44,8 @@ public class GroupController {
             // LearningContentList 조회
             List<GameContents> learningContentList = groupService.learningContentList(userId);
 
+            //
+
             // paging 처리
             Paging page = new Paging(totalLearningContentCnt, currentPage);
             gameContents.setStart(page.getCurrentPage());

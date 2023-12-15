@@ -4,27 +4,41 @@
 
 <mapper namespace="com.oracle.projectGo.learningGroupMapper">
     <select id="NoTotalLearningContentCnt" parameterType="int" resultType="int">
-        SELECT  COUNT(*)
-        FROM    gameContents
-        WHERE   userId = #{userId}
+        <![CDATA[
+            SELECT  COUNT(*)
+            FROM    payments a
+            join    gameContents b
+            on      a.contentId = b.id
+            WHERE   a.userId = 2
+            AND     b.subscribleStart <= SYSDATE
+            AND     b.subscribleEnd >= SYSDATE
+        ]]>
     </select>
 
     <select id="NoLearningContentList" parameterType="int" resultType="GameContents">
-        SELECT *
-        FROM   gamecontents
-        WHERE  userId = #{userId}
-
---         SELECT  a.id, a.contentid, a.userid, a.name, a.startdate, a.enddate, a.availableslots,
---                 b.id, b.title, b.subscribedate, b.gamelevel, b.maxsubscribers, b.content,
---                 b.subscribleStart, b.subscribleEnd
---         FROM    learningGroup a, gameContents b
---         WHERE   a.contentid = b.id
+        <![CDATA[
+            SELECT  *
+            FROM    payments a
+            JOIN    gameContents b
+            ON      a.contentId = b.id
+            WHERE   a.userId = #{userId}
+            AND     b.subscribleStart <= SYSDATE
+            AND     b.subscribleEnd >= SYSDATE
+        ]]>
     </select>
 
     <select id="NoInsertFormLearningContent" parameterType="int" resultType="GameContents">
-        SELECT *
-        FROM gamecontents
-        WHERE id = #{id}
+--         SELECT *
+--         FROM gamecontents
+--         WHERE id = #{id}
+
+        SELECT  a.userId pay_userId, b.name, c.*
+        FROM    payments a
+        JOIN    users b
+        ON      a.userId = b.id
+        JOIN    gameContents c
+        ON      a.contentId = c.id
+        WHERE   c.contentId = 2
     </select>
 
     <insert id="NoInsertLearningGroup" parameterType="Map">
