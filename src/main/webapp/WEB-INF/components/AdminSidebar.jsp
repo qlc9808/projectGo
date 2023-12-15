@@ -52,7 +52,7 @@
         </li>
         <li class="nav-item my-page-nav-item">
             <div>
-                <a href="#"
+                <a href="/game/gameContent"
                    class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi bi-controller px-3"></i>
                     게임 콘텐츠 등록
