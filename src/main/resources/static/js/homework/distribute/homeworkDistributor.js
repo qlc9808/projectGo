@@ -21,8 +21,8 @@ export default function homeworkDistributor(stateManager) {
         $.ajax({
             url: '/homework/distributeHomework',
             type: 'POST',
-            dataType: "json",
-            data: JSON.stringify(data),
+            // dataType: "json",
+            data: data,
             contentType: 'application/json',
             success: function(response) {
                 storeNotification(response.message, "success");

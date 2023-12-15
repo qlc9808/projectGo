@@ -39,13 +39,27 @@ public class UsersService {
     }
     public Users getLoggedInUserInfo() {
         Users user =new Users();
-        user.setId(0);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && !authentication.getName().equals("anonymousUser") ){
+
             user = ud.getUserByNickname(authentication.getName());
 
             return user;
         }
         return user;
+    }
+
+    public int insertUsers(Users users) {
+        log.info("UsersService start");
+        int insertUsers = 0;
+
+        insertUsers = ud.insertUsers(users);
+        return insertUsers;
+
+    }
+
+    public int nickCheck(Users users) {
+        int result = ud.nickCheck(users);
+        return result;
     }
 }

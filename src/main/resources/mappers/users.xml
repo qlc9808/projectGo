@@ -8,12 +8,23 @@
         SELECT * FROM users WHERE nickname = #{nickname}
     </select>
 
-    <insert id="insertUser"  parameterType="Users" >
+    <insert id="insertUsers"  parameterType="Users" >
+        INSERT INTO users(id, nickname, userType, name, password, birthdate, gender, address,
+                             phone, email, consent1, consent2, isDeleted, createdAt, updatedAt)
+        VALUES(users_id_seq.nextval, #{nickname}, #{userType}, #{name}, #{password}, #{birthdate}, #{gender},#{address},
+               #{phone}, #{email}, #{consent1}, #{consent2}, '0', sysdate, null)
     </insert>
 
     <select id="getUserList" resultType="Users">
     </select>
 
     <select id="totalUsers" resultType="int">
+    </select>
+
+
+    <select id="usersNicknameCheck" parameterType="Users" resultType="int">
+        select count(*)
+        from users
+        where nickname = #{nickname}
     </select>
 </mapper>
