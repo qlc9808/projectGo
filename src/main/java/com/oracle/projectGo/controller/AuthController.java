@@ -104,4 +104,45 @@ public class AuthController {
         int result = us.nickCheck(users);
         return result;
     }
+    @GetMapping("/emailAuth")
+    public String emailAuthForm() {
+        return "auth/mailAuthForm";
+    }
+
+    @PostMapping("/emailAuth")
+    public String emailAuth(HttpServletRequest request, Model model) {
+        log.info("email1 = "+request.getParameter("email"));
+        log.info("name1 = "+ request.getParameter("name"));
+        String userName = request.getParameter("name");
+        String userEmail = request.getParameter("email");
+        String token = us.sendEmail(userEmail);
+        log.info("token = "+ token);
+
+        // 토큰을 세션에 저장
+        request.getSession().setAttribute("authToken", token);
+        model.addAttribute("userName",userName );
+        model.addAttribute("userEmail", userEmail);
+        return "auth/emailAuth";
+    }
+
+    @PostMapping("/emailVerify")
+    public String emailVerify(HttpServletRequest request, Model model) {
+        String userInputToken = request.getParameter("token");
+        String sessionToken = (String) request.getSession().getAttribute("authToken");
+        String userName = request.getParameter("userName");
+        String userEmail = request.getParameter("email");
+        log.info("email2 = "+request.getParameter("email"));
+        log.info("name2 = "+ request.getParameter("userName"));
+
+        if (userInputToken.equals(sessionToken)) {
+
+            model.addAttribute("userName",userName);
+            model.addAttribute("userEmail", userEmail);
+            // 인증 성공, 회원 가입 페이지로 이동
+            return "auth/joinForm";
+        } else {
+            // 인증 실패, 에러 메시지 출력
+            return "home";
+        }
+    }
 }

@@ -40,7 +40,7 @@
                                 <a class="search-text" href="passwordSearch">비밀번호 찾기</a>
                             </div>
                             <div class="go-login">
-                                <span class="member-yet">아직 회원이 아니세요? <a id="link-join" href="join">회원가입 하기</a></span>
+                                <span class="member-yet">아직 회원이 아니세요? <a id="link-join" href="emailAuth">회원가입 하기</a></span>
                             </div>
                         </div>
                     </div>

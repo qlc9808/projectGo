@@ -180,6 +180,22 @@
 
 
                         <div class="my-4 row align-items-baseline">
+                            <label for="name" class="col-sm-2 col-form-label fw-bold text-end">이름<SUP
+                                    style="color: #FF4379; font-size: 18px;">*</SUP></label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="name" id="name" value="${userName}" required="required" readonly>
+                            </div>
+                        </div>
+
+                        <div class="my-4 row align-items-baseline">
+                            <label for="email" class="col-sm-2 col-form-label fw-bold text-end">email<SUP
+                                    style="color: #FF4379; font-size: 18px;">*</SUP></label></label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" value="${userEmail}" name="email" id="email" readonly>
+                            </div>
+                        </div>
+
+                        <div class="my-4 row align-items-baseline">
                             <label for="nickname" class="col-sm-2 col-form-label fw-bold text-end">아이디<SUP
                                     style="color: #FF4379; font-size: 18px;">*</SUP></label>
                             <div class="col-sm-8 d-flex">
@@ -209,13 +225,7 @@
                             </div>
                         </div>
 
-                        <div class="my-4 row align-items-baseline">
-                            <label for="name" class="col-sm-2 col-form-label fw-bold text-end">이름<SUP
-                                    style="color: #FF4379; font-size: 18px;">*</SUP></label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" name="name" id="name" required="required">
-                            </div>
-                        </div>
+
 
                         <div class="my-4 row align-items-center ">
                             <label class="col-sm-2 col-form-label fw-bold text-end">생년월일<SUP
@@ -255,12 +265,7 @@
                             </div>
                         </div>
 
-                        <div class="my-4 row align-items-baseline">
-                            <label for="email" class="col-sm-2 col-form-label fw-bold text-end">email</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" name="email" id="email">
-                            </div>
-                        </div>
+
 
                         <div class="my-4 row align-items-baseline">
                             <label for="address" class="col-sm-2 col-form-label fw-bold text-end">주소</label>
