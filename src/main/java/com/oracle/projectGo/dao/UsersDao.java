@@ -55,4 +55,16 @@ public class UsersDao {
 
         return nickCheck;
     }
+
+    public Users idSearchByPhone(Users users) {
+        log.info("UsersDao idSearchByPhone start");
+        Users idSearchByPhone = null;
+        try {
+            idSearchByPhone = session.selectOne("idSearchByPhone", users);
+
+        } catch (Exception e) {
+            log.info("UsersDao idSearchByPhone => " + e.getMessage());
+        }
+        return idSearchByPhone;
+    }
 }

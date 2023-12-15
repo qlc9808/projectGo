@@ -12,6 +12,8 @@
     <title>Title</title>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script>
+        var isNicknameChecked = false;
+
         document.addEventListener("DOMContentLoaded", function () {
             const yearSelect = document.getElementById("year");
             const currentYear = new Date().getFullYear();
@@ -116,71 +118,109 @@
 
         }
 
-        function submitForm(event) {
-            updateBirthday();
-            checkSubmitHandler(event)
-        }
+
 
         function fn_nickCheck(){
-            event.preventDefault()
-            const data = {"nickname" : $("#nickname").val()}
+            const nickname = $("#nickname").val();
+            // 한글을 체크하는 정규식
+            const regExp = /[\u3131-\u314e|\u314f-\u3163|\uac00-\ud7a3]/g;
+
+            if(regExp.test(nickname)){
+                alert("한글을 입력할 수 없습니다.");
+                $("#nickname").val("");
+                return;
+            }
+
+            const data = {"nickname" : nickname}
             console.log(data);
             $.ajax({
                 url : "/nickCheck",
                 type : "POST",
                 dataType: "json",
-                data: $("#nickname").val(),
+                data: nickname,
                 contentType: 'application/json',
                 success : function (data){
                     if (data == 1){
                         alert("중복된 닉네임입니다");
                     } else if (data == 0 ){
+                        isNicknameChecked = true;  // 중복 체크 완료
                         alert("사용 가능한 닉네임 입니다")
                     }
                 }
             })
         }
 
+        function fn_register() {
+            if (!isNicknameChecked) {
+                alert("닉네임 중복 확인을 해주세요.");
+                event.preventDefault()
+                return;
+            } else{
+                updateBirthday();
+                checkSubmitHandler(event)
+            }
+
+        }
     </script>
 </head>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
+
+
     <%@ include file="/WEB-INF/components/Sidebar.jsp"%>
     <div id="main-content">
         <div class="my-5">
             <div class="" id="detail-main-container">
-
-                <div class="container p-5" id="form-container">
+                <div class="container p-2" id="form-container">
+                    <h1 style="text-align: center">회원가입</h1>
+                    <hr class="hr" />
                     <form action="/signUp" method="post">
                         <input type="text" id="birthdate" name="birthdate" style="display: none;">
 
-                        <label for="nickname" class="form-label col-2">아이디</label>
-                        <div class="mb-3 d-flex">
-                            <div class="col-10">
-                                <input type="text" class="form-control" name="nickname" id="nickname" required="required">
-                                <button type="button" class="btn btn-primary w-100" onclick="fn_nickCheck();">중복 확인</button>
+
+                        <div class="my-4 row align-items-baseline">
+                            <label for="nickname" class="col-sm-2 col-form-label fw-bold text-end">아이디<SUP
+                                    style="color: #FF4379; font-size: 18px;">*</SUP></label>
+                            <div class="col-sm-8 d-flex">
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="nickname" id="nickname" required="required">
+                                </div>
+                                <div class="col-sm-2">
+                                    <button type="button" class="btn btn-primary w-100" onclick="fn_nickCheck()">중복 확인</button>
+                                </div>
                             </div>
                         </div>
 
 
-                        <div class="mb-3 ">
-                            <label for="password" class="form-label">비밀번호</label>
-                            <input type="password" class="form-control" name="password" id="password" required="required">
-                        </div>
-                        <div class="mb-3 ">
-                            <label for="passwordCheck" class="form-label">비밀번호확인</label>
-                            <input type="password" class="form-control" name="passwordCheck" id="passwordCheck" required="required">
-                        </div>
-                        <div class="mb-3 ">
-                            <label for="name" class="form-label">이름</label>
-                            <input type="text" class="form-control" name="name" id="name" required="required">
-                        </div>
-                        <div class="my-4 row align-items-center ">
-                            <label class="col-sm-2 col-form-label fw-bold text-end"
-                                   style="font-size: 20px;">생년월일<SUP
+                        <div class="my-4 row align-items-baseline">
+                            <label for="password" class="col-sm-2 col-form-label fw-bold text-end">비밀번호<SUP
                                     style="color: #FF4379; font-size: 18px;">*</SUP></label>
-                            <div class="col-sm-8 d-flex align-items-center">
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" name="password" id="password" required="required">
+                            </div>
+                        </div>
+
+                        <div class="mmy-4 row align-items-baseline">
+                            <label for="passwordCheck" class="col-sm-2 col-form-label fw-bold text-end">비밀번호확인<SUP
+                                    style="color: #FF4379; font-size: 18px;">*</SUP></label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" name="passwordCheck" id="passwordCheck" required="required">
+                            </div>
+                        </div>
+
+                        <div class="my-4 row align-items-baseline">
+                            <label for="name" class="col-sm-2 col-form-label fw-bold text-end">이름<SUP
+                                    style="color: #FF4379; font-size: 18px;">*</SUP></label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="name" id="name" required="required">
+                            </div>
+                        </div>
+
+                        <div class="my-4 row align-items-center ">
+                            <label class="col-sm-2 col-form-label fw-bold text-end">생년월일<SUP
+                                    style="color: #FF4379; font-size: 18px;">*</SUP></label>
+                            <div class="col-sm-9 d-flex align-items-center">
                                 <div class="col-4"	>
                                     <select class="form-select text-center" id="year" required>
                                         <option value=""></option>
@@ -202,59 +242,74 @@
                             </div>
                         </div>
 
-                        <div class="mb-3 ">
-                            <label for="email" class="form-label">email</label>
-                            <input type="text" class="form-control" name="email" id="email">
-                        </div>
-                        <div class="mb-3 ">
-                            <label for="userType" class="form-label">회원구분</label>
-                            <select class="form-control" name="userType" id="userType">
-                                <option value="1">관리자</option>
-                                <option value="2">교육자</option>
-                                <option value="3">학습자</option>
-                                <option value="4">일반인</option>
-                            </select>
-                        </div>
-                        <div class="my-4 row align-items-baseline ">
-                            <label class="col-sm-2 col-form-label fw-bold text-end"
-                                   style="font-size: 20px;">성별<SUP
+                        <div class="row my-4 align-items-baseline">
+                            <label for="userType" class="col-sm-2 col-form-label fw-bold text-end">회원구분<SUP
                                     style="color: #FF4379; font-size: 18px;">*</SUP></label>
-                            <div class="col-sm-8 d-flex">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gender" id="male"
-                                           value="0" checked> <label class="form-check-label" for="male">남자</label>
-                                </div>
-                                <div class="col-1"></div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gender" id="female"
-                                           value="1" > <label class="form-check-label" for="female">여자</label>
-                                </div>
+                            <div class="col-sm-8">
+                                <select class="form-select" name="userType" id="userType">
+                                    <option value="1">관리자</option>
+                                    <option value="2">교육자</option>
+                                    <option value="3">학습자</option>
+                                    <option value="4">일반인</option>
+                                </select>
                             </div>
-                        </div>
-                        <div class="mb-3 ">
-                            <label for="address" class="form-label">주소</label>
-                            <input type="text" class="form-control" name="address" id="address">
-                        </div>
-                        <div class="mb-3 ">
-                            <label for="phone" class="form-label">전화번호</label>
-                            <input type="text" class="form-control" name="phone" id="phone">
                         </div>
 
-                        <div class="col-12 d-flex justify-content-between">
-                            <div class="col-8 form-check">
-                                <label class="form-check-label">이벤트, 커리큘럼, 신규컨텐츠 등 광고 메세지 수신</label>
-                            </div>
-                            <div class="col-2 form-check">
-                                <input class="form-check-input" type="radio" name="consent1"
-                                       id="consent1" value="1" >
-                                <label class="form-check-label" for="consent1">이메일</label>
-                            </div>
-                            <div class="col-2 form-check">
-                                <input class="form-check-input" type="radio" name="consent2"
-                                       id="consent2" value="1" >
-                                <label class="form-check-label" for="consent2">SMS</label>
+                        <div class="my-4 row align-items-baseline">
+                            <label for="email" class="col-sm-2 col-form-label fw-bold text-end">email</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="email" id="email">
                             </div>
                         </div>
+
+                        <div class="my-4 row align-items-baseline">
+                            <label for="address" class="col-sm-2 col-form-label fw-bold text-end">주소</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="address" id="address">
+                            </div>
+                        </div>
+
+                        <div class="my-4 row align-items-baseline">
+                            <label for="phone" class="col-sm-2 col-form-label fw-bold text-end">전화번호<SUP
+                                    style="color: #FF4379; font-size: 18px;">*</SUP></label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="phone" id="phone">
+                            </div>
+                        </div>
+
+                        <div class="row my-4 align-items-baseline">
+                            <label class="col-sm-2 col-form-label fw-bold text-end">성별<SUP
+                                    style="color: #FF4379; font-size: 18px;">*</SUP></label>
+                            <div class="col-sm-8 d-flex">
+
+                                <div class="col-sm-3 form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="male"value="0" checked>
+                                    <label class="form-check-label" for="male">남자</label>
+                                </div>
+
+                                <div class="col-sm-3 form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="female"value="1" >
+                                    <label class="form-check-label" for="female">여자</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row my-4 align-items-baseline">
+                            <label class="col-sm-2 col-form-label fw-bold text-end">광고 메세지 수신</label>
+                            <div class="col-sm-8 d-flex">
+
+                                <div class="col-sm-3 form-check">
+                                    <input class="form-check-input" type="radio" name="consent1" id="consent1" value="1" >
+                                    <label class="form-check-label" for="consent1">EMAIL</label>
+                                </div>
+
+                                <div class="col-sm-3 form-check">
+                                    <input class="form-check-input" type="radio" name="consent2"id="consent2" value="1" >
+                                    <label class="form-check-label" for="consent2">SMS</label>
+                                </div>
+                            </div>
+                        </div>
+
 
 
 
@@ -264,7 +319,7 @@
 
                         <div class="d-flex justify-content-between">
                             <div class="col-6 mb-3" >
-                                <button type="submit" class="form-control btn btn-primary w-100" onclick="submitForm(event);">등록</button>
+                                <button type="submit" class="form-control btn btn-primary w-100" onclick="fn_register()">등록</button>
                             </div>
                             <div class="col-3 mb-3">
                                 <button type="reset" class="btn btn-outline-secondary w-100" onclick="return confirm('입력하신 내용이 초기화됩니다. 정말 진행하시겠습니까?')">초기화</button>

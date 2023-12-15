@@ -62,4 +62,9 @@ public class UsersService {
         int result = ud.nickCheck(users);
         return result;
     }
+
+    public Users idSearchByPhone(Users users) {
+        Users idSearchByPhone = ud.idSearchByPhone(users);
+        return idSearchByPhone;
+    }
 }

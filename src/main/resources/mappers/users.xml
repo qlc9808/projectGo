@@ -27,4 +27,12 @@
         from users
         where nickname = #{nickname}
     </select>
+
+    <select id="idSearchByPhone" parameterType="Users" resultType="Users">
+        select nickname
+        from users
+        where name = #{name}
+        and phone = #{phone}
+    </select>
+
 </mapper>

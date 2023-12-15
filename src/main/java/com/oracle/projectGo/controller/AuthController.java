@@ -28,6 +28,35 @@ public class AuthController {
         return "auth/loginForm";
     }
 
+    @GetMapping("/idSearch")
+    public String idSearchForm() {
+        return "auth/idSearch";
+    }
+    @RequestMapping(value = "/idSearchResult")
+    public String idSearchResult(@ModelAttribute Users users , Model model) {
+
+        log.info("aaa");
+
+        try {
+            /*users.setName(name);
+            log.info("username = "+users.getName());
+            users.setPhone(phone);
+            log.info("userphone = "+ users.getPhone());*/
+
+            users = us.idSearchByPhone(users);
+
+            model.addAttribute("users", users);
+
+        } catch (Exception e){
+            log.info(e.getMessage());
+        }finally {
+
+
+        }
+
+        return "auth/idSearchResult";
+    }
+
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
