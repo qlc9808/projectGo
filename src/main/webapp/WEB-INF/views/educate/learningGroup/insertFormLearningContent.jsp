@@ -33,7 +33,7 @@
                     <input type="hidden" id="userId" name="userId" value="${insertFormLearningContent.userId}">
                     <div>
                         <label class="col-2">교육자명</label>
-                        <label>${insertFormLearningContent.userId}</label>
+                        <label>${insertFormLearningContent.name}</label>
                     </div>
                     <div>
                         <label class="col-2">그룹명</label>

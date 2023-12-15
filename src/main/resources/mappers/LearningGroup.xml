@@ -9,7 +9,7 @@
             FROM    payments a
             join    gameContents b
             on      a.contentId = b.id
-            WHERE   a.userId = 2
+            WHERE   a.userId = #{userId}
             AND     b.subscribleStart <= SYSDATE
             AND     b.subscribleEnd >= SYSDATE
         ]]>
@@ -28,17 +28,13 @@
     </select>
 
     <select id="NoInsertFormLearningContent" parameterType="int" resultType="GameContents">
---         SELECT *
---         FROM gamecontents
---         WHERE id = #{id}
-
         SELECT  a.userId pay_userId, b.name, c.*
         FROM    payments a
         JOIN    users b
         ON      a.userId = b.id
         JOIN    gameContents c
         ON      a.contentId = c.id
-        WHERE   c.contentId = 2
+        WHERE   c.id = #{id}
     </select>
 
     <insert id="NoInsertLearningGroup" parameterType="Map">
@@ -47,24 +43,37 @@
     </insert>
 
     <select id="NoTotalLearningGroupCnt" resultType="int">
-        SELECT COUNT(*)
-        FROM   learningGroup
-        WHERE  userId = #{userId}
+        <![CDATA[
+            SELECT COUNT(*)
+            FROM   learningGroup
+            WHERE  userId = #{userId}
+            AND    startDate <= SYSDATE
+            AND    endDate >= SYSDATE
+        ]]>
     </select>
 
     <select id="NoLearningGroupList" parameterType="int" resultType="LearningGroup">
-        SELECT *
-        FROM   learninggroup
-        WHERE  userId = #{userId}
+        <![CDATA[
+            SELECT  a.*, b.title
+            FROM    learningGroup a
+            JOIN    gameContents b
+            ON      a.contentId = b.id
+            WHERE   a.userId = #{userId}
+            AND     a.startDate <= SYSDATE
+            AND     a.endDate >= SYSDATE
+        ]]>
     </select>
 
     <select id="NoDetailLearningGroup" parameterType="learningGroup" resultType="LearningGroup">
-        SELECT  *
+        SELECT  a.*, b.contentId, b.name, b.startDate, b.endDate, b.groupSize, b.etc1,
+                b.etc2, c.name studentName, c.phone, c.email, c.address, d.title
         FROM    learninggroupmember a
         JOIN    learninggroup b
         ON      a.groupid = b.id
-        join    users c
-        on      a.userid = c.id
+        JOIN    users c
+        ON      a.userid = c.id
+        JOIN    gamecontents d
+        ON      b.contentId = d.id
         WHERE   a.groupid = #{id}
     </select>
 

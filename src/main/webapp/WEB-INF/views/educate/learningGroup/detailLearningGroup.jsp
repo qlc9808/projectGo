@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -19,7 +18,7 @@
                 <table class="table table-bordered">
                     <tr>
                         <th class="col-2">학습그룹 : </th><td class="col-2">${detailLearningGroup[0].name}</td>
-                        <th class="col-2">게임콘텐츠 : </th><td class="d-flex">#</td>
+                        <th class="col-2">게임콘텐츠 : </th><td class="d-flex">${detailLearningGroup[0].title}</td>
                     </tr>
                     <tr>
                         <th class="col-2">그룹제한인원 : </th><td class="col-2">${detailLearningGroup[0].groupSize}</td>
@@ -38,10 +37,10 @@
                         <tr>
                             <th>No</th><th>학생이름</th><th>연락처</th><th>이메일</th><th>주소</th><th>가입일자</th>
                         </tr>
-                        <c:forEach var="detailGroup" items="${detailLearningGroup}">
+                        <c:forEach var="detailGroup" items="${detailLearningGroup}" varStatus="status">
                             <tr>
-                                <td>#</td>
-                                <td>${detailGroup.name}</td>
+                                <td>${status.index + 1}</td>
+                                <td>${detailGroup.studentName}</td>
                                 <td>${detailGroup.phone}</td>
                                 <td>${detailGroup.email}</td>
                                 <td>${detailGroup.address}</td>
@@ -55,6 +54,5 @@
 
     </main>
     <%@ include file="/WEB-INF/components/Footer.jsp"%>
-
 </body>
 </html>

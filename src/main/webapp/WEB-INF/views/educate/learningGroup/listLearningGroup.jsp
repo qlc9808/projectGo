@@ -49,7 +49,7 @@
                             <tr>
                                 <td><input type="radio" name="learningGroup" id="learningGroup" value="${groupList.id}"></td>
                                 <td>${groupList.name}</td>
-                                <td>#</td>
+                                <td>${groupList.title}</td>
                                 <td>${groupList.groupSize}</td>
                                 <td>
                                     <fmt:formatDate value="${groupList.startDate}" type="date" pattern="yyyy.MM.dd"></fmt:formatDate>
