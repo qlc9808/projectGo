@@ -3,6 +3,19 @@
 <html>
 <head>
     <%@ include file="/WEB-INF/components/Header.jsp"%>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('input[type=radio][name=publishOption]').change(function() {
+                if (this.value == 'scheduled') {
+                    $('#publishDate').prop('disabled', false);
+                }
+                else if (this.value == 'immediate') {
+                    $('#publishDate').prop('disabled', true);
+                }
+            });
+        });
+    </script>
     <title>Title</title>
 </head>
 <body>

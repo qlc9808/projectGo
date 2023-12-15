@@ -1,7 +1,6 @@
 package com.oracle.projectGo.dto;
 
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -28,9 +27,13 @@ public class Board {
     private int    start;
     private int    end;
 
+    /* 검색처리 */
+    private String keyword;
+
     /*스케줄 처리*/
 
     private LocalDateTime publishDate;
+
 
     /*파일 업로드*/
     private String fileName;        // 파일이름

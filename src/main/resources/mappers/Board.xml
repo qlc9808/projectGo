@@ -31,6 +31,7 @@
                 SELECT A.*
                 FROM BOARD A
                 WHERE A.boardType = 1
+                AND   sysdate >= A.createdAt
                 ORDER BY A.isPinned DESC, A.id DESC
             ) C
         )
@@ -40,7 +41,7 @@
     <insert id="InsertnoticeBoard" parameterType="Board">
         INSERT INTO Board(id, userId, boardType, title, content, status, readCount, fileName, fileSize, filePath, createdAt, isPinned)
         VALUES(Board_id_seq.nextval, #{userId}, 1, #{title}, #{content}, #{status}, 0, #{fileName}, #{fileSize},
-               #{filePath}, sysdate, #{isPinned})
+               #{filePath}, #{createdAt}, #{isPinned})
     </insert>
 
     <update id="noticeUpdate" parameterType="Board">
@@ -63,6 +64,50 @@
         update board
         where  id = #{id}
     </delete>
+
+    <select id="totalSearchnotice" parameterType="board" resultType="int">
+        SELECT count(*)
+        FROM  board
+        WHERE  boardType = 1
+        <if test="keyword != null">
+            AND title like '%' || #{keyword} || '%'
+        </if>
+        <if test="title != null and title != 0">
+            And title = #{title}
+        </if>
+        <if test="content != null and content != 0">
+            AND content = #{content}
+        </if>
+        <if test="userId != null and userId != 0">
+            AND userId = #{userId}
+        </if>
+    </select>
+
+    <select id="listSearchNotice" parameterType="board"  resultType="board">
+
+        SELECT *
+        FROM (
+        SELECT ROWNUM RN, C.*
+        FROM (
+        SELECT A.*
+        FROM BOARD A
+        WHERE boardType = 1
+        <if test="keyword != null">
+            AND title like '%' || #{keyword} || '%'
+        </if>
+        <if test="title != null and title != 0">
+            AND title = #{title}
+        </if>
+        <if test="content != null and content != 0">
+            AND content = #{content}
+        </if>
+        <if test="userId != null and userId != 0">
+            AND userId = #{userId}
+        </if>
+        ) C
+        )
+        where rn BETWEEN #{start} and #{end}
+    </select>
 
     <select id="QNAboardCount" resultType="int">
         SELECT COUNT(*)

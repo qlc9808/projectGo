@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -189,5 +190,16 @@ public class BoardService {
 
     public void increaseReadCount(int id) {
         boardDao.increaseReadCount(id);
+    }
+
+    public int totalSearchnotice(Board board) {
+        int totalSearchnotice = boardDao.totalSearchnotice(board);
+        return totalSearchnotice;
+    }
+
+    public List<Board> listSearchNotice(Board board) {
+        List<Board> listSearchNotice = boardDao.listSearchNotice(board);
+        return listSearchNotice;
+
     }
 }

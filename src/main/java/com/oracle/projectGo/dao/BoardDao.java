@@ -281,4 +281,29 @@ public class BoardDao {
     public void increaseReadCount(int id) {
         session.update("increaseReadCount", id);
     }
+
+    public int totalSearchnotice(Board board) {
+        int totalSearchnotice = 0;
+        try {
+            totalSearchnotice = session.selectOne("totalSearchnotice",board);
+            log.info("noticeDaoImpl totalSearchnotice()->"+totalSearchnotice);
+        } catch (Exception e) {
+            log.info("noticeDaoImpl totalSearchnotice ->"+e.getMessage() );
+        }
+        return totalSearchnotice;
+    }
+
+
+    public List<Board> listSearchNotice(Board board) {
+        List<Board> listSearchNotice = null;
+
+        try {
+            listSearchNotice = session.selectList("listSearchNotice",board);
+            log.info("listSearchNoticeDaoImpl listSearchExperience() => " + listSearchNotice.size());
+
+        } catch (Exception e) {
+            log.info("listSearchNoticeDaoImpl listSearchExperience() => " + e.getMessage());
+        }
+        return listSearchNotice;
+    }
 }

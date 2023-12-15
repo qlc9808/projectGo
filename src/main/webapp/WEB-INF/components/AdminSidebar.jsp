@@ -79,7 +79,7 @@
         </li>
         <li class="nav-item my-page-nav-item">
             <div>
-                <a href="#"
+                <a href="/admin/board/noticeBoardList"
                    class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi bi-chat-square-dots-fill px-3"></i>
                     공지 등록

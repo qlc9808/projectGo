@@ -33,13 +33,29 @@
                         </c:choose>
                     </c:forEach>
                 </select>
-                <button id="regist-btn" type="button" class="btn btn-primary btn-sm mb-4" onclick="location.href='noticeInsertForm'">등록</button>
+                <form action="noticeSearch" method="get" class="container justify-content-center">
+                    <div class="col-12 my-4 d-flex align-items-center">
+                        <label for="searchType" class="col-form-label col-1  mx-2">검색어</label>
+                        <div class="col-4">
+                            <select id="searchType" name="searchType" class="form-select">
+                                <option value="" ${title ? 'selected' : ''}>제목</option>
+                                <option value="" ${content ? 'selected' : ''}>내용</option>
+                                <option value="" ${userId ? 'selected' : ''}>작성자</option>
+                            </select>
+                        </div>
+                        <div class="col-5 mx-2">
+                            <input type="text" name="keyword" class="form-control" placeholder="검색어를 입력하세요">
+                        </div>
+                    </div>
+                    <button id="regist-btn" type="button" class="btn btn-primary btn-sm mb-4" onclick="location.href='noticeInsertForm'">등록</button>
+                </form>
             </div>
             <div class="container table-container p-4">
                 <div class="table-responsive">
                     <table id="userTable" class="table table-md text-center p-3">
                         <thead>
                         <h1>공지 리스트</h1>
+                        <h3>총 게시글 수 : ${totalnoticeboard}</h3>
                         <tr>
                             <th scope="col">순번</th>
                             <th scope="col">분류</th>
@@ -99,17 +115,17 @@
                     <c:otherwise>
                         <c:if test="${page.startPage > page.pageBlock}">
                             <li class="page-item">
-                                <a href="IndexnoticeSearch?currentPage=${page.startPage-page.pageBlock}"
+                                <a href="noticeSearch?pageSize=${pageSize}&currentPage=${page.startPage-page.pageBlock}"
                                    class="pageblock page-link">[이전]</a></li>
                         </c:if>
                         <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
                             <li class="page-item">
-                                <a href="IndexnoticeSearch?currentPage=${i}&keyword=${keyword}&big_code=${big_code}&small_code=${small_code}&area=${area}" class="pageblock page-link ${page.currentPage == i ? 'active':'' }">${i}</a>
+                                <a href="noticeSearch?pageSize=${pageSize}&currentPage=${i}&keyword=${keyword}&title=${title}&content=${content}&userId=${userId}" class="pageblock page-link ${page.currentPage == i ? 'active':'' }">${i}</a>
                             </li>
                         </c:forEach>
                         <c:if test="${page.endPage < page.totalPage}">
                             <li class="page-item">
-                                <a href="IndexnoticeSearch?currentPage=${page.startPage+page.pageBlock}"
+                                <a href="noticeSearch?pageSize=${pageSize}&currentPage=${page.startPage+page.pageBlock}"
                                    class="pageblock page-link">[다음]</a></li>
                         </c:if>
                     </c:otherwise>

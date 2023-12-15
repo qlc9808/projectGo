@@ -4,6 +4,7 @@ import com.oracle.projectGo.dto.Board;
 import com.oracle.projectGo.service.BoardPaging;
 import com.oracle.projectGo.service.BoardService;
 import com.oracle.projectGo.service.Paging;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -100,13 +102,13 @@ public class AdminBoardController {
 			log.info("[{}]:{}", "admin noticeInsert", "start");
 
 			// 게시일자 처리
-			LocalDateTime publishDate;
+			Timestamp createdAt;
 			if ("immediate".equals(publishOption)) {
-				publishDate = LocalDateTime.now();
+				createdAt = Timestamp.valueOf(LocalDateTime.now());
 			} else {
-				publishDate = LocalDateTime.parse(publishDateStr, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+				createdAt = Timestamp.valueOf(LocalDateTime.parse(publishDateStr, DateTimeFormatter.ISO_LOCAL_DATE_TIME));
 			}
-			board.setPublishDate(publishDate);
+			board.setCreatedAt(createdAt);
 
 			if (!file.isEmpty()) {
 				// 파일을 파일시스템에 저장
@@ -206,6 +208,53 @@ public class AdminBoardController {
 		}
 		return "forward:admin/notice/notice";
 	}
+
+	@RequestMapping(value = "noticeSearch")
+	public String noticeSearch(Board board, Integer pageSize, String currentPage, Model model, HttpServletRequest request) {
+		try {
+			log.info("[{}]{}:{}", "admin noticeSearch", "start");
+			int totalSearchnotice = boardService.totalSearchnotice(board);
+
+			if (pageSize == null) {
+				pageSize = 10; // 기본값 설정
+			}
+
+
+				int path = 1;
+				String keyword = request.getParameter("keyword");
+				String title = request.getParameter("title");
+				String userId = request.getParameter("userId");
+				String content = request.getParameter("content");
+
+
+
+				BoardPaging page = new BoardPaging(totalSearchnotice, currentPage, pageSize);
+				board.setStart(page.getStart());
+				board.setEnd(page.getEnd());
+
+
+				List<Board> listSearchNotice = boardService.listSearchNotice(board);
+
+
+				model.addAttribute("totalnoticeboard", totalSearchnotice);
+				model.addAttribute("listnoticeBoard", listSearchNotice);
+				model.addAttribute("page", page);
+				model.addAttribute("path", path);
+				model.addAttribute("keyword", keyword);
+				model.addAttribute("title", title);
+				model.addAttribute("content", content);
+				model.addAttribute("userId", userId);
+
+			} catch(Exception e){
+				log.error("[{}]:{}", "admin noticeSearch", e.getMessage());
+			} finally{
+				log.info("[{}]:{}", "admin notice", "end");
+			}
+			return "admin/notice/notice";
+
+
+	}
+
 
 	@RequestMapping(value = "/QNABoardList")
 	public String QNABoardList(int pageSize, Board board, String currentPage, Model model) {
