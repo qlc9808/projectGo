@@ -4,6 +4,7 @@ import com.oracle.projectGo.dao.UsersDao;
 import com.oracle.projectGo.dto.Users;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
@@ -72,7 +73,9 @@ public class UsersService {
         return idSearchByPhone;
     }
     public String sendEmail(String userEmail) {
-        String token = UUID.randomUUID().toString();
+
+        String token = RandomStringUtils.randomNumeric(6);
+
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(userEmail);
