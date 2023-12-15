@@ -56,20 +56,20 @@ public class GameController {
         System.out.println("GameController gameContentInsert Start !");
 
         // file upload
-        String uploadPath = request.getServletContext().getRealPath("/upload/gameContents/");
-        String saveName = uploadFile(file1.getOriginalFilename(), file1.getBytes(), uploadPath);
-        log.info("saveName: " + saveName);                              // 저장되는 파일명
-        log.info("originalName : " + file1.getOriginalFilename());		// 원본 파일명
-        log.info("size : "         + file1.getSize());					// 파일 사이즈
-        log.info("contextType : "  + file1.getContentType());			// 파일 타입
-        log.info("uploadPath : "   + uploadPath);						// 파일 저장되는 주소
+//        String uploadPath = request.getServletContext().getRealPath("/upload/gameContents/");
+//        String saveName = uploadFile(file1.getOriginalFilename(), file1.getBytes(), uploadPath);
+//        log.info("saveName: "      + saveName);                         // 저장되는 파일명
+//        log.info("originalName : " + file1.getOriginalFilename());		// 원본 파일명
+//        log.info("size : "         + file1.getSize());					// 파일 사이즈
+//        log.info("contextType : "  + file1.getContentType());			// 파일 타입
+//        log.info("uploadPath : "   + uploadPath);						// 파일 저장되는 주소
 
         // 로그인한 유저 정보 세팅
         Users users = us.getLoggedInUserInfo();
         log.info("로그인 getUserType : {}", users.getUserType());
         gameContents.setUserId(users.getId());
-        gameContents.setImagePath(uploadPath);
-        gameContents.setImageName(saveName);
+//        gameContents.setImagePath(uploadPath);
+//        gameContents.setImageName(saveName);
 
         // subscribleStart(구독 시작 날짜) + subscribleDate(구독 기간) = subscribleEnd(구독 종료 날짜)
         LocalDate resultDate = gameContents.getSubscribleStart().toLocalDate().plusMonths(gameContents.getSubscribeDate());
@@ -86,30 +86,31 @@ public class GameController {
     }
 
     // file upload method
-    private String uploadFile(String originalName, byte[] bytes, String uploadPath) throws IOException {
-        // universally unique identifier (UUID)
-        UUID uid = UUID.randomUUID();
-        System.out.println("uploadPath-> " + uploadPath);
+//    private String uploadFile(String originalName, byte[] bytes, String uploadPath) throws IOException {
+//        // universally unique identifier (UUID)
+//        UUID uid = UUID.randomUUID();
+//        System.out.println("uploadPath-> " + uploadPath);
+//
+//        // 신규 폴더(Directory) 생성
+//        File fileDirectory = new File(uploadPath);
+//        if(!fileDirectory.exists()) {
+//            fileDirectory.mkdirs();
+//            System.out.println("업로드용 폴더 생성 : " + uploadPath);
+//        }
+//
+//        String savedName = uid.toString() + "_" + originalName;
+//        System.out.println("savedName: " + savedName);
+//        File target = new File(uploadPath, savedName);
+//        FileCopyUtils.copy(bytes, target);
+//
+//        return savedName;
+//    }
 
-        // 신규 폴더(Directory) 생성
-        File fileDirectory = new File(uploadPath);
-        if(!fileDirectory.exists()) {
-            fileDirectory.mkdirs();
-            System.out.println("업로드용 폴더 생성 : " + uploadPath);
-        }
-
-        String savedName = uid.toString() + "_" + originalName;
-        System.out.println("savedName: " + savedName);
-        File target = new File(uploadPath, savedName);
-        FileCopyUtils.copy(bytes, target);
-
-        return savedName;
-    }
-
+//-----------------------------------------------------------------
 
     // 게임컨텐츠 구독 전 모든 리스트 조회(운영자 화면)
     @RequestMapping(value = "/gameContentSelect")
-    public String gameSelect(GameContents gameContents, String currentPage, Model model){
+    public String gameSelect(String currentPage, Model model){
 
         // 총 갯수
         int gameContentsTotalCount = gs.gameContentsTotalCount();
@@ -117,29 +118,19 @@ public class GameController {
         model.addAttribute("gameContentsTotalCount", gameContentsTotalCount);
 
         // 페이징 작업
+        GameContents gameContents = new GameContents();
         Paging page = new Paging(gameContentsTotalCount, currentPage);
         gameContents.setStart(page.getStart());
         gameContents.setEnd(page.getEnd());
         model.addAttribute("page", page);
 
         // 리스트 조회
-        List<GameContents> gameContentsList = gs.gameContentsList(gameContents);
+        List<GameContents> gameContentsList = gs.gameContentsList();
         System.out.println("GameController gameContentsList.size()-> " + gameContentsList.size());
         model.addAttribute("gameContentsList", gameContentsList);
 
         return "admin/game/gameContentSelect";
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

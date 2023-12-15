@@ -4,17 +4,17 @@
 
 <mapper namespace="com.oracle.projectGo.gameContentsMapper">
 
-    <!--게임콘텐츠 insert-->
+    <!--게임콘텐츠 insert (imagename, imagepath)  -->
     <insert id="gameContentInsert" parameterType="GameContents">
         INSERT INTO GameContents(
-                                 id, userId, title, imagename, imagepath,
+                                 id, userId, title,
                                  subscribeDate, gameLevel,
                                  maxSubscribers, content,
                                  subscribleStart, subscribleEnd,
                                  price, discountRate, discountPrice
                                 )
                         VALUES  (
-                                 GAMECONTENTS_ID_SEQ.nextval, #{userId}, #{title},#{imagename},#{imagepath},
+                                 GAMECONTENTS_ID_SEQ.nextval, #{userId}, #{title},
                                  #{subscribeDate}, #{gameLevel},
                                  #{maxSubscribers}, #{content},
                                  #{subscribleStart}, #{subscribleEnd},

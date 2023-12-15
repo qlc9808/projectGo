@@ -31,10 +31,10 @@ public class PaymentController {
 
     // 구독 신청 - 리스트에서 구독할 컨텐츠 조회 페이지
     @RequestMapping(value = "/subscribeView")
-    public String gameSubscribe(GameContents gameContents, Model model){
+    public String gameSubscribe(Model model){
 
         // 리스트 조회
-        List<GameContents> gameContentsList = gs.gameContentsList(gameContents);
+        List<GameContents> gameContentsList = gs.gameContentsList();
         System.out.println("GameController gameContentsList.size()-> " + gameContentsList.size());
         model.addAttribute("gameContentsList", gameContentsList);
 
@@ -46,12 +46,12 @@ public class PaymentController {
     // 구독 신청 - 리스트에서 구독할 컨텐츠 클릭한 값들 처리
     @RequestMapping(value = "/subscribeClick", method = RequestMethod.POST)
     public String gameSubscribePay(@RequestParam List<Integer> gameIds, Model model){
-        log.info("gameIds: {}", gameIds); // 1차인지 2차 배열인지 확인하기
+        log.info("gameIds: {}", gameIds); // 1차 배열 -> [51, 3]
 
         // 로그인 한 유저 정보 = 구매자 정보
         Users users = us.getLoggedInUserInfo();
-        log.info("로그인 userName : {}", users.getName());
-        log.info("로그인 userId : {}", users.getId());
+        log.info("로그인 userName : {}" , users.getName());
+        log.info("로그인 userId : {}"   , users.getId());
         log.info("로그인 userPhone : {}", users.getPhone());
 
         // 게임 ID 리스트들로 게임정보 받아오기 (버전1)
@@ -88,7 +88,8 @@ public class PaymentController {
     @PostMapping(value = "/subscriblePay")
     public String subscriblePay(@RequestParam List<String> gameIds, @RequestParam String paymentType){
         System.out.println("PaymentController subscriblePay !");
-        System.out.println("gameIds 리스트-> " + gameIds);
+        System.out.println("gameIds 리스트-> " + gameIds); // 2차 배열 -> [[51, 3]]
+                                                          // 오류 : "error": "For input string: "[51""
 
         // 로그인 한 유저 정보 = 구매자 정보
         Users users = us.getLoggedInUserInfo();
@@ -109,7 +110,7 @@ public class PaymentController {
         }
 
         // 로그인 한 유저의 구독 상품 조회
-        // 서비스 만들기
+        // List<Payments> subscribePayList = ps.subscribePayList();
 
         return "redirect:/subscribe/subscribeUserPay";
     }
