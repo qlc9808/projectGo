@@ -4,6 +4,7 @@ import com.oracle.projectGo.dto.GameContents;
 import com.oracle.projectGo.dto.Payments;
 import com.oracle.projectGo.dto.Users;
 import com.oracle.projectGo.service.GameService;
+import com.oracle.projectGo.service.Paging;
 import com.oracle.projectGo.service.PaymentService;
 import com.oracle.projectGo.service.UsersService;
 import lombok.RequiredArgsConstructor;
@@ -31,10 +32,22 @@ public class PaymentController {
 
     // 구독 신청 - 리스트에서 구독할 컨텐츠 조회 페이지
     @RequestMapping(value = "/subscribeView")
-    public String gameSubscribe(Model model){
+    public String gameSubscribe(String currentPage, Model model){
+
+        // 총 갯수
+        int gameContentsTotalCount = gs.gameContentsTotalCount();
+        System.out.println("GameController gameContentsTotalCount-> " + gameContentsTotalCount);
+        model.addAttribute("gameContentsTotalCount", gameContentsTotalCount);
+
+        // 페이징 작업
+        GameContents gameContents = new GameContents();
+        Paging page = new Paging(gameContentsTotalCount, currentPage);
+        gameContents.setStart(page.getStart());
+        gameContents.setEnd(page.getEnd());
+        model.addAttribute("page", page);
 
         // 리스트 조회
-        List<GameContents> gameContentsList = gs.gameContentsList();
+        List<GameContents> gameContentsList = gs.gameContentsList(gameContents);
         System.out.println("GameController gameContentsList.size()-> " + gameContentsList.size());
         model.addAttribute("gameContentsList", gameContentsList);
 

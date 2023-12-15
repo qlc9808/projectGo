@@ -32,9 +32,9 @@ public class GameService {
     }
 
     // 리스트 조회
-    public List<GameContents> gameContentsList() {
+    public List<GameContents> gameContentsList(GameContents gameContents) {
         System.out.println("ContentService gameContentsList Start !");
-        List<GameContents> gameContentsList = gd.gameContentsList();
+        List<GameContents> gameContentsList = gd.gameContentsList(gameContents);
 
         return gameContentsList;
     }

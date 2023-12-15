@@ -21,9 +21,9 @@
                     <th>구독 기간(개월)</th> <th>구독 시작 날짜</th> <th>구독 종료 날짜</th> <th>정가</th> <th>할인율</th> <th>판매가</th>
                 </tr>
 
-                <c:forEach var="gameContent" items="${gameContentsList}" varStatus="status">
-                    <tr id="gameContent${status.count}">
-                        <td>${status.count}</td>
+                <c:forEach var="gameContent" items="${gameContentsList}">
+                    <tr id="gameContent${gameContent.rn}">
+                        <td>${gameContent.rn}</td>
                         <td>${gameContent.imageName}</td>
                         <td>${gameContent.title}</td>
                         <td>${gameContent.content}</td>

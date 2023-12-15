@@ -125,7 +125,7 @@ public class GameController {
         model.addAttribute("page", page);
 
         // 리스트 조회
-        List<GameContents> gameContentsList = gs.gameContentsList();
+        List<GameContents> gameContentsList = gs.gameContentsList(gameContents);
         System.out.println("GameController gameContentsList.size()-> " + gameContentsList.size());
         model.addAttribute("gameContentsList", gameContentsList);
 

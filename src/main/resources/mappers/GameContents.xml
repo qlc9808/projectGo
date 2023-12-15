@@ -31,10 +31,21 @@
 
 
     <!-- 게임콘텐츠 select -->
-    <select id="gameContentsList" resultType="GameContents">
-          select      *
-          from        gameContents
-          order by    subscriblestart desc
+    <select id="gameContentsList" parameterType="GameContents" resultType="GameContents">
+          <![CDATA[
+                select *
+                from
+                    (
+                        select rownum rn, a.*
+                        from (
+                                 select      *
+                                 from        gameContents
+                                 order by    subscriblestart desc
+                             ) a
+                    )
+                where  rn >= #{start}
+                and    rn <= #{end}
+        ]]>
     </select>
 
 <!--    버전 1

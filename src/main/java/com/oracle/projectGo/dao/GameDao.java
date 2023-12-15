@@ -44,12 +44,12 @@ public class GameDao {
     }
 
     // 리스트 조회
-    public List<GameContents> gameContentsList() {
+    public List<GameContents> gameContentsList(GameContents gameContents) {
         System.out.println("GameDao gameContentsList Start !");
 
         List<GameContents> gameContentsList = null;
         try{
-            gameContentsList = session.selectList("gameContentsList");
+            gameContentsList = session.selectList("gameContentsList", gameContents);
             System.out.println("GameDao gameContentsList.size()-> " + gameContentsList.size());
         }catch (Exception e){
             System.out.println("GameDao gameContentsList Exception-> " + e);
