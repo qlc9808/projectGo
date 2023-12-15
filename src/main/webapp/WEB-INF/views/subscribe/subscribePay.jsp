@@ -5,12 +5,14 @@
     <title>Title</title>
 </head>
 
+<%--
 <script>
     // JSON 형식으로 변환
     document.getElementById("gameIds").value = JSON.stringify(gameIds);
     // 확인용 출력
     document.getElementById("confirmation").innerText = "확인용 - 구독한 게임 아이디(여러 개 가능): " + gameIds;
 </script>
+--%>
 
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
@@ -28,7 +30,7 @@
             <form action="/subscribe/subscriblePay" method="post">
                 <div id="confirmation"></div>
 
-                <input type="hidden" id="gameIds" name="gameIds"/>
+                <input type="hidden" id="gameIds"  value="${gameIds}" name="gameIds"/>
                 확인용 - 구독한 게임 아이디(여러 개 가능) : ${gameIds}
 <%--            문제 : 이 방식은 배열 전체를 문자열로 변환하여 설정하고 있어서 controller에 넘기면 2차원 배열로 됨
                 단일 문자열로 전달되어 컨트롤러에서 이를 단일 값으로 인식하고 1차원 배열로 처리해야 함

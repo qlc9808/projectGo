@@ -11,13 +11,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
@@ -32,7 +30,7 @@ public class PaymentController {
 
     // 구독 신청 - 리스트에서 구독할 컨텐츠 조회 페이지
     @RequestMapping(value = "/subscribeView")
-    public String gameSubscribe(String currentPage, Model model){
+    public String gameSubscribe(String currentPage, Model model) {
 
         // 총 갯수
         int gameContentsTotalCount = gs.gameContentsTotalCount();
@@ -58,13 +56,13 @@ public class PaymentController {
 
     // 구독 신청 - 리스트에서 구독할 컨텐츠 클릭한 값들 처리
     @RequestMapping(value = "/subscribeClick", method = RequestMethod.POST)
-    public String gameSubscribePay(@RequestParam List<Integer> gameIds, Model model){
+    public String gameSubscribePay(@RequestParam List<Integer> gameIds, Model model) {
         log.info("gameIds: {}", gameIds); // 1차 배열 -> [51, 3]
 
         // 로그인 한 유저 정보 = 구매자 정보
         Users users = us.getLoggedInUserInfo();
-        log.info("로그인 userName : {}" , users.getName());
-        log.info("로그인 userId : {}"   , users.getId());
+        log.info("로그인 userName : {}", users.getName());
+        log.info("로그인 userId : {}", users.getId());
         log.info("로그인 userPhone : {}", users.getPhone());
 
         // 게임 ID 리스트들로 게임정보 받아오기 (버전1)
@@ -83,8 +81,8 @@ public class PaymentController {
         }
 
         // 나중에 아무 클릭 안하고 구독 하기 눌렀을 때 validation 커스텀으로 하기
-        if(!gameContentsList.isEmpty()){
-            title = gameContentsList.get(0).getTitle() + " 외 " + (gameContentsList.size()-1);
+        if (!gameContentsList.isEmpty()) {
+            title = gameContentsList.get(0).getTitle() + " 외 " + (gameContentsList.size() - 1);
         }
 
         model.addAttribute("gameIds", gameIds);
@@ -99,10 +97,10 @@ public class PaymentController {
 
     // 결제 - 결제 방법 선택 후 결제
     @PostMapping(value = "/subscriblePay")
-    public String subscriblePay(@RequestParam List<String> gameIds, @RequestParam String paymentType){
+    public String subscriblePay(@RequestParam String gameIds, @RequestParam String paymentType) {
         System.out.println("PaymentController subscriblePay !");
         System.out.println("gameIds 리스트-> " + gameIds); // 2차 배열 -> [[51, 3]]
-                                                          // 오류 : "error": "For input string: "[51""
+        // 오류 : "error": "For input string: "[51""
 
         // 로그인 한 유저 정보 = 구매자 정보
         Users users = us.getLoggedInUserInfo();
@@ -113,14 +111,14 @@ public class PaymentController {
         // --> 서비스에서 트렌젝션 걸어야 함
 
         // 결제하기 클릭 후 payments 테이블에 insert
-        for(String gameId : gameIds){
-            Payments payments = new Payments();
-            payments.setUserId(loginUserId);
-            payments.setContentId(Integer.parseInt(gameId));
-            payments.setPaymentType(paymentType);
-
-        //    int subscriblePayInsert = ps.subscriblePayInsert(payments);
-        }
+//        for(String gameId : gameIds){
+//            Payments payments = new Payments();
+//            payments.setUserId(loginUserId);
+//            payments.setContentId(Integer.parseInt(gameId));
+//            payments.setPaymentType(paymentType);
+//
+//        //    int subscriblePayInsert = ps.subscriblePayInsert(payments);
+//        }
 
         // 로그인 한 유저의 구독 상품 조회
         // List<Payments> subscribePayList = ps.subscribePayList();
@@ -128,7 +126,9 @@ public class PaymentController {
         return "redirect:/subscribe/subscribeUserPay";
     }
 
+    @GetMapping(value = "/subscribeUserPay")
+    public String subscribeUserPay() {
+        return "subscribe/subscribeUserPay";
 
-
-
+    }
 }
