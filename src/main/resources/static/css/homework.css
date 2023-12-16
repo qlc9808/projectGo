@@ -76,3 +76,18 @@ h4 {
     text-align: center;
 
 }
+
+/** Added from this point */
+.twitter-typeahead{
+    width: 97%;
+}
+.tt-dropdown-menu{
+    width: 102%;
+}
+input.typeahead.tt-query{ /* This is optional */
+    width: 300px !important;
+}
+/* 자동완성 목록의 배경색 변경 */
+.tt-menu {
+    background-color: white;  /* 원하는 색상으로 변경 */
+}

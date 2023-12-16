@@ -5,128 +5,15 @@
     <title>Title</title>
     <link href="/css/homework.css" rel="stylesheet" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.2.1/typeahead.bundle.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            populateYear();
-            populateMonth();
-            populateDay();
-            populateHour();
-            updateBirthday();
-            $('.detail-btn').on('click', function() {
-                var row = $(this).closest('tr');
-                var homeworkId = row.find('td:first').text();
-                console.log(homeworkId)
-                // 숙제 상세정보를 가져오는 AJAX 요청을 실행
-                $.ajax({
-                    url: '/homework/getHomework/' + homeworkId,
-                    type: 'GET',
-                    success: function(response) {
-                        // 응답을 모달창에 출력
-                        $('.modal-body').html(response);
-                        var modal = new bootstrap.Modal(document.getElementById('modal'));
-                        modal.show();
-                    }
-                });
-            });
+    <script type="module">
+        import {submitForm} from "/js/homework/insert/formUtils.js";
+        import {initializePage} from "/js/homework/insert/initialization.js";
+        import {showStoredNotification }from '/js/utils/notificationManager.js';
 
-        });
-
-        function populateYear() {
-            const yearSelect = document.getElementById("year");
-            const currentYear = new Date().getFullYear();
-            for (let i = currentYear; i <= currentYear + 10; i++) {
-                addOption(yearSelect, i);
-            }
-        }
-
-        function populateMonth() {
-            const monthSelect = document.getElementById("month");
-            for (let j = 1; j <= 12; j++) {
-                addOption(monthSelect, j);
-            }
-        }
-
-        function populateDay() {
-            const daySelect = document.getElementById("day");
-            for (let k = 1; k <= 31; k++) {
-                addOption(daySelect, k);
-            }
-        }
-
-        function populateHour() {
-            const hourSelect = document.getElementById("hour");
-            for (let l = 1; l <= 31; l++) {
-                addOption(hourSelect, l);
-            }
-        }
-
-
-        function addOption(selectElement, value) {
-            const option = document.createElement("option");
-            option.value = value;
-            option.text = value;
-            selectElement.appendChild(option);
-        }
-
-        function updateBirthday() {
-            const today = new Date();
-            document.getElementById("year").value = today.getFullYear();
-            document.getElementById("month").value = today.getMonth() + 1;
-            document.getElementById("day").value = today.getDate();
-            document.getElementById("hour").value = today.getHours();
-        }
-
-        function submitForm(event) {
-            event.preventDefault();
-            const body = getFormData();
-            sendRequest(body);
-        }
-
-        function getFormData() {
-            const title = document.getElementById("title").value;
-            const content = document.getElementById("content").value;
-            const progress = document.getElementById("progress").value;
-            const userId = document.getElementById("userId").value;
-            const contentId = document.getElementById("contentId").value;
-            const year = document.getElementById("year").value;
-            const month = document.getElementById("month").value;
-            const day = document.getElementById("day").value;
-            const hour = document.getElementById("hour").value;
-            const deadline = new Date(year, month - 1, day, hour); 
-
-            return {
-                'title': title,
-                'userId': userId,
-                'contentId' :contentId,
-                'content': content,
-                'progress': progress,
-                'deadline': deadline
-            };
-        }
-
-        function sendRequest(body) {
-            $.ajax({
-                url: "<%=request.getContextPath()%>/homework/insertHomework",
-                method: "POST",
-                dataType: "json",
-                data: JSON.stringify(body),
-                contentType: "application/json",
-                success: function (response) {
-                    console.log("insertHomework() success");
-                    alert(response.message);
-                    window.location.href = "/homework/insertHomeworkForm";
-                },
-                error: function (jqXHR) {
-                    console.log("insertHomework() failed");
-                    const errorResponse = JSON.parse(jqXHR.responseText);
-                    console.log(errorResponse);
-                    alert(errorResponse.message + ": " + errorResponse.error);
-                }
-            })
-        }
-
+        document.addEventListener("DOMContentLoaded", initializePage);
+        document.getElementById('submitBtn').addEventListener('click', submitForm);
+        showStoredNotification();
         function createQueryURL(page) {
-
             const params = {
                 currentPage: page
             };
@@ -134,47 +21,9 @@
                 .filter(([key, value]) => value !== undefined && value !== null && value !== '')
                 .map(([key, value]) => key + '=' + value).join('&');
         }
-        $(document).ready(function() {
-            const homeworkTitles = new Bloodhound({
-                datumTokenizer: Bloodhound.tokenizers.whitespace,
-                queryTokenizer: Bloodhound.tokenizers.whitespace,
-                remote: {
-                    url: '/homework/getHomeworkTitleListByKeyword?userId=' + $('#userId').val() + '&keyword=%QUERY',
-                    wildcard: '%QUERY'
-                }
-            });
-
-            $('#title').typeahead({
-                hint: true,
-                highlight: true,
-                minLength: 0
-            }, {
-                name: 'homework-titles',
-                source: homeworkTitles
-            });
-            $('#title').keydown(function(e){
-                if(e.which === 13){
-                    e.preventDefault();
-                }
-            });
-        });
-
     </script>
     <style>
-        /** Added from this point */
-        .twitter-typeahead{
-            width: 97%;
-        }
-        .tt-dropdown-menu{
-            width: 102%;
-        }
-        input.typeahead.tt-query{ /* This is optional */
-            width: 300px !important;
-        }
-        /* 자동완성 목록의 배경색 변경 */
-        .tt-menu {
-            background-color: white;  /* 원하는 색상으로 변경 */
-        }
+
 
     </style>
 </head>
@@ -265,9 +114,9 @@
 
                         <div class="container row justify-content-center my-5">
 
-                            <button type="submit" class="btn btn-primary col-4 px-3 mx-2"
+                            <button type="submit" id="submitBtn" class="btn btn-primary col-4 px-3 mx-2"
                                     style="background: #52525C; border: none"
-                                    onclick="submitForm(event);event.preventDefault();">저장하기
+                                    onclick="event.preventDefault();">저장하기
                             </button>
                             <button type="reset" class="btn btn-primary col-4 px-3 mx-2">취소</button>
 
@@ -315,22 +164,17 @@
                         <ul class="pagination">
                             <c:if test="${page.startPage > page.pageBlock}">
                                 <li class="page-item">
-                                    <a href="javascript:void(0)"
-                                       onclick="location.href=createQueryURL(${page.startPage-page.pageBlock})"
-                                       class="pageblock page-link">[이전]</a>
+                                    <a href="#" data-page="${page.startPage-page.pageBlock}" class="page-link ${page.currentPage == i ? "active":"" }">이전</a>
                                 </li>
                             </c:if>
                             <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
                                 <li class="page-item">
-                                    <a href="javascript:void(0)" onclick="location.href=createQueryURL(${i})"
-                                       class="pageblock page-link ${page.currentPage == i ? "active":"" }">${i}</a>
+                                    <a href="#" data-page="${i}" class="page-link ${page.currentPage == i ? "active":"" }">${i}</a>
                                 </li>
                             </c:forEach>
                             <c:if test="${page.endPage < page.totalPage}">
                                 <li class="page-item">
-                                    <a href="javascript:void(0)"
-                                       onclick="location.href=createQueryURL(${page.startPage+page.pageBlock})"
-                                       class="pageblock page-link">[다음]</a>
+                                    <a href="#" data-page="${page.startPage+page.pageBlock}" class="page-link ${page.currentPage == i ? "active":"" }">다음</a>
                                 </li>
                             </c:if>
                         </ul>
