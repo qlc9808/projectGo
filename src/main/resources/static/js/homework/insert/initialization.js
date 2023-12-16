@@ -1,14 +1,8 @@
 // initialization.js
-import * as dateUtils from './dateUtils.js';
+import {initializeDate} from './dateUtils.js';
 import { initializeAutocomplete } from './autocomplete.js';
 import {initializePagination} from "./pagination.js";
 export function initializePage() {
-    dateUtils.populateYear();
-    dateUtils.populateMonth();
-    dateUtils.populateDay();
-    dateUtils.populateHour();
-    dateUtils.updateDate();
-
     $('.detail-btn').on('click', function() {
         var row = $(this).closest('tr');
         var homeworkId = row.find('td:first').text();
@@ -25,7 +19,7 @@ export function initializePage() {
             }
         });
     });
-
+    initializeDate();
     initializePagination();
     initializeAutocomplete();
 }

@@ -41,3 +41,11 @@ export function updateDate() {
     document.getElementById("day").value = today.getDate();
     document.getElementById("hour").value = today.getHours()+1;
 }
+
+export function initializeDate(){
+    populateYear();
+    populateMonth();
+    populateDay();
+    populateHour();
+    updateDate();
+}
