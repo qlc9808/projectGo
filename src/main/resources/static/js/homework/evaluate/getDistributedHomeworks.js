@@ -13,8 +13,13 @@ export function getDistributedHomeworks(homeworkId) {
                 var row = $('<tr>').attr('id', 'homework-' + homeworkId + '-user-' + item.userId);
                 row.append($('<td>').text(index + 1)); // 번호
                 row.append($('<td>').text(item.userName)); // 학습자명
-                row.append($('<td>').text(item.submissionDate)); // 숙제제출일자
-                row.append($('<td>').text(item.content)); // 제출내용
+                if (item.submissionDate != null) {
+                    let date = new Date(item.submissionDate);
+                    let formattedDate = date.toLocaleString('ko-KR');
+                    row.append($('<td>').text(formattedDate));
+                } else {
+                    row.append($('<td>').text("미제출"));
+                }                row.append($('<td>').text(item.content)); // 제출내용
                 row.append($('<td>').text(item.progress)); // 학습진도
                 row.append($('<td>').text(item.questions)); // 질문
 
@@ -28,7 +33,10 @@ export function getDistributedHomeworks(homeworkId) {
                     }
                     evaluationSelect.append(option);
                 }
-
+                // item.submissionDate가 null이면 select를 비활성화
+                if (item.submissionDate == null) {
+                    evaluationSelect.attr('disabled', 'disabled');
+                }
                 row.append($('<td>').append(evaluationSelect));
                 $('#distributedHomework-table tbody').append(row);
             });

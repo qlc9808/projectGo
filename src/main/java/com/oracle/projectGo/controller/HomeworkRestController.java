@@ -12,8 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @Slf4j
@@ -66,18 +69,27 @@ public class HomeworkRestController {
     public ResponseEntity<String> distributeHomework(@RequestBody DistributionRequestDto request)  {
         log.info(request.toString());
         try{
-            List<DistributedHomeworks> distributedHomeworksList = new ArrayList<>();
-            for (int studentId : request.getStudentIds()) {
-                for (int homeworkId : request.getHomeworkIds()) {
-                    DistributedHomeworks distributedHomeworks = new DistributedHomeworks();
-                    distributedHomeworks.setHomeworkId(homeworkId);
-                    distributedHomeworks.setUserId(studentId);
-                    distributedHomeworksList.add(distributedHomeworks);
+            for (int homeworkId : request.getHomeworkIds()) {
+                for (int studentId : request.getStudentIds()) {
+                        DistributedHomeworks distributedHomeworks = new DistributedHomeworks();
+                        distributedHomeworks.setHomeworkId(homeworkId);
+                        distributedHomeworks.setUserId(studentId);
+                        DistributedHomeworks getResult = homeworkService.getDistributedHomeworks(distributedHomeworks);
+                        if (getResult == null) {
+                                int insertResult = homeworkService.insertDistributedHomeworks(distributedHomeworks);
+                                log.info("INSERT(user:{})", distributedHomeworks.getUserId());
+                        } else {
+                            log.info("EXIST(user:{})", distributedHomeworks.getUserId());
+                        }
                 }
+                Homeworks homeworks = new Homeworks();
+                homeworks.setId(homeworkId);
+                homeworks.setDistributionDate(new Date());
+                homeworkService.updateHomeworks(homeworks);
             }
-            homeworkService.distributedHomeworksBulkInsert(distributedHomeworksList);
             return ResponseEntity.ok("{\"message\": \"숙제가 성공적으로 배포되었습니다.\"}");
         } catch (Exception e){
+            log.error(e.getMessage());
             return ResponseEntity.internalServerError().body("{\"message\": \"숙제 배포에 실패했습니다.\"}");
         }
     }
@@ -85,7 +97,7 @@ public class HomeworkRestController {
     @PostMapping("/getDistributedHomeworks")
     public ResponseEntity<List<DistributedHomeworks>> getDistributedHomeworks(@RequestBody DistributedHomeworks pDistributedHomework) {
         log.info("{}",pDistributedHomework);
-        List<DistributedHomeworks> distributedHomeworks = homeworkService.getDistributedHomeworks(pDistributedHomework);
+        List<DistributedHomeworks> distributedHomeworks = homeworkService.getDistributedHomeworksList(pDistributedHomework);
         log.info(distributedHomeworks.toString());
         return ResponseEntity.ok(distributedHomeworks);
     }

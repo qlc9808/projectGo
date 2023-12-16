@@ -65,5 +65,11 @@
         FROM homeworks
         WHERE id = #{id}
     </select>
-
+    <update id="updateHomeworks" parameterType="Homeworks">
+        UPDATE homeworks
+        SET
+            distributionDate = #{distributionDate},
+            updatedAt = sysdate
+        WHERE id = #{id}
+    </update>
 </mapper>

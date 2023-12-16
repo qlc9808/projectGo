@@ -76,8 +76,8 @@
                                     <td style="width: 20%">${homework.content}</td>
                                     <td style="width: 10%">${homework.progress}</td>
                                     <td style="width: 15%"><fmt:formatDate value="${homework.deadline}" pattern="yyyy/MM/dd (HH시)"/></td>
-                                    <td style="width: 15%">${homework.distributionDate}</td>
-                                    <td style="width: 15%"><fmt:formatDate value="${homework.createdAt}" pattern="yyyy/MM/dd HH:mm:ss"/></td>
+                                    <td style="width: 15%">${homework.distributionDate != null? homework.distributionDate.toLocaleString()  :"미전송" }</td>
+                                    <td style="width: 15%">${homework.distributionDate.toLocaleString() }</td>
                                 </tr>
                             </c:forEach>
                             </tbody>

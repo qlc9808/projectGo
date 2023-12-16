@@ -18,7 +18,8 @@
                         homeworkId: $("input[name='distributedHomeworks[" + index + "].homeworkId']").val(),
                         userId: $("input[name='distributedHomeworks[" + index + "].userId']").val(),
                         content: $("textarea[name='distributedHomeworks[" + index + "].content']").val(),
-                        questions: $("textarea[name='distributedHomeworks[" + index + "].questions']").val()
+                        questions: $("textarea[name='distributedHomeworks[" + index + "].questions']").val(),
+                        progress: $("input[name='distributedHomeworks[" + index + "].progress']").val()
                     };
                     checkedItems.push(item);
                 });
@@ -49,7 +50,7 @@
                 console.log(index);
 
                 if ($this.text() === "수정하기") {
-                    $("#content-" + index + ", #questions-" + index).prop('disabled', false);
+                    $("#content-" + index + ", #questions-" + index +", #progress-" + index).prop('disabled', false);
                     $this.text("수정 완료");
                     $('<button type="button" class="btn">취소</button>').insertAfter($this);
                 } else {
@@ -59,7 +60,8 @@
                         homeworkId: $this.data("homework-id"),
                         userId: $this.data("user-id"),
                         content: $("#content-" + index).val(),
-                        questions: $("#questions-" + index).val()
+                        questions: $("#questions-" + index).val(),
+                        progress: $("#progress-"+index).val()
                     };
                      console.log(item);
 
@@ -148,11 +150,15 @@
                                         </div>
                                     </div>
                                     <label>학습 내용</label>
+                                    <input type="number" class="form-control" id="progress-${st.index}" disabled value="${distributedHomeworks.progress}">
+                                    <label>학습 내용</label>
                                     <textarea class="form-control" id="content-${st.index}" disabled>${distributedHomeworks.content}</textarea>
                                     <label>추가 질문</label>
                                     <textarea class="form-control" id="questions-${st.index}" disabled>${distributedHomeworks.questions}</textarea>
                                 </c:when>
                                 <c:otherwise>
+                                    <label>학습 내용</label>
+                                    <input type="number" class="form-control" id="progress-${st.index}" name="distributedHomeworks[${st.index}].progress" value="${distributedHomeworks.progress}">
                                     <label>학습 내용</label>
                                     <textarea class="form-control" id="content-${st.index}" name="distributedHomeworks[${st.index}].content">${distributedHomeworks.content}</textarea>
                                     <label>추가 질문</label>

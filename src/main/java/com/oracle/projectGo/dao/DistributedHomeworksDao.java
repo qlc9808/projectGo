@@ -19,8 +19,8 @@ public class DistributedHomeworksDao {
         return session.insert("insertDistributedHomeworksByBulk",distributedHomeworksList);
     }
 
-    public List<DistributedHomeworks> getDistributedHomeworks(DistributedHomeworks pDistributedHomework) {
-        return session.selectList("getDistributedHomeworks",pDistributedHomework);
+    public List<DistributedHomeworks> getDistributedHomeworksList(DistributedHomeworks pDistributedHomework) {
+        return session.selectList("getDistributedHomeworksList",pDistributedHomework);
     }
 
     public int updateEvaluation(List<DistributedHomeworks> evaluations) {
@@ -35,4 +35,15 @@ public class DistributedHomeworksDao {
         return session.update("updateSubmission", submission);
     }
 
+    public DistributedHomeworks getDistributedHomeworks(DistributedHomeworks distributedHomeworks){
+        try{
+            return session.selectOne("getDistributedHomeworks",distributedHomeworks);
+        } catch (Exception e){
+            return null;
+        }
+    }
+
+    public int insertDistributedHomeworks(DistributedHomeworks distributedHomeworks) {
+        return session.insert("insertDistributedHomeworks",distributedHomeworks);
+    }
 }

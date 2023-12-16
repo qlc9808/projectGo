@@ -34,7 +34,7 @@ public class LearningController {
         Users user = usersService.getLoggedInUserInfo();
 
         distributedHomeworks.setUserId(user.getId());
-        List<DistributedHomeworks> distributedHomeworksList = homeworkService.getDistributedHomeworks(distributedHomeworks);
+        List<DistributedHomeworks> distributedHomeworksList = homeworkService.getDistributedHomeworksList(distributedHomeworks);
         for (DistributedHomeworks homeworks : distributedHomeworksList) {
             log.info("{}", homeworks);
         }

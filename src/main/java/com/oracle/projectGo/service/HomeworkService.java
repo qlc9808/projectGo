@@ -44,10 +44,12 @@ public class HomeworkService {
         return distributedHomeworksDao.bulkInsert(distributedHomeworksList);
     }
 
-    public List<DistributedHomeworks> getDistributedHomeworks(DistributedHomeworks pDistributedHomework) {
-        return distributedHomeworksDao.getDistributedHomeworks(pDistributedHomework);
+    public List<DistributedHomeworks> getDistributedHomeworksList(DistributedHomeworks pDistributedHomework) {
+        return distributedHomeworksDao.getDistributedHomeworksList(pDistributedHomework);
     }
-
+    public int updateHomeworks(Homeworks homework){
+        return homeworkDao.updateHomeworks(homework);
+    }
     public int updateEvaluation(List<DistributedHomeworks> evaluations) {
         return distributedHomeworksDao.updateEvaluation(evaluations);
     }
@@ -66,5 +68,15 @@ public class HomeworkService {
 
     public List<String> getDistinctHomeworkTitlesByKeyword(int userId, String keyword) {
         return homeworkDao.getDistinctHomeworkTitlesByKeyword(userId,keyword);
+    }
+    public DistributedHomeworks getDistributedHomeworks(DistributedHomeworks distributedHomeworks){
+        try{
+            return distributedHomeworksDao.getDistributedHomeworks(distributedHomeworks);
+        } catch (Exception e){
+            return null;
+        }
+    }
+    public int insertDistributedHomeworks(DistributedHomeworks distributedHomeworks){
+        return distributedHomeworksDao.insertDistributedHomeworks(distributedHomeworks);
     }
 }

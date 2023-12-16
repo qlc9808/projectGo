@@ -67,15 +67,17 @@
                             </thead>
                             <tbody>
                             <c:forEach var="homework" items="${homeworkList}" varStatus="st">
-                                <tr id="${homework.id}">
-                                    <td ></td>
-                                    <td >${homework.title}</td>
-                                    <td >${homework.content}</td>
-                                    <td >${homework.progress}</td>
-                                    <td ><fmt:formatDate value="${homework.deadline}" pattern="yyyy/MM/dd (HH시)"/></td>
-                                    <td >${homework.distributionDate}</td>
-                                    <td ><fmt:formatDate value="${homework.createdAt}" pattern="yyyy/MM/dd HH:mm:ss"/></td>
-                                </tr>
+                                <c:if test="${homework.distributionDate != null}">
+                                    <tr id="${homework.id}">
+                                        <td ></td>
+                                        <td >${homework.title}</td>
+                                        <td >${homework.content}</td>
+                                        <td >${homework.progress}</td>
+                                        <td ><fmt:formatDate value="${homework.deadline}" pattern="yyyy/MM/dd (HH시)"/></td>
+                                        <td >${homework.distributionDate.toLocaleString()}</td>
+                                        <td >${homework.createdAt.toLocaleString()}</td>
+                                    </tr>
+                                </c:if>
                             </c:forEach>
                             </tbody>
                         </table>

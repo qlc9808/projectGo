@@ -44,4 +44,7 @@ public class HomeworkDao {
         return session.selectOne("getHomework",homeworkId);
     }
 
+    public int updateHomeworks(Homeworks homework) {
+        return session.update("updateHomeworks",homework);
+    }
 }
