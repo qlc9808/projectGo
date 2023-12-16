@@ -34,7 +34,7 @@
         function populateYear() {
             const yearSelect = document.getElementById("year");
             const currentYear = new Date().getFullYear();
-            for (let i = currentYear; i >= currentYear - 100; i--) {
+            for (let i = currentYear; i <= currentYear + 10; i++) {
                 addOption(yearSelect, i);
             }
         }
@@ -134,34 +134,47 @@
                 .filter(([key, value]) => value !== undefined && value !== null && value !== '')
                 .map(([key, value]) => key + '=' + value).join('&');
         }
-        // $(document).ready(function() {
-        //     var homeworkTitles = new Bloodhound({
-        //         datumTokenizer: Bloodhound.tokenizers.whitespace,
-        //         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        //         remote: {
-        //             url: '/homework/getHomeworkTitleListByKeyword?userId=' + $('#userId').val() + '&keyword=%QUERY',
-        //             wildcard: '%QUERY'
-        //         }
-        //     });
-        //
-        //     $('#title').typeahead({
-        //         hint: true,
-        //         highlight: true,
-        //         minLength: 1
-        //     }, {
-        //         name: 'homework-titles',
-        //         source: homeworkTitles
-        //     });
-        //     $('#title').keydown(function(e){
-        //         if(e.which === 13){
-        //             e.preventDefault();
-        //         }
-        //     });
-        // });
+        $(document).ready(function() {
+            const homeworkTitles = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    url: '/homework/getHomeworkTitleListByKeyword?userId=' + $('#userId').val() + '&keyword=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
+
+            $('#title').typeahead({
+                hint: true,
+                highlight: true,
+                minLength: 0
+            }, {
+                name: 'homework-titles',
+                source: homeworkTitles
+            });
+            $('#title').keydown(function(e){
+                if(e.which === 13){
+                    e.preventDefault();
+                }
+            });
+        });
 
     </script>
     <style>
-
+        /** Added from this point */
+        .twitter-typeahead{
+            width: 97%;
+        }
+        .tt-dropdown-menu{
+            width: 102%;
+        }
+        input.typeahead.tt-query{ /* This is optional */
+            width: 300px !important;
+        }
+        /* 자동완성 목록의 배경색 변경 */
+        .tt-menu {
+            background-color: white;  /* 원하는 색상으로 변경 */
+        }
 
     </style>
 </head>
@@ -194,7 +207,7 @@
                         <div class="my-4 row align-items-baseline ">
                             <label for="title" class="col-sm-2 col-form-label fw-bold text-end"
                                    style="font-size: 20px;">숙제명</label>
-                            <div  id="bloodhound" class="col-sm-8 ">
+                            <div class="col-sm-8" >
                                 <input type="text" class="typeahead form-control md-0 pd-0" id="title" name="title">
                             </div>
                         </div>
@@ -303,7 +316,7 @@
                             <c:if test="${page.startPage > page.pageBlock}">
                                 <li class="page-item">
                                     <a href="javascript:void(0)"
-                                       onclick="location.href=createQuer    yURL(${page.startPage-page.pageBlock})"
+                                       onclick="location.href=createQueryURL(${page.startPage-page.pageBlock})"
                                        class="pageblock page-link">[이전]</a>
                                 </li>
                             </c:if>
