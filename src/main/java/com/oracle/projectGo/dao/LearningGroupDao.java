@@ -82,6 +82,31 @@ public class LearningGroupDao {
         return detailLearningGroup;
     }
 
+    public LearningGroup updateFormLearningGroup(int id) {
+        LearningGroup updateFormLearningGroup = null;
+        try {
+            updateFormLearningGroup = session.selectOne("NoUpdateFormLearningGroup", id);
+        } catch (Exception e) {
+            log.info("LearningGroupDao updateFormLearningGroup e.getMessage() : " + e.getMessage());
+        }
+        return updateFormLearningGroup;
+    }
+
+    public int updateLearningGroup(Map<String, Object> params) {
+        int updateLearningGroup = 0;
+        try {
+            updateLearningGroup = session.update("NoUpdateLearningGroup", params);
+        } catch (Exception e) {
+            log.info("LearningGroupDao updateLearningGroup e.getMessage() : " + e.getMessage());
+        }
+        return updateLearningGroup;
+    }
+
+    public int totalApprovalGroupMemberCnt(int id) {
+        int totalApprovalGroupMemberCnt = session.selectOne("NoTotalApprovalGroupMemberCnt",id);
+        return totalApprovalGroupMemberCnt;
+    }
+
 
     public List<Users> getGroupMemberByGroupId(int educatorId) {
         return session.selectList("getGroupMemberByGroupId",educatorId);
@@ -102,8 +127,6 @@ public class LearningGroupDao {
         return signUpLearningGroup;
     }
 
-    public int totalApprovalGroupMemberCnt(int id) {
-        int totalApprovalGroupMemberCnt = session.selectOne("NoTotalApprovalGroupMemberCnt",id);
-        return totalApprovalGroupMemberCnt;
-    }
+
+
 }

@@ -62,6 +62,18 @@ public class LearningGroupService {
         return detailLearningGroup;
     }
 
+    public LearningGroup updateFormLearningGroup(int id) {
+        LearningGroup updateFormLearningGroup = groupDao.updateFormLearningGroup(id);
+
+        return updateFormLearningGroup;
+    }
+
+    public int updateLearningGroup(Map<String, Object> params) {
+        int updateLearningGroup = groupDao.updateLearningGroup(params);
+
+        return updateLearningGroup;
+    }
+
     public int totalApprovalGroupMemberCnt(int id) {
         int totalApprovalGroupMemberCnt = groupDao.totalApprovalGroupMemberCnt(id);
         return totalApprovalGroupMemberCnt;
@@ -79,7 +91,6 @@ public class LearningGroupService {
     public List<LearningGroup> signUpLearningGroup() {
         return groupDao.signUpLearningGroup();
     }
-
 
 
 

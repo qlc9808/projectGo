@@ -77,6 +77,23 @@
         WHERE   a.groupid = #{id}
     </select>
 
+    <select id="NoUpdateFormLearningGroup" parameterType="int" resultType="LearningGroup">
+        SELECT  a.*, b.title, b.maxSubscribers, c.name userName
+        FROM    learningGroup a
+        JOIN    gameContents b
+        ON      a.contentId = b.id
+        JOIN    users c
+        ON      a.userId = c.id
+        WHERE   a.id = 2
+    </select>
+
+    <update id="NoUpdateLearningGroup" parameterType="Map">
+        UPDATE learningGroup SET name = #{groupName}, startDate = #{startDate},
+                                 endDate = #{endDate}, groupSize = #{groupSize},
+                                 etc1 = #{groupEtc1}, etc2 = #{groupEtc2}
+        WHERE id = #{id}
+    </update>
+
     <select id="NoTotalApprovalGroupMemberCnt" parameterType="int" resultType="int">
         SELECT COUNT(*)
         FROM learningGroupMember

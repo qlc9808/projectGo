@@ -163,6 +163,71 @@ public class GroupController {
         return "educate/learningGroup/detailLearningGroup";
     }
 
+    @RequestMapping(value = "updateFormLearningGroup")
+    public String updateFormLearningGroup(int id, Model model) {
+        log.info("id : " + id);
+        try {
+            LearningGroup updateFormLearningGroup = groupService.updateFormLearningGroup(id);
+            log.info("updateFormLearningGroup : " + updateFormLearningGroup);
+
+            model.addAttribute("updateFormLearningGroup", updateFormLearningGroup);
+        } catch (Exception e) {
+            log.error("GroupController updateFormLearningGroup e.getMessage() : " + e.getMessage());
+        } finally {
+            log.info("GroupController updateFormLearningGroup end");
+        }
+
+        return "educate/learningGroup/updateFormLearningGroup";
+    }
+
+    @RequestMapping(value = "updateLearningGroup")
+    public String updateLearningGroup(@RequestParam("id")        int id,
+                                      @RequestParam("userId")    int userId,
+                                      @RequestParam("groupName") String groupName,
+                                      @RequestParam("groupSize") int groupSize,
+                                      @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
+                                      @RequestParam("endDate")   @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
+                                      @RequestParam("groupEtc1") String groupEtc1,
+                                      @RequestParam("groupEtc2") String groupEtc2) {
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("id",        id);
+        params.put("userId",    userId);
+        params.put("groupName", groupName);
+        params.put("groupSize", groupSize);
+        params.put("startDate", startDate);
+        params.put("endDate",   endDate);
+        params.put("groupEtc1", groupEtc1);
+        params.put("groupEtc2", groupEtc2);
+
+        log.info("params : " + params);
+
+        try {
+            int updateLearningGroup = groupService.updateLearningGroup(params);
+            log.info("updateLearningGroup : " + updateLearningGroup);
+        } catch (Exception e) {
+            log.error("GroupController updateLearningGroup e.getMessage() : " + e.getMessage());
+        } finally {
+            log.info("GroupController updateLearningGroup end");
+        }
+
+        return "redirect:/group/listLearningGroup";
+    }
+
+    @RequestMapping(value = "deleteLearningGroup")
+    public String deleteLearningGroup(int id) {
+        log.info("id : " + id);
+        try {
+
+        } catch (Exception e) {
+            log.error("GroupController deleteLearningGroup e.getMessage() : " + e.getMessage());
+        } finally {
+            log.info("GroupController deleteLearningGroup end");
+        }
+
+        return "redirect:/group/listLearningGroup";
+    }
+
     //
     @RequestMapping(value = "approvalGroupMember")
     public String approvalGroupMember(int id, Model model, String currentPage) {

@@ -3,10 +3,10 @@
 <html>
 <head>
     <%@ include file="/WEB-INF/components/Header.jsp"%>
-    <title>Title</title>
+    <title>학습그룹 조회</title>
 </head>
 <script>
-    //
+    // 그룹 리스트의 선택한 항목의 상세정보로 넘어감.
     function goToDetailLearningGroup() {
         var radios = document.getElementsByName('learningGroup');
         var checkedValue;
@@ -19,9 +19,46 @@
         if (checkedValue) {
             location.href = '/group/detailLearningGroup?id=' + checkedValue;
         } else {
-            alert('학습그룹을 선택해주세요.')
+            alert('상세를 보고싶은 학습그룹을 선택해주세요.')
         }
     }
+
+    // 그룹 리스트의 선택한 항목의 수정으로 넘어감.
+    function goToUpdateFormLearningGroup() {
+        var radios = document.getElementsByName('learningGroup');
+        var checkedValue;
+        for (var i = 0; i <radios.length; i++) {
+            if (radios[i].checked) {
+                checkedValue = radios[i].value;
+                break;
+            }
+        }
+        if (checkedValue) {
+            location.href = '/group/updateFormLearningGroup?id=' + checkedValue;
+        } else  {
+            alert('수정하고싶은 학습그룹을 선택해주세요.')
+        }
+    }
+
+    // 그룹 리스트의 선택한 항목의 삭제를 수행함.
+    function goToDeleteLearningGroup() {
+        var radios = document.getElementsByName('learningGroup');
+        var checkedValue;
+        for (var i = 0; i <radios.length; i++) {
+            if (radios[i].checked) {
+                checkedValue = radios[i].value;
+                break;
+            }
+        }
+        if (checkedValue) {
+            if (confirm('정말로 학습그룹을 삭제하시겠습니까?')) {
+                location.href = '/group/deleteLearningGroup?id=' + checkedValue;
+            }
+        } else {
+            alert('삭제하고싶은 학습그룹을 선택해 주세요')
+        }
+    }
+
 </script>
 <body>
     <%@ include file="/WEB-INF/components/TopBar.jsp"%>
@@ -35,8 +72,8 @@
             <p>학습그룹 수 :${totalLearningGroupCnt}</p>
             <div class="d-flex justify-content-end align-items-center mb-3">
                 <button onclick="" class="m-5">조회하기</button>
-                <button onclick="" class="m-5">변경하기</button>
-                <button onclick="" class="m-5">삭제하기</button>
+                <button onclick="goToUpdateFormLearningGroup()" class="m-5">변경하기</button>
+                <button onclick="goToDeleteLearningGroup()" class="m-5">삭제하기</button>
             </div>
             <div>
                 <c:if test="${learningGroupList.size() == 0}">해당하는 학습그룹 정보가 없습니다.</c:if>
