@@ -47,6 +47,10 @@ public class GameService {
         return getGameContentsById;
     }
 
+    public  List<GameContents> getSubscribedGameContents(int userId) {
+        return gd.getSubscribedGameContents(userId);
+    }
+
 
 
 

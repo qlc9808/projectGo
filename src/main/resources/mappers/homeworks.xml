@@ -4,8 +4,8 @@
 
 <mapper namespace="com.oracle.projectGo.HomeworksMapper">
     <insert id="insertHomework" parameterType="Homeworks">
-        INSERT INTO homeworks(id, userId, title, content, progress, deadline, createdAt)
-        VALUES (homeworks_id_seq.NEXTVAL, #{userId}, #{title}, #{content}, #{progress}, #{deadline}, sysdate)
+        INSERT INTO homeworks(id, userId, contentId, title, content, progress, deadline, createdAt)
+        VALUES (homeworks_id_seq.NEXTVAL, #{userId}, #{contentId}, #{title}, #{content}, #{progress}, #{deadline}, sysdate)
     </insert>
     <select id="getHomeworksList" resultType="Homeworks" parameterType="Homeworks">
         SELECT *

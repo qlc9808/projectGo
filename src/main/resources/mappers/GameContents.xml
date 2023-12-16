@@ -65,6 +65,14 @@
         WHERE   id = #{gameId}
     </select>
 
+    <select id="getSubscribedGameContents" parameterType="int" resultType="GameContents">
+        SELECT gc.*
+        FROM GameContents gc
+        INNER JOIN Payments p ON gc.id = p.contentId
+        WHERE p.userId = #{userId}
+        AND p.status = 1
+        <![CDATA[AND p.purchaseDate <= SYSDATE AND ADD_MONTHS(p.purchaseDate, gc.subscribeDate) >= SYSDATE]]>
+    </select>
 
 </mapper>
 

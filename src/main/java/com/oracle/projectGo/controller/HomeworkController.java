@@ -1,12 +1,10 @@
 package com.oracle.projectGo.controller;
 
+import com.oracle.projectGo.dto.GameContents;
 import com.oracle.projectGo.dto.Homeworks;
 import com.oracle.projectGo.dto.LearningGroup;
 import com.oracle.projectGo.dto.Users;
-import com.oracle.projectGo.service.HomeworkService;
-import com.oracle.projectGo.service.LearningGroupService;
-import com.oracle.projectGo.service.Paging;
-import com.oracle.projectGo.service.UsersService;
+import com.oracle.projectGo.service.*;
 import com.oracle.projectGo.utils.error.BusinessException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +28,7 @@ public class HomeworkController {
     private final HomeworkService homeworkService;
     private final LearningGroupService learningGroupService;
     private final UsersService usersService;
+    private final GameService gameService;
 
     @RequestMapping(value = "insertHomeworkForm")
     public String insertHomeworkForm(Homeworks homework, String currentPage, Model model, RedirectAttributes redirectAttributes) {
@@ -37,9 +36,13 @@ public class HomeworkController {
         int userId = usersService.getLoggedInId();
         homework.setUserId(userId);
 
-        /* TODO: GET TOTAL HOMEWORK COUNT  */
+        /* TODO: GET TOTAL HOMEWORKS COUNT  */
         int totalHomeworksCnt = homeworkService.getTotalHomeworksCnt(homework);
         log.info(homework.toString());
+
+        /* TODO: GET GameContents LIST */
+        List<GameContents> subscribedGameList= gameService.getSubscribedGameContents(userId);
+        log.info("getSubscribedGameContents:{}",subscribedGameList);
 
         /* TODO: PAGING PROCESS */
         Paging page = new Paging(totalHomeworksCnt, currentPage);
@@ -52,6 +55,7 @@ public class HomeworkController {
         /* TODO: SET ATTRIBUTE */
         model.addAttribute("userId",userId);
         model.addAttribute("page", page);
+        model.addAttribute("subscribedGameList", subscribedGameList);
         model.addAttribute("homeworkList", homeworkList);
         model.addAttribute("currentPage", currentPage);
 

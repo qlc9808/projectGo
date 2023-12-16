@@ -76,6 +76,10 @@ public class GameDao {
         return getGameContentsById;
     }
 
+    public List<GameContents> getSubscribedGameContents(int userId){
+        return session.selectList("getSubscribedGameContents", userId);
+    }
+
 
 
 

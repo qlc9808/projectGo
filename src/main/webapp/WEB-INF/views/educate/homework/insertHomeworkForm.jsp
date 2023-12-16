@@ -87,6 +87,7 @@
             const content = document.getElementById("content").value;
             const progress = document.getElementById("progress").value;
             const userId = document.getElementById("userId").value;
+            const contentId = document.getElementById("contentId").value;
             const year = document.getElementById("year").value;
             const month = document.getElementById("month").value;
             const day = document.getElementById("day").value;
@@ -96,6 +97,7 @@
             return {
                 'title': title,
                 'userId': userId,
+                'contentId' :contentId,
                 'content': content,
                 'progress': progress,
                 'deadline': deadline
@@ -178,6 +180,17 @@
                 <div>
                     <form action="/homework/insertHomeworkForm" method="post">
                         <input type="hidden" name="userId" id="userId" value="${userId}">
+                        <div class="my-4 row align-items-baseline ">
+                            <label class="col-sm-2 col-form-label fw-bold text-end"
+                                   style="font-size: 20px;">게임컨텐츠</label>
+                            <div class="col-sm-8 d-flex align-items-center">
+                                <select class="form-select text-center " id="contentId" name="contentId">
+                                    <c:forEach var="game" items="${subscribedGameList}" varStatus="st">
+                                        <option value="${game.id}">${game.title}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                        </div>
                         <div class="my-4 row align-items-baseline ">
                             <label for="title" class="col-sm-2 col-form-label fw-bold text-end"
                                    style="font-size: 20px;">숙제명</label>
@@ -290,7 +303,7 @@
                             <c:if test="${page.startPage > page.pageBlock}">
                                 <li class="page-item">
                                     <a href="javascript:void(0)"
-                                       onclick="location.href=createQueryURL(${page.startPage-page.pageBlock})"
+                                       onclick="location.href=createQuer    yURL(${page.startPage-page.pageBlock})"
                                        class="pageblock page-link">[이전]</a>
                                 </li>
                             </c:if>

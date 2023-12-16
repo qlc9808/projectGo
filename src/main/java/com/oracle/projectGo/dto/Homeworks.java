@@ -9,6 +9,7 @@ import java.util.Date;
 public class Homeworks {
     private int    id;                // 숙제ID
     private int    userId;            // 회원번호
+    private int     contentId;          //게임컨텐츠 번호
     private String title;             // 숙제명
     private String content;           // 숙제내용
     @Min(value = 0, message = "Progress must be a positive number.")
