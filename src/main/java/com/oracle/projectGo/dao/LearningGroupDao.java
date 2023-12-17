@@ -102,6 +102,26 @@ public class LearningGroupDao {
         return updateLearningGroup;
     }
 
+    public int deleteLearningGroupMember(int id) {
+        int deleteLearningGroupMember = 0;
+        try {
+            deleteLearningGroupMember = session.delete("NoDeleteLearningGroupMember", id);
+        } catch (Exception e) {
+            log.info("LearningGroupDao deleteLearningGroupMember e.getMessage() : " + e.getMessage());
+        }
+        return deleteLearningGroupMember;
+    }
+
+    public int deleteLearningGroup(int id) {
+        int deleteLearningGroup = 0;
+        try {
+            deleteLearningGroup = session.delete("NoDeleteLearningGroup", id);
+        } catch (Exception e) {
+            log.info("LearningGroupDao deleteLearningGroup e.getMessage() : " + e.getMessage());
+        }
+        return deleteLearningGroup;
+    }
+
     public int totalApprovalGroupMemberCnt(int id) {
         int totalApprovalGroupMemberCnt = session.selectOne("NoTotalApprovalGroupMemberCnt",id);
         return totalApprovalGroupMemberCnt;

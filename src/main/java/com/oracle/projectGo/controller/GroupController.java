@@ -218,6 +218,11 @@ public class GroupController {
     public String deleteLearningGroup(int id) {
         log.info("id : " + id);
         try {
+            int deleteLearningGroupMember = groupService.deleteLearningGroupMember(id);
+            log.info("deleteLearningGroupMember : " + deleteLearningGroupMember);
+
+            int deleteLearningGroup = groupService.deleteLearningGroup(id);
+            log.info("deleteLearningGroup : " + deleteLearningGroup);
 
         } catch (Exception e) {
             log.error("GroupController deleteLearningGroup e.getMessage() : " + e.getMessage());

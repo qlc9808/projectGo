@@ -17,13 +17,14 @@
 
     <select id="NoLearningContentList" parameterType="int" resultType="GameContents">
         <![CDATA[
-            SELECT  *
-            FROM    payments a
-            JOIN    gameContents b
-            ON      a.contentId = b.id
-            WHERE   a.userId = #{userId}
-            AND     b.subscribleStart <= SYSDATE
-            AND     b.subscribleEnd >= SYSDATE
+            SELECT   *
+            FROM     payments a
+            JOIN     gameContents b
+            ON       a.contentId = b.id
+            WHERE    a.userId = #{userId}
+            AND      b.subscribleStart <= SYSDATE
+            AND      b.subscribleEnd >= SYSDATE
+            ORDER BY a.contentid ASC
         ]]>
     </select>
 
@@ -54,13 +55,14 @@
 
     <select id="NoLearningGroupList" parameterType="int" resultType="LearningGroup">
         <![CDATA[
-            SELECT  a.*, b.title
-            FROM    learningGroup a
-            JOIN    gameContents b
-            ON      a.contentId = b.id
-            WHERE   a.userId = #{userId}
-            AND     a.startDate <= SYSDATE
-            AND     a.endDate >= SYSDATE
+            SELECT   a.*, b.title
+            FROM     learningGroup a
+            JOIN     gameContents b
+            ON       a.contentId = b.id
+            WHERE    a.userId = #{userId}
+            AND      a.startDate <= SYSDATE
+            AND      a.endDate >= SYSDATE
+            ORDER BY a.id ASC
         ]]>
     </select>
 
@@ -93,6 +95,14 @@
                                  etc1 = #{groupEtc1}, etc2 = #{groupEtc2}
         WHERE id = #{id}
     </update>
+
+    <delete id="NoDeleteLearningGroupMember" parameterType="int">
+        DELETE learningGroupMember WHERE groupId = #{id}
+    </delete>
+
+    <delete id="NoDeleteLearningGroup" parameterType="int">
+        DELETE learningGroup WHERE id = #{id}
+    </delete>
 
     <select id="NoTotalApprovalGroupMemberCnt" parameterType="int" resultType="int">
         SELECT COUNT(*)

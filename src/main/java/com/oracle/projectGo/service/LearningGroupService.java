@@ -74,8 +74,21 @@ public class LearningGroupService {
         return updateLearningGroup;
     }
 
+    public int deleteLearningGroupMember(int id) {
+        int deleteLearningGroupMember = groupDao.deleteLearningGroupMember(id);
+
+        return deleteLearningGroupMember;
+    }
+
+    public int deleteLearningGroup(int id) {
+        int deleteLearningGroup = groupDao.deleteLearningGroup(id);
+
+        return deleteLearningGroup;
+    }
+
     public int totalApprovalGroupMemberCnt(int id) {
         int totalApprovalGroupMemberCnt = groupDao.totalApprovalGroupMemberCnt(id);
+
         return totalApprovalGroupMemberCnt;
     }
 
