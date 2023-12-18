@@ -91,11 +91,11 @@ function learningGroupList() {
                     width: 100,
                     formatter: function ({row}) {
                         const id = row.id;
-                        console.log(row.applied);
+                        const name = row.name;
                         if (row.applied) {
-                            return `<button id="cancelSignUp-${id}" style="border-radius: 10px;" onclick="cancelSignUp(${id})">취소</button>`;
+                            return `<button id="cancelSignUp-${id}" style="border-radius: 10px;" onclick="cancelSignUp(${id}, '${name}')">취소</button>`;
                         } else {
-                            return `<button id="requestSignUp-${id}" style="border-radius: 10px;" onclick="requestSignUp(${id})">신청</button>`;
+                            return `<button id="requestSignUp-${id}" style="border-radius: 10px;" onclick="requestSignUp(${id}, '${name}')">신청</button>`;
                         }
                     }
                 });
@@ -116,46 +116,53 @@ function learningGroupList() {
     })
 }
 
-function requestSignUp(id) {
-    $.ajax({
-        url: "/learning/api/requestSignUp?groupId="+id,
-        method: "POST",
-        success: function (response) {
-            let result = response.result;
-            if (result === 1) {
-                alert("신청이 완료되었습니다.");
+function requestSignUp(id, name) {
+    let confirmMessage = "그룹명 '" + name + "'에 그룹가입을 신청하시겠습니까?";
+    if (confirm(confirmMessage)) {
+        $.ajax({
+            url: "/learning/api/requestSignUp?groupId=" + id,
+            method: "POST",
+            success: function (response) {
+                let result = response.result;
+                if (result === 1) {
+                    alert("신청이 완료되었습니다.");
 
-                // 버튼 업데이트
-                let button = document.getElementById(`requestSignUp-${id}`);
-                button.textContent = '취소';
-                button.id = `cancelSignUp-${id}`;
-                button.setAttribute('onclick', `cancelSignUp(${id})`);
-            } else {
-                alert("신청실패..");
+                    // 버튼 업데이트
+                    let button = document.getElementById(`requestSignUp-${id}`);
+                    button.textContent = '취소';
+                    button.id = `cancelSignUp-${id}`;
+                    button.setAttribute('onclick', `cancelSignUp(${id})`);
+                } else {
+                    alert("신청실패..");
+                }
             }
-        }
-    })
+        });
+    }
 }
 
-function cancelSignUp(id) {
-    $.ajax({
-        url: "/learning/api/cancelSignUp?groupId="+id,
-        method: "DELETE",
-        success: function (response) {
-            let result = response.result;
-            if (result === 1) {
-                alert("신청취소완료");
+function cancelSignUp(id, name) {
+    let confirmMessage = "그룹명 '" + name + "'에 그룹가입신청을 취소하시겠습니까?";
+    if (confirm(confirmMessage)) {
+        $.ajax({
+            url: "/learning/api/cancelSignUp?groupId=" + id,
+            method: "DELETE",
+            success: function (response) {
+                let result = response.result;
+                if (result === 1) {
+                    alert("신청취소완료");
 
-                // 버튼 업데이트
-                let button = document.getElementById(`cancelSignUp-${id}`);
-                button.textContent = '신청';
-                button.id = `requestSignUp-${id}`;
-                button.setAttribute('onclick', `requestSignUp(${id})`);
-            } else {
-                alert("신청취소실패..");
+                    // 버튼 업데이트
+                    let button = document.getElementById(`cancelSignUp-${id}`);
+                    button.textContent = '신청';
+                    button.id = `requestSignUp-${id}`;
+                    button.setAttribute('onclick', `requestSignUp(${id})`);
+                } else {
+                    alert("신청취소실패..");
+                }
             }
-        }
-    })
+
+        })
+    }
 }
 
 
