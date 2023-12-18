@@ -138,7 +138,7 @@
                                 <th scope="col">제출기한</th>
                                 <th scope="col">전송일자</th>
                                 <th scope="col">생성일자</th>
-                                <th scope="col"></th>
+<%--                                <th scope="col"></th>--%>
                             </tr>
                         </thead>
                         <tbody>
@@ -150,9 +150,9 @@
                                     <td>${homework.content}</td>
                                     <td>${homework.progress}</td>
                                     <td><fmt:formatDate value="${homework.deadline}" pattern="yyyy/MM/dd (HH시)"/></td>
-                                    <td>${homework.distributionDate}</td>
-                                    <td><fmt:formatDate value="${homework.createdAt}" pattern="yyyy/MM/dd HH:mm:ss"/></td>
-                                    <td><a class="detail-btn">관리</a></td>
+                                    <td>${homework.distributionDate==null?"미전송":homework.distributionDate.toLocaleString()}</td>
+                                    <td>${homework.createdAt.toLocaleString()}</td>
+<%--                                    <td><a class="detail-btn">관리</a></td>--%>
                                 </tr>
                             <c:set var="num" value="${num + 1}"/>
                             </c:forEach>

@@ -52,7 +52,7 @@
                 if ($this.text() === "수정하기") {
                     $("#content-" + index + ", #questions-" + index +", #progress-" + index).prop('disabled', false);
                     $this.text("수정 완료");
-                    $('<button type="button" class="btn">취소</button>').insertAfter($this);
+                    // $('<button type="button" class="btn">취소</button>').insertAfter($this);
                 } else {
                     // '수정 완료' 버튼을 클릭했을 때
                     // AJAX 요청을 보내서 서버에 데이터를 전달하고, 버튼의 텍스트를 '수정하기'로 변경
@@ -149,7 +149,7 @@
                                             <button type="button" class="btn" data-index="${st.index}" data-homework-id="${distributedHomeworks.homeworkId}" data-user-id="${distributedHomeworks.userId}">수정하기</button>
                                         </div>
                                     </div>
-                                    <label>학습 내용</label>
+                                    <label>진도</label>
                                     <input type="number" class="form-control" id="progress-${st.index}" disabled value="${distributedHomeworks.progress}">
                                     <label>학습 내용</label>
                                     <textarea class="form-control" id="content-${st.index}" disabled>${distributedHomeworks.content}</textarea>
@@ -157,7 +157,7 @@
                                     <textarea class="form-control" id="questions-${st.index}" disabled>${distributedHomeworks.questions}</textarea>
                                 </c:when>
                                 <c:otherwise>
-                                    <label>학습 내용</label>
+                                    <label>진도</label>
                                     <input type="number" class="form-control" id="progress-${st.index}" name="distributedHomeworks[${st.index}].progress" value="${distributedHomeworks.progress}">
                                     <label>학습 내용</label>
                                     <textarea class="form-control" id="content-${st.index}" name="distributedHomeworks[${st.index}].content">${distributedHomeworks.content}</textarea>
