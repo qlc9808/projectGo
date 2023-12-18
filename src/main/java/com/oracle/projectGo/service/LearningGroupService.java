@@ -101,6 +101,10 @@ public class LearningGroupService {
         return groupDao.getGroupMembersByEducatorId(educatorId);
     }
 
+    public List<Users> getUsersListByGroupInfo(LearningGroup learningGroup) {
+        return groupDao.getUsersListByGroupInfo(learningGroup);
+    }
+
     public List<LearningGroup> signUpLearningGroup() {
         return groupDao.signUpLearningGroup();
     }

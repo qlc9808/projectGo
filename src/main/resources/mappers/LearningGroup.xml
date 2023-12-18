@@ -125,6 +125,18 @@
         WHERE lg.userId = #{educatorId}
     </select>
 
+    <select id="getUsersListByGroupInfo" resultType="Users" parameterType="LearningGroup">
+        SELECT u.*
+        FROM learningGroup lg
+        JOIN learningGroupMember lgm ON lg.id = lgm.groupId
+        JOIN users u ON lgm.userId= u.id
+        WHERE lg.userId = #{userId}
+        AND lg.contentId = #{contentId}
+        <if test="id != null and id != '' and id != 0">
+            AND lg.id = #{id}
+        </if>
+    </select>
+    
     <!--강한빛 -->
     <select id="signUpLearningGroup" resultType="LearningGroup">
         SELECT   lg.id, lg.contentId, lg.userId, lg.name, lg.startDate, lg.endDate, lg.groupSize, lg.etc1, lg.etc2, g.imageName, g.imagePath, u.name as userName

@@ -273,4 +273,13 @@ public class GroupController {
 
         return ResponseEntity.ok(homeworkTitleList);
     }
+
+    @ResponseBody
+    @RequestMapping(value="getUsersListByGroupInfo",method = RequestMethod.GET)
+    public ResponseEntity<List<Users>> getUsersListByGroupInfo(@ModelAttribute LearningGroup learningGroup) {
+        log.info("{}",learningGroup);
+        List<Users> userList = groupService.getUsersListByGroupInfo(learningGroup);
+
+        return ResponseEntity.ok(userList);
+    }
 }

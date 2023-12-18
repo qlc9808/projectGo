@@ -136,6 +136,10 @@ public class LearningGroupDao {
         return session.selectList("getGroupMembersByEducatorId",educatorId);
     }
 
+    public List<Users> getUsersListByGroupInfo(LearningGroup learningGroup) {
+        return session.selectList("getUsersListByGroupInfo", learningGroup);
+    }
+
     public List<LearningGroup> signUpLearningGroup() {
         List<LearningGroup> signUpLearningGroup = null;
         try {
