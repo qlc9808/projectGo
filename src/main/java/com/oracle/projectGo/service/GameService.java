@@ -39,6 +39,8 @@ public class GameService {
         return gameContentsList;
     }
 
+//------------------------------------------------------
+
     // 각 아이디의 리스트 조회
     public GameContents getGameContentsById(Integer gameId) {
         System.out.println("ContentService getGameContentsById Start !");

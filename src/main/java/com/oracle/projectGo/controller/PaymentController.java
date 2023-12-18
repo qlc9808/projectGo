@@ -36,18 +36,19 @@ public class PaymentController {
         // 총 갯수
         int gameContentsTotalCount = gs.gameContentsTotalCount();
         System.out.println("GameController gameContentsTotalCount-> " + gameContentsTotalCount);
-        model.addAttribute("gameContentsTotalCount", gameContentsTotalCount);
 
         // 페이징 작업
         GameContents gameContents = new GameContents();
         Paging page = new Paging(gameContentsTotalCount, currentPage);
         gameContents.setStart(page.getStart());
         gameContents.setEnd(page.getEnd());
-        model.addAttribute("page", page);
 
         // 리스트 조회
         List<GameContents> gameContentsList = gs.gameContentsList(gameContents);
         System.out.println("GameController gameContentsList.size()-> " + gameContentsList.size());
+
+        model.addAttribute("gameContentsTotalCount", gameContentsTotalCount);
+        model.addAttribute("page", page);
         model.addAttribute("gameContentsList", gameContentsList);
 
         return "subscribe/subscribeView";
@@ -129,19 +130,20 @@ public class PaymentController {
         // 내가 구독한 게임 컨텐츠 리스트 총 갯수
         int subscribeUserPayTotalCount = ps.subscribeUserPayTotalCount(loginUserId);
         System.out.println("PaymentController subscribeUserPay subscribeUserPayTotalCount-> " + subscribeUserPayTotalCount);
-        model.addAttribute("subscribeUserPayTotalCount", subscribeUserPayTotalCount);
 
         // 페이징 작업
         Payments payments = new Payments();
         Paging page = new Paging(subscribeUserPayTotalCount, currentPage);
         payments.setStart(page.getStart());
         payments.setEnd(page.getEnd());
-        model.addAttribute("page", page);
 
         // 내가 구독한 게임 컨텐츠 리스트 조회
         payments.setUserId(loginUserId);
         List<Payments> mySubscribePayList = ps.mySubscribePayList(payments);
         System.out.println("PaymentController subscribeUserPay mySubscribePayList-> " + mySubscribePayList);
+
+        model.addAttribute("subscribeUserPayTotalCount", subscribeUserPayTotalCount);
+        model.addAttribute("page", page);
         model.addAttribute("mySubscribePayList", mySubscribePayList);
 
         return "subscribe/subscribeUserPay";

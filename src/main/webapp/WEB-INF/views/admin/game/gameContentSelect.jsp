@@ -4,6 +4,9 @@
     <%@ include file="/WEB-INF/components/Header.jsp"%>
     <title>Title</title>
 </head>
+<style>
+    th, td { text-align: center; }
+</style>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
@@ -39,20 +42,20 @@
                 </c:forEach>
             </table>
 
-
             <!-- 페이징 작업 -->
-            <c:if test="${page.startPage > page.pageBlock}">
-                <a href="gameContentSelect?currentPage=${page.startPage - page.pageBlock}">[이전]</a>
-            </c:if>
+            <ul class="pagination justify-content-center">
+                <c:if test="${page.startPage > page.pageBlock}">
+                    <a href="gameContentSelect?currentPage=${page.startPage - page.pageBlock}">[이전]</a>
+                </c:if>
 
-            <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-                <a href="gameContentSelect?currentPage=${i}">[${i}]</a>
-            </c:forEach>
+                <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+                    <a href="gameContentSelect?currentPage=${i}">[${i}]</a>
+                </c:forEach>
 
-            <c:if test="${page.endPage < page.totalPage}">
-                <a href="gameContentSelect?currentPage=${page.startPage + page.pageBlock}">[다음]</a>
-            </c:if>
-
+                <c:if test="${page.endPage < page.totalPage}">
+                    <a href="gameContentSelect?currentPage=${page.startPage + page.pageBlock}">[다음]</a>
+                </c:if>
+            </ul>
 
         </div>
     </div>

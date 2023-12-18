@@ -5,15 +5,6 @@
     <title>Title</title>
 </head>
 
-<%--
-<script>
-    // JSON 형식으로 변환
-    document.getElementById("gameIds").value = JSON.stringify(gameIds);
-    // 확인용 출력
-    document.getElementById("confirmation").innerText = "확인용 - 구독한 게임 아이디(여러 개 가능): " + gameIds;
-</script>
---%>
-
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
@@ -32,28 +23,28 @@
 
                 <input type="hidden" id="gameIds"  value="${gameIds}" name="gameIds"/>
                 확인용 - 구독한 게임 아이디(여러 개 가능) : ${gameIds}
-<%--            문제 : 이 방식은 배열 전체를 문자열로 변환하여 설정하고 있어서 controller에 넘기면 2차원 배열로 됨
-                단일 문자열로 전달되어 컨트롤러에서 이를 단일 값으로 인식하고 1차원 배열로 처리해야 함
-                해결책 : 자바스크립트로 JSON 형식으로 변환하고 hidden으로 보낸다           --%>
 
                 <table class="table table-bordered">
                     <tr>
-                        <th>주문하실 상품</th>
+                        <th colspan="4">주문하실 상품</th>
                     </tr>
                     <tr>
-                        <th>구매상품명</th> <td>${title}</td>
+                        <th>구매상품명</th> <td colspan="3">${title}</td>
                     </tr>
 
                     <tr>
-                        <th>구매자 정보</th>
+                        <th colspan="4">구매자 정보</th>
                     </tr>
-                   <tr>
-                       <th>구매자명</th> <td>${users.name}</td>
-                       <th>연락처</th> <td>${users.phone}</td>
-                   </tr>
+                    <tr>
+                       <th>구매자명</th> <td colspan="3">${users.name}</td>
+                    </tr>
 
                     <tr>
-                        <th>주문합계</th> <th>${totalPrice}원</th>
+                        <th>연락처</th> <td colspan="3">${users.phone}</td>
+                    </tr>
+
+                    <tr>
+                        <th>주문합계</th> <th colspan="3">${totalPrice}원</th>
                     </tr>
 
                     <tr>
@@ -64,7 +55,7 @@
                     </tr>
 
                     <tr>
-                        <th>입금자명</th> <td>${users.name}</td>
+                        <th>입금자명</th> <td colspan="3">${users.name}</td>
                     </tr>
                 </table>
                 <button type="submit">결제하기</button>
@@ -72,7 +63,6 @@
 
         </div>
     </div>
-
 </main>
 <%@ include file="/WEB-INF/components/Footer.jsp"%>
 </body>

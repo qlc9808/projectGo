@@ -58,12 +58,13 @@
 <!--        </foreach>-->
 <!--    </select>-->
 
-    <!-- 버전 2 -->
+    <!-- 버전 2 : 각 아이디들의 리스트 조회 -->
     <select id="gameContentsById" parameterType="int" resultType="GameContents">
         SELECT  *
         FROM    gameContents
         WHERE   id = #{gameId}
     </select>
+
 
     <select id="getSubscribedGameContents" parameterType="int" resultType="GameContents">
         SELECT gc.*

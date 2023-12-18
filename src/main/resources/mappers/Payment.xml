@@ -4,10 +4,10 @@
 
 <mapper namespace="com.oracle.projectGo.PaymentsMapper">
 
-    <!-- 결제하기 클릭 후 payments 테이블에 insert (트렌젝션 사용 전) -->
+    <!-- 결제하기 클릭 후 payments 테이블에 insert -->
     <insert id="subscribePayInsert" parameterType="Payments">
         insert into paymetns (id,                       userid, contentid, paymenttype, status, purchasedate)
-                      values (PAYMENTS_ID_SEQ.nextval, #{userid}, #{contentid}, #{paymenttype}, 1, sysdate)
+                      values (PAYMENTS_ID_SEQ.nextval, #{userId}, #{contentid}, #{paymenttype}, 1, sysdate)
     </insert>
 
 

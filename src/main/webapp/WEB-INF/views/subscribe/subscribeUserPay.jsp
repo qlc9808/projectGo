@@ -4,6 +4,9 @@
     <%@ include file="/WEB-INF/components/Header.jsp"%>
     <title>Title</title>
 </head>
+<style>
+    th, td { text-align: center; }
+</style>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
@@ -21,7 +24,7 @@
             <form>
                 <table class="table table-bordered">
                     <tr>
-                        <th>No.</th> <th>콘텐츠 이미지</th> <th>가격/구독기간(개월)</th> <th>구매일자</th> <th>학습그룹</th>
+                        <th>No.</th> <th>콘텐츠 이미지</th> <th>가격 / 구독기간 (개월)</th> <th>구매일자</th> <th>학습그룹</th>
                     </tr>
 
                     <c:forEach var="my" items="${mySubscribePayList}" varStatus="status">
@@ -36,18 +39,21 @@
                 </table>
             </form>
 
+
             <%-- 페이징 작업 --%>
-            <c:if test="${page.startPage > page.pageBlock}">
-                <a href="subscribeUserPay?currentPage=${page.startPage - page.pageBlock}">[이전]</a>
-            </c:if>
+            <ul class="pagination justify-content-center">
+                <c:if test="${page.startPage > page.pageBlock}">
+                    <a href="subscribeUserPay?currentPage=${page.startPage - page.pageBlock}">[이전]</a>
+                </c:if>
 
-            <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-                <a href="subscribeUserPay?currentPage=${i}">[${i}]</a>
-            </c:forEach>
+                <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+                    <a href="subscribeUserPay?currentPage=${i}">[${i}]</a>
+                </c:forEach>
 
-            <c:if test="${page.endPage < page.totalPage}">
-                <a href="subscribeUserPay?currentPage=${page.startPage + page.pageBlock}">[다음]</a>
-            </c:if>
+                <c:if test="${page.endPage < page.totalPage}">
+                    <a href="subscribeUserPay?currentPage=${page.startPage + page.pageBlock}">[다음]</a>
+                </c:if>
+            </ul>
 
         </div>
     </div>

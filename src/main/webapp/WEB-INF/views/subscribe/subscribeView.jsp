@@ -4,6 +4,9 @@
     <%@ include file="/WEB-INF/components/Header.jsp"%>
     <title>Title</title>
 </head>
+<style>
+    th, td { text-align: center; }
+</style>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
@@ -18,7 +21,7 @@
             <form action="/subscribe/subscribeClick" method="post">
                 <table class="table table-bordered">
                     <tr>
-                        <th>구독</th> <th>No.</th> <th>콘텐츠 이미지</th> <th>가격/구독기간</th> <th>상품소개</th>
+                        <th>구독</th> <th>No.</th> <th>콘텐츠 이미지</th> <th>가격 / 구독기간</th> <th>상품소개</th>
                     </tr>
 
                     <c:forEach var="gameContent" items="${gameContentsList}">
@@ -26,7 +29,10 @@
                             <td><input type="checkbox" name="gameIds" value="${gameContent.id}"></td>
                             <td>${gameContent.rn}</td>
                             <td>${gameContent.imageName}</td>
-                            <td>${gameContent.price}원 / ${gameContent.subscribeDate}개월</td>
+                            <td>
+                                ${gameContent.discountPrice}원 / ${gameContent.subscribeDate}개월<br>
+                                ${gameContent.subscribleStart} - ${gameContent.subscribleEnd}
+                            </td>
                             <td>${gameContent.content}</td>
                         </tr>
                     </c:forEach>
@@ -35,22 +41,22 @@
             </form>
 
             <!-- 페이징 작업 -->
-            <c:if test="${page.startPage > page.pageBlock}">
-                <a href="subscribeView?currentPage=${page.startPage - page.pageBlock}">[이전]</a>
-            </c:if>
+            <ul class="pagination justify-content-center">
+                <c:if test="${page.startPage > page.pageBlock}">
+                    <a href="subscribeView?currentPage=${page.startPage - page.pageBlock}">[이전]</a>
+                </c:if>
 
-            <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-                <a href="subscribeView?currentPage=${i}">[${i}]</a>
-            </c:forEach>
+                <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+                    <a href="subscribeView?currentPage=${i}">[${i}]</a>
+                </c:forEach>
 
-            <c:if test="${page.endPage < page.totalPage}">
-                <a href="subscribeView?currentPage=${page.startPage + page.pageBlock}">[다음]</a>
-            </c:if>
-
+                <c:if test="${page.endPage < page.totalPage}">
+                    <a href="subscribeView?currentPage=${page.startPage + page.pageBlock}">[다음]</a>
+                </c:if>
+            </ul>
 
         </div>
     </div>
-
 </main>
 <%@ include file="/WEB-INF/components/Footer.jsp"%>
 </body>

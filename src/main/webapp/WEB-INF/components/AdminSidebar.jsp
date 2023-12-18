@@ -43,7 +43,7 @@
     <ul class="nav flex-column mt-5 pt-4">
         <li class="nav-item my-page-nav-item">
             <div>
-                <a href="#"
+                <a href="/game/gameContentSelect"
                    class="nav-link my-page-nav-link px-3 ">
                     <i class=" title-bi bi bi-controller px-3"></i>
                     게임 콘텐츠 조회
