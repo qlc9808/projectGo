@@ -38,7 +38,8 @@
             H.progress AS homeworkProgress,
             H.deadline AS homeworkDeadline,
             STD.name AS userName,
-            EDU.name AS educatorName
+            EDU.name AS educatorName,
+            EDU.id AS educatorId
         FROM
             DistributedHomeworks D
         LEFT JOIN
@@ -119,5 +120,23 @@
             updatedAt = sysdate
         WHERE homeworkId = #{homeworkId} AND userId = #{userId}
     </update>
-
+    <select id="getUserHomeworkProgress" parameterType="DistributedHomeworks" resultType="string">
+        SELECT *
+        FROM(
+            SELECT *
+            FROM(
+                SELECT NVL(dh.progress, 0) AS progress
+                FROM distributedhomeworks dh, homeworks h
+                WHERE dh.homeworkid = h.id
+                AND h.contentid = #{contentId}
+                AND dh.userId = #{userId}
+                AND h.userId = #{educatorId}
+                AND dh.evaluation is not null
+                UNION ALL
+                SELECT 0 AS progress FROM dual
+            ) a
+            ORDER BY progress DESC
+        )
+        WHERE ROWNUM = 1
+    </select>
 </mapper>
