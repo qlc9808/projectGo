@@ -37,7 +37,7 @@
                 </div>
                 <div>
                     <label class="col-2">그룹명</label>
-                    <input type="text" id="groupName" name="groupName" value="${updateFormLearningGroup.name}" required="required">
+                    <input type="text" id="name" name="name" value="${updateFormLearningGroup.name}" required="required">
                 </div>
                 <div>
                     <label class="col-2">그룹인원</label>
@@ -45,16 +45,16 @@
                 </div>
                 <div>
                     <label class="col-2">구독기간</label>
-                    <input type="date" id="startDate" name="startDate" value="<fmt:formatDate value='${updateFormLearningGroup.startDate}' pattern='yyyy-MM-dd' />" required="required"> ~
-                    <input type="date" id="endDate" name="endDate" value="<fmt:formatDate value='${updateFormLearningGroup.endDate}' pattern='yyyy-MM-dd' />" required="required">
+                    <input type="date" id="startDate" name="startDate" value="${updateFormLearningGroup.startDate}" required="required"> ~
+                    <input type="date" id="endDate" name="endDate" value="${updateFormLearningGroup.endDate}" required="required">
                 </div>
                 <div>
                     <label class="col-2">기타항목1</label>
-                    <input type="text" id="groupEtc1" name="groupEtc1" value="${updateFormLearningGroup.etc1}">
+                    <input type="text" id="etc1" name="etc1" value="${updateFormLearningGroup.etc1}">
                 </div>
                 <div>
                     <label class="col-2">기타항목2</label>
-                    <input type="text" id="groupEtc2" name="groupEtc2" value="${updateFormLearningGroup.etc2}">
+                    <input type="text" id="etc2" name="etc2" value="${updateFormLearningGroup.etc2}">
                 </div>
                 <div class="text-center">
                     <button type="submit">학습 그룹 수정</button>

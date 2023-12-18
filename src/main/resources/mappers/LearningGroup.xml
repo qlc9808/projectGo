@@ -38,9 +38,9 @@
         WHERE   c.id = #{id}
     </select>
 
-    <insert id="NoInsertLearningGroup" parameterType="Map">
+    <insert id="NoInsertLearningGroup" parameterType="LearningGroup">
         INSERT INTO learningGroup(id, contentId, userId, name, startDate, endDate, groupSize, etc1, etc2)
-        VALUES(LEARNINGGROUP_ID_SEQ.NEXTVAL, #{id}, #{userId}, #{GroupName}, #{startDate}, #{endDate}, #{GroupSize}, #{GroupEtc1}, #{GroupEtc2})
+        VALUES(LEARNINGGROUP_ID_SEQ.NEXTVAL, #{id}, #{userId}, #{name}, #{startDate}, #{endDate}, #{groupSize}, #{etc1}, #{etc2})
     </insert>
 
     <select id="NoTotalLearningGroupCnt" resultType="int">
@@ -86,13 +86,13 @@
         ON      a.contentId = b.id
         JOIN    users c
         ON      a.userId = c.id
-        WHERE   a.id = 2
+        WHERE   a.id = #{id}
     </select>
 
-    <update id="NoUpdateLearningGroup" parameterType="Map">
-        UPDATE learningGroup SET name = #{groupName}, startDate = #{startDate},
+    <update id="NoUpdateLearningGroup" parameterType="LearningGroup">
+        UPDATE learningGroup SET name = #{name}, startDate = #{startDate},
                                  endDate = #{endDate}, groupSize = #{groupSize},
-                                 etc1 = #{groupEtc1}, etc2 = #{groupEtc2}
+                                 etc1 = #{etc1}, etc2 = #{etc2}
         WHERE id = #{id}
     </update>
 

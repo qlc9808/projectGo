@@ -6,6 +6,7 @@ import com.oracle.projectGo.dto.Users;
 import com.oracle.projectGo.service.LearningGroupService;
 import com.oracle.projectGo.service.Paging;
 import com.oracle.projectGo.service.UsersService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,8 +17,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,29 +86,12 @@ public class GroupController {
 
     // 게임콘텐츠에서 그룹을 생성
     @RequestMapping(value = "insertLearningGroup", method = RequestMethod.POST)
-    public String insertLearningGroup(@RequestParam("id")        int id,
-                                      @RequestParam("userId")    int userId,
-                                      @RequestParam("GroupName") String groupName,
-                                      @RequestParam("GroupSize") int groupSize,
-                                      @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
-                                      @RequestParam("endDate")   @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
-                                      @RequestParam("GroupEtc1") String groupEtc1,
-                                      @RequestParam("GroupEtc2") String groupEtc2, Model model) {
+    public String insertLearningGroup(@ModelAttribute LearningGroup learningGroup, Model model) {
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("id",        id);
-        params.put("userId",    userId);
-        params.put("GroupName", groupName);
-        params.put("GroupSize", groupSize);
-        params.put("startDate", startDate);
-        params.put("endDate",   endDate);
-        params.put("GroupEtc1", groupEtc1);
-        params.put("GroupEtc2", groupEtc2);
-
-        log.info("params : " + params);
+        log.info("learningGroup : " + learningGroup);
 
         try {
-            int insertLearningGroup = groupService.insertLearningGroup(params);
+            int insertLearningGroup = groupService.insertLearningGroup(learningGroup);
         } catch (Exception e) {
             log.error("GroupController insertLearningGroup e.getMessage() : " + e.getMessage());
         } finally {
@@ -122,6 +108,9 @@ public class GroupController {
         int userId = users.getId();
 
         try {
+            // 초기 페이지 : path = 0일때
+            int path = 0;
+
             // LearningGroup Count 조회
             int totalLearningGroupCnt = groupService.totalLearningGroupCnt(userId);
             log.info("totalLearningGroupCnt : " + totalLearningGroupCnt);
@@ -136,7 +125,45 @@ public class GroupController {
 
             model.addAttribute("totalLearningGroupCnt", totalLearningGroupCnt);
             model.addAttribute("learningGroupList", learningGroupList);
-            model.addAttribute("currentPage", currentPage);
+            model.addAttribute("page", page);
+            model.addAttribute("path", path);
+
+        } catch (Exception e) {
+            log.error("GroupController listGroupContent e.getMessage() : " + e.getMessage());
+        } finally {
+            log.info("GroupController listGroupContent end");
+        }
+        return "educate/learningGroup/listLearningGroup";
+    }
+
+    // 로그인한 유저(교육자)의 학습그룹 리스트 조회
+    @RequestMapping(value = "listLearningGroup1")
+    public String SearchlistLearningGroup(LearningGroup learningGroup, String currentPage, Model model, HttpServletRequest request) {
+        Users users = usersService.getLoggedInUserInfo();
+        int userId = users.getId();
+
+        try {
+            // 초기 페이지 : path = 1일때
+            int path = 1;
+            String keyword = request.getParameter("keyword");
+
+            // LearningGroup Count 조회
+            int totalLearningGroupCnt = groupService.totalLearningGroupCnt(userId);
+            log.info("totalLearningGroupCnt : " + totalLearningGroupCnt);
+
+            List<LearningGroup> learningGroupList = groupService.learningGroupList(userId);
+            log.info("learningGroupList : " + learningGroupList);
+
+            // paging 처리
+            Paging page = new Paging(totalLearningGroupCnt, currentPage);
+            learningGroup.setStart(page.getCurrentPage());
+            learningGroup.setEnd(page.getEnd());
+
+            model.addAttribute("totalLearningGroupCnt", totalLearningGroupCnt);
+            model.addAttribute("learningGroupList", learningGroupList);
+            model.addAttribute("page", page);
+            model.addAttribute("path", path);
+            model.addAttribute("keyword", keyword);
 
         } catch (Exception e) {
             log.error("GroupController listGroupContent e.getMessage() : " + e.getMessage());
@@ -170,6 +197,16 @@ public class GroupController {
             LearningGroup updateFormLearningGroup = groupService.updateFormLearningGroup(id);
             log.info("updateFormLearningGroup : " + updateFormLearningGroup);
 
+            // 날짜 형식 변환
+            SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat newFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+            Date startDate = originalFormat.parse(updateFormLearningGroup.getStartDate());
+            Date endDate = originalFormat.parse(updateFormLearningGroup.getEndDate());
+
+            updateFormLearningGroup.setStartDate(newFormat.format(startDate));
+            updateFormLearningGroup.setEndDate(newFormat.format(endDate));
+
             model.addAttribute("updateFormLearningGroup", updateFormLearningGroup);
         } catch (Exception e) {
             log.error("GroupController updateFormLearningGroup e.getMessage() : " + e.getMessage());
@@ -181,29 +218,12 @@ public class GroupController {
     }
 
     @RequestMapping(value = "updateLearningGroup")
-    public String updateLearningGroup(@RequestParam("id")        int id,
-                                      @RequestParam("userId")    int userId,
-                                      @RequestParam("groupName") String groupName,
-                                      @RequestParam("groupSize") int groupSize,
-                                      @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
-                                      @RequestParam("endDate")   @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
-                                      @RequestParam("groupEtc1") String groupEtc1,
-                                      @RequestParam("groupEtc2") String groupEtc2) {
+    public String updateLearningGroup(@ModelAttribute LearningGroup learningGroup) {
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("id",        id);
-        params.put("userId",    userId);
-        params.put("groupName", groupName);
-        params.put("groupSize", groupSize);
-        params.put("startDate", startDate);
-        params.put("endDate",   endDate);
-        params.put("groupEtc1", groupEtc1);
-        params.put("groupEtc2", groupEtc2);
-
-        log.info("params : " + params);
+        log.info("learningGroup : " + learningGroup);
 
         try {
-            int updateLearningGroup = groupService.updateLearningGroup(params);
+            int updateLearningGroup = groupService.updateLearningGroup(learningGroup);
             log.info("updateLearningGroup : " + updateLearningGroup);
         } catch (Exception e) {
             log.error("GroupController updateLearningGroup e.getMessage() : " + e.getMessage());

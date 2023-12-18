@@ -45,11 +45,11 @@ public class LearningGroupDao {
         return insertFormLearningContent;
     }
 
-    public int insertLearningGroup(Map<String, Object> params) {
+    public int insertLearningGroup(LearningGroup learningGroup) {
         int insertLearningGroup = 0;
 
         try {
-            insertLearningGroup = session.insert("NoInsertLearningGroup", params);
+            insertLearningGroup = session.insert("NoInsertLearningGroup", learningGroup);
             log.info("insertLearningGroup : " + insertLearningGroup);
         } catch (Exception e) {
             log.info("LearningGroupDao insertLearningGroup e.getMessage() : " + e.getMessage());
@@ -92,10 +92,10 @@ public class LearningGroupDao {
         return updateFormLearningGroup;
     }
 
-    public int updateLearningGroup(Map<String, Object> params) {
+    public int updateLearningGroup(LearningGroup learningGroup) {
         int updateLearningGroup = 0;
         try {
-            updateLearningGroup = session.update("NoUpdateLearningGroup", params);
+            updateLearningGroup = session.update("NoUpdateLearningGroup", learningGroup);
         } catch (Exception e) {
             log.info("LearningGroupDao updateLearningGroup e.getMessage() : " + e.getMessage());
         }
