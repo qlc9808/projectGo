@@ -139,7 +139,7 @@
     
     <!--강한빛 -->
     <select id="signUpLearningGroup" resultType="LearningGroup">
-        SELECT   lg.id, lg.contentId, lg.userId, lg.name, lg.startDate, lg.endDate, lg.groupSize, lg.etc1, lg.etc2, g.imageName, g.imagePath, u.name as userName, g.title
+        SELECT   lg.id, lg.contentId, lg.userId, lg.name, TO_CHAR(lg.startdate, 'YYYY-MM-DD') as startdate, TO_CHAR(lg.enddate, 'YYYY-MM-DD') as enddate, lg.groupSize, lg.etc1, lg.etc2, g.imageName, g.imagePath, u.name as userName, g.title
         FROM     LearningGroup lg
         JOIN     Users u ON lg.userId = u.id
         JOIN     GameContents g ON lg.contentId = g.id
