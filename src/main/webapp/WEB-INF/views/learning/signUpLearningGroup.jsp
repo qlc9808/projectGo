@@ -30,7 +30,7 @@
             <div id="main-content" class="container p-5 col-10">
                 <h1 style="text-align: center; font-weight: bold;">학습그룹 가입신청</h1>
                 <div class="container my-4 py-3">
-                    <div id="grid1" style="width: 1150px; height: 1000px;"></div>
+                    <div id="grid1" style="width: 1200px; height: 1000px;"></div>
                 </div>
             </div>
         </div>
