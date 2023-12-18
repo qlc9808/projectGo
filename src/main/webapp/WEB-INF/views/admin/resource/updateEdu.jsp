@@ -46,7 +46,12 @@
                     <h1>교육정보수정</h1>
                 </div>
                 <div>
-                    <form action="/admin/resource/upload" method="post">
+                    <form action="/admin/resource/updateEdu" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="${edu.id}">
+                        <input type="hidden" name="contentId" value="${edu.contentId}">
+                        <input type="hidden" name="userId" value="${edu.userId}">
+                        <input type="hidden" name="image" value="${edu.image}">
+                        <input type="hidden" name="createdAt" value="${edu.createdAt}">
                         <div class="my-4 row align-items-baseline ">
                             <label for="title" class="col-sm-2 col-form-label fw-bold text-end"
                                    style="font-size: 20px;">학습자료명</label>
@@ -121,7 +126,7 @@
                             <label for="title" class="col-sm-2 col-form-label fw-bold text-end"
                                    style="font-size: 20px;">썸네일</label>
                             <div class="col-sm-8">
-                                <input type="file" class="form-control" id="image" name="image" value="${edu.image}">
+                                <input type="file" class="form-control" id="file" name="file" value="${edu.image}">
                             </div>
                         </div>
 

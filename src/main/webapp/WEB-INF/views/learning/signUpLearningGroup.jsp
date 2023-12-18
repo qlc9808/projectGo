@@ -37,5 +37,8 @@
     </main>
         <%@ include file="/WEB-INF/components/Footer.jsp"%>
     <script src="/js/learning/signUpLearningGroup.js"></script>
+    <script>
+        var contextPath = "${pageContext.request.contextPath}";
+    </script>
 </body>
 </html>

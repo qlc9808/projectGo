@@ -36,7 +36,7 @@
         </div>
         <div id="main-content" class="container p-5 col-10">
             <h1 style="text-align: center;">교육자료</h1>
-            <div class="container border my-4 py-3">
+            <div class="container border my-4 py-3" style="overflow: auto;">
                 <div class="searchForm">
 
 
@@ -56,7 +56,9 @@
         function uploadEdu() {
             window.location.href = '/admin/resource/uploadForm';
         }
+        var contextPath = "${pageContext.request.contextPath}";
     </script>
+
 
 </body>
 </html>

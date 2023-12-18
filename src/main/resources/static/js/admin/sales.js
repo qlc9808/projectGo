@@ -174,7 +174,7 @@ window.addEventListener('keydown', function(event) {
 
 document.getElementById('keyword').addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
-        event.preventDefault(); // 기본 Enter 키 이벤트를 방지합니다(예를 들어, 폼 제출)
+        event.preventDefault();
         search();
     }
 });

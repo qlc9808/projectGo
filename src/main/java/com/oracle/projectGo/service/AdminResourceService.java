@@ -30,4 +30,12 @@ public class AdminResourceService {
     public EducationalResources detailEdu(int id) {
         return adminResourceDao.detailEdu(id);
     }
+
+    public int readCnt(int id) {
+        return adminResourceDao.readCnt(id);
+    }
+
+    public int updateEdu(EducationalResources edu) {
+        return adminResourceDao.updateEdu(edu);
+    }
 }

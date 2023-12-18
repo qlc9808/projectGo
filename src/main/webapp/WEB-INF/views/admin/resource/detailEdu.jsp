@@ -17,7 +17,7 @@
                 <div class="container border my-4 py-3">
                     <div class="detailEdu-header">
                         <div class="detailEdu-title">
-
+                            <span class="title">${edu.title}</span>
                         </div>
                         <div class="detailEdu-object">
                             <button onclick="eduList()">목록</button>
@@ -27,6 +27,7 @@
                     </div>
                     <div class="detailEdu-body">
 
+                        <span class="contents">${edu.content}</span>
                     </div>
 
                 </div>

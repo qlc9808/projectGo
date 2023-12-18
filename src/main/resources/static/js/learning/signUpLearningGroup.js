@@ -17,11 +17,11 @@ function learningGroupList() {
             gridData = learningGroupList.map(function (item) {
                 return {
                     id: item.id,
-                    title: item.title,
+                    imageName: item.imageName,
                     name: item.name,
                     userName: item.userName,
                     groupSize: item.groupSize,
-                    etc: item.etc1+"/"+item.etc2,
+                    etc: item.etc1+"<br/>/"+"<br/>"+item.etc2,
                     startDate: item.startDate,
                     endDate: item.endDate,
                     applied: item.applied
@@ -38,16 +38,21 @@ function learningGroupList() {
                     width: 50
                 },
                 {
-                    header: '콘텐츠이미지',
-                    name: 'title',
+                    header: '썸네일',
+                    name: 'imageName',
                     align: 'center',
-                    width: 200
+                    width: 100,
+                    formatter: function(cellData) {
+                        var value = cellData.value;
+                        return '<img src="' + contextPath + '/upload/educationalResources/' + value +'" style="width: 50px; height: 50px;">';
+                    }
                 },
                 {
                     header: '그룹명',
                     name: 'name',
                     align: 'center',
-                    width: 250
+                    width: 'auto',
+                    minWidth: 150
                 },
                 {
                     header: '교육자명',
@@ -67,7 +72,8 @@ function learningGroupList() {
                     header: '그룹소개',
                     name: 'etc',
                     align: 'center',
-                    width: 100
+                    minWidth: 100,
+                    width: 'auto'
                 },
                 {
                     header: '학습시작날짜',
@@ -106,6 +112,7 @@ function learningGroupList() {
                 data: gridData,
                 scrollX: false,
                 scrollY: false,
+                rowHeight: 'auto',
                 columns: columns,
                 pageOptions: {
                     useClient: true,
@@ -149,7 +156,7 @@ function cancelSignUp(id, name) {
             success: function (response) {
                 let result = response.result;
                 if (result === 1) {
-                    alert("신청취소완료");
+                    alert("신청취소이 취소되었습니다.");
 
                     // 버튼 업데이트
                     let button = document.getElementById(`cancelSignUp-${id}`);

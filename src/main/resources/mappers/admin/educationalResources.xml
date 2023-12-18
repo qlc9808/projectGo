@@ -43,8 +43,22 @@
         WHERE  id = #{id}
     </select>
 
+    <update id="readCnt" parameterType="int">
+        UPDATE EducationalResources SET readcount = readcount+1 WHERE id = #{id}
+    </update>
+
     <delete id="deleteEdu" parameterType="int">
         DELETE EducationalResources WHERE id = #{id}
     </delete>
+
+    <update id="updateEdu" parameterType="EducationalResources">
+        UPDATE EducationalResources
+        SET contentId = #{contentId}, userId = #{userId},
+            image = #{image}, createdAt = #{createdAt}, title = #{title},
+            resourceType = #{resourceType}, fileType = #{fileType},
+            fileAddress = #{fileAddress}, serviceType = #{serviceType},
+            content = #{content}
+        WHERE id = #{id}
+    </update>
 
 </mapper>

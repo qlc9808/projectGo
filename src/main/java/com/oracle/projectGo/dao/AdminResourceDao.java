@@ -38,4 +38,12 @@ public class AdminResourceDao {
     public EducationalResources detailEdu(int id) {
         return session.selectOne("detailEdu", id);
     }
+
+    public int readCnt(int id) {
+        return session.update("readCnt", id);
+    }
+
+    public int updateEdu(EducationalResources edu) {
+        return session.update("updateEdu", edu);
+    }
 }

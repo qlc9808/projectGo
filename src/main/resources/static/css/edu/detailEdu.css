@@ -22,4 +22,21 @@
 .detailEdu-header > .detailEdu-object button:hover {
     opacity: 0.6; transition: 0.2s all;
 }
+.detailEdu-header > .detailEdu-title {
+    padding: 10px; margin-left: 20px;
+}
+.detailEdu-header > .detailEdu-title > .title {
+    font-size: 3em;
+    font-weight: bold;
+}
+
+.detailEdu-body {
+    margin-top: 30px;
+    border: 0px solid red;
+    height: 500px;
+    padding: 40px;
+}
+.detailEdu-body > .contents {
+    font-size: 20px;
+}
 
