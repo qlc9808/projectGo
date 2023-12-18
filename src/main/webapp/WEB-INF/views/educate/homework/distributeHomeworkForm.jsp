@@ -110,7 +110,7 @@
                                     <td style="width: 15%"><fmt:formatDate value="${homework.deadline}"
                                                                            pattern="yyyy/MM/dd (HH시)"/></td>
                                     <td style="width: 15%">${homework.distributionDate != null? homework.distributionDate.toLocaleString()  :"미전송" }</td>
-                                    <td style="width: 15%">${homework.distributionDate.toLocaleString() }</td>
+                                    <td style="width: 15%">${homework.createdAt.toLocaleString() }</td>
                                 </tr>
                             </c:forEach>
                             </tbody>

@@ -66,7 +66,6 @@ public class HomeworkController {
     // 숙제 리스트와 회원 리스트를 보여주는 화면
     @RequestMapping(value = "/distributeHomeworkForm")
     public String distributeHomeworkForm(Homeworks homework, Model model) {
-        /* TODO : PRE-PROCESS*/
         int userId = usersService.getLoggedInId();
         homework.setUserId(userId);
         List<LearningGroup> learningGroupList = null;
