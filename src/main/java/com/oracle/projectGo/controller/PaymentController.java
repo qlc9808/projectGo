@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,12 +58,12 @@ public class PaymentController {
     // 구독 신청 - 리스트에서 구독할 컨텐츠 클릭한 값들 처리
     @RequestMapping(value = "/subscribeClick", method = RequestMethod.POST)
     public String gameSubscribePay(@RequestParam List<Integer> gameIds, Model model) {
-        log.info("gameIds: {}", gameIds); // 1차 배열 -> [51, 3]
+        log.info("gameIds: {}", gameIds);
 
         // 로그인 한 유저 정보 = 구매자 정보
         Users users = us.getLoggedInUserInfo();
-        log.info("로그인 userName : {}", users.getName());
-        log.info("로그인 userId : {}", users.getId());
+        log.info("로그인 userName  : {}", users.getName());
+        log.info("로그인 userId    : {}", users.getId());
         log.info("로그인 userPhone : {}", users.getPhone());
 
         // 게임 ID 리스트들로 게임정보 받아오기 (버전1)
@@ -96,39 +97,57 @@ public class PaymentController {
 //-----------------------------------------------------------------
 
     // 결제 - 결제 방법 선택 후 결제
-    @PostMapping(value = "/subscriblePay")
-    public String subscriblePay(@RequestParam String gameIds, @RequestParam String paymentType) {
-        System.out.println("PaymentController subscriblePay !");
-        System.out.println("gameIds 리스트-> " + gameIds); // 2차 배열 -> [[51, 3]]
-        // 오류 : "error": "For input string: "[51""
+    @PostMapping(value = "/subscribePay")
+    public String subscribePay(@RequestParam String gameIds, @RequestParam String paymentType) {
+        System.out.println("PaymentController subscribePay !");
+        System.out.println("클릭한 gameIds-> " + gameIds);
 
         // 로그인 한 유저 정보 = 구매자 정보
         Users users = us.getLoggedInUserInfo();
         log.info("로그인 loginUserId : {}", users.getId());
         int loginUserId = users.getId();
 
-        // xml 에서 insert 문 한 번만 싫행 : 서비스에서 for문으로 돌아서 구독 신청한 게임id 갯수 만큼 같은 dao가 호출
-        // --> 서비스에서 트렌젝션 걸어야 함
+        // gameIds 값 확인
+        for (String gameId : gameIds.split(",")){
+            String cleanGameId = gameId.replaceAll("[^0-9]", ""); // 숫자 이외의 모든 문자 제거
+            System.out.println("cleanGameId-> " + cleanGameId);
 
-        // 결제하기 클릭 후 payments 테이블에 insert
-//        for(String gameId : gameIds){
-//            Payments payments = new Payments();
-//            payments.setUserId(loginUserId);
-//            payments.setContentId(Integer.parseInt(gameId));
-//            payments.setPaymentType(paymentType);
-//
-//        //    int subscriblePayInsert = ps.subscriblePayInsert(payments);
-//        }
-
-        // 로그인 한 유저의 구독 상품 조회
-        // List<Payments> subscribePayList = ps.subscribePayList();
-
+            // 결제하기 클릭 후 payments 테이블에 insert
+            ps.subscribePayInsert(loginUserId, Integer.parseInt(cleanGameId), paymentType);
+        }
         return "redirect:/subscribe/subscribeUserPay";
     }
 
+    // 내가 구독한 게임 컨텐츠 리스트 조회
     @GetMapping(value = "/subscribeUserPay")
-    public String subscribeUserPay() {
-        return "subscribe/subscribeUserPay";
+    public String subscribeUserPay(String currentPage, Model model) {
 
+        Users users = us.getLoggedInUserInfo();
+        log.info("로그인 loginUserId : {}", users.getId());
+        int loginUserId = users.getId();
+
+        // 내가 구독한 게임 컨텐츠 리스트 총 갯수
+        int subscribeUserPayTotalCount = ps.subscribeUserPayTotalCount(loginUserId);
+        System.out.println("PaymentController subscribeUserPay subscribeUserPayTotalCount-> " + subscribeUserPayTotalCount);
+        model.addAttribute("subscribeUserPayTotalCount", subscribeUserPayTotalCount);
+
+        // 페이징 작업
+        Payments payments = new Payments();
+        Paging page = new Paging(subscribeUserPayTotalCount, currentPage);
+        payments.setStart(page.getStart());
+        payments.setEnd(page.getEnd());
+        model.addAttribute("page", page);
+
+        // 내가 구독한 게임 컨텐츠 리스트 조회
+        payments.setUserId(loginUserId);
+        List<Payments> mySubscribePayList = ps.mySubscribePayList(payments);
+        System.out.println("PaymentController subscribeUserPay mySubscribePayList-> " + mySubscribePayList);
+        model.addAttribute("mySubscribePayList", mySubscribePayList);
+
+        return "subscribe/subscribeUserPay";
     }
+
+
+
+
 }

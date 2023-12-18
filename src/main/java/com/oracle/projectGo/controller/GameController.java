@@ -82,7 +82,7 @@ public class GameController {
         int gameContentInsert = gs.gameContentInsert(gameContents);
         System.out.println("GameController gameContentInsert-> " + gameContentInsert);
 
-        return "redirect:gameContent";  // 나중에 url 변경하기
+        return "redirect:gameContentSelect";
     }
 
     // file upload method

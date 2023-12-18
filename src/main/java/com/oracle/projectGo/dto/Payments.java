@@ -17,5 +17,18 @@ public class Payments {
     private String name;  // 회원 이름
     private String title; // 게임컨텐츠 제목
 
-    //
+    // 페이징 작업
+    private int rn;
+    private String search;   	private String keyword;
+    private String pageNum;		private int total;
+    private int start; 		 	private int end;
+
+    // gameContents 조회용
+    private String imageName;           // 이미지명
+    private String imagePath;           // 이미지경로
+    private int    discountPrice;       // 판매가
+    private int    subscribeDate;       // 구독기간
+    private Date   subscribleStart;     // 구독 시작 날짜
+
+
 }

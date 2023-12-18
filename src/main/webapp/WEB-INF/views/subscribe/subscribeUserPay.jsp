@@ -17,24 +17,37 @@
 
 <%--      구매 기간 클릭해서 조회 가능하게 하기      구매 기간 <input type="date">--%>
 
-<%--            <form>
+            총 건수: ${subscribeUserPayTotalCount}
+            <form>
                 <table class="table table-bordered">
                     <tr>
-                        <th>콘텐츠 이미지</th> <th>가격/구독기간(개월)</th> <th>구매일자</th> <th>학습그룹</th>
+                        <th>No.</th> <th>콘텐츠 이미지</th> <th>가격/구독기간(개월)</th> <th>구매일자</th> <th>학습그룹</th>
                     </tr>
 
-                    <c:forEach var="" items="${}" varStatus="status">
+                    <c:forEach var="my" items="${mySubscribePayList}" varStatus="status">
                         <tr>
-                            <td>${.imageName}</td>
-                            <td>${.price}/${.subscribeDate}개월</td>
-                            <td>${.subscribleStart}</td>
-                            <td>${.~~~~~~~~}</td>
+                            <td>${my.rn}</td>
+                            <td>${my.imageName}</td>
+                            <td>${my.discountPrice}/${my.subscribeDate}개월</td>
+                            <td>${my.subscribleStart}</td>
+                            <td>${my.name}</td>
                         </tr>
                     </c:forEach>
                 </table>
-            </form>--%>
+            </form>
 
             <%-- 페이징 작업 --%>
+            <c:if test="${page.startPage > page.pageBlock}">
+                <a href="subscribeUserPay?currentPage=${page.startPage - page.pageBlock}">[이전]</a>
+            </c:if>
+
+            <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+                <a href="subscribeUserPay?currentPage=${i}">[${i}]</a>
+            </c:forEach>
+
+            <c:if test="${page.endPage < page.totalPage}">
+                <a href="subscribeUserPay?currentPage=${page.startPage + page.pageBlock}">[다음]</a>
+            </c:if>
 
         </div>
     </div>

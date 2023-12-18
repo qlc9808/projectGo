@@ -27,7 +27,7 @@
             <h3>결제 선택 방법</h3>
             <h6>모바일에서도 신용카드, 무통장 입금 등 결제가 가능합니다.</h6><hr>
 
-            <form action="/subscribe/subscriblePay" method="post">
+            <form action="/subscribe/subscribePay" method="post">
                 <div id="confirmation"></div>
 
                 <input type="hidden" id="gameIds"  value="${gameIds}" name="gameIds"/>
