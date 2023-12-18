@@ -20,11 +20,13 @@ public class DistributedHomeworks {
 
     // 조회용
     private String userName;
+    private int educatorId;
     private String educatorName;
     private String homeworkTitle;
     private String homeworkContent;
     private Date homeworkDeadline;
     private int homeworkProgress;
+    private int contentId;
 
     /* 페이지 처리 */
     private String pageNum;
