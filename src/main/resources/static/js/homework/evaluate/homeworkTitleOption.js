@@ -27,7 +27,7 @@ export default function homeworkTitleOption(title)  {
         type: 'GET',
         contentType: 'application/json',
         success: function(data) {
-            populateOptions(data);
+            // populateOptions(data);
             setSelectedOption(title);
             handleTitleChange();
         },

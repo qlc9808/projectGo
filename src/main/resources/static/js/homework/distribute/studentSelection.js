@@ -1,4 +1,4 @@
-export default function studentSelection(stateManager, userId) {
+export default function studentSelection(stateManager, educatorId) {
     const studentList = $('#studentList tbody');
     const selectedStudents = $('#selectedStudents tbody');
 
@@ -26,50 +26,67 @@ export default function studentSelection(stateManager, userId) {
         });
     }
 
+    // 학생 선택 시 학생 리스트 업데이트
+    function updateStudentList(studentList, selectedStudents, data) {
+        studentList.empty();
+        selectedStudents.empty();
+        $.each(data, function(index, user) {
+            const trEl = document.createElement("tr");
+            const checkboxCell = document.createElement("td");
+            const checkbox = document.createElement("input");
+            checkbox.setAttribute("type","checkbox");
+            checkbox.className="form-check-input";
+            checkboxCell.appendChild(checkbox);
+            trEl.appendChild(checkboxCell);
+
+            const userId = document.createElement("td");
+            userId.innerText = user.id;
+            trEl.appendChild(userId);
+
+            const userName = document.createElement("td");
+            userName.innerText = user.name;
+            trEl.appendChild(userName);
+
+            const userPhone = document.createElement("td");
+            userPhone.innerText = user.phone;
+            trEl.appendChild(userPhone);
+
+            $.ajax({
+                url: "/homework/getUserHomeworkProgress",
+                type: 'GET',
+                data: {
+                    userId: user.id,
+                    educatorId: educatorId,
+                    contentId: $('#contentId').val()
+                },
+                success: function(data) {
+                    const userProgress = document.createElement("td");
+                    userProgress.innerText = data;
+                    trEl.appendChild(userProgress);
+                }
+            });
+
+            studentList.append(trEl);
+        });
+    }
+
     // 이벤트 핸들러 정의
     $('#learningGroupSelect').change(function() {
         const selectedGroup = $(this).val();
-        let url = "";
-        let data = {};
-
-        if (selectedGroup === "groupAll") {
-            url = '/group/getGroupMembersByEducatorId';
-            data = { educatorId:userId  };
-        } else {
-            url = '/group/getGroupMemberByGroupId';
-            data = { groupId: selectedGroup };
-        }
+        const contentId = $('#contentId').val()
+        let data = {
+            userId : educatorId,
+            id: selectedGroup==="groupAll"?0:selectedGroup,
+            contentId: contentId
+        };
+        console.log(data);
 
         $.ajax({
-            url: url,
+            url: "/group/getUsersListByGroupInfo",
             type: 'GET',
             data: data,
             success: function(data) {
-                studentList.empty();
-                selectedStudents.empty();
-                $.each(data, function(index, user) {
-                    const trEl = document.createElement("tr");
-                    const checkboxCell = document.createElement("td");
-                    const checkbox = document.createElement("input");
-                    checkbox.setAttribute("type","checkbox");
-                    checkbox.className="form-check-input";
-                    checkboxCell.appendChild(checkbox);
-                    trEl.appendChild(checkboxCell);
-
-                    const userId = document.createElement("td");
-                    userId.innerText = user.id;
-                    trEl.appendChild(userId);
-
-                    const userName = document.createElement("td");
-                    userName.innerText = user.name;
-                    trEl.appendChild(userName);
-
-                    const userPhone = document.createElement("td");
-                    userPhone.innerText = user.phone;
-                    trEl.appendChild(userPhone);
-
-                    studentList.append(trEl);
-                });
+                updateStudentList(studentList, selectedStudents, data);
             }
         });
     });

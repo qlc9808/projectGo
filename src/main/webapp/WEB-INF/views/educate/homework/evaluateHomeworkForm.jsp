@@ -6,15 +6,15 @@
     <link href="/css/homework.css" rel="stylesheet" type="text/css">
 
     <script type="module">
-        import homeworkTitleOption from '/js/homework/distribute/homeworkTitleOption.js';
+        import homeworkTitleOption from '/js/homework/evaluate/homeworkTitleOption.js';
         import {getDistributedHomeworks} from "/js/homework/evaluate/getDistributedHomeworks.js";
         import {saveEvaluate} from "/js/homework/evaluate/saveEvaluate.js";
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             const title = '${searchOptions.title != null ? searchOptions.title : ""}';
             homeworkTitleOption(title);
 
-            $('#homework-table tbody tr').on('click', function() {
+            $('#homework-table tbody tr').on('click', function () {
                 const homeworkId = $(this).attr('id');
                 console.log(homeworkId)
                 getDistributedHomeworks(homeworkId);
@@ -45,15 +45,23 @@
                 </div>
                 <div class="container">
                     <form action="/homework/evaluateHomeworkForm" method="post">
-                        <label for="homeworkTitles" class="form-label" >숙제명:</label>
-                        <select class="text-center" id="homeworkTitles">
-                        </select>
-
+                        <div class="col-5">
+                            <div class="input-group ">
+                                <label for="homeworkTitles" class="input-group-text fw-bold"
+                                       style="font-size: 16px;">숙제명</label>
+                                <select class="form-select text-center" id="homeworkTitles">
+                                    <option value="" selected>숙제 전체
+                                        <c:forEach var="homeworkTitle" items="${homeworkTitleList}" varStatus="st">
+                                    <option value="${homeworkTitle}">${homeworkTitle}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="container border p-2 m-2" style="height: auto;">
                     <div class="table-responsive">
-                        <table id="homework-table"  class="table text-center">
+                        <table id="homework-table" class="table text-center">
                             <thead>
                             <tr>
                                 <th scope="col" style="width: 5%">번호</th>
@@ -69,13 +77,14 @@
                             <c:forEach var="homework" items="${homeworkList}" varStatus="st">
                                 <c:if test="${homework.distributionDate != null}">
                                     <tr id="${homework.id}">
-                                        <td ></td>
-                                        <td >${homework.title}</td>
-                                        <td >${homework.content}</td>
-                                        <td >${homework.progress}</td>
-                                        <td ><fmt:formatDate value="${homework.deadline}" pattern="yyyy/MM/dd (HH시)"/></td>
-                                        <td >${homework.distributionDate.toLocaleString()}</td>
-                                        <td >${homework.createdAt.toLocaleString()}</td>
+                                        <td></td>
+                                        <td>${homework.title}</td>
+                                        <td>${homework.content}</td>
+                                        <td>${homework.progress}</td>
+                                        <td><fmt:formatDate value="${homework.deadline}"
+                                                            pattern="yyyy/MM/dd (HH시)"/></td>
+                                        <td>${homework.distributionDate.toLocaleString()}</td>
+                                        <td>${homework.createdAt.toLocaleString()}</td>
                                     </tr>
                                 </c:if>
                             </c:forEach>

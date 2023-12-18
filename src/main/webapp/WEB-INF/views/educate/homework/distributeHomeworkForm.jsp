@@ -5,26 +5,31 @@
     <title>Title</title>
     <link href="/css/homework.css" rel="stylesheet" type="text/css">
     <script type="module">
-        import homeworkTitleOption from '/js/homework/distribute/homeworkTitleOption.js';
         import studentSelection from '/js/homework/distribute/studentSelection.js';
         import homeworkSelection from '/js/homework/distribute/homeworkSelection.js';
         import homeworkDistributor from '/js/homework/distribute/homeworkDistributor.js';
-        import {showStoredNotification }from '/js/utils/notificationManager.js';
+        import gameSelection from '/js/homework/distribute/gameSelection.js';
+        import {showStoredNotification} from '/js/utils/notificationManager.js';
 
-        $(document).ready(function() {
+        $(document).ready(function () {
+
+            const contentId = '${searchOptions.contentId != null ? searchOptions.contentId :""}';
+            if (contentId !== '') {
+                $('#contentId').val(contentId);
+            }
+
             const userId = document.getElementById("userId").value;
             const stateManager = {
                 selectedStudentsList: [],
                 selectedHomeworkIdList: [],
             };
-            const title = '${searchOptions.title != null ? searchOptions.title : ""}';
-            homeworkTitleOption(title);
-            studentSelection(stateManager,userId);
+            studentSelection(stateManager, userId);
             homeworkSelection(stateManager);
             homeworkDistributor(stateManager);
+            gameSelection();
 
             showStoredNotification();
-      });
+        });
 
     </script>
 </head>
@@ -48,15 +53,40 @@
                 <div class="container">
                     <form action="/homework/distributeHomeworkForm" method="post">
                         <input type="hidden" id="userId" value="${userId}"/>
-                        <label for="homeworkTitles" class="form-label" >숙제명:</label>
-                        <select class="text-center" id="homeworkTitles">
-                        </select>
+                        <div class="d-flex justify-content-between">
+                            <div class="col-5 d-flex">
+                                <div class="input-group">
+                                    <label for="contentId" class="input-group-text fw-bold"
+                                           style="font-size: 16px;">게임명</label>
+                                    <select class="form-select text-center " id="contentId" name="contentId">
+                                        <option value="0">게임을 선택하세요</option>
+                                        <c:forEach var="game" items="${subscribedGameList}" varStatus="st">
+                                            <option value="${game.id}">${game.title}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-5 d-flex">
+                                <div class="input-group">
+                                    <label for="homeworkTitles" class="input-group-text fw-bold"
+                                           style="font-size: 16px;">숙제명</label>
+                                    <select class="form-select text-center" id="homeworkTitles">
+                                        <option value="" selected>숙제 전체
+                                        <c:forEach var="homeworkTitle" items="${homeworkTitleList}" varStatus="st">
+                                            <option value="${homeworkTitle}">${homeworkTitle}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
 
+
+                        </div>
                     </form>
+
                 </div>
                 <div class="container border p-2 m-2" style="height: auto;">
                     <div class="table-responsive">
-                        <table id="homework-table"  class="table text-center">
+                        <table id="homework-table" class="table text-center">
                             <thead>
                             <tr>
                                 <th scope="col" style="width: 5%">선택</th>
@@ -71,11 +101,14 @@
                             <tbody>
                             <c:forEach var="homework" items="${homeworkList}" varStatus="st">
                                 <tr id="${homework.id}">
-                                    <td style="width: 5%"><input type="checkbox" class="form-check-input" id="checkbox-${homework.id}"></td>
+                                    <td style="width: 5%"><input type="checkbox" class="form-check-input"
+                                                                 id="checkbox-${homework.id}-contentId-${homework.contentId}">
+                                    </td>
                                     <td style="width: 15%">${homework.title}</td>
                                     <td style="width: 20%">${homework.content}</td>
                                     <td style="width: 10%">${homework.progress}</td>
-                                    <td style="width: 15%"><fmt:formatDate value="${homework.deadline}" pattern="yyyy/MM/dd (HH시)"/></td>
+                                    <td style="width: 15%"><fmt:formatDate value="${homework.deadline}"
+                                                                           pattern="yyyy/MM/dd (HH시)"/></td>
                                     <td style="width: 15%">${homework.distributionDate != null? homework.distributionDate.toLocaleString()  :"미전송" }</td>
                                     <td style="width: 15%">${homework.distributionDate.toLocaleString() }</td>
                                 </tr>
@@ -95,11 +128,13 @@
                 <div class="container my-3 py-4 d-flex justify-content-between ">
                     <div class="col-9">
                         <div class="input-group">
-                            <label class="input-group-text fw-bold " for="learningGroupSelect" style="font-size: 18px;">그룹명</label>
+                            <label class="input-group-text fw-bold " for="learningGroupSelect" style="font-size: 16px;">그룹명</label>
                             <select id="learningGroupSelect" class="form-control form-select">
-                                <option value="groupAll" selected>그룹 전체</option>
-                                <c:forEach var="group" items="${learningGroupList}">
-                                    <option value="${group.id}">${group.name}</option>
+                                <option id="group-${group.id}-${group.contentId}" value="groupAll" selected>그룹 전체
+                                </option>
+                                <c:forEach var="group" items="${learningGroupList}" varStatus="st">
+                                    <option id="group-${group.id}-${group.contentId}"
+                                            value="${group.id}">${group.name}</option>
                                 </c:forEach>
                             </select>
                             <!-- 학생 목록과 선택된 학생 목록 -->
@@ -109,7 +144,7 @@
                     </div>
                     <!-- 숙제 배포 버튼 -->
                     <button id="distributeHomework" type="button" class="btn btn-primary col-lg-3">전송하기</button>
-               </div>
+                </div>
                 <div class="d-flex justify-content-between ">
                     <div class="col-6 px-2">
                         <h3>그룹 내 학습자</h3>
@@ -120,6 +155,7 @@
                                 <th>아이디</th>
                                 <th>학습자명</th>
                                 <th>전화번호</th>
+                                <th>레벨</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -131,16 +167,17 @@
                         <h3>선택된 학습자</h3>
                         <table id="selectedStudents" class="table border text-center">
                             <thead>
-                                <tr>
-                                    <th>아이디</th>
-                                    <th>학습자명</th>
-                                    <th>전화번호</th>
-                                    <th>제외</th>
-                                </tr>
+                            <tr>
+                                <th>아이디</th>
+                                <th>학습자명</th>
+                                <th>전화번호</th>
+                                <th>레벨</th>
+                                <th>제외</th>
+                            </tr>
                             </thead>
-                                <tbody>
-                                <!-- 선택된 학생 목록 -->
-                                </tbody>
+                            <tbody>
+                            <!-- 선택된 학생 목록 -->
+                            </tbody>
                         </table>
                     </div>
                 </div>

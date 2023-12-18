@@ -8,6 +8,7 @@ export function getDistributedHomeworks(homeworkId) {
         contentType: 'application/json',
         data: JSON.stringify({homeworkId: homeworkId}),
         success: function(response) {
+            console.log("success",response);
             $('#distributedHomework-table tbody').empty(); // 테이블 초기화
             $.each(response, function(index, item) {
                 var row = $('<tr>').attr('id', 'homework-' + homeworkId + '-user-' + item.userId);
@@ -22,6 +23,7 @@ export function getDistributedHomeworks(homeworkId) {
                 }                row.append($('<td>').text(item.content)); // 제출내용
                 row.append($('<td>').text(item.progress)); // 학습진도
                 row.append($('<td>').text(item.questions)); // 질문
+                console.log(row)
 
                 // evaluationSelect 생성
                 const evaluationSelect = $('<select>').attr('id', 'evaluation-' + index);
@@ -42,7 +44,7 @@ export function getDistributedHomeworks(homeworkId) {
             });
         },
         error: function(error) {
-            console.log(error);
+            console.log("error",error);
             // showNotification(error.responseText, "error", 3000);
         }
     });
