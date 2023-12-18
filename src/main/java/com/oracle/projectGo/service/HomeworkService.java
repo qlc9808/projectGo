@@ -36,8 +36,8 @@ public class HomeworkService {
         return homeworkDao.getHomeworksList(homework);
     }
 
-    public List<String> getDistinctHomeworkTitles(int educatorId) {
-        return homeworkDao.getDistinctHomeworkTitles(educatorId);
+    public List<String> getDistinctHomeworkTitles(Homeworks homeworks) {
+        return homeworkDao.getDistinctHomeworkTitles(homeworks);
     }
 
     public int distributedHomeworksBulkInsert(List<DistributedHomeworks> distributedHomeworksList) {
@@ -78,5 +78,9 @@ public class HomeworkService {
     }
     public int insertDistributedHomeworks(DistributedHomeworks distributedHomeworks){
         return distributedHomeworksDao.insertDistributedHomeworks(distributedHomeworks);
+    }
+
+    public String getUserHomeworkProgress(DistributedHomeworks distributedHomeworks) {
+        return distributedHomeworksDao.getUserHomeworkProgress(distributedHomeworks);
     }
 }

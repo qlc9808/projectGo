@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
@@ -68,18 +69,41 @@ public class HomeworkController {
         /* TODO : PRE-PROCESS*/
         int userId = usersService.getLoggedInId();
         homework.setUserId(userId);
+        List<LearningGroup> learningGroupList = null;
+        List<Homeworks> homeworkList = null;
+        List<String> homeworkTitleList = null;
 
-        /* TODO: 학습 그룹 리스트 받아오기 */
-        LearningGroup learningGroup = new LearningGroup();
-        List<LearningGroup> learningGroupList = learningGroupService.learningGroupList(userId);
+        /* TODO: 게임 컨텐츠 리스트 받아오기 */
+        List<GameContents> subscribedGameList= gameService.getSubscribedGameContents(userId);
 
-        /* TODO: 숙제명에 따라 숙제를 받아오는 로직 */
-        List<Homeworks> homeworkList = homeworkService.getHomeworksList(homework);
+        if (homework.getContentId() != 0) {
 
+            /* TODO: 학습 그룹 리스트 받아오기 */
+            learningGroupList = learningGroupService.learningGroupList(userId);
+
+            /* TODO: 숙제명에 따라 숙제를 받아오는 로직 */
+            homeworkList = homeworkService.getHomeworksList(homework);
+
+            homeworkTitleList = homeworkService.getDistinctHomeworkTitles(homework);
+
+            /*만약 input로 받은 homework에 0이 아닌 contentId가 있다면
+            * learningGroupList에서 contentId가 homework.getContentId()인 것들만 필터해서 반환하고
+            * homeworkList도 마찬가지로 contenId가 있는것을 필터해서 반환하도록
+            * */
+            learningGroupList = learningGroupList.stream()
+                    .filter(lg -> lg.getContentId() == homework.getContentId())
+                    .collect(Collectors.toList());
+
+            homeworkList = homeworkList.stream()
+                    .filter(hw -> hw.getContentId() == homework.getContentId())
+                    .collect(Collectors.toList());
+        }
         /* 학습 그룹은 AJAX로. */
 
         /* TODO: SET ATTRIBUTES */
         model.addAttribute("userId",userId);
+        model.addAttribute("homeworkTitleList", homeworkTitleList);
+        model.addAttribute("subscribedGameList", subscribedGameList);
         model.addAttribute("learningGroupList", learningGroupList);
         model.addAttribute("homeworkList", homeworkList);
         model.addAttribute("searchOptions", homework);
@@ -95,9 +119,12 @@ public class HomeworkController {
         /* TODO: 숙제명에 따라 숙제를 받아오는 로직 */
         List<Homeworks> homeworkList = homeworkService.getHomeworksList(homework);
 
+        List<String> homeworkTitleList = homeworkService.getDistinctHomeworkTitles(homework);
+
         /* TODO: SET ATTRIBUTES */
         model.addAttribute("userId",userId);
         model.addAttribute("homeworkList", homeworkList);
+        model.addAttribute("homeworkTitleList", homeworkTitleList);
         model.addAttribute("searchOptions", homework);
 
         return "educate/homework/evaluateHomeworkForm";

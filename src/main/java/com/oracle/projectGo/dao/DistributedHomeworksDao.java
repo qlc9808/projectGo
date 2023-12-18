@@ -20,7 +20,12 @@ public class DistributedHomeworksDao {
     }
 
     public List<DistributedHomeworks> getDistributedHomeworksList(DistributedHomeworks pDistributedHomework) {
-        return session.selectList("getDistributedHomeworksList",pDistributedHomework);
+        try{
+            return session.selectList("getDistributedHomeworksList",pDistributedHomework);
+        } catch (Exception e){
+//            log.error(e.getMessage());
+            return null;
+        }
     }
 
     public int updateEvaluation(List<DistributedHomeworks> evaluations) {
@@ -36,14 +41,26 @@ public class DistributedHomeworksDao {
     }
 
     public DistributedHomeworks getDistributedHomeworks(DistributedHomeworks distributedHomeworks){
+        DistributedHomeworks result = null;
         try{
-            return session.selectOne("getDistributedHomeworks",distributedHomeworks);
+            result = session.selectOne("getDistributedHomeworks",distributedHomeworks);
+            return result;
         } catch (Exception e){
-            return null;
+//            log.error(e.getMessage());
+            return result;
         }
     }
 
     public int insertDistributedHomeworks(DistributedHomeworks distributedHomeworks) {
         return session.insert("insertDistributedHomeworks",distributedHomeworks);
+    }
+
+    public String getUserHomeworkProgress(DistributedHomeworks distributedHomeworks) {
+        try{
+            return session.selectOne("getUserHomeworkProgress",distributedHomeworks);
+        } catch (Exception e){
+            log.error(e.getMessage());
+            return null;
+        }
     }
 }

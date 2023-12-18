@@ -30,8 +30,8 @@ public class HomeworkDao {
         return session.selectList("getHomeworksList",homework);
     }
 
-    public List<String> getDistinctHomeworkTitles(int educatorId) {
-        return session.selectList("getDistinctHomeworkTitles",educatorId);
+    public List<String> getDistinctHomeworkTitles(Homeworks homeworks) {
+        return session.selectList("getDistinctHomeworkTitles",homeworks);
     }
 
     public List<String> getDistinctHomeworkTitlesByKeyword(int educatorId, String keyword) {

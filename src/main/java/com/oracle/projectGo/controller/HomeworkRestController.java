@@ -8,8 +8,10 @@ import com.oracle.projectGo.service.UsersService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -51,9 +53,8 @@ public class HomeworkRestController {
 
     @ResponseBody
     @RequestMapping(value="getHomeworkTitleList",method = RequestMethod.GET)
-    public ResponseEntity<List<String>> getHomeworkTitleList() {
-        int educatorId = usersService.getLoggedInId();
-        List<String> homeworkTitleList = homeworkService.getDistinctHomeworkTitles(educatorId);
+    public ResponseEntity<List<String>> getHomeworkTitleList(@ModelAttribute Homeworks homeworks) {
+        List<String> homeworkTitleList = homeworkService.getDistinctHomeworkTitles(homeworks);
         return ResponseEntity.ok(homeworkTitleList);
     }
 
@@ -98,7 +99,7 @@ public class HomeworkRestController {
     public ResponseEntity<List<DistributedHomeworks>> getDistributedHomeworks(@RequestBody DistributedHomeworks pDistributedHomework) {
         log.info("{}",pDistributedHomework);
         List<DistributedHomeworks> distributedHomeworks = homeworkService.getDistributedHomeworksList(pDistributedHomework);
-        log.info(distributedHomeworks.toString());
+        log.info("{}",distributedHomeworks);
         return ResponseEntity.ok(distributedHomeworks);
     }
 
@@ -135,6 +136,20 @@ public class HomeworkRestController {
             log.info("submission:{}",submission);
             homeworkService.updateSubmission(submission);
             return ResponseEntity.ok("{\"message\": \"숙제가 성공적으로 수정되었습니다. \"}");
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return ResponseEntity.internalServerError().body("{\"message\": \"숙제 수정에 실패했습니다.\"}");
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value="getUserHomeworkProgress",method = RequestMethod.GET)
+    public ResponseEntity<String> getUserHomeworkProgress(@ModelAttribute DistributedHomeworks distributedHomeworks) {
+        try {
+            log.info("getUserHomeworkProgress:{}",distributedHomeworks);
+            String result = homeworkService.getUserHomeworkProgress(distributedHomeworks);
+            log.info("result:{}",result);
+            return ResponseEntity.ok(result);
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.internalServerError().body("{\"message\": \"숙제 수정에 실패했습니다.\"}");
