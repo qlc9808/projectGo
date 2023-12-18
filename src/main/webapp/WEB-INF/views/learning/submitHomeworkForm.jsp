@@ -104,7 +104,7 @@
                         <button class="btn btn-primary col-lg-2">제출하기</button>
                     </div>
                     <hr/>
-                    <div class="d-flex border justify-content-around" style="border-radius:15px;background-color: #FF4379">
+                    <div class="d-flex border justify-content-around" style="border-radius:15px;background-color: #0C4DA2">
                         <div class="col-5  d-flex p-3 text-center" >
                             <div class="col-1 d-flex justify-content-center align-content-center flex-wrap">
                             </div>

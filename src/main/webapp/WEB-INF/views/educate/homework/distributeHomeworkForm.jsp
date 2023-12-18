@@ -143,7 +143,9 @@
                         </div>
                     </div>
                     <!-- 숙제 배포 버튼 -->
-                    <button id="distributeHomework" type="button" class="btn btn-primary col-lg-3">전송하기</button>
+                    <div class="container col-3 row ">
+                        <button id="distributeHomework" type="button" class="btn btn-primary">전송하기</button>
+                    </div>
                 </div>
                 <div class="d-flex justify-content-between ">
                     <div class="col-6 px-2">
