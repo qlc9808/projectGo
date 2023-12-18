@@ -5,6 +5,8 @@ import com.oracle.projectGo.dto.LearningGroupMember;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class LearningRequestService {
@@ -17,7 +19,7 @@ public class LearningRequestService {
         return learningRequestDao.cancelSignUp(member);
     }
 
-    public LearningGroupMember remainRequest(int userId) {
-        return learningRequestDao.remainRequest(userId);
+    public List<LearningGroupMember> remainRequest(LearningGroupMember learningGroupMember) {
+        return learningRequestDao.remainRequest(learningGroupMember);
     }
 }

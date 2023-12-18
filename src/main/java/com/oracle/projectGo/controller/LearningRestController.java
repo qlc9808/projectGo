@@ -35,18 +35,27 @@ public class LearningRestController {
         Users users = usersService.getLoggedInUserInfo();
         int userId = users.getId();
 
+        LearningGroupMember learningGroupMember = new LearningGroupMember();
+        learningGroupMember.setUserId(userId);
+
         List<LearningGroup> learningGroupList = learningGroupService.signUpLearningGroup();
-        formatDate(learningGroupList);
-        log.info(learningGroupList.toString());
-        LearningGroupMember member = learningRequestService.remainRequest(userId);
-        int result = 0;
-        if (member != null) {
-            result = 1;
+
+
+        List<LearningGroupMember> member = learningRequestService.remainRequest(learningGroupMember);
+        for (int i = 0; i < learningGroupList.size(); i++) {
+            if (member != null) {
+                learningGroupList.get(i).setApplied(false);
+                for (int j = 0; j < member.size(); j++) {
+                    if(learningGroupList.get(i).getId() == member.get(j).getGroupId() && userId == member.get(j).getUserId()) {
+                        learningGroupList.get(i).setApplied(true);
+                    }
+                }
+
+            }
         }
 
         response.put("learningGroupList", learningGroupList);
         response.put("userType", users.getUserType());
-        response.put("result", result);
 
         return ResponseEntity.ok(response);
     }
@@ -91,7 +100,6 @@ public class LearningRestController {
         SimpleDateFormat newDtFormat = new SimpleDateFormat("yyyy-MM-dd");
         String strNewDtFormat1 = "";
         String strNewDtFormat2 = "";
-        출처: https://junghn.tistory.com/entry/JAVA-자바-날짜-포맷-변경-방법SimpleDateFormat-yyyyMMdd [코딩 시그널:티스토리]
         for (int i = 0; i < list.size(); i++) {
             strNewDtFormat1 = newDtFormat.format(list.get(i).getStartDate());
             list.get(i).setFormatStartDate(strNewDtFormat1);

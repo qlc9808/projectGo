@@ -12,7 +12,7 @@
         WHERE  groupId = #{groupId}
         AND    userId =  #{userId}
     </delete>
-    <select id="remainRequest" parameterType="int" resultType="LearningGroupMember">
+    <select id="remainRequest" parameterType="LearningGroupMember" resultType="LearningGroupMember">
         SELECT *
         FROM   LearningGroupMember
         WHERE  userId = #{userId}

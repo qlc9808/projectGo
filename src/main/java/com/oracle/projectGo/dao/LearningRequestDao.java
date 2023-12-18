@@ -2,11 +2,15 @@ package com.oracle.projectGo.dao;
 
 import com.oracle.projectGo.dto.LearningGroupMember;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class LearningRequestDao {
     private final SqlSession session;
 
@@ -18,7 +22,14 @@ public class LearningRequestDao {
         return session.delete("cancelSignUp",member);
     }
 
-    public LearningGroupMember remainRequest(int userId) {
-        return session.selectOne("remainRequest", userId);
+    public List<LearningGroupMember> remainRequest(LearningGroupMember learningGroupMember) {
+        LearningGroupMember member = null;
+        try {
+            member = session.selectOne("remainRequest", learningGroupMember);
+            log.info(String.valueOf(member));
+        } catch (Exception e) {
+            log.info(e.getMessage());
+        }
+        return session.selectList("remainRequest", learningGroupMember);
     }
 }
