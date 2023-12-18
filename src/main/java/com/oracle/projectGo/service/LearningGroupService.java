@@ -39,8 +39,8 @@ public class LearningGroupService {
         return insertFormLearningContent;
     }
 
-    public int insertLearningGroup(Map<String, Object> params) {
-        int insertLearningGroup = groupDao.insertLearningGroup(params);
+    public int insertLearningGroup(LearningGroup learningGroup) {
+        int insertLearningGroup = groupDao.insertLearningGroup(learningGroup);
         return insertLearningGroup;
     }
 
@@ -68,8 +68,8 @@ public class LearningGroupService {
         return updateFormLearningGroup;
     }
 
-    public int updateLearningGroup(Map<String, Object> params) {
-        int updateLearningGroup = groupDao.updateLearningGroup(params);
+    public int updateLearningGroup(LearningGroup learningGroup) {
+        int updateLearningGroup = groupDao.updateLearningGroup(learningGroup);
 
         return updateLearningGroup;
     }

@@ -89,8 +89,11 @@
                                 <td>${groupList.title}</td>
                                 <td>${groupList.groupSize}</td>
                                 <td>
-                                    <fmt:formatDate value="${groupList.startDate}" type="date" pattern="yyyy.MM.dd"></fmt:formatDate>
-                                    ~ <fmt:formatDate value="${groupList.endDate}" type="date" pattern="yyyy.MM.dd"></fmt:formatDate>
+                                    <fmt:parseDate var="parsedStartDate" value="${groupList.startDate}" pattern="yyyy-MM-dd" />
+                                    <fmt:formatDate value="${parsedStartDate}" type="date" />
+                                    ~
+                                    <fmt:parseDate var="parsedEndDate" value="${groupList.endDate}" pattern="yyyy-MM-dd" />
+                                    <fmt:formatDate value="${parsedEndDate}" type="date" />
                                 </td>
                                 <td>#</td>
                             </tr>
@@ -102,6 +105,48 @@
                 </div>
             </div>
         </div>
+
+        <!-- 페이징 처리 -->
+        <%--<nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <c:choose>
+                    <c:when test="${path == 0 }">
+                        <c:if test="${page.startPage > page.pageBlock}">
+                            <li class="page-item">
+                                <a href="group/listLearningGroup?currentPage=${page.startPage-page.pageBlock}"
+                                   class="pageblock page-link">[이전]</a></li>
+                        </c:if>
+                        <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+                            <li class="page-item">
+                                <a href="group/listLearningGroup?currentPage=${i}" class="pageblock page-link ${page.currentPage == i ? 'active':'' }">${i}</a>
+                            </li>
+                        </c:forEach>
+                        <c:if test="${page.endPage < page.totalPage}">
+                            <li class="page-item">
+                                <a href="group/listLearningGroup?currentPage=${page.startPage+page.pageBlock}"
+                                   class="pageblock page-link">[다음]</a></li>
+                        </c:if>
+                    </c:when>
+                    <c:otherwise>
+                        <c:if test="${page.startPage > page.pageBlock}">
+                            <li class="page-item">
+                                <a href="course1?currentPage=${page.startPage-page.pageBlock}"
+                                   class="pageblock page-link">[이전]</a></li>
+                        </c:if>
+                        <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+                            <li class="page-item">
+                                <a href="course1?currentPage=${i}&keyword=${keyword}&big_code=${big_code}&small_code=${small_code}&area=${area}&sigungu=${sigungu}" class="pageblock page-link ${page.currentPage == i ? 'active':'' }">${i}</a>
+                            </li>
+                        </c:forEach>
+                        <c:if test="${page.endPage < page.totalPage}">
+                            <li class="page-item">
+                                <a href="course1?currentPage=${page.startPage+page.pageBlock}"
+                                   class="pageblock page-link">[다음]</a></li>
+                        </c:if>
+                    </c:otherwise>
+                </c:choose>
+            </ul>
+        </nav>--%>
     </main>
     <%@ include file="/WEB-INF/components/Footer.jsp"%>
 

@@ -37,11 +37,11 @@
                     </div>
                     <div>
                         <label class="col-2">그룹명</label>
-                        <input type="text" id="GroupName" name="GroupName" required="required">
+                        <input type="text" id="name" name="name" required="required">
                     </div>
                     <div>
                         <label class="col-2">그룹인원</label>
-                        <input type="text" id="GroupSize" name="GroupSize" required="required">
+                        <input type="text" id="groupSize" name="groupSize" required="required">
                     </div>
                     <div>
                         <label class="col-2">구독기간</label>
@@ -50,11 +50,11 @@
                     </div>
                     <div>
                         <label class="col-2">기타항목1</label>
-                        <input type="text" id="GroupEtc1" name="GroupEtc1">
+                        <input type="text" id="etc1" name="etc1">
                     </div>
                     <div>
                         <label class="col-2">기타항목2</label>
-                        <input type="text" id="GroupEtc2" name="GroupEtc2">
+                        <input type="text" id="etc2" name="etc2">
                     </div>
                     <div class="text-center">
                         <button type="submit">학습 그룹 등록</button>
