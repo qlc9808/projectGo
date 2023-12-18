@@ -41,13 +41,14 @@ public class GroupController {
         int userId = users.getId();
 
         try {
+            // 초기 페이지 : path = 0일때
+            int path = 0;
+
             // LearningContent Count 조회
             int totalLearningContentCnt = groupService.totalLearningContentCnt(userId);
 
             // LearningContentList 조회
             List<GameContents> learningContentList = groupService.learningContentList(userId);
-
-            //
 
             // paging 처리
             Paging page = new Paging(totalLearningContentCnt, currentPage);
@@ -56,7 +57,44 @@ public class GroupController {
 
             model.addAttribute("learningContentCnt", totalLearningContentCnt);
             model.addAttribute("learningContentList", learningContentList);
-            model.addAttribute("currentPage", currentPage);
+            model.addAttribute("page", page);
+            model.addAttribute("path", path);
+        } catch (Exception e) {
+            log.error("GroupController listlearningContent e.getMessage() : " + e.getMessage());
+        } finally {
+            log.info("GroupController listlearningContent end");
+        }
+        return "educate/learningGroup/listLearningContent";
+    }
+
+    // 로그인한 회원(교육자)이 소유한 게임콘텐츠 리스트 조회
+    @RequestMapping(value = "listLearningContent1")
+    public String SearchListlearningContent(GameContents gameContents, String currentPage, Model model, HttpServletRequest request) {
+        Users users = usersService.getLoggedInUserInfo();
+        int userId = users.getId();
+
+        try {
+            // 선택 페이지 : path = 1일때
+            int path = 1;
+            String keyword = request.getParameter("keyword");
+
+            // LearningContent Count 조회
+            int totalLearningContentCnt = groupService.totalLearningContentCnt(userId);
+
+            // LearningContentList 조회
+            List<GameContents> learningContentList = groupService.learningContentList(userId);
+
+            // paging 처리
+            Paging page = new Paging(totalLearningContentCnt, currentPage);
+            gameContents.setStart(page.getCurrentPage());
+            gameContents.setEnd(page.getEnd());
+
+            model.addAttribute("learningContentCnt", totalLearningContentCnt);
+            model.addAttribute("learningContentList", learningContentList);
+            model.addAttribute("page", page);
+            model.addAttribute("path", path);
+            model.addAttribute("keyword", keyword);
+
         } catch (Exception e) {
             log.error("GroupController listlearningContent e.getMessage() : " + e.getMessage());
         } finally {
@@ -122,6 +160,7 @@ public class GroupController {
             Paging page = new Paging(totalLearningGroupCnt, currentPage);
             learningGroup.setStart(page.getCurrentPage());
             learningGroup.setEnd(page.getEnd());
+            log.info("page : " + page);
 
             model.addAttribute("totalLearningGroupCnt", totalLearningGroupCnt);
             model.addAttribute("learningGroupList", learningGroupList);
@@ -143,7 +182,7 @@ public class GroupController {
         int userId = users.getId();
 
         try {
-            // 초기 페이지 : path = 1일때
+            // 선택 페이지 : path = 1일때
             int path = 1;
             String keyword = request.getParameter("keyword");
 
@@ -158,6 +197,7 @@ public class GroupController {
             Paging page = new Paging(totalLearningGroupCnt, currentPage);
             learningGroup.setStart(page.getCurrentPage());
             learningGroup.setEnd(page.getEnd());
+            log.info("page : " + page);
 
             model.addAttribute("totalLearningGroupCnt", totalLearningGroupCnt);
             model.addAttribute("learningGroupList", learningGroupList);
@@ -190,6 +230,7 @@ public class GroupController {
         return "educate/learningGroup/detailLearningGroup";
     }
 
+    // 학습그룹 내용 수정
     @RequestMapping(value = "updateFormLearningGroup")
     public String updateFormLearningGroup(int id, Model model) {
         log.info("id : " + id);
@@ -217,6 +258,7 @@ public class GroupController {
         return "educate/learningGroup/updateFormLearningGroup";
     }
 
+    // 학습그룹 내용 수정
     @RequestMapping(value = "updateLearningGroup")
     public String updateLearningGroup(@ModelAttribute LearningGroup learningGroup) {
 
@@ -234,6 +276,7 @@ public class GroupController {
         return "redirect:/group/listLearningGroup";
     }
 
+    // 학습그룹 삭제
     @RequestMapping(value = "deleteLearningGroup")
     public String deleteLearningGroup(int id) {
         log.info("id : " + id);

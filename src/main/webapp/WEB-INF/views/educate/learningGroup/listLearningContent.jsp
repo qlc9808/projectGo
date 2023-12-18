@@ -33,9 +33,10 @@
         <%--본문 리스트--%>
         <div class="container p-5 col-10">
             <p>게임 콘텐츠 수 : ${learningContentCnt}</p>
-            <div class="d-flex justify-content-end align-items-center mb-3">
-                <button onclick="">조회하기</button>
-            </div>
+            <form action="/group/listLearningContent1" class="d-flex justify-content-end align-items-center mb-3">
+                <input  class="form-control keyword-input mr-3" type="text" name="keyword" placeholder="키워드를 검색해보세요." id="keyword" style="flex-grow: 1;">
+                <button class="btn btn-primary mr-3" style="min-width: 90px;" onclick="submitForm();">조회하기</button>
+            </form>
             <div>
                 <c:if test="${learningContentList.size() == 0}">해당하는 게임콘텐츠 정보가 없습니다.</c:if>
                 <div class="table-responsive">
@@ -62,6 +63,57 @@
                 </div>
             </div>
         </div>
+
+        <!-- 페이징 처리 -->
+        <nav aria-label="Page navigation example ">
+            <ul class="pagination">
+                <c:if test="${page.startPage > page.pageBlock}">
+                    <c:choose>
+                        <c:when test="${path == 0}">
+                            <li class="page-item">
+                                <a href="/group/listLearningContent?currentPage=${page.startPage-page.pageBlock}" class="pageblock page-link">Prev</a>
+                            </li>
+                        </c:when>
+                        <c:when test="${path == 1}">
+                            <li class="page-item">
+                                <a href="/group/listLearningContent1?currentPage=${page.startPage-page.pageBlock}" class="pageblock page-link">Prev</a>
+                            </li>
+                        </c:when>
+                    </c:choose>
+                </c:if>
+
+                <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+                    <c:choose>
+                        <c:when test="${path == 0}">
+                            <li class="page-item">
+                                <a href="/group/listLearningContent?currentPage=${i}" class="pageblock page-link ${page.currentPage == i ? 'active':'' }">${i}</a>
+                            </li>
+                        </c:when>
+                        <c:when test="${path == 1}">
+                            <li class="page-item">
+                                <a href="/group/listLearningContent1?currentPage=${i}&keyword=${keyword}" class="pageblock page-link ${page.currentPage == i ? 'active':'' }">${i}</a>
+                            </li>
+                        </c:when>
+                    </c:choose>
+                </c:forEach>
+
+                <c:if test="${page.endPage < page.totalPage}">
+                    <c:choose>
+                        <c:when test="${path == 0}">
+                            <li class="page-item">
+                                <a href="/group/listLearningContent?currentPage=${page.startPage+page.pageBlock}" class="pageblock page-link">Next</a>
+                            </li>
+                        </c:when>
+                        <c:when test="${path == 1}">
+                            <li class="page-item">
+                                <a href="/group/listLearningContent1?currentPage=${page.startPage+page.pageBlock}" class="pageblock page-link">Next</a>
+                            </li>
+                        </c:when>
+                    </c:choose>
+                </c:if>
+            </ul>
+        </nav>
+
     </main>
     <%@ include file="/WEB-INF/components/Footer.jsp"%>
 

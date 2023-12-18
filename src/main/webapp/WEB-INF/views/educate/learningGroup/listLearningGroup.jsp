@@ -59,6 +59,12 @@
         }
     }
 
+    // 조회하기 검색
+    function submitForm() {
+        var keyword = document.getElementById('keyword').value;
+        window.location.href = '/group/listLearningGroup1?keyword=' + keyword;
+    }
+
 </script>
 <body>
     <%@ include file="/WEB-INF/components/TopBar.jsp"%>
@@ -70,10 +76,15 @@
         <%--본문 리스트--%>
         <div class="container p-5 col-10">
             <p>학습그룹 수 :${totalLearningGroupCnt}</p>
-            <div class="d-flex justify-content-end align-items-center mb-3">
-                <button onclick="" class="m-5">조회하기</button>
-                <button onclick="goToUpdateFormLearningGroup()" class="m-5">변경하기</button>
-                <button onclick="goToDeleteLearningGroup()" class="m-5">삭제하기</button>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="d-flex align-items-center mr-3" style="flex-grow: 1;">
+                    <input class="form-control keyword-input mr-3" type="text" name="keyword" placeholder="키워드를 검색해보세요." id="keyword" style="flex-grow: 1;">
+                    <button class="btn btn-primary mr-3" style="min-width: 90px;" onclick="submitForm();">조회하기</button>
+                </div>
+                <div class="d-flex align-items-center mr-3">
+                    <button onclick="goToUpdateFormLearningGroup()" class="btn btn-primary mr-3" style="min-width: 90px;">변경하기</button>
+                    <button onclick="goToDeleteLearningGroup()" class="btn btn-primary" style="min-width: 90px;">삭제하기</button>
+                </div>
             </div>
             <div>
                 <c:if test="${learningGroupList.size() == 0}">해당하는 학습그룹 정보가 없습니다.</c:if>
@@ -107,46 +118,55 @@
         </div>
 
         <!-- 페이징 처리 -->
-        <%--<nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation example ">
             <ul class="pagination">
-                <c:choose>
-                    <c:when test="${path == 0 }">
-                        <c:if test="${page.startPage > page.pageBlock}">
+                <c:if test="${page.startPage > page.pageBlock}">
+                    <c:choose>
+                        <c:when test="${path == 0}">
                             <li class="page-item">
-                                <a href="group/listLearningGroup?currentPage=${page.startPage-page.pageBlock}"
-                                   class="pageblock page-link">[이전]</a></li>
-                        </c:if>
-                        <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-                            <li class="page-item">
-                                <a href="group/listLearningGroup?currentPage=${i}" class="pageblock page-link ${page.currentPage == i ? 'active':'' }">${i}</a>
+                                <a href="/group/listLearningGroup?currentPage=${page.startPage-page.pageBlock}" class="pageblock page-link">Prev</a>
                             </li>
-                        </c:forEach>
-                        <c:if test="${page.endPage < page.totalPage}">
+                        </c:when>
+                        <c:when test="${path == 1}">
                             <li class="page-item">
-                                <a href="group/listLearningGroup?currentPage=${page.startPage+page.pageBlock}"
-                                   class="pageblock page-link">[다음]</a></li>
-                        </c:if>
-                    </c:when>
-                    <c:otherwise>
-                        <c:if test="${page.startPage > page.pageBlock}">
-                            <li class="page-item">
-                                <a href="course1?currentPage=${page.startPage-page.pageBlock}"
-                                   class="pageblock page-link">[이전]</a></li>
-                        </c:if>
-                        <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-                            <li class="page-item">
-                                <a href="course1?currentPage=${i}&keyword=${keyword}&big_code=${big_code}&small_code=${small_code}&area=${area}&sigungu=${sigungu}" class="pageblock page-link ${page.currentPage == i ? 'active':'' }">${i}</a>
+                                <a href="/group/listLearningGroup1?currentPage=${page.startPage-page.pageBlock}" class="pageblock page-link">Prev</a>
                             </li>
-                        </c:forEach>
-                        <c:if test="${page.endPage < page.totalPage}">
+                        </c:when>
+                    </c:choose>
+                </c:if>
+
+                <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+                    <c:choose>
+                        <c:when test="${path == 0}">
                             <li class="page-item">
-                                <a href="course1?currentPage=${page.startPage+page.pageBlock}"
-                                   class="pageblock page-link">[다음]</a></li>
-                        </c:if>
-                    </c:otherwise>
-                </c:choose>
+                                <a href="/group/listLearningGroup?currentPage=${i}" class="pageblock page-link ${page.currentPage == i ? 'active':'' }">${i}</a>
+                            </li>
+                        </c:when>
+                        <c:when test="${path == 1}">
+                            <li class="page-item">
+                                <a href="/group/listLearningGroup1?currentPage=${i}&keyword=${keyword}" class="pageblock page-link ${page.currentPage == i ? 'active':'' }">${i}</a>
+                            </li>
+                        </c:when>
+                    </c:choose>
+                </c:forEach>
+
+                <c:if test="${page.endPage < page.totalPage}">
+                    <c:choose>
+                        <c:when test="${path == 0}">
+                            <li class="page-item">
+                                <a href="/group/listLearningGroup?currentPage=${page.startPage+page.pageBlock}" class="pageblock page-link">Next</a>
+                            </li>
+                        </c:when>
+                        <c:when test="${path == 1}">
+                            <li class="page-item">
+                                <a href="/group/listLearningGroup1?currentPage=${page.startPage+page.pageBlock}" class="pageblock page-link">Next</a>
+                            </li>
+                        </c:when>
+                    </c:choose>
+                </c:if>
             </ul>
-        </nav>--%>
+        </nav>
+
     </main>
     <%@ include file="/WEB-INF/components/Footer.jsp"%>
 

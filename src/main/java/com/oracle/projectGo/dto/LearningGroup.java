@@ -12,8 +12,8 @@ public class LearningGroup {
     private int    contentId;        // 게임번호
     private int    userId;           // 회원번호
     private String name;             // 그룹명
-    private String   startDate;        // 학습시작날짜
-    private String   endDate;          // 학습종료날짜
+    private String startDate;        // 학습시작날짜
+    private String endDate;          // 학습종료날짜
     private int    groupSize;        // 등록가능인원
     private String etc1;             // 기타항목1
     private String etc2;             // 기타항목2
