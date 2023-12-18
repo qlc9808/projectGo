@@ -51,6 +51,10 @@
         SELECT DISTINCT title
         FROM homeworks
         WHERE userId = #{userId}
+        <if test="contentId != null and contentId != '' and contentId != 0 ">
+            AND contentId = #{contentId}
+        </if>
+
     </select>
 
     <select id="getDistinctHomeworkTitlesByKeyword" resultType="string" parameterType="hashMap">
