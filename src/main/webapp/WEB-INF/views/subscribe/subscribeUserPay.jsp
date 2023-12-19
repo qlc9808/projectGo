@@ -24,7 +24,7 @@
             <form>
                 <table class="table table-bordered">
                     <tr>
-                        <th>No.</th> <th>콘텐츠 이미지</th> <th>가격 / 구독기간 (개월)</th> <th>구매일자</th> <th>학습그룹</th>
+                        <th>No.</th> <th>콘텐츠 이미지</th> <th>가격 / 구독 기간 (개월)</th> <th>생성일</th> <th>학습 그룹</th>
                     </tr>
 
                     <c:forEach var="my" items="${mySubscribePayList}" varStatus="status">
@@ -32,7 +32,7 @@
                             <td>${my.rn}</td>
                             <td>${my.imageName}</td>
                             <td>${my.discountPrice}/${my.subscribeDate}개월</td>
-                            <td>${my.subscribleStart}</td>
+                            <td>${my.createdAt}</td>
                             <td>${my.name}</td>
                         </tr>
                     </c:forEach>

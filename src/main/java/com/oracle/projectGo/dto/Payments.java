@@ -28,7 +28,7 @@ public class Payments {
     private String imagePath;           // 이미지경로
     private int    discountPrice;       // 판매가
     private int    subscribeDate;       // 구독기간
-    private Date   subscribleStart;     // 구독 시작 날짜
+    private Date   createdAt;           // 생성일
 
 
 }

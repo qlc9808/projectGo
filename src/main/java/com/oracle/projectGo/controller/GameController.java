@@ -54,6 +54,7 @@ public class GameController {
                                     @RequestParam(value = "file1", required = false)MultipartFile file1,
                                     HttpServletRequest request, Model model) throws IOException {
         System.out.println("GameController gameContentInsert Start !");
+        System.out.println("구독 기간(개월 수)-> " + gameContents.getSubscribeDate());
 
         // file upload
 //        String uploadPath = request.getServletContext().getRealPath("/upload/gameContents/");
@@ -64,20 +65,12 @@ public class GameController {
 //        log.info("contextType : "  + file1.getContentType());			// 파일 타입
 //        log.info("uploadPath : "   + uploadPath);						// 파일 저장되는 주소
 
-        // 로그인한 유저 정보 세팅
+        // 로그인 한 유저 정보 세팅
         Users users = us.getLoggedInUserInfo();
         log.info("로그인 getUserType : {}", users.getUserType());
         gameContents.setUserId(users.getId());
 //        gameContents.setImagePath(uploadPath);
 //        gameContents.setImageName(saveName);
-
-        // subscribleStart(구독 시작 날짜) + subscribleDate(구독 기간) = subscribleEnd(구독 종료 날짜)
-//        LocalDate resultDate = gameContents.getSubscribleStart().toLocalDate().plusMonths(gameContents.getSubscribeDate());
-//        Date resultSqlDate = java.sql.Date.valueOf(resultDate);
-//        gameContents.setSubscribleEnd((java.sql.Date) resultSqlDate);
-//        System.out.println("구독 시작 날짜-> "    + gameContents.getSubscribleStart());
-        System.out.println("구독 기간(개월수)-> " + gameContents.getSubscribeDate());
-//        System.out.println("구독 종료 날짜-> "    + resultSqlDate);
 
         int gameContentInsert = gs.gameContentInsert(gameContents);
         System.out.println("GameController gameContentInsert-> " + gameContentInsert);

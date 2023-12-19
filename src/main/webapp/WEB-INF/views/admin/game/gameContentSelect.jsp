@@ -20,8 +20,8 @@
 
             <table class="table table-bordered">
                 <tr>
-                    <th>No.</th> <th>콘텐츠 이미지</th> <th>게임컨텐츠명</th> <th>패키지 내용</th> <th>난이도</th> <th>구독가능인원</th>
-                    <th>구독 기간</th> <th>구독 시작 날짜</th> <th>구독 종료 날짜</th> <th>정가</th> <th>할인율</th> <th>판매가</th>
+                    <th>No.</th> <th>콘텐츠 이미지</th> <th>게임 콘텐츠명</th> <th>패키지 내용</th> <th>난이도</th> <th>구독 가능 인원</th>
+                    <th>구독 기간</th> <%--<th>등록일</th> <th>구독 종료 날짜</th>--%> <th>정가</th> <th>할인율</th> <th>판매가</th>
                 </tr>
 
                 <c:forEach var="gameContent" items="${gameContentsList}">
@@ -33,8 +33,8 @@
                         <td>${gameContent.gameLevel}</td>
                         <td>${gameContent.maxSubscribers}명</td>
                         <td>${gameContent.subscribeDate}개월</td>
-                        <td>${gameContent.subscribleStart}</td>
-                        <td>${gameContent.subscribleEnd}</td>
+<%--                        <td>${gameContent.createdAt}</td>--%>
+                        <%--<td>${gameContent.updatedAt}</td>--%>
                         <td>${gameContent.price}원</td>
                         <td>${gameContent.discountRate}%</td>
                         <td>${gameContent.discountPrice}원</td>

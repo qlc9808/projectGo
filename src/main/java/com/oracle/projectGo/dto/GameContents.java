@@ -17,18 +17,18 @@ public class GameContents {
 
     private String imagePath;           // 이미지경로
 
-    private int   subscribeDate;       // 구독기간
+    private int   subscribeDate;       // 구독기간(개월수)
 
     private String  gameLevel;              // 난이도 초급:1, 중급:2, 고급:3
 
-    private int     maxSubscribers;         // 구독 가능인원
+    private int     maxSubscribers;         // 구독 가능 인원
 
     @NotEmpty(message = "필수 입력란입니다")
     private String content;                 // 게임 패키지 내용
 
-    private Date createdAt;   // 구독 시작 날짜
+    private Date createdAt;                 // 구독 시작 날짜 = sysdate
 
-    private Date updatedAt;     // 구독 종료 날짜
+    private Date updatedAt;                 // 구독 수정 날짜
 
     private int    price;               // 정가
 

@@ -61,17 +61,17 @@
                         </td>
                     </tr>
 
-                    <tr>
-                        <th>구독 시작 날짜</th>
+                  <%--  <tr>
+                        <th>등록 날짜</th>  --> sydate이므로 필요 없음
                         <td>
-                            <input type="date" name="subscribleStart" id="subscribleStart">
+                            <input type="date" name="createdAt" id="createdAt">
                         </td>
-                    </tr>
+                    </tr>--%>
 
                     <tr>
                         <th>구독 기간</th>
                         <td>
-                            <label for="months">개월수 입력</label>
+                            <label for="months">개월 수 입력</label>
                             <input type="number" id="months" name="subscribeDate" min="1" max="12">
                         </td>
                     </tr>
