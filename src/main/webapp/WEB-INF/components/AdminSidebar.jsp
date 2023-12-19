@@ -106,7 +106,7 @@
         </li>
         <li class="nav-item my-page-nav-item">
             <div>
-                <a href="#"
+                <a href="/userList"
                    class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi-people-fill px-3"></i>
                     회원 조회

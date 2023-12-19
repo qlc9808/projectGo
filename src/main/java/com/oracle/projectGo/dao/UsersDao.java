@@ -87,6 +87,7 @@ public class UsersDao {
         List<Users> getSearchUserList = null;
         try {
             getSearchUserList = session.selectList("getSearchUserList", users);
+            log.info("getSearchUserList="+getSearchUserList.size());
 
         } catch (Exception e) {
             log.info("UsersDao getSearchUserList => " + e.getMessage());

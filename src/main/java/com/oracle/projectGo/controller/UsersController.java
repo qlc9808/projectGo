@@ -32,11 +32,14 @@ private final UsersService us;
             log.info("[{}]{}:{}", transactionId, "userList", "start");
 
             int totalUsersCount = us.totalUsers(users);
-            log.info(users.toString());
+            log.info("totalUsersCount = "+ totalUsersCount);
 
             Paging page = new Paging(totalUsersCount,currentPage);
             users.setStart(page.getStart());
+            log.info("startpage = "+ page.getStart());
             users.setEnd(page.getEnd());
+            log.info("endpage = "+ page.getEnd());
+            log.info("userType = "+ users.getUserType());
 
             listUsers = us.getSearchUserList(users);
             if (listUsers == null) {
@@ -52,4 +55,6 @@ private final UsersService us;
         }
         return "admin/user/userList";
     }
+
+
 }

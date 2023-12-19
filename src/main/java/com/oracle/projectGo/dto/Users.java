@@ -1,6 +1,7 @@
 package com.oracle.projectGo.dto;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -25,4 +26,12 @@ public class Users {
     private String pageNum;
     private int    start;
     private int    end;
+
+    private String dateOptions;
+    private String searchType;
+    private String keyword;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date endDate;
 }

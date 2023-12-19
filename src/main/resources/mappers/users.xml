@@ -15,18 +15,48 @@
                #{phone}, #{email}, #{consent1}, #{consent2}, '0', sysdate, null)
     </insert>
 
-    <select id="getUserList" resultType="Users">
+    <select id="getSearchUserList" resultType="Users" parameterType="Users">
+        SELECT *
+        FROM(
+        SELECT ROWNUM rn, users.*
+        FROM users
+        WHERE 1=1
+        <if test="keyword != null and keyword != ''">
+            <choose>
+                <!-- "searchType"이 "name"일 때 -->
+                <when test="searchType == 'name'">
+                    AND name like '%' || #{keyword}|| '%'
+                </when>
+                <!-- "searchType"이 "email"일 때 -->
+                <when test="searchType == 'email'">
+                    AND email like '%' || #{keyword}|| '%'
+                </when>
+                <!-- "searchType"이 "nickname"일 때 -->
+                <when test="searchType == 'nickname'">
+                    AND nickname like '%' || #{keyword}|| '%'
+                </when>
+            </choose>
+         </if>
+        <if test="userType != null and userType != ''">
+            AND userType = #{userType}
+        </if>
+        <!-- "startDate"와 "endDate"로 가입일을 조회 -->
+        <if test="startDate != null and endDate != null">
+            AND createdAt BETWEEN #{startDate} AND #{endDate}
+        </if>
+        )
+        WHERE rn between #{start} and #{end}
     </select>
 
     <select id="totalUsers" resultType="int" parameterType="Users">
         SELECT count(*)
         FROM users
-        WHERE
+        WHERE 1=1
         <if test="keyword != null and keyword != ''">
             <choose>
                 <!-- "searchType"이 "nickname"일 때 -->
                 <when test="searchType == 'nickname'">
-                    AND name like '%' || #{keyword}|| '%'
+                    AND nickname like '%' || #{keyword}|| '%'
                 </when>
                 <!-- "searchType"이 "phone"일 때 -->
                 <when test="searchType == 'phone'">
@@ -34,23 +64,19 @@
                 </when>
                 <!-- "searchType"이 "name"일 때 -->
                 <when test="searchType == 'name'">
-                    AND nickname like '%' || #{keyword}|| '%'
+                    AND name like '%' || #{keyword}|| '%'
                 </when>
             </choose>
         </if>
 
-        <if test="email != null and email != ''">
-            AND email = #{email}
+        <if test="userType != null and userType != ''">
+            AND userType = #{userType}
         </if>
 
         <if test="nickname != null and nickname != ''">
             AND nickname = #{nickname}
         </if>
 
-        <!-- "startDate"와 "endDate"로 가입일을 조회 -->
-        <if test="startDate != null and endDate != null">
-            AND createdAt BETWEEN #{startDate} AND #{endDate}
-        </if>
 
     </select>
 
