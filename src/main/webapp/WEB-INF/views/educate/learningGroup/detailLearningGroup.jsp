@@ -44,7 +44,7 @@
                                 <td>${detailGroup.phone}</td>
                                 <td>${detailGroup.email}</td>
                                 <td>${detailGroup.address}</td>
-                                <td>${detailGroup.approvalDate}</td>
+                                <td><fmt:formatDate value="${detailGroup.approvalDate}" pattern="yyyy-MM-dd"/></td>
                             </tr>
                         </c:forEach>
                     </table>
