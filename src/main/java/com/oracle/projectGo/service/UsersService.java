@@ -2,15 +2,18 @@ package com.oracle.projectGo.service;
 
 import com.oracle.projectGo.dao.UsersDao;
 import com.oracle.projectGo.dto.Users;
+import com.oracle.projectGo.type.UsersRoleType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -54,6 +57,31 @@ public class UsersService {
         }
         return user;
     }
+
+    public UsersRoleType getLoggedInUserRole() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // 로그인하지 않았거나 권한이 없는 경우 ANONYMOUS 리턴
+        if (authentication == null || authentication.getAuthorities().isEmpty()) {
+            return UsersRoleType.ANONYMOUS;
+        }
+
+        String role = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("No authority found"));
+
+        // "ROLE_" 접두사 제거
+        String roleLabel = role.replace("ROLE_", "");
+        log.info("getLoggedInUserRole:{}",roleLabel);
+
+        return UsersRoleType.findByLabel(roleLabel);
+    }
+
+
+
+
+
 
     public int insertUsers(Users users) {
         log.info("UsersService start");

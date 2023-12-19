@@ -1,5 +1,7 @@
 <%@ page import="org.springframework.security.core.Authentication" %>
-<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %><%--
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
+<%@ page import="com.oracle.projectGo.type.UsersRoleType" %>
+<%@ page import="org.springframework.security.core.GrantedAuthority" %><%--
   Created by IntelliJ IDEA.
   User: admin
   Date: 2023-12-05
@@ -20,20 +22,18 @@
         <div>
             <%
                 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-                if ((auth != null && auth.isAuthenticated()) == false){
+                String role = auth.getAuthorities().stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .findFirst()
+                        .orElse(UsersRoleType.ANONYMOUS.getLabel());
+                System.out.println(auth.getAuthorities()+ auth.getName());
+                boolean isAuthenticated = !role.contains(UsersRoleType.ANONYMOUS.getLabel());
             %>
-
-            <a href="/logout">로그아웃 </a>
-
-            <%
-            } else {
-            %>
-
-            <a href="/login">로그인  </a>
-
-            <%
-                }
-            %>
+            <% if (isAuthenticated) { %>
+            <a href="/logout">로그아웃</a>
+            <% } else { %>
+            <a href="/login">로그인</a>
+            <% } %>
 
         </div>
 
