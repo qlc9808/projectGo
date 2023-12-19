@@ -37,7 +37,7 @@
                         </tr>
                     </c:forEach>
                 </table>
-                <button type="submit">구독하기</button>
+                <button type="submit" class="btn btn-primary">구독하기</button>
             </form>
 
             <!-- 페이징 작업 -->

@@ -58,7 +58,7 @@
                         <th>입금자명</th> <td colspan="3">${users.name}</td>
                     </tr>
                 </table>
-                <button type="submit">결제하기</button>
+                <button type="submit" class="btn btn-primary">결제하기</button>
             </form>
 
         </div>

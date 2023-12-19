@@ -124,7 +124,7 @@
                     </tr>--%>
 
                     <tr>
-                        <td><button type="submit">등록하기</button></td>
+                        <td><button type="submit" class="btn btn-primary">등록하기</button></td>
                     </tr>
 
                 </table>
