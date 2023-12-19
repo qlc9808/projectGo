@@ -42,7 +42,6 @@ function listEdu() {
                 };
             });
 
-            gridData.reverse();
 
             grid = new tui.Grid({
                 el: document.getElementById('grid1'),
@@ -71,8 +70,11 @@ function listEdu() {
                         header: '학습자료',
                         name: 'title',
                         align: 'center',
-                        width: 'auto',
-                        minWidth: 150
+                        width: 350,
+                        minWidth: 150,
+                        formatter: function(cellData) {
+                            return '<span class="grid-edutitle" style="cursor:pointer;">' + cellData.value + '</span>';
+                        }
                     },
                     {
                         header: '자료구분',

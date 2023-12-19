@@ -4,7 +4,7 @@
 
 <mapper namespace="com.oracle.projectGo.salesMapper">
     <select id="listSales" resultType="Payments">
-        SELECT   p.id, p.userId, p.contentId, p.paymentType, p.status, p.purchaseDate, p.price, u.name, g.title
+        SELECT   p.id, p.userId, p.contentId, p.paymentType, p.status, p.purchaseDate, g.discountPrice, u.name, g.title
         FROM     payments p, users u, gamecontents g
         WHERE    p.userid = u.id
         AND      p.contentId = g.id

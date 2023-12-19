@@ -24,6 +24,12 @@
             align-items: end;
             justify-content: end;
         }
+        .grid-edutitle {
+            color: #6b6bff;
+        }
+        .grid-edutitle:hover {
+            opacity: 0.7; transition: 0.2s all;
+        }
     </style>
 </head>
 <body>
@@ -45,7 +51,7 @@
                     <button style="margin: 10px;" onclick="uploadEdu()">교육자료등록</button>
 
                 </div>
-                <div id="grid1"></div>
+                <div id="grid1" style="width: auto;"></div>
             </div>
 
         </div>

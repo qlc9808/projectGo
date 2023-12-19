@@ -129,8 +129,15 @@ public class AdminResourceController {
     public String updateEdu(EducationalResources edu,
                             HttpServletRequest request,
                             @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
-        String uploadPath = request.getSession().getServletContext().getRealPath("/upload/qBoard/");
+        String uploadPath = request.getSession().getServletContext().getRealPath("/upload/educationalResources/");
+
+        System.out.println("uploadPath->" + uploadPath);
+        System.out.println("originalName : " + file.getOriginalFilename());
+        System.out.println("fileByte : " + file.getBytes());
+        System.out.println("fileSize : " + file.getSize());
+
         int delResult = 0;
+
         if (file.getSize() != 0 ) {
             String deleteFile = uploadPath + edu.getImage();
             delResult = fileDelete(deleteFile);
@@ -222,12 +229,15 @@ public class AdminResourceController {
         File file = new File(deleteFile);
         if (file.exists()) {
             if (file.delete()) {
+                System.out.println("1");
                 result = 1;
             } else {
-                result = 0;
+                System.out.println("2");
+                result = 2;
             }
         } else {
-            result = -1;
+            System.out.println("0");
+            result = 0;
         }
         return result;
     }
