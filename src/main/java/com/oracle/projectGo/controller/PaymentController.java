@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -99,7 +100,8 @@ public class PaymentController {
 
     // 결제 - 결제 방법 선택 후 결제
     @PostMapping(value = "/subscribePay")
-    public String subscribePay(@RequestParam String gameIds, @RequestParam String paymentType) {
+    public String subscribePay(@RequestParam String gameIds, @RequestParam String paymentType,
+                               RedirectAttributes  redirectAttributes) {
         System.out.println("PaymentController subscribePay !");
         System.out.println("클릭한 gameIds-> " + gameIds);
 
@@ -110,22 +112,29 @@ public class PaymentController {
 
         // gameIds 값 확인
         for (String gameId : gameIds.split(",")){
+            Payments payments  = new Payments();
             String cleanGameId = gameId.replaceAll("[^0-9]", ""); // 숫자 이외의 모든 문자 제거
-            System.out.println("cleanGameId-> " + cleanGameId);
-
+            payments.setUserId(loginUserId);
+            payments.setPaymentType(paymentType);
+            payments.setContentId(Integer.parseInt(cleanGameId));
             // 결제하기 클릭 후 payments 테이블에 insert
-            ps.subscribePayInsert(loginUserId, Integer.parseInt(cleanGameId), paymentType);
+            ps.subscribePayInsert(payments);
         }
+        redirectAttributes.addAttribute("loginUserId", loginUserId);
         return "redirect:/subscribe/subscribeUserPay";
+       // return "redirect:/subscribe/subscribeUserPay={loginUserId}";
+
+
     }
 
     // 내가 구독한 게임 컨텐츠 리스트 조회
     @GetMapping(value = "/subscribeUserPay")
-    public String subscribeUserPay(String currentPage, Model model) {
+    public String subscribeUserPay(String currentPage ,Model model) {
 
         Users users = us.getLoggedInUserInfo();
-        log.info("로그인 loginUserId : {}", users.getId());
         int loginUserId = users.getId();
+        log.info("로그인 loginUserId : {}", users.getId());
+
 
         // 내가 구독한 게임 컨텐츠 리스트 총 갯수
         int subscribeUserPayTotalCount = ps.subscribeUserPayTotalCount(loginUserId);
@@ -134,11 +143,16 @@ public class PaymentController {
         // 페이징 작업
         Payments payments = new Payments();
         Paging page = new Paging(subscribeUserPayTotalCount, currentPage);
+        System.out.println("ddd");
         payments.setStart(page.getStart());
         payments.setEnd(page.getEnd());
 
+        System.out.println(page.getStart());
+        System.out.println(page.getEnd());
         // 내가 구독한 게임 컨텐츠 리스트 조회
         payments.setUserId(loginUserId);
+
+        
         List<Payments> mySubscribePayList = ps.mySubscribePayList(payments);
         System.out.println("PaymentController subscribeUserPay mySubscribePayList-> " + mySubscribePayList);
 

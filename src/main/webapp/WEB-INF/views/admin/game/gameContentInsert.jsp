@@ -109,12 +109,12 @@
                         </td>
                     </tr>
 
-                    <%--<tr>
+                    <tr>
                         <th>썸네일</th>
                         <td>
                             <input type="file" id="file" name="file1">
                         </td>
-                    </tr>--%>
+                    </tr>
 
                     <tr>
                         <td><button type="submit" class="btn btn-primary">등록하기</button></td>

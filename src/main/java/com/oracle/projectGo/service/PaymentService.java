@@ -16,16 +16,8 @@ public class PaymentService {
 // -----------------------------------------------------------
 
     // 결제하기 클릭 후 payments 테이블에 insert
-    @Transactional
-    public void subscribePayInsert(int loginUserId, int contentId, String paymentType) {
-            Payments payments = new Payments();
-            payments.setUserId(loginUserId);
-            payments.setContentId(contentId);
-            payments.setPaymentType(paymentType);
-            System.out.println("PaymentService subscribePayInsert loginUserId->> " + loginUserId);
-            System.out.println("PaymentService subscribePayInsert contentId->> " + contentId);
-            System.out.println("PaymentService subscribePayInsert paymentType->> " + paymentType);
-
+//    @Transactional
+    public void subscribePayInsert(Payments payments) {
             try {
                 int subscribePayInsert  = pd.subscribePayInsert(payments);
                 System.out.println("PaymentDao subscribePayInsert-> " + subscribePayInsert);

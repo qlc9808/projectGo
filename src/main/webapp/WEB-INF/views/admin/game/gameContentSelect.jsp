@@ -27,7 +27,11 @@
                 <c:forEach var="gameContent" items="${gameContentsList}">
                     <tr id="gameContent${gameContent.rn}">
                         <td>${gameContent.rn}</td>
-                        <td>${gameContent.imageName}</td>
+                        <td>
+
+                            <a href="/${gameContent.imagePath}${gameContent.imageName}">${gameContent.imageName}</a><br>
+                        </td>
+
                         <td>${gameContent.title}</td>
                         <td>${gameContent.content}</td>
                         <td>${gameContent.gameLevel}</td>

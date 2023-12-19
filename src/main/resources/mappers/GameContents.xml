@@ -11,14 +11,17 @@
                                  subscribeDate, gameLevel,
                                  maxSubscribers, content,
                                  createdAt,
-                                 price, discountRate, discountPrice
+                                 price, discountRate, discountPrice,
+                                 imagePath,imageName
+
                                 )
                         VALUES  (
                                  GAMECONTENTS_ID_SEQ.nextval, #{userId}, #{title},
                                  #{subscribeDate}, #{gameLevel},
                                  #{maxSubscribers}, #{content},
                                  sysdate,
-                                 #{price}, #{discountRate},  #{discountPrice}
+                                 #{price}, #{discountRate},  #{discountPrice},
+                                 #{imagePath},#{imageName}
                                 )
     </insert>
 

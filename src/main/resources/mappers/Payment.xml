@@ -5,9 +5,9 @@
 <mapper namespace="com.oracle.projectGo.PaymentsMapper">
 
     <!-- 결제하기 클릭 후 payments 테이블에 insert -->
-    <insert id="subscribePayInsert" parameterType="Payments">
-        insert into paymetns (id,                       userid, contentid, paymenttype, status, purchasedate)
-                      values (PAYMENTS_ID_SEQ.nextval, #{userId}, #{contentid}, #{paymenttype}, 1, sysdate)
+    <insert id="subscribePayInsert" parameterType="payments">
+        insert into payments (id,                       userId, contentId, paymentType, status, purchaseDate)
+                      values (PAYMENTS_ID_SEQ.nextval, #{userId}, #{contentId}, #{paymentType}, 1, sysdate)
     </insert>
 
     <!-- 참고 -->
@@ -30,25 +30,26 @@
 
 
     <!-- 내가 구독한 게임 컨텐츠 리스트 조회 -->
-    <select id="mySubscribePayList" parameterType="Payments" resultType="Payments">
-        <![CDATA[
+    <select id="mySubscribePayList" parameterType="payments" resultType="payments">
+
             select *
             from
                 (
                     select rownum rn, a.*
                     from (
-                            select      g.* , p.*, l.name
-                            from        gamecontents g, learninggroup l, payments p
-                            where       g.id = l.id
-                            and         g.id = p.id
+                            select      g.id ,g.discountPrice, g.subscribeDate,p.purchaseDate
+                            from        gamecontents g, payments p
+
+                            where        g.id = p.contentId
                             and         p.status = 1
-                            and         p.userid = #{userid}
-                            order by    purchasedate desc
+                            and         p.userId = #{userId}
+                            order by    purchaseDate desc
                          ) a
                 )
-              where  rn >= #{start}
-              and    rn <= #{end}
-        ]]>
+              where  rn between #{start} and #{end}
+
     </select>
+
+
 
 </mapper>
