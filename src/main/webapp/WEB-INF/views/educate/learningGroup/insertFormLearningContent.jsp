@@ -20,7 +20,7 @@
                     <tr>
                         <th class="col-4">게임콘텐츠명 : ${insertFormLearningContent.title}</th>
                         <th class="col-4">학습가능인원 : ${insertFormLearningContent.maxSubscribers}</th>
-                        <th class="col-4">그룹 총 배정인원 : #</th>
+                        <th class="col-4">그룹 총 배정인원 : ${insertFormLearningContent.assignedPeople}</th>
                     </tr>
                 </table>
             </div>

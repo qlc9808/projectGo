@@ -45,4 +45,7 @@ public class GameContents {
     // users
     private String name;  // 회원 이름
     private int    pay_userId;       // 회원 번호
+
+    // 컨텐츠 그룹 인원
+    private int     AssignedPeople;    // 컨텐츠 그룹에 가입된 인원
 }

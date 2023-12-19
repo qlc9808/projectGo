@@ -17,25 +17,32 @@
 
     <select id="NoLearningContentList" parameterType="int" resultType="GameContents">
         <![CDATA[
-            SELECT   *
-            FROM     payments a
-            JOIN     gameContents b
-            ON       a.contentId = b.id
-            WHERE    a.userId = #{userId}
-            AND      b.subscribleStart <= SYSDATE
-            AND      b.subscribleEnd >= SYSDATE
-            ORDER BY a.contentid ASC
+        SELECT   a.id, a.userId, a.contentId, b.title, b.subscribleStart, b.subscribleEnd, b.maxSubscribers,
+                 (SUM(c.groupSize)) AS AssignedPeople
+        FROM     payments a
+        JOIN     gameContents b
+        ON       a.contentId = b.id
+        JOIN     learningGroup c
+        ON       b.id = c.contentId
+        WHERE    a.userId = #{userId}
+        AND      b.subscribleStart <= SYSDATE
+        AND      b.subscribleEnd >= SYSDATE
+        GROUP BY a.id, a.userId, a.contentId, b.title, b.subscribleStart, b.subscribleEnd, b.maxSubscribers
+        ORDER BY a.contentId ASC
         ]]>
     </select>
 
     <select id="NoInsertFormLearningContent" parameterType="int" resultType="GameContents">
-        SELECT  a.userId pay_userId, b.name, c.*
+        SELECT  a.userId pay_userId, a.contentId, b.name, c.title, c.maxSubscribers, (SUM(d.groupSize)) AS AssignedPeople
         FROM    payments a
         JOIN    users b
         ON      a.userId = b.id
         JOIN    gameContents c
         ON      a.contentId = c.id
+        JOIN    learningGroup d
+        ON      c.id = d.contentId
         WHERE   c.id = #{id}
+        GROUP BY a.userId, a.contentId, b.name, c.title, c.maxsubscribers
     </select>
 
     <insert id="NoInsertLearningGroup" parameterType="LearningGroup">
@@ -55,20 +62,25 @@
 
     <select id="NoLearningGroupList" parameterType="int" resultType="LearningGroup">
         <![CDATA[
-            SELECT   a.*, b.title
-            FROM     learningGroup a
-            JOIN     gameContents b
-            ON       a.contentId = b.id
-            WHERE    a.userId = #{userId}
-            AND      a.startDate <= SYSDATE
-            AND      a.endDate >= SYSDATE
-            ORDER BY a.id ASC
+        SELECT      a.id, a.contentId, a.userId, a.name, a.startDate, a.endDate, a.groupsize , b.title, COUNT(c.userId) AS studentCount
+        FROM        learningGroup a
+        JOIN        gameContents b
+        ON          a.contentId = b.id
+        LEFT JOIN   LearningGroupMember c
+        ON          a.id = c.groupId
+        WHERE       a.userId = #{userId}
+        AND         a.startDate <= SYSDATE
+        AND         a.endDate >= SYSDATE
+        GROUP BY    a.id, a.contentId, a.userId, a.name, a.startDate, a.endDate, a.groupsize , b.title
+        ORDER BY    a.id ASC
         ]]>
     </select>
 
     <select id="NoDetailLearningGroup" parameterType="learningGroup" resultType="LearningGroup">
-        SELECT  a.*, b.contentId, b.name, b.startDate, b.endDate, b.groupSize, b.etc1,
-                b.etc2, c.name studentName, c.phone, c.email, c.address, d.title
+        SELECT  a.groupId, a.userId, a.status, a.approvalDate,
+                b.contentId, b.name, b.startDate, b.endDate, b.groupSize, b.etc1,
+                b.etc2, c.name studentName, c.phone, c.email, c.address, d.title,
+                COUNT(a.userId) OVER () AS studentCount
         FROM    learninggroupmember a
         JOIN    learninggroup b
         ON      a.groupid = b.id

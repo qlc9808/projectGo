@@ -106,7 +106,7 @@
                                     <fmt:parseDate var="parsedEndDate" value="${groupList.endDate}" pattern="yyyy-MM-dd" />
                                     <fmt:formatDate value="${parsedEndDate}" type="date" />
                                 </td>
-                                <td>#</td>
+                                <td>${groupList.studentCount}</td>
                             </tr>
                         </c:forEach>
                     </table>

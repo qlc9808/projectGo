@@ -63,15 +63,6 @@
             <div>
                 <a href="#"
                    class="nav-link my-page-nav-link px-3 ">
-                    <i class="title-bi bi-people-fill px-3"></i>
-                    학습 그룹 상세조회
-                </a>
-            </div>
-        </li>
-        <li class="nav-item my-page-nav-item">
-            <div>
-                <a href="#"
-                   class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi-person-check-fill px-3"></i>
                     그룹가입 승인
                 </a>

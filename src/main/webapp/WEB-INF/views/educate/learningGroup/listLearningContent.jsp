@@ -53,7 +53,7 @@
                                     ~ <fmt:formatDate value="${contentList.subscribleEnd}" type="date" pattern="yyyy.MM.dd"></fmt:formatDate>
                                 </td>
                                 <td>${contentList.maxSubscribers}</td>
-                                <td>#</td>
+                                <td>${contentList.assignedPeople}</td>
                             </tr>
                         </c:forEach>
                     </table>
