@@ -52,10 +52,9 @@
         </li>
         <li class="nav-item my-page-nav-item">
             <div>
-
-                <a href="#"
-                   class="nav-link my-page-nav-link px-3 ">
-                    <i class="title-bi bi bi-journal-richtext px-3"></i> 내 컨텐츠
+                <a href="/subscribe/subscribeUserPay"
+                   class="nav-link my-page-nav-link px-3">
+                    <i class="title-bi bi bi-journal-richtext px-3"></i>내 컨텐츠
                 </a>
             </div>
         </li>
