@@ -39,9 +39,9 @@
     </select>
 
     <insert id="InsertnoticeBoard" parameterType="Board">
-        INSERT INTO Board(id, userId, boardType, title, content, status, readCount, fileName, fileSize, filePath, createdAt, isPinned, fileUrl)
+        INSERT INTO Board(id, userId, boardType, title, content, status, readCount, fileName, fileSize, filePath, createdAt, isPinned, fileAddress)
         VALUES(Board_id_seq.nextval, #{userId}, 1, #{title}, #{content}, #{status}, 0, #{fileName}, #{fileSize},
-               #{filePath}, #{createdAt}, #{isPinned}, #{fileUrl})
+               #{filePath}, #{createdAt}, #{isPinned}, #{fileAddress})
     </insert>
 
     <update id="noticeUpdate" parameterType="Board">

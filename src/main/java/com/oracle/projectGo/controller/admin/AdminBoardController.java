@@ -82,8 +82,8 @@ public class AdminBoardController {
 			boardService.increaseReadCount(id); // 조회수 증가
 			model.addAttribute("board", board);
 			model.addAttribute("currentPage", currentPage);
-			model.addAttribute("fileUrl", board.getFileUrl());
-			log.info("[{}]:{}", "fileUrl", board.getFileUrl());
+			model.addAttribute("fileAddress", board.getFileAddress());
+			log.info("[{}]:{}", "fileAddress", board.getFileAddress());
 
 		} catch (Exception e) {
 			log.error("[{}]:{}", "admin noticeDetail", e.getMessage());
@@ -131,8 +131,8 @@ public class AdminBoardController {
 				board.setFileName(fileName);
 
 				// 파일 URL 생성. 실제 서비스에서는 적절한 URL로 변경해야 합니다.
-				String fileUrl = "http://localhost:8585/file/" + file.getOriginalFilename();
-				board.setFileUrl(fileUrl);  // Board 클래스에 setFileUrl 메서드가 필요합니다.
+				String fileAddress = "http://localhost:8585/file/" + file.getOriginalFilename();
+				board.setFileAddress(fileAddress);  // Board 클래스에 setFileAddress 메서드가 필요합니다.
 			}
 
 			board.setIsPinned(isPinned);

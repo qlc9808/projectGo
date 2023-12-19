@@ -12,7 +12,7 @@
     <p>작성일: ${board.createdAt}</p>
     <p>조회수: ${board.readCount}</p>
     <p>${board.content}</p>
-        <a href="${fileUrl}" download>Download file</a>
+        <a href="${fileAddress}" download>Download file</a>
 
 
         <button type="button" class="form-control btn btn-primary2 w-100" onclick="location.href='/admin/board/noticeUpdateForm?id=${board.id}&currentPage=${currentPage}'">수정하기</button>
