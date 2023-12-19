@@ -38,9 +38,9 @@
                         <label for="searchType" class="col-form-label col-1  mx-2">검색어</label>
                         <div class="col-4">
                             <select id="searchType" name="searchType" class="form-select">
-                                <option value="" ${title ? 'selected' : ''}>제목</option>
-                                <option value="" ${content ? 'selected' : ''}>내용</option>
-                                <option value="" ${userId ? 'selected' : ''}>작성자</option>
+                                <option value="title" ${title ? 'selected' : ''}>제목</option>
+                                <option value="content" ${content ? 'selected' : ''}>내용</option>
+                                <option value="userId" ${userId ? 'selected' : ''}>작성자</option>
                             </select>
                         </div>
                         <div class="col-5 mx-2">

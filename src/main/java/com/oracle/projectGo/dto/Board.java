@@ -29,6 +29,7 @@ public class Board {
 
     /* 검색처리 */
     private String keyword;
+    private String searchType;
 
     /*스케줄 처리*/
 
@@ -50,4 +51,6 @@ public class Board {
     public void setIsPinned(boolean isPinned) {
         this.isPinned = isPinned;
     }
+
+    public void setSearchType(String searchType) { this.searchType = searchType; }
 }

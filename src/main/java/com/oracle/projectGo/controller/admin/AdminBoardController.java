@@ -225,12 +225,14 @@ public class AdminBoardController {
 				String title = request.getParameter("title");
 				String userId = request.getParameter("userId");
 				String content = request.getParameter("content");
+				String searchType = request.getParameter("searchType");
 
 
 
 				BoardPaging page = new BoardPaging(totalSearchnotice, currentPage, pageSize);
 				board.setStart(page.getStart());
 				board.setEnd(page.getEnd());
+				board.setSearchType(searchType);
 
 
 				List<Board> listSearchNotice = boardService.listSearchNotice(board);
