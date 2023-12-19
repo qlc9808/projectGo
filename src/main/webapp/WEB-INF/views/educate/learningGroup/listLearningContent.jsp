@@ -49,8 +49,8 @@
                                 <td><input type="radio" name="gameContent" id="gameContent" value="${contentList.id}"></td>
                                 <td>${contentList.title}</td>
                                 <td>
-                                    <fmt:formatDate value="${contentList.subscribleStart}" type="date" pattern="yyyy.MM.dd"></fmt:formatDate>
-                                    ~ <fmt:formatDate value="${contentList.subscribleEnd}" type="date" pattern="yyyy.MM.dd"></fmt:formatDate>
+                                    <%--<fmt:formatDate value="${contentList.subscribleStart}" type="date" pattern="yyyy.MM.dd"></fmt:formatDate>
+                                    ~ <fmt:formatDate value="${contentList.subscribleEnd}" type="date" pattern="yyyy.MM.dd"></fmt:formatDate>--%>
                                 </td>
                                 <td>${contentList.maxSubscribers}</td>
                                 <td>${contentList.assignedPeople}</td>

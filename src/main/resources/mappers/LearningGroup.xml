@@ -10,24 +10,24 @@
             join    gameContents b
             on      a.contentId = b.id
             WHERE   a.userId = #{userId}
-            AND     b.subscribleStart <= SYSDATE
-            AND     b.subscribleEnd >= SYSDATE
+            AND     b.createdAt <= SYSDATE
+            AND     b.updatedAt >= SYSDATE
         ]]>
     </select>
 
     <select id="NoLearningContentList" parameterType="int" resultType="GameContents">
         <![CDATA[
-        SELECT   a.id, a.userId, a.contentId, b.title, b.subscribleStart, b.subscribleEnd, b.maxSubscribers,
-                 (SUM(c.groupSize)) AS AssignedPeople
+        SELECT   a.id, a.userId, a.contentId, b.title, b.createdAt, b.updatedAt, b.maxSubscribers,
+                 (SUM(c.groupSize)) AS assignedPeople
         FROM     payments a
         JOIN     gameContents b
         ON       a.contentId = b.id
         JOIN     learningGroup c
         ON       b.id = c.contentId
         WHERE    a.userId = #{userId}
-        AND      b.subscribleStart <= SYSDATE
-        AND      b.subscribleEnd >= SYSDATE
-        GROUP BY a.id, a.userId, a.contentId, b.title, b.subscribleStart, b.subscribleEnd, b.maxSubscribers
+        AND      b.createdAt <= SYSDATE
+        AND      b.updatedAt >= SYSDATE
+        GROUP BY a.id, a.userId, a.contentId, b.title, b.createdAt, b.updatedAt, b.maxSubscribers
         ORDER BY a.contentId ASC
         ]]>
     </select>
