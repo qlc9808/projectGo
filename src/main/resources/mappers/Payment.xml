@@ -10,6 +10,16 @@
                       values (PAYMENTS_ID_SEQ.nextval, #{userId}, #{contentid}, #{paymenttype}, 1, sysdate)
     </insert>
 
+    <!-- 참고 -->
+<!--    <insert id="insertDistributedHomeworksByBulk" parameterType="java.util.List">-->
+<!--        <foreach collection="list" item="item" open="" close="" separator=";">-->
+<!--            MERGE INTO DistributedHomeworks USING dual ON (homeworkId = #{item.homeworkId} AND userId = #{item.userId})-->
+<!--            WHEN NOT MATCHED THEN-->
+<!--            INSERT (homeworkId, userId, progress, createdAt)-->
+<!--            VALUES (#{item.homeworkId}, #{item.userId}, #{item.progress}, SYSDATE)-->
+<!--        </foreach>-->
+<!--    </insert>-->
+
 
     <!-- 내가 구독한 게임 컨텐츠 리스트 총 갯수 -->
     <select id="subscribeUserPayTotalCount" parameterType="int" resultType="int">

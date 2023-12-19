@@ -21,7 +21,7 @@
             <form action="/subscribe/subscribeClick" method="post">
                 <table class="table table-bordered">
                     <tr>
-                        <th>구독</th> <th>No.</th> <th>콘텐츠 이미지</th> <th>가격 / 구독기간</th> <th>상품소개</th>
+                        <th>구독</th> <th>No.</th> <th>콘텐츠 이미지</th> <th>가격 / 구독 기간(개월)</th> <th>상품 소개</th>
                     </tr>
 
                     <c:forEach var="gameContent" items="${gameContentsList}">
@@ -31,7 +31,6 @@
                             <td>${gameContent.imageName}</td>
                             <td>
                                 ${gameContent.discountPrice}원 / ${gameContent.subscribeDate}개월<br>
-                                ${gameContent.subscribleStart} - ${gameContent.subscribleEnd}
                             </td>
                             <td>${gameContent.content}</td>
                         </tr>
