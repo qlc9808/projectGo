@@ -16,7 +16,7 @@
         </div>
         <div id="main-content" class="container p-5 col-10">
             <%-- 이곳에 작성을 해주세요 --%>
-            <h5>컨텐츠 조회 및 구독 신청</h5>
+            <p>컨텐츠 조회 및 구독 신청</p>
 
             <form action="/subscribe/subscribeClick" method="post">
                 <table class="table table-bordered">

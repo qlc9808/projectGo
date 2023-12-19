@@ -16,12 +16,12 @@
         </div>
         <div id="main-content" class="container p-5 col-10">
             <%-- 이곳에 작성을 해주세요 --%>
-            <h5>총 건수: ${gameContentsTotalCount}</h5>
+            <p>총 건수: ${gameContentsTotalCount}</p>
 
             <table class="table table-bordered">
                 <tr>
                     <th>No.</th> <th>콘텐츠 이미지</th> <th>게임 콘텐츠명</th> <th>패키지 내용</th> <th>난이도</th> <th>구독 가능 인원</th>
-                    <th>구독 기간</th> <%--<th>등록일</th> <th>구독 종료 날짜</th>--%> <th>정가</th> <th>할인율</th> <th>판매가</th>
+                    <th>구독 기간</th> <th>정가</th> <th>할인율</th> <th>판매가</th>
                 </tr>
 
                 <c:forEach var="gameContent" items="${gameContentsList}">
@@ -33,8 +33,6 @@
                         <td>${gameContent.gameLevel}</td>
                         <td>${gameContent.maxSubscribers}명</td>
                         <td>${gameContent.subscribeDate}개월</td>
-<%--                        <td>${gameContent.createdAt}</td>--%>
-                        <%--<td>${gameContent.updatedAt}</td>--%>
                         <td>${gameContent.price}원</td>
                         <td>${gameContent.discountRate}%</td>
                         <td>${gameContent.discountPrice}원</td>

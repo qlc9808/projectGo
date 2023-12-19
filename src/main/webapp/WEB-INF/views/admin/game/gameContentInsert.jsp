@@ -61,13 +61,6 @@
                         </td>
                     </tr>
 
-                  <%--  <tr>
-                        <th>등록 날짜</th>  --> sydate이므로 필요 없음
-                        <td>
-                            <input type="date" name="createdAt" id="createdAt">
-                        </td>
-                    </tr>--%>
-
                     <tr>
                         <th>구독 기간</th>
                         <td>
