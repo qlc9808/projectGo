@@ -23,4 +23,8 @@ public class AdminAccountService {
     public List<Payments> saleSearchList(AdminAccountController.SearchForSales search) {
         return adminAccountDao.saleSearchList(search);
     }
+
+    public List<Payments> chartSelector(int value) {
+        return adminAccountDao.chartSelector(value);
+    }
 }

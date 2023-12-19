@@ -16,9 +16,10 @@
         FROM   payments
     </select>
     <select id="saleSearchList" resultType="Payments">
-        SELECT   p.id, p.userId, p.contentId, p.paymentType, p.status, p.purchaseDate, p.price, u.name, g.title
-        FROM     payments p, users u, gamecontents g
-        ORDER BY p.id desc
+        SELECT   p.id, p.userId, p.contentId, p.paymentType, p.status, p.purchaseDate, g.discountPrice, u.name, g.title
+        FROM     payments p
+        JOIN     gamecontents g ON g.id = p.contentId
+        JOIN     users u        ON u.id = p.userId
         <choose>
             <when test="status == 1">
                 <if test="searchType == 'user'">
@@ -69,7 +70,21 @@
                 WHERE purchaseDate BETWEEN #{keywordDate1} and #{keywordDate2}
             </when>
         </choose>
-        AND    p.contentId = g.id
-        AND    p.userid = u.id
+        ORDER BY p.id desc
     </select>
+    
+    <select id="chartSelector1" parameterType="int" resultType="Payments">
+        SELECT p.id, p.userId, p.contentId, p.paymentType, p.status, p.purchaseDate, g.discountPrice
+        FROM   payments p
+        JOIN   gamecontents g ON p.contentId = g.Id
+        WHERE EXTRACT(YEAR FROM PURCHASEDATE) = #{value}
+    </select>
+
+    <select id="chartSelector2" parameterType="int" resultType="Payments">
+        SELECT p.id, p.userId, p.contentId, p.paymentType, p.status, p.purchaseDate, g.discountPrice
+        FROM   payments p
+                   JOIN   gamecontents g ON p.contentId = g.Id
+        WHERE EXTRACT(MONTH FROM PURCHASEDATE) = #{value}
+    </select>
+    
 </mapper>

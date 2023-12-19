@@ -89,6 +89,15 @@ public class AdminAccountController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping(value = "/api/chartSelector")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> chartSelector(@RequestParam int value) {
+        Map<String, Object> response = new HashMap<>();
+        List<Payments> chartSelectorList = adminAccountService.chartSelector(value);
+        response.put("chartSelectorList", chartSelectorList);
+        return ResponseEntity.ok(response);
+    }
+
     @Data
     public static class SearchForSales {
         private String keyword;

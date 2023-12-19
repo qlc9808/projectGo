@@ -24,8 +24,24 @@
         border-radius: 16px;
     }
     #chart-area {
-        width: 100%;
+        width: 1200px;
         height: 700px;
+    }
+    .btnSaleSearch {
+        border-radius: 5px;
+        background: rgba(70, 70, 255, 0.78);
+        color: white;
+    }
+    .btnSaleSearch:hover {
+        opacity: 0.8; transition: 0.2s;
+    }
+    .ls-object input {
+        border: 0px solid black;
+        width: 120px;
+        text-align: end;
+    }
+    .ls-object input[type="radio"] {
+        width: 50px;
     }
 </style>
 <body>
@@ -41,11 +57,11 @@
             <div class="container border my-4 py-3">
                 <div id="search" style="display: flex; align-items: end; justify-content: end;">
                     <div class="search-form">
-                        기간조회:&nbsp;&nbsp;
+                        조회기간:&nbsp;&nbsp;
                         <input type="date" name="keyword" id="keywordDate1" style="border-radius: 5px;">&nbsp;-&nbsp;
                         <input type="date" name="keyword" id="keywordDate2" style="margin-right: 100px; border-radius: 5px;">
 
-                        카테고리:&nbsp;&nbsp;
+                        검색필터:&nbsp;&nbsp;
                         <select id="searchType" style="margin-right: 100px;">
                             <option value="content" selected="selected">게임</option>
                             <option value="user">이름</option>
@@ -53,10 +69,24 @@
 
                         검색:&nbsp;&nbsp;
                         <input type="text" name="keyword" id="keyword" style="border-radius: 5px;">
-                        <button id="btnSearch2" onclick="search()" style="border-radius: 5px;">조회</button>
+                        <button class="btnSaleSearch" id="btnSearch2" onclick="search()">조회</button>
                     </div>
                 </div>
-                <div id="grid1"></div>
+                <div class="ls-object">
+                    <h5>총 매출액 : <input type="text" id="total-discountPrice" readonly>원
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        건수 : <input type="text" id="totalCount" readonly>회
+                    </h5>
+                </div>
+                <div id="grid1" style="width: 1200px;"></div>
+                <hr>
+                <h5 style="text-align: center;">
+                    <input type="radio" id="salesMonth" name="charts-selector"><label for="salesMonth">월별</label>
+                    <input type="radio" id="salesDays" name="charts-selector"><label for="salesDays">일별</label>
+                    <select id="selectOption">
+                        <option></option>
+                    </select>
+                </h5>
                 <div id="chart-area"></div>
             </div>
 
