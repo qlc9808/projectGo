@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -85,5 +86,18 @@ public class UsersService {
         mailSender.send(message);
 
         return token;
+    }
+
+    public int totalUsers(Users users) {
+        int totalUsers = 0;
+        totalUsers = ud.totalUsers(users);
+        return totalUsers;
+    }
+
+    public List<Users> getSearchUserList(Users users) {
+        List<Users> getSearchUserList = null;
+        getSearchUserList = ud.getSearchUserList(users);
+        return getSearchUserList;
+
     }
 }

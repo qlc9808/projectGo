@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @Slf4j
 @RequiredArgsConstructor
@@ -66,5 +68,29 @@ public class UsersDao {
             log.info("UsersDao idSearchByPhone => " + e.getMessage());
         }
         return idSearchByPhone;
+    }
+
+    public int totalUsers(Users users) {
+        log.info("UsersDao totalUsers start");
+        int totalUsers = 0;
+        try {
+            totalUsers = session.selectOne("totalUsers", users);
+
+        } catch (Exception e) {
+            log.info("UsersDao totalUsers => " + e.getMessage());
+        }
+        return totalUsers;
+    }
+
+    public List<Users> getSearchUserList(Users users) {
+        log.info("UsersDao getSearchUserList start");
+        List<Users> getSearchUserList = null;
+        try {
+            getSearchUserList = session.selectList("getSearchUserList", users);
+
+        } catch (Exception e) {
+            log.info("UsersDao getSearchUserList => " + e.getMessage());
+        }
+        return getSearchUserList;
     }
 }
