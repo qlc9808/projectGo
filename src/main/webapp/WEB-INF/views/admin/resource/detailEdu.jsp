@@ -10,7 +10,7 @@
     <main>
         <div class="d-flex">
             <div class="col-2">
-                <%@ include file="/WEB-INF/components/Sidebar.jsp"%>
+                <%@ include file="/WEB-INF/components/AdminSidebar.jsp"%>
             </div>
             <div id="main-content" class="container p-5 col-10">
                 <h1 style="text-align: center;">detailEdu 왔다</h1>

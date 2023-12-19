@@ -61,7 +61,7 @@
         </li>
         <li class="nav-item my-page-nav-item">
             <div>
-                <a href="#"
+                <a href="/admin/resource/listEdu"
                    class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi bi-pencil-square px-3"></i>
                     학습자료 조회
@@ -70,7 +70,7 @@
         </li>
         <li class="nav-item my-page-nav-item">
             <div>
-                <a href="#"
+                <a href="/admin/resource/uploadForm"
                    class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi bi-pencil-square px-3"></i>
                     학습자료 등록
@@ -97,7 +97,7 @@
         </li>
         <li class="nav-item my-page-nav-item">
             <div>
-                <a href="#"
+                <a href="/admin/account/listSales"
                    class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi bi-graph-up-arrow px-3"></i>
                     매출 조회

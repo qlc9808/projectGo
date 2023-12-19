@@ -13,7 +13,7 @@
         }
         .searchForm {
             width: 1200px;
-            border: 0px solid red;
+            border: 1px solid red;
             height: 100px;
         }
         .objectForm {
@@ -37,18 +37,13 @@
     <main>
         <div class="d-flex">
             <div class="col-second">
-                <%@ include file="/WEB-INF/components/Sidebar.jsp"%>
+                <%@ include file="/WEB-INF/components/AdminSidebar.jsp"%>
             </div>
         </div>
         <div id="main-content" class="container p-5 col-10">
             <h1 style="text-align: center;">교육자료</h1>
             <div class="container border my-4 py-3" style="overflow: auto;">
                 <div class="searchForm">
-
-
-                </div>
-                <div class="objectForm">
-                    <button style="margin: 10px;" onclick="uploadEdu()">교육자료등록</button>
 
                 </div>
                 <div id="grid1" style="width: auto;"></div>

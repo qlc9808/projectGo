@@ -33,7 +33,7 @@
     <main>
         <div class="d-flex">
             <div class="col-second">
-                <%@ include file="/WEB-INF/components/Sidebar.jsp"%>
+                <%@ include file="/WEB-INF/components/AdminSidebar.jsp"%>
             </div>
         </div>
         <div id="main-content" class="container p-5 col-10">
