@@ -12,7 +12,7 @@
 <main>
     <div class="d-flex">
         <div class="col-2">
-            <%@ include file="/WEB-INF/components/Sidebar.jsp"%>
+            <%@ include file="/WEB-INF/components/SubscribeSidebar.jsp"%>
         </div>
         <div id="main-content" class="container p-5 col-10">
             <%-- 이곳에 작성을 해주세요 --%>

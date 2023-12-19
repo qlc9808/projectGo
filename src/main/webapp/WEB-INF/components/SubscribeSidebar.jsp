@@ -52,7 +52,7 @@
         </li>
         <li class="nav-item my-page-nav-item">
             <div>
-                <a href="#"
+                <a href="/subscribe/subscribeUserPay"
                    class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi bi-card-list px-3"></i>
                     내 구독상품 조회
