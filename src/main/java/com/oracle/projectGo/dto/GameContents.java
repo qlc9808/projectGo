@@ -26,9 +26,9 @@ public class GameContents {
     @NotEmpty(message = "필수 입력란입니다")
     private String content;                 // 게임 패키지 내용
 
-    private Date subscribleStart;   // 구독 시작 날짜
+    private Date createdAt;   // 구독 시작 날짜
 
-    private Date subscribleEnd;     // 구독 종료 날짜
+    private Date updatedAt;     // 구독 종료 날짜
 
     private int    price;               // 정가
 

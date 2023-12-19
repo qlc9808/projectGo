@@ -72,12 +72,12 @@ public class GameController {
 //        gameContents.setImageName(saveName);
 
         // subscribleStart(구독 시작 날짜) + subscribleDate(구독 기간) = subscribleEnd(구독 종료 날짜)
-        LocalDate resultDate = gameContents.getSubscribleStart().toLocalDate().plusMonths(gameContents.getSubscribeDate());
-        Date resultSqlDate = java.sql.Date.valueOf(resultDate);
-        gameContents.setSubscribleEnd((java.sql.Date) resultSqlDate);
-        System.out.println("구독 시작 날짜-> "    + gameContents.getSubscribleStart());
+//        LocalDate resultDate = gameContents.getSubscribleStart().toLocalDate().plusMonths(gameContents.getSubscribeDate());
+//        Date resultSqlDate = java.sql.Date.valueOf(resultDate);
+//        gameContents.setSubscribleEnd((java.sql.Date) resultSqlDate);
+//        System.out.println("구독 시작 날짜-> "    + gameContents.getSubscribleStart());
         System.out.println("구독 기간(개월수)-> " + gameContents.getSubscribeDate());
-        System.out.println("구독 종료 날짜-> "    + resultSqlDate);
+//        System.out.println("구독 종료 날짜-> "    + resultSqlDate);
 
         int gameContentInsert = gs.gameContentInsert(gameContents);
         System.out.println("GameController gameContentInsert-> " + gameContentInsert);
