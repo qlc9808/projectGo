@@ -40,6 +40,7 @@ public class Board {
     private String fileName;        // 파일이름
     private int    fileSize;        // 파일용량
     private String filePath;        // 저장경로
+    private String fileUrl;         // 파일다운주소
 
     /*고정처리*/
     private boolean isPinned;
@@ -53,4 +54,8 @@ public class Board {
     }
 
     public void setSearchType(String searchType) { this.searchType = searchType; }
-}
+
+    public void setFileUrl(String fileUrl) { this.fileUrl = fileUrl; }
+
+    }
+

@@ -32,16 +32,16 @@
                 FROM BOARD A
                 WHERE A.boardType = 1
                 AND   sysdate >= A.createdAt
-                ORDER BY A.isPinned DESC, A.id DESC
+                ORDER BY A.isPinned DESC, A.createdAt DESC
             ) C
         )
         where rn between #{start} and #{end}
     </select>
 
     <insert id="InsertnoticeBoard" parameterType="Board">
-        INSERT INTO Board(id, userId, boardType, title, content, status, readCount, fileName, fileSize, filePath, createdAt, isPinned)
+        INSERT INTO Board(id, userId, boardType, title, content, status, readCount, fileName, fileSize, filePath, createdAt, isPinned, fileUrl)
         VALUES(Board_id_seq.nextval, #{userId}, 1, #{title}, #{content}, #{status}, 0, #{fileName}, #{fileSize},
-               #{filePath}, #{createdAt}, #{isPinned})
+               #{filePath}, #{createdAt}, #{isPinned}, #{fileUrl})
     </insert>
 
     <update id="noticeUpdate" parameterType="Board">
@@ -78,6 +78,9 @@
         <if test="searchType == 'userId'">
             AND userId like '%' || #{keyword} || '%'
         </if>
+        <if test="searchType == 'title_content'">
+            AND (title like '%' || #{keyword} || '%' OR content like '%' || #{keyword} || '%')
+        </if>
     </select>
 
     <select id="listSearchNotice" parameterType="board"  resultType="board">
@@ -98,7 +101,10 @@
         <if test="searchType == 'userId'">
             AND userId like '%' || #{keyword} || '%'
         </if>
-        ORDER BY A.isPinned DESC, A.id DESC
+        <if test="searchType == 'title_content'">
+            AND (title like '%' || #{keyword} || '%' OR content like '%' || #{keyword} || '%')
+        </if>
+        ORDER BY A.isPinned DESC, A.createdAt DESC
         ) C
         )
         where rn BETWEEN #{start} and #{end}

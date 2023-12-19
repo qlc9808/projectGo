@@ -7,6 +7,7 @@ import com.oracle.projectGo.service.Paging;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -79,6 +82,8 @@ public class AdminBoardController {
 			boardService.increaseReadCount(id); // 조회수 증가
 			model.addAttribute("board", board);
 			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("fileUrl", board.getFileUrl());
+			log.info("[{}]:{}", "fileUrl", board.getFileUrl());
 
 		} catch (Exception e) {
 			log.error("[{}]:{}", "admin noticeDetail", e.getMessage());
@@ -90,13 +95,17 @@ public class AdminBoardController {
 
 
 
+
+	@Value("${spring.servlet.multipart.location}")
+	private String uploadDirectory;
+
 	@RequestMapping(value = "/noticeInsert")
-	public String noticeInsert(@ModelAttribute Board board, @RequestParam("publishDate") String publishDateStr, @RequestParam("publishOption") String publishOption, @RequestParam("isPinned") boolean isPinned,
+	public String noticeInsert(@ModelAttribute Board board, @RequestParam("publishDate") String publishDateStr,
+							   @RequestParam("publishOption") String publishOption, @RequestParam("isPinned") boolean isPinned,
 							   @RequestParam("file") MultipartFile file, Model model) {
 
 		board.setUserId(1);
 		log.info("userId: {}", board.getUserId());
-
 
 		try {
 			log.info("[{}]:{}", "admin noticeInsert", "start");
@@ -112,15 +121,19 @@ public class AdminBoardController {
 
 			if (!file.isEmpty()) {
 				// 파일을 파일시스템에 저장
-				String filePath = "path/to/your/directory/" + file.getOriginalFilename();
-				File dest = new File(filePath);
-				file.transferTo(dest);
+				String fileName = file.getOriginalFilename();
+				String absolutePath = new File(uploadDirectory).getAbsolutePath();
+				Path path = Paths.get(absolutePath, fileName);
+				file.transferTo(path.toFile());
 
 				// 파일 경로를 Board에 설정
-				board.setFilePath(filePath);
-				board.setFileName(file.getOriginalFilename());
-			}
+				board.setFilePath(path.toString());
+				board.setFileName(fileName);
 
+				// 파일 URL 생성. 실제 서비스에서는 적절한 URL로 변경해야 합니다.
+				String fileUrl = "http://localhost:8585/file/" + file.getOriginalFilename();
+				board.setFileUrl(fileUrl);  // Board 클래스에 setFileUrl 메서드가 필요합니다.
+			}
 
 			board.setIsPinned(isPinned);
 			board.setBoardType("1");
@@ -132,8 +145,9 @@ public class AdminBoardController {
 			log.info("[{}]:{}", "admin noticeInsert", "end");
 		}
 
-			return "redirect:/admin/board/noticeBoardList";
+		return "redirect:/admin/board/noticeBoardList";
 	}
+
 
 	@RequestMapping(value = "/noticeInsertForm")
 	public String noticeInsertForm(Board board, Model model) {
@@ -153,7 +167,7 @@ public class AdminBoardController {
 		return "admin/notice/noticeInsertForm";
 	}
 
-	@RequestMapping(value = "/noticeUpdate")
+	@RequestMapping(value = "noticeUpdate")
 	public String noticeUpdate(Board board, String currentPage, Model model) {
 
 		board.setBoardType("1");
@@ -166,13 +180,13 @@ public class AdminBoardController {
 			int result = boardService.noticeUpdate(board);
 
 			model.addAttribute("currentPage", currentPage);
-			model.addAttribute("id", board.getId());
+			model.addAttribute("id", id);
 		} catch (Exception e) {
 			log.error("[{}]:{}", "admin noticeUpdate", e.getMessage());
 		} finally {
 			log.info("[{}]:{}", "admin noticeUpdate", "end");
 		}
-		return "redirect:/admin/notice/noticeDetail?id="+id;
+		return "redirect:/admin/board/noticeDetail?id="+id;
 	}
 
 	@GetMapping(value="/noticeUpdateForm")
@@ -184,7 +198,7 @@ public class AdminBoardController {
 
 
 			model.addAttribute("currentPage", currentPage);
-			model.addAttribute("userId",id);
+			model.addAttribute("id",id);
 			model.addAttribute("board", board);
 
 		} catch (Exception e) {
@@ -212,7 +226,7 @@ public class AdminBoardController {
 	@RequestMapping(value = "noticeSearch")
 	public String noticeSearch(Board board, Integer pageSize, String currentPage, Model model, HttpServletRequest request) {
 		try {
-			log.info("[{}]{}:{}", "admin noticeSearch", "start");
+			log.info("[{}]:{}", "admin noticeSearch", "start");
 			int totalSearchnotice = boardService.totalSearchnotice(board);
 
 			if (pageSize == null) {
@@ -533,6 +547,41 @@ public class AdminBoardController {
 		}
 		return "forward:admin/faq/faq";
 	}
+
+	// 댓글 기능 form Logic
+	@RequestMapping(value = "/commentInsertForm")
+	public String commentInsertForm(int id, int userId, Model model) {
+
+		log.info("BoardController commentInsertForm boardId : {} ", id);
+		log.info("BoardController commentInsertForm userId : {} ", userId);
+
+		Board boards = boardService.detailnotice(id);
+
+		log.info("BoardController commentInsertForm getComment_group_id : {} ", boards.getCommentGroupId());
+		log.info("BoardController commentInsertForm getComment_step : {} ", boards.getCommentStep());
+		log.info("BoardController commentInsertForm getComment_indent : {} ", boards.getCommentIndent());
+
+		model.addAttribute("board", boards);
+		model.addAttribute("userId", userId);
+
+		return "board/commentInsertForm";
+	}
+
+	// 댓글 기능 생성 Logic
+	/*@RequestMapping(value = "/commentInsert")
+	public String commentInser(Board board, Model model) {
+
+		log.info("BoardController commentInser boardId : {} ", board.getId());
+		log.info("BoardController commentInser userId : {} ", board.getUserId());
+		log.info("BoardController commentInser userId : {} ", board.getContent());
+
+		boardS	ervice.commentInsert(board);
+
+		model.addAttribute("id", board.getCommentGroupId());
+		model.addAttribute("userId", board.getUser_id());
+
+		return "redirect:/boardDetail?id=" + board.getComment_group_id() + "&userId=" + board.getUser_id();
+	}*/
 
 
 

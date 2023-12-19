@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="noticeUpdate?userId=${board.userId}&currentPage=${currentPage}" method="post">
+<form action="noticeUpdate?id=${board.id}&currentPage=${currentPage}" method="post">
     <label for="title">제목</label>
     <input type="text" id="title" name="title" value="${board.title}" required>
     <label for="content">내용</label>
