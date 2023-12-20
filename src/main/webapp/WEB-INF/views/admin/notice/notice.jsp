@@ -18,7 +18,7 @@
 <body>
     <%@ include file="/WEB-INF/components/TopBar.jsp"%>
     <main>
-        <%@ include file="/WEB-INF/components/Sidebar.jsp"%>
+        <%@ include file="/WEB-INF/components/AdminSidebar.jsp"%>
         <div class="container col-9 justify-content-center align-items-center mb-2 p-3 pt-0">
             <div class="container d-flex justify-content-end p-0">
                 <select id="pageSize" onchange="changePageSize()">
