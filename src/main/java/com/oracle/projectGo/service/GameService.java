@@ -12,7 +12,6 @@ import java.util.List;
 public class GameService {
 
     private final GameDao gd;
-
 //------------------------------------------------------
 
     // 게임콘텐츠 insert

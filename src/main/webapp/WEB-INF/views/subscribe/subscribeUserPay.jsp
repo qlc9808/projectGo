@@ -5,7 +5,13 @@
     <title>Title</title>
 </head>
 <style>
-    th, td { text-align: center; }
+    th, td {
+        text-align: center;
+        vertical-align: middle;
+    }
+    #gameImg{
+        width: 110px;
+    }
 </style>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
@@ -29,15 +35,13 @@
                     <c:forEach var="my" items="${mySubscribePayList}">
                         <tr>
                             <td>${my.rn}</td>
-                            <td>${my.imageName}</td>
+                            <td><img id="gameImg" alt="UpLoad Image" src="${pageContext.request.contextPath}/upload/gameContents/${my.imageName}"></td>
                             <td>${my.discountPrice} / ${my.subscribeDate}개월</td>
                             <td>${my.purchaseDate}</td>
                             <td>${my.name}</td>
                         </tr>
                     </c:forEach>
                 </table>
-
-
 
             <%-- 페이징 작업 --%>
             <ul class="pagination justify-content-center">

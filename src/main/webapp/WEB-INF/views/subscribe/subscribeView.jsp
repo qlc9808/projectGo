@@ -5,7 +5,13 @@
     <title>Title</title>
 </head>
 <style>
-    th, td { text-align: center; }
+    th, td {
+        text-align: center;
+        vertical-align: middle;
+    }
+    #gameImg{
+        width: 110px;
+    }
 </style>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
@@ -28,7 +34,7 @@
                         <tr id="gameContent${gameContent.rn}">
                             <td><input type="checkbox" name="gameIds" value="${gameContent.id}"></td>
                             <td>${gameContent.rn}</td>
-                            <td>${gameContent.imageName}</td>
+                            <td><img id="gameImg" alt="UpLoad Image" src="${pageContext.request.contextPath}/upload/gameContents/${gameContent.imageName}"></td>
                             <td>
                                 ${gameContent.discountPrice}원 / ${gameContent.subscribeDate}개월<br>
                             </td>

@@ -45,7 +45,7 @@
                     <tr>
                         <th>게임 콘텐츠명</th>
                         <td>
-                            <input type="text" name="title">
+                            <textarea cols="50" rows="1" name="title"></textarea>
                             <form:errors path="title"/>
                         </td>
                     </tr>
@@ -64,8 +64,8 @@
                     <tr>
                         <th>구독 기간</th>
                         <td>
-                            <label for="months">개월 수 입력</label>
-                            <input type="number" id="months" name="subscribeDate" min="1" max="12">
+                            <label for="months"></label>
+                            <input type="number" id="months" name="subscribeDate" min="1" max="12"> 개월
                         </td>
                     </tr>
 
@@ -81,7 +81,7 @@
                             <label for="price">정가</label>
                         </th>
                         <td>
-                            <input type="number" name="price" id="price" oninput="calculateDiscountedPrice()" placeholder="정가를 입력하세요">
+                            <input type="number" name="price" id="price" oninput="calculateDiscountedPrice()" placeholder="정가를 입력하세요"> 원
                         </td>
                     </tr>
 
@@ -90,14 +90,14 @@
                             <label for="discountRate">할인율</label>
                         </th>
                         <td>
-                            <input type="number" name="discountRate" id="discountRate" oninput="calculateDiscountedPrice()" placeholder="할인율을 입력하세요">
+                            <input type="number" name="discountRate" id="discountRate" oninput="calculateDiscountedPrice()" placeholder="할인율을 입력하세요"> %
                         </td>
                     </tr>
 
                     <tr>
                         <th>판매가</th>
                         <td>
-                            <input type="number" name="discountPrice" id="discountPrice" readonly>
+                            <input type="number" name="discountPrice" id="discountPrice" readonly> 원
                         </td>
                     </tr>
 
@@ -119,7 +119,6 @@
                     <tr>
                         <td><button type="submit" class="btn btn-primary">등록하기</button></td>
                     </tr>
-
                 </table>
             </form:form>
 

@@ -42,8 +42,7 @@ public class GameController {
     private final GameService gs;
 //-----------------------------------------------------------------
     @RequestMapping(value = "gameContent")
-    public String gameContent(HttpServletRequest request){
-        System.out.println(request.getSession());
+    public String gameContent(){
 
         return "admin/game/gameContentInsert";
     }
@@ -56,8 +55,9 @@ public class GameController {
         System.out.println("GameController gameContentInsert Start !");
         System.out.println("구독 기간(개월 수)-> " + gameContents.getSubscribeDate());
 
-//        String uploadPath = request.getSession().getServletContext().getRealPath("/upload/");
+        //                  실제 파일 시스템 경로를 가져옴
         String uploadPath = request.getServletContext().getRealPath("/upload/gameContents/");
+        //                          업로드 된 파일의 원래 파일 이름을 가져옴, 파일 내용을 배열로 가져옴, 파일을 실제 업로드하고 저장
         String saveName = uploadFile(file1.getOriginalFilename(), file1.getBytes(), uploadPath);
         log.info("saveName: "      + saveName);                         // 저장되는 파일명
         log.info("originalName : " + file1.getOriginalFilename());		// 원본 파일명

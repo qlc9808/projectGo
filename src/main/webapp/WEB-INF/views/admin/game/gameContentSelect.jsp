@@ -5,7 +5,13 @@
     <title>Title</title>
 </head>
 <style>
-    th, td { text-align: center; }
+    th, td {
+        text-align: center;
+        vertical-align: middle;
+    }
+    #gameImg{
+        width: 110px;
+    }
 </style>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
@@ -20,7 +26,7 @@
 
             <table class="table table-bordered">
                 <tr>
-                    <th>No.</th> <th>콘텐츠 이미지</th> <th>게임 콘텐츠명</th> <th>패키지 내용</th> <th>난이도</th> <th>구독 가능 인원</th>
+                    <th>No.</th> <th>콘텐츠 이미지</th> <th>게임 콘텐츠명</th> <th>패키지 내용</th> <th>level</th> <th>구독 가능 인원</th>
                     <th>구독 기간</th> <th>정가</th> <th>할인율</th> <th>판매가</th>
                 </tr>
 
@@ -28,10 +34,8 @@
                     <tr id="gameContent${gameContent.rn}">
                         <td>${gameContent.rn}</td>
                         <td>
-
-                            <a href="/${gameContent.imagePath}${gameContent.imageName}">${gameContent.imageName}</a><br>
+                            <img id="gameImg" alt="UpLoad Image" src="${pageContext.request.contextPath}/upload/gameContents/${gameContent.imageName}">
                         </td>
-
                         <td>${gameContent.title}</td>
                         <td>${gameContent.content}</td>
                         <td>${gameContent.gameLevel}</td>
