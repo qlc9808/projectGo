@@ -16,8 +16,13 @@
     </insert>
 
     <select id="getSearchUserList" resultType="Users" parameterType="Users">
-        SELECT *
-        FROM(
+        SELECT U.id,
+        CASE
+        WHEN P.userid IS NULL THEN 0
+        ELSE 1
+        END AS qualification,
+        U.*
+        FROM (
         SELECT ROWNUM rn, users.*
         FROM users
         WHERE 1=1
@@ -36,16 +41,22 @@
                     AND nickname like '%' || #{keyword}|| '%'
                 </when>
             </choose>
-         </if>
+        </if>
+
         <if test="userType != null and userType != ''">
             AND userType = #{userType}
         </if>
+
         <!-- "startDate"와 "endDate"로 가입일을 조회 -->
         <if test="startDate != null and endDate != null">
             AND createdAt BETWEEN #{startDate} AND #{endDate}
         </if>
-        )
-        WHERE rn between #{start} and #{end}
+        ) U
+        LEFT JOIN (
+        SELECT DISTINCT userid
+        FROM payments
+        ) P ON U.id = P.userid
+        WHERE U.rn BETWEEN #{start} AND #{end}
     </select>
 
     <select id="totalUsers" resultType="int" parameterType="Users">
@@ -79,7 +90,6 @@
 
 
     </select>
-
 
     <select id="usersNicknameCheck" parameterType="Users" resultType="int">
         select count(*)

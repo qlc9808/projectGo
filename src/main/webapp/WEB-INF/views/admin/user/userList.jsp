@@ -68,7 +68,7 @@
     </div>
     </div>
     <div class="container col-10 d-flex justify-content-center">
-        <button type="submit" class="col-form-label col-2">검색</button>
+        <button type="submit" class="btn btn-outline-secondary col-2 mx-3">검색</button>
         <button type="reset" class="btn btn-outline-secondary col-2 mx-3">초기화</button>
     </div>
     </form>
@@ -86,6 +86,7 @@
                         <th scope="col">아이디</th>
                         <th scope="col">연락처</th>
                         <th scope="col">이메일</th>
+                        <th scope="col">자격</th>
                         <th scope="col">가입일자</th>
                         <th scope="col">관리</th>
                     </tr>
@@ -115,6 +116,16 @@
                             <td>${user.nickname}</td>
                             <td>${user.phone}</td>
                             <td>${user.email}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${user.qualification == 0}">
+                                        무료회원
+                                    </c:when>
+                                    <c:when test="${user.qualification == 1}">
+                                        유료회원
+                                    </c:when>
+                                </c:choose>
+                            </td>
                             <td><fmt:formatDate value="${user.createdAt}" type="date" pattern="YY/MM/dd"/></td>
                             <td><a class="detail-btn" href="userDetail/${user.id}?currentPage=${page.currentPage}">관리</a></td>
                         </tr>
