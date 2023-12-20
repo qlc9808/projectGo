@@ -16,11 +16,11 @@
         </div>
         <div id="main-content" class="container p-5 col-10">
             <%-- 이곳에 작성을 해주세요 --%>
-            <h3>내 구독 상품 조회하기</h3>
+            <p>내 구독 상품 조회하기</p>
 
 <%--      구매 기간 클릭해서 조회 가능하게 하기      구매 기간 <input type="date">--%>
 
-            총 건수: ${subscribeUserPayTotalCount}
+                <p>총 건수: ${subscribeUserPayTotalCount}</p>
                 <table class="table table-bordered">
                     <tr>
                         <th>No.</th> <th>콘텐츠 이미지</th> <th>가격 / 구독 기간 (개월)</th> <th>결제일</th> <th>학습 그룹</th>

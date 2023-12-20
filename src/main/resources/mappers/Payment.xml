@@ -10,22 +10,16 @@
                       values (PAYMENTS_ID_SEQ.nextval, #{userId}, #{contentId}, #{paymentType}, 1, sysdate)
     </insert>
 
-    <!-- 참고 -->
-<!--    <insert id="insertDistributedHomeworksByBulk" parameterType="java.util.List">-->
-<!--        <foreach collection="list" item="item" open="" close="" separator=";">-->
-<!--            MERGE INTO DistributedHomeworks USING dual ON (homeworkId = #{item.homeworkId} AND userId = #{item.userId})-->
-<!--            WHEN NOT MATCHED THEN-->
-<!--            INSERT (homeworkId, userId, progress, createdAt)-->
-<!--            VALUES (#{item.homeworkId}, #{item.userId}, #{item.progress}, SYSDATE)-->
-<!--        </foreach>-->
-<!--    </insert>-->
-
 
     <!-- 내가 구독한 게임 컨텐츠 리스트 총 갯수 -->
     <select id="subscribeUserPayTotalCount" parameterType="int" resultType="int">
-        select count(*)
-        from   payments
-        where  userid = #{userid}
+        SELECT      count(*)
+        FROM        payments p
+        JOIN        gameContents g
+        ON          p.contentId = g.id
+        LEFT JOIN   LearningGroup l
+        ON          g.id = l.contentId
+        WHERE       p.userId = #{userId}
     </select>
 
 
@@ -36,12 +30,14 @@
                 (
                     select rownum rn, a.*
                     from (
-                             select      p.userId, p.id, g.imagename, g.discountPrice, g.subscribeDate, p.purchaseDate, l.name
-                             from        gamecontents g, payments p ,learninggroup l
-                             where       g.id = p.contentId
-                             and         g.id = l.contentId
-                             and         p.userId = #{userId}
-                             order by    purchaseDate desc
+                             SELECT      p.userId, p.contentid, g.imagename, g.discountPrice, g.subscribeDate, p.purchaseDate, l.name
+                             FROM        payments p
+                             JOIN        gameContents g
+                             ON          p.contentId = g.id
+                             LEFT JOIN   LearningGroup l
+                             ON          g.id = l.contentId
+                             WHERE       p.userId = #{userId}
+                             ORDER BY    p.purchaseDate DESC
                          ) a
                 )
               where  rn between #{start} and #{end}
