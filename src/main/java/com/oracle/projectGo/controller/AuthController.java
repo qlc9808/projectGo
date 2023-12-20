@@ -104,6 +104,16 @@ public class AuthController {
         int result = us.nickCheck(users);
         return result;
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/emailCheck", method = RequestMethod.POST)
+    public int emailCheck(@RequestBody String email, Users users) {
+        log.info("emailCheck start{}=",email);
+        users.setEmail(email);
+        int result = us.emailCheck(users);
+        return result;
+    }
+
     @GetMapping("/emailAuth")
     public String emailAuthForm() {
         return "auth/mailAuthForm";

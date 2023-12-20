@@ -97,6 +97,11 @@ public class UsersService {
         return result;
     }
 
+    public int emailCheck(Users users) {
+        int result = ud.emailCheck(users);
+        return result;
+    }
+
     public Users idSearchByPhone(Users users) {
         Users idSearchByPhone = ud.idSearchByPhone(users);
         return idSearchByPhone;

@@ -22,7 +22,7 @@ public class Users {
     private String isDeleted;   // 삭제여부
     private Date   createdAt;   // 가입일자
     private Date   updateAt;    // 수정일
-    private String qualification;
+    private String qualification; //자격구분
 
     private String pageNum;
     private int    start;

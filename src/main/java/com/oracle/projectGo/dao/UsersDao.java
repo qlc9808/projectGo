@@ -58,6 +58,20 @@ public class UsersDao {
         return nickCheck;
     }
 
+    public int emailCheck(Users users) {
+        log.info("UsersDao emailCheck start");
+        int emailCheck = 0;
+        try {
+            emailCheck = session.selectOne("usersEmailCheck", users);
+
+        } catch (Exception e) {
+            log.info("UsersDao emailCheck => " + e.getMessage());
+        }
+        log.info("result="+emailCheck);
+
+        return emailCheck;
+    }
+
     public Users idSearchByPhone(Users users) {
         log.info("UsersDao idSearchByPhone start");
         Users idSearchByPhone = null;

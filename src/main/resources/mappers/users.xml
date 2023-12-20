@@ -10,19 +10,14 @@
 
     <insert id="insertUsers"  parameterType="Users" >
         INSERT INTO users(id, nickname, userType, name, password, birthdate, gender, address,
-                             phone, email, consent1, consent2, isDeleted, createdAt, updatedAt)
+                             phone, email, consent1, consent2, isDeleted, createdAt, updatedAt,qualification)
         VALUES(users_id_seq.nextval, #{nickname}, #{userType}, #{name}, #{password}, #{birthdate}, #{gender},#{address},
-               #{phone}, #{email}, #{consent1}, #{consent2}, '0', sysdate, null)
+               #{phone}, #{email}, #{consent1}, #{consent2}, '0', sysdate, null,'0')
     </insert>
 
     <select id="getSearchUserList" resultType="Users" parameterType="Users">
-        SELECT U.id,
-        CASE
-        WHEN P.userid IS NULL THEN 0
-        ELSE 1
-        END AS qualification,
-        U.*
-        FROM (
+        SELECT *
+        FROM(
         SELECT ROWNUM rn, users.*
         FROM users
         WHERE 1=1
@@ -42,21 +37,18 @@
                 </when>
             </choose>
         </if>
-
         <if test="userType != null and userType != ''">
             AND userType = #{userType}
         </if>
-
+        <if test="qualification != null and qualification != ''">
+            AND qualification = #{qualification}
+        </if>
         <!-- "startDate"와 "endDate"로 가입일을 조회 -->
         <if test="startDate != null and endDate != null">
             AND createdAt BETWEEN #{startDate} AND #{endDate}
         </if>
-        ) U
-        LEFT JOIN (
-        SELECT DISTINCT userid
-        FROM payments
-        ) P ON U.id = P.userid
-        WHERE U.rn BETWEEN #{start} AND #{end}
+        )
+        WHERE rn between #{start} and #{end}
     </select>
 
     <select id="totalUsers" resultType="int" parameterType="Users">
@@ -70,7 +62,7 @@
                     AND nickname like '%' || #{keyword}|| '%'
                 </when>
                 <!-- "searchType"이 "phone"일 때 -->
-                <when test="searchType == 'phone'">
+                <when test="searchType == 'email'">
                     AND email like '%' || #{keyword}|| '%'
                 </when>
                 <!-- "searchType"이 "name"일 때 -->
@@ -83,12 +75,12 @@
         <if test="userType != null and userType != ''">
             AND userType = #{userType}
         </if>
-
-        <if test="nickname != null and nickname != ''">
-            AND nickname = #{nickname}
+        <if test="qualification != null and qualification != ''">
+            AND qualification = #{qualification}
         </if>
-
-
+        <if test="startDate != null and endDate != null">
+            AND createdAt BETWEEN #{startDate} AND #{endDate}
+        </if>
     </select>
 
     <select id="usersNicknameCheck" parameterType="Users" resultType="int">
@@ -96,6 +88,14 @@
         from users
         where nickname = #{nickname}
     </select>
+
+    <select id="usersEmailCheck" parameterType="Users" resultType="int">
+        select count(*)
+        from users
+        where email = #{email}
+    </select>
+
+
 
     <select id="idSearchByPhone" parameterType="Users" resultType="Users">
         select nickname

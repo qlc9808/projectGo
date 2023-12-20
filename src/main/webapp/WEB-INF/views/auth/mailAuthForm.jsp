@@ -12,6 +12,43 @@
     <%@ include file="/WEB-INF/components/Header.jsp"%>
     <title>Title</title>
 </head>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+
+    var isEmailhecked = false;
+
+    function fn_nickCheck(){
+        const email = $("#email").val();
+        const data = {"email" : email}
+        console.log(data);
+        $.ajax({
+            url : "/emailCheck",
+            type : "POST",
+            dataType: "json",
+            data: email,
+            contentType: 'application/json',
+            success : function (data){
+                if (data == 1){
+                    alert("중복된 email입니다");
+                } else if (data == 0 ){
+                    isNicknameChecked = true;  // 중복 체크 완료
+                    alert("사용 가능한 email 입니다")
+                }
+            }
+        })
+    }
+
+    function fn_register() {
+        if (!isEmailhecked) {
+            alert("email 중복 확인을 해주세요.");
+            event.preventDefault()
+            return;
+        } else{
+
+        }
+
+    }
+</script>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
@@ -31,12 +68,19 @@
                     <label for="name" class="form-label mb-2">이름</label>
                     <input type="text" class="form-control" name="name" id ="name" required>
                 </div>
+
                 <div class="justify-content-start pb-3">
                     <label for="email" class="form-label mb-2">Email</label>
-                    <input type="text" class="form-control" name="email"id ="email" required>
+                    <input type="text" class="form-control" name="email" id ="email" required>
                 </div>
+                <div class="col-lm-2">
+                    <button type="button" class="btn btn-primary w-100" onclick="fn_nickCheck()">중복 확인</button>
+                </div>
+                <div>
                 <div class="justify-content-center pt-3 pb-3" align="center">
-                    <button type="submit" class="btn btn-primary">다음</button>
+                    <button type="submit" class="btn btn-primary" onclick="fn_register()">다음</button>
+                    <button type="reset" class="btn btn-primary" onclick="">초기화</button>
+                    <button type="button" class="btn btn-primary" onclick="window.history.back()">취소</button>
                 </div>
             </div>
         </form>

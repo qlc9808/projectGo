@@ -60,7 +60,7 @@
         <label for="searchType" class="col-form-label col-1" style="margin-left: 40px;">자격</label>
     <div class="col-2 d-flex ">
 
-            <select class="form-select mx-2" id="" name="">
+            <select class="form-select mx-2" id="qualification" name="qualification">
                 <option value="" selected>전체 회원</option>
                 <option value="0">무료회원</option>
                 <option value="1">유료회원</option>
@@ -118,12 +118,12 @@
                             <td>${user.email}</td>
                             <td>
                                 <c:choose>
-                                    <c:when test="${user.qualification == 0}">
-                                        무료회원
-                                    </c:when>
                                     <c:when test="${user.qualification == 1}">
                                         유료회원
                                     </c:when>
+                                    <c:otherwise>
+                                        무료회원
+                                    </c:otherwise>
                                 </c:choose>
                             </td>
                             <td><fmt:formatDate value="${user.createdAt}" type="date" pattern="YY/MM/dd"/></td>
