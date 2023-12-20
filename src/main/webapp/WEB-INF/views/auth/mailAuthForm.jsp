@@ -15,7 +15,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 
-    var isEmailhecked = false;
+    var isEmailchecked = false;
 
     function fn_nickCheck(){
         const email = $("#email").val();
@@ -31,7 +31,7 @@
                 if (data == 1){
                     alert("중복된 email입니다");
                 } else if (data == 0 ){
-                    isNicknameChecked = true;  // 중복 체크 완료
+                    isEmailchecked = true;  // 중복 체크 완료
                     alert("사용 가능한 email 입니다")
                 }
             }
@@ -39,7 +39,7 @@
     }
 
     function fn_register() {
-        if (!isEmailhecked) {
+        if (!isEmailchecked) {
             alert("email 중복 확인을 해주세요.");
             event.preventDefault()
             return;
@@ -81,6 +81,7 @@
                     <button type="submit" class="btn btn-primary" onclick="fn_register()">다음</button>
                     <button type="reset" class="btn btn-primary" onclick="">초기화</button>
                     <button type="button" class="btn btn-primary" onclick="window.history.back()">취소</button>
+                </div>
                 </div>
             </div>
         </form>
