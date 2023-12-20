@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.oracle.projectGo.learningGroupMapper">
-    <select id="NoTotalLearningContentCnt" parameterType="int" resultType="int">
+    <select id="NoTotalLearningContentCnt" parameterType="GameContents" resultType="int">
         <![CDATA[
             SELECT  COUNT(*)
             FROM    payments a
@@ -13,23 +13,29 @@
             AND     b.createdAt <= SYSDATE
             AND     b.updatedAt >= SYSDATE
         ]]>
+        <if test="keyword != null and keyword != ''">
+            AND b.title like '%' || #{keyword} || '%'
+        </if>
     </select>
 
-    <select id="NoLearningContentList" parameterType="int" resultType="GameContents">
+    <select id="NoLearningContentList" parameterType="GameContents" resultType="GameContents">
         <![CDATA[
-        SELECT   a.id, a.userId, a.contentId, b.title, b.createdAt, b.updatedAt, b.maxSubscribers,
-                 (SUM(c.groupSize)) AS assignedPeople
-        FROM     payments a
-        JOIN     gameContents b
-        ON       a.contentId = b.id
-        JOIN     learningGroup c
-        ON       b.id = c.contentId
-        WHERE    a.userId = #{userId}
-        AND      b.createdAt <= SYSDATE
-        AND      b.updatedAt >= SYSDATE
-        GROUP BY a.id, a.userId, a.contentId, b.title, b.createdAt, b.updatedAt, b.maxSubscribers
-        ORDER BY a.contentId ASC
+            SELECT   a.id, a.userId, a.contentId, b.title, b.createdAt, b.updatedAt, b.maxSubscribers,
+                     (SUM(c.groupSize)) AS assignedPeople
+            FROM     payments a
+            JOIN     gameContents b
+            ON       a.contentId = b.id
+            JOIN     learningGroup c
+            ON       b.id = c.contentId
+            WHERE    a.userId = #{userId}
+            AND      b.createdAt <= SYSDATE
+            AND      b.updatedAt >= SYSDATE
         ]]>
+        <if test="keyword != null and keyword != ''">
+            AND b.title like '%' || #{keyword} || '%'
+        </if>
+            GROUP BY a.id, a.userId, a.contentId, b.title, b.createdAt, b.updatedAt, b.maxSubscribers
+            ORDER BY a.contentId ASC
     </select>
 
     <select id="NoInsertFormLearningContent" parameterType="int" resultType="GameContents">
@@ -50,30 +56,38 @@
         VALUES(LEARNINGGROUP_ID_SEQ.NEXTVAL, #{id}, #{userId}, #{name}, #{startDate}, #{endDate}, #{groupSize}, #{etc1}, #{etc2})
     </insert>
 
-    <select id="NoTotalLearningGroupCnt" resultType="int">
+    <select id="NoTotalLearningGroupCnt" parameterType="LearningGroup" resultType="int">
         <![CDATA[
             SELECT COUNT(*)
-            FROM   learningGroup
-            WHERE  userId = #{userId}
-            AND    startDate <= SYSDATE
-            AND    endDate >= SYSDATE
+            FROM   learningGroup a
+            JOIN   gameContents b
+            ON     a.contentId = b.id
+            WHERE  a.userId = #{userId}
+            AND    a.startDate <= SYSDATE
+            AND    a.endDate >= SYSDATE
         ]]>
+        <if test="keyword != null and keyword != ''">
+            AND a.name like '%' || #{keyword} || '%'
+        </if>
     </select>
 
-    <select id="NoLearningGroupList" parameterType="int" resultType="LearningGroup">
+    <select id="NoLearningGroupList" parameterType="LearningGroup" resultType="LearningGroup">
         <![CDATA[
-        SELECT      a.id, a.contentId, a.userId, a.name, a.startDate, a.endDate, a.groupsize , b.title, COUNT(c.userId) AS studentCount
-        FROM        learningGroup a
-        JOIN        gameContents b
-        ON          a.contentId = b.id
-        LEFT JOIN   LearningGroupMember c
-        ON          a.id = c.groupId
-        WHERE       a.userId = #{userId}
-        AND         a.startDate <= SYSDATE
-        AND         a.endDate >= SYSDATE
-        GROUP BY    a.id, a.contentId, a.userId, a.name, a.startDate, a.endDate, a.groupsize , b.title
-        ORDER BY    a.id ASC
-        ]]>
+            SELECT      a.id, a.contentId, a.userId, a.name, a.startDate, a.endDate, a.groupsize , b.title, COUNT(c.userId) AS studentCount
+            FROM        learningGroup a
+            JOIN        gameContents b
+            ON          a.contentId = b.id
+            LEFT JOIN   LearningGroupMember c
+            ON          a.id = c.groupId
+            WHERE       a.userId = #{userId}
+            AND         a.startDate <= SYSDATE
+            AND         a.endDate >= SYSDATE
+            ]]>
+            <if test="keyword != null and keyword != ''">
+                AND a.name like '%' || #{keyword} || '%'
+            </if>
+            GROUP BY    a.id, a.contentId, a.userId, a.name, a.startDate, a.endDate, a.groupsize , b.title
+            ORDER BY    a.id ASC
     </select>
 
     <select id="NoDetailLearningGroup" parameterType="learningGroup" resultType="LearningGroup">

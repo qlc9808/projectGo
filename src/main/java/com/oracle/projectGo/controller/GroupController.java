@@ -44,11 +44,13 @@ public class GroupController {
             // 초기 페이지 : path = 0일때
             int path = 0;
 
+            gameContents.setUserId(userId);
+
             // LearningContent Count 조회
-            int totalLearningContentCnt = groupService.totalLearningContentCnt(userId);
+            int totalLearningContentCnt = groupService.totalLearningContentCnt(gameContents);
 
             // LearningContentList 조회
-            List<GameContents> learningContentList = groupService.learningContentList(userId);
+            List<GameContents> learningContentList = groupService.learningContentList(gameContents);
 
             // paging 처리
             Paging page = new Paging(totalLearningContentCnt, currentPage);
@@ -78,11 +80,14 @@ public class GroupController {
             int path = 1;
             String keyword = request.getParameter("keyword");
 
+            gameContents.setUserId(userId);
+            gameContents.setKeyword(keyword);
+
             // LearningContent Count 조회
-            int totalLearningContentCnt = groupService.totalLearningContentCnt(userId);
+            int totalLearningContentCnt = groupService.totalLearningContentCnt(gameContents);
 
             // LearningContentList 조회
-            List<GameContents> learningContentList = groupService.learningContentList(userId);
+            List<GameContents> learningContentList = groupService.learningContentList(gameContents);
 
             // paging 처리
             Paging page = new Paging(totalLearningContentCnt, currentPage);
@@ -149,11 +154,13 @@ public class GroupController {
             // 초기 페이지 : path = 0일때
             int path = 0;
 
+            learningGroup.setUserId(userId);
+
             // LearningGroup Count 조회
-            int totalLearningGroupCnt = groupService.totalLearningGroupCnt(userId);
+            int totalLearningGroupCnt = groupService.totalLearningGroupCnt(learningGroup);
             log.info("totalLearningGroupCnt : " + totalLearningGroupCnt);
 
-            List<LearningGroup> learningGroupList = groupService.learningGroupList(userId);
+            List<LearningGroup> learningGroupList = groupService.learningGroupList(learningGroup);
             log.info("learningGroupList : " + learningGroupList);
 
             // paging 처리
@@ -185,12 +192,16 @@ public class GroupController {
             // 선택 페이지 : path = 1일때
             int path = 1;
             String keyword = request.getParameter("keyword");
+            log.info("keyword : " + keyword);
+
+            learningGroup.setUserId(userId);
+            learningGroup.setKeyword(keyword);
 
             // LearningGroup Count 조회
-            int totalLearningGroupCnt = groupService.totalLearningGroupCnt(userId);
+            int totalLearningGroupCnt = groupService.totalLearningGroupCnt(learningGroup);
             log.info("totalLearningGroupCnt : " + totalLearningGroupCnt);
 
-            List<LearningGroup> learningGroupList = groupService.learningGroupList(userId);
+            List<LearningGroup> learningGroupList = groupService.learningGroupList(learningGroup);
             log.info("learningGroupList : " + learningGroupList);
 
             // paging 처리

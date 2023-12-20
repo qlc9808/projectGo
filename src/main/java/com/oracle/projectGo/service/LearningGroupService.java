@@ -20,13 +20,13 @@ import java.util.Map;
 public class LearningGroupService {
     private final LearningGroupDao groupDao;
 
-    public int totalLearningContentCnt(int userId) {
-        int totalLearningContentCnt = groupDao.totalLearningContentCnt(userId);
+    public int totalLearningContentCnt(GameContents gameContents) {
+        int totalLearningContentCnt = groupDao.totalLearningContentCnt(gameContents);
         return totalLearningContentCnt;
     }
 
-    public List<GameContents> learningContentList(int userId) {
-        List<GameContents> learningContentList = groupDao.learningContentList(userId);
+    public List<GameContents> learningContentList(GameContents gameContents) {
+        List<GameContents> learningContentList = groupDao.learningContentList(gameContents);
 
         if (learningContentList == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "게임컨텐츠 리스트가 없습니다.");
@@ -44,12 +44,12 @@ public class LearningGroupService {
         return insertLearningGroup;
     }
 
-    public int totalLearningGroupCnt(int userId) {
-        return groupDao.totalLearningGroupCnt(userId);
+    public int totalLearningGroupCnt(LearningGroup learningGroup) {
+        return groupDao.totalLearningGroupCnt(learningGroup);
     }
 
-    public List<LearningGroup> learningGroupList(int userId) {
-        List<LearningGroup> learningGroupList = groupDao.learningGroupList(userId);
+    public List<LearningGroup> learningGroupList(LearningGroup learningGroup) {
+        List<LearningGroup> learningGroupList = groupDao.learningGroupList(learningGroup);
 
         if (learningGroupList == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "학습그룹 리스트가 없습니다.");

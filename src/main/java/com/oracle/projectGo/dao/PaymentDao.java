@@ -20,6 +20,10 @@ public class PaymentDao {
         int subscribePayInsert = 0;
         try {
             subscribePayInsert = session.insert("subscribePayInsert", payments);
+
+            //여기 추가 user status add 예정
+
+
             System.out.println("PaymentDao subscribePayInsert-> " + subscribePayInsert);
         }catch (Exception e){
             System.out.println("PaymentDao subscribePayInsert e-> " + e);

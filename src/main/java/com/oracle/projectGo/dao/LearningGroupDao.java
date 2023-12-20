@@ -18,16 +18,16 @@ import java.util.Map;
 public class LearningGroupDao {
     private final SqlSession session;
 
-    public int totalLearningContentCnt(int userId) {
-        int totalLearningContentCnt = session.selectOne("NoTotalLearningContentCnt", userId);
+    public int totalLearningContentCnt(GameContents gameContents) {
+        int totalLearningContentCnt = session.selectOne("NoTotalLearningContentCnt", gameContents);
         return totalLearningContentCnt;
     }
 
-    public List<GameContents> learningContentList(int userId) {
+    public List<GameContents> learningContentList(GameContents gameContents) {
         List<GameContents> learningContentList = null;
 
         try {
-            learningContentList = session.selectList("NoLearningContentList", userId);
+            learningContentList = session.selectList("NoLearningContentList", gameContents);
             log.info("learningContentList : " + learningContentList);
         } catch (Exception e) {
             log.info("LearningGroupDao learningContentList e.getMessage() : " + e.getMessage());
@@ -57,15 +57,15 @@ public class LearningGroupDao {
         return insertLearningGroup;
     }
 
-    public int totalLearningGroupCnt(int userId) {
-        return session.selectOne("NoTotalLearningGroupCnt", userId);
+    public int totalLearningGroupCnt(LearningGroup learningGroup) {
+        return session.selectOne("NoTotalLearningGroupCnt", learningGroup);
     }
 
-    public List<LearningGroup> learningGroupList(int userId) {
+    public List<LearningGroup> learningGroupList(LearningGroup learningGroup) {
         List<LearningGroup> learningGroupList = null;
 
         try {
-            learningGroupList = session.selectList("NoLearningGroupList", userId);
+            learningGroupList = session.selectList("NoLearningGroupList", learningGroup);
         } catch (Exception e) {
             log.info("LearningGroupDao learningGroupList e.getMessage() : " + e.getMessage());
         }

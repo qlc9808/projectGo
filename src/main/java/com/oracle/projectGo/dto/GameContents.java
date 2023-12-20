@@ -48,4 +48,6 @@ public class GameContents {
 
     // 컨텐츠 그룹 인원
     private int     assignedPeople;    // 컨텐츠 그룹에 가입된 인원
+
+
 }

@@ -23,7 +23,7 @@ public class LearningGroup {
     private int     start;
     private int     end;
 
-    /* 조회용 */
+    /* gameContents */
     private String  title;                  // 게임명
     private int     subscribeDate;          // 구독기간
     private String  gameLevel;              // 난이도 초급:1, 중급:2, 고급:3
@@ -54,4 +54,7 @@ public class LearningGroup {
 
     // 그룹가입 학생 인원
     private int     studentCount;           // 그룹가입 학생 수
+
+
+    private String keyword;
 }

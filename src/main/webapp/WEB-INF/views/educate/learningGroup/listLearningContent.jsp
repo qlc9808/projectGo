@@ -34,7 +34,7 @@
         <div class="container p-5 col-10">
             <p>게임 콘텐츠 수 : ${learningContentCnt}</p>
             <form action="/group/listLearningContent1" class="d-flex justify-content-end align-items-center mb-3">
-                <input  class="form-control keyword-input mr-3" type="text" name="keyword" placeholder="키워드를 검색해보세요." id="keyword" style="flex-grow: 1;">
+                <input  class="form-control keyword-input mr-3" type="text" name="keyword" value="${keyword}" placeholder="검색어를 입력하세요." id="keyword" style="flex-grow: 1;">
                 <button class="btn btn-primary mr-3" style="min-width: 90px;" onclick="submitForm();">조회하기</button>
             </form>
             <div>
