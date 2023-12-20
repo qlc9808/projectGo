@@ -21,7 +21,6 @@
 <%--      구매 기간 클릭해서 조회 가능하게 하기      구매 기간 <input type="date">--%>
 
             총 건수: ${subscribeUserPayTotalCount}
-
                 <table class="table table-bordered">
                     <tr>
                         <th>No.</th> <th>콘텐츠 이미지</th> <th>가격 / 구독 기간 (개월)</th> <th>결제일</th> <th>학습 그룹</th>
@@ -31,9 +30,9 @@
                         <tr>
                             <td>${my.rn}</td>
                             <td>${my.imageName}</td>
-                            <td>${my.discountPrice}/${my.subscribeDate}개월</td>
+                            <td>${my.discountPrice} / ${my.subscribeDate}개월</td>
                             <td>${my.purchaseDate}</td>
-<%--                            <td>${my.name}</td>--%>
+                            <td>${my.name}</td>
                         </tr>
                     </c:forEach>
                 </table>

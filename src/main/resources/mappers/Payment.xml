@@ -31,23 +31,20 @@
 
     <!-- 내가 구독한 게임 컨텐츠 리스트 조회 -->
     <select id="mySubscribePayList" parameterType="payments" resultType="payments">
-
             select *
             from
                 (
                     select rownum rn, a.*
                     from (
-                            select      g.id ,g.discountPrice, g.subscribeDate,p.purchaseDate
-                            from        gamecontents g, payments p
-
-                            where        g.id = p.contentId
-                            and         p.status = 1
-                            and         p.userId = #{userId}
-                            order by    purchaseDate desc
+                             select      p.userId, p.id, g.imagename, g.discountPrice, g.subscribeDate, p.purchaseDate, l.name
+                             from        gamecontents g, payments p ,learninggroup l
+                             where       g.id = p.contentId
+                             and         g.id = l.contentId
+                             and         p.userId = #{userId}
+                             order by    purchaseDate desc
                          ) a
                 )
               where  rn between #{start} and #{end}
-
     </select>
 
 
