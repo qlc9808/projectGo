@@ -78,7 +78,7 @@
             <p>학습그룹 수 :${totalLearningGroupCnt}</p>
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <div class="d-flex align-items-center mr-3" style="flex-grow: 1;">
-                    <input class="form-control keyword-input mr-3" type="text" name="keyword" placeholder="키워드를 검색해보세요." id="keyword" style="flex-grow: 1;">
+                    <input class="form-control keyword-input mr-3" type="text" name="keyword" placeholder="키워드를 검색해보세요." id="keyword" value="${keyword}" style="flex-grow: 1;" onkeydown="if(event.keyCode==13) submitForm();">
                     <button class="btn btn-primary mr-3" style="min-width: 90px;" onclick="submitForm();">조회하기</button>
                 </div>
                 <div class="d-flex align-items-center mr-3">

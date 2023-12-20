@@ -29,8 +29,8 @@ public class LearningGroup {
     private String  gameLevel;              // 난이도 초급:1, 중급:2, 고급:3
     private int     maxSubscribers;         // 구독 가능인원
     private String  content;                // 게임 패키지 내용
-    private Date    subscribleStart;        // 구독시작 날짜
-    private Date    subscribleEnd;          // 구독종료 날짜
+    private Date    createdAt;        // 구독시작 날짜
+    private Date    updatedAt;          // 구독종료 날짜
 
     private String  userName;               // 교육자명
 
@@ -44,7 +44,7 @@ public class LearningGroup {
     private String  address;                // 주소
     private String  phone;                  // 연락처
     private String  email;                  // 이메일
-    private Date    createdAt;              // 가입일자
+//    private Date    createdAt;              // 가입일자
     private String  studentName;            // 회원이름
 
     // date 타입 변환용
@@ -54,7 +54,6 @@ public class LearningGroup {
 
     // 그룹가입 학생 인원
     private int     studentCount;           // 그룹가입 학생 수
-
 
     private String keyword;
 }

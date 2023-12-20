@@ -20,8 +20,9 @@
 
     <select id="NoLearningContentList" parameterType="GameContents" resultType="GameContents">
         <![CDATA[
-            SELECT   a.id, a.userId, a.contentId, b.title, b.createdAt, b.updatedAt, b.maxSubscribers,
-                     (SUM(c.groupSize)) AS assignedPeople
+            SELECT   a.id, a.userId, a.contentId, b.title, b.createdAt,
+                     (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')) AS subscribeEndDate,
+                     b.maxSubscribers, (SUM(c.groupSize)) AS assignedPeople
             FROM     payments a
             JOIN     gameContents b
             ON       a.contentId = b.id
@@ -29,12 +30,14 @@
             ON       b.id = c.contentId
             WHERE    a.userId = #{userId}
             AND      b.createdAt <= SYSDATE
-            AND      b.updatedAt >= SYSDATE
+            AND      (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')) >= SYSDATE
         ]]>
         <if test="keyword != null and keyword != ''">
             AND b.title like '%' || #{keyword} || '%'
         </if>
-            GROUP BY a.id, a.userId, a.contentId, b.title, b.createdAt, b.updatedAt, b.maxSubscribers
+            GROUP BY a.id, a.userId, a.contentId, b.title, b.createdAt,
+                     (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')),
+                    b.maxSubscribers
             ORDER BY a.contentId ASC
     </select>
 
