@@ -26,8 +26,15 @@
                         </div>
                     </div>
                     <div class="detailEdu-body">
-                        <span class="contents">${edu.content}</span>
-                        <iframe width="1020" height="480" src="https://www.youtube.com/embed/bxhNCYw3shY" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        <div class="detailEdu-source">
+                            <iframe width="888" height="480" src="https://www.youtube.com/embed/bxhNCYw3shY" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        </div>
+                        <br>
+                        <div class="detailEdu-textarea">
+                            <span class="contents">${edu.content}</span>
+                        </div>
+
+
                     </div>
 
                 </div>

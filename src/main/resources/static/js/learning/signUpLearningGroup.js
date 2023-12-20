@@ -99,9 +99,9 @@ function learningGroupList() {
                         const id = row.id;
                         const name = row.name;
                         if (row.applied) {
-                            return `<button id="cancelSignUp-${id}" style="border-radius: 10px;" onclick="cancelSignUp(${id}, '${name}')">취소</button>`;
+                            return `<button class="myButton" id="cancelSignUp-${id}" style="border-radius: 10px; width: 80px; height: 55px; background: rgba(70, 70, 255, 0.78); color: white;" onclick="cancelSignUp(${id}, '${name}')">취소</button>`;
                         } else {
-                            return `<button id="requestSignUp-${id}" style="border-radius: 10px;" onclick="requestSignUp(${id}, '${name}')">신청</button>`;
+                            return `<button class="myButton" id="requestSignUp-${id}" style="border-radius: 10px; width: 80px; height: 55px; background: rgba(70, 70, 255, 0.78); color: white;" onclick="requestSignUp(${id}, '${name}')">신청</button>`;
                         }
                     }
                 });

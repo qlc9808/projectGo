@@ -38,4 +38,8 @@ public class AdminResourceService {
     public int updateEdu(EducationalResources edu) {
         return adminResourceDao.updateEdu(edu);
     }
+
+    public List<EducationalResources> listSearchEdu(Users users) {
+        return adminResourceDao.listSearchEdu(users);
+    }
 }

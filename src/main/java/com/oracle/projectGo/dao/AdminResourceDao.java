@@ -46,4 +46,9 @@ public class AdminResourceDao {
     public int updateEdu(EducationalResources edu) {
         return session.update("updateEdu", edu);
     }
+
+    public List<EducationalResources> listSearchEdu(Users users) {
+
+        return session.selectList("listSearchEdu", users);
+    }
 }

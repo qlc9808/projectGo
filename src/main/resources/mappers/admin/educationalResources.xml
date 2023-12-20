@@ -61,4 +61,38 @@
         WHERE id = #{id}
     </update>
 
+    <select id="listSearchEdu" parameterType="Users" resultType="EducationalResources">
+        <choose>
+            <when test="userType != 1">
+                SELECT e.id, e.contentId, e.userId, e.title, e.resourceType, e.fileType, e.fileAddress, e.serviceType, e.content, e.image, e.readCount, e.createdAt, e.updatedAt, g.title as gameTitle
+                FROM   EducationalResources e
+                JOIN   GameContents g ON e.contentId = g.id
+                WHERE  e.servicetype = 1
+                <if test="id != 0">
+                    <if test="userType != 3">
+                        UNION
+                        SELECT e.id, e.contentId, e.userId, e.title, e.resourceType, e.fileType, e.fileAddress, e.serviceType, e.content, e.image, e.readCount, e.createdAt, e.updatedAt, g.title as gameTitle
+                        FROM   learningGroup l
+                        JOIN   EducationalResources e ON l.contentId = e.contentId
+                        JOIN   users u ON u.id = l.userId
+                        JOIN   GameContents g ON e.contentId = g.id
+                        WHERE  u.id = #{id}
+                        AND    e.serviceType = 2
+                    </if>
+                    <if test="userType == 3">
+                        UNION
+                        SELECT e.id, e.contentId, e.userId, e.title, e.resourceType, e.fileType, e.fileAddress, e.serviceType, e.content, e.image, e.readCount, e.createdAt, e.updatedAt, g.title as gameTitle
+
+                    </if>
+                </if>
+            </when>
+            <otherwise>
+                SELECT e.id, e.contentId, e.userId, e.title, e.resourceType, e.fileType, e.fileAddress, e.serviceType, e.content, e.image, e.readCount, e.createdAt, e.updatedAt, g.title as gameTitle
+                FROM   EducationalResources e, GameContents g
+                WHERE  e.contentId = g.id
+                ORDER by e.id desc
+            </otherwise>
+        </choose>
+    </select>
+
 </mapper>

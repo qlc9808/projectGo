@@ -42,11 +42,14 @@
         </div>
         <div id="main-content" class="container p-5 col-10">
             <h1 style="text-align: center;">교육자료</h1>
-            <div class="container border my-4 py-3" style="overflow: auto;">
+            <div class="container border my-4 py-3" style="width: auto;">
                 <div class="searchForm">
-
+                    <input type="radio" id="group" name="categoryEdu" value="그룹명">
+                    <input type="radio" id="educator" name="categoryEdu" value="교육자명">
+                    <input type="text" id="keyword" name="keyword">
+                    <button onclick="callListSearchEdu()"></button>
                 </div>
-                <div id="grid1" style="width: auto;"></div>
+                <div id="grid1" style="width: 1200px;"></div>
             </div>
 
         </div>

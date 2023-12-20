@@ -135,4 +135,34 @@ function listEdu() {
 
 }
 
+function listSearchEdu(keyword, category) {
+    a.ajax({
+        url: "admin/resource/api/listSearchEdu",
+        method: "GET",
+        data: {
+          keyword:keyword,
+          category:category
+        },
+        success: function (response) {
+            console.log(response.listSearchEdu);
+        }
+    })
+}
+
+function callListSearchEdu() {
+    var keyword = document.getElementById("keyword").value;
+    var categoryEdu;
+    if (document.getElementById("group").checked) {
+        categoryEdu = document.getElementById("group").value;
+    } else if (document.getElementById("educator").checked) {
+        categoryEdu = document.getElementById("educator").value;
+    }
+    listSearchEdu(keyword, categoryEdu);
+}
+
+
+
+
+
+
 

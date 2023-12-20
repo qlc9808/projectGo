@@ -18,6 +18,10 @@
             border: 0px solid red;
             margin: auto auto auto 100px;
         }
+        .myButton:hover {
+            background-color: rgba(90, 90, 255, 0.78); /* 배경색을 좀 더 밝은 파란색으로 변경 */
+            border: 0px solid white; /* 테두리를 흰색으로 강조 */
+        }
     </style>
 </head>
 <body>

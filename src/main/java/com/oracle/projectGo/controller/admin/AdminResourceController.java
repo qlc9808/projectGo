@@ -171,6 +171,19 @@ public class AdminResourceController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping(value = "/api/listSearchEdu")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> listSearchEdu(String keyword, String category) {
+        Map<String, Object> response = new HashMap<>();
+        Users users = usersService.getLoggedInUserInfo();
+        users.setKeyword(keyword);
+        users.setSearchType(category);
+        List<EducationalResources> listSearchEdu = adminResourceService.listSearchEdu(users);
+        response.put("listSearchEdu", listSearchEdu);
+
+        return ResponseEntity.ok(response);
+    }
+
 
 
 
