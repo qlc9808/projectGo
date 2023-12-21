@@ -3,6 +3,11 @@
 <head>
     <%@ include file="/WEB-INF/components/Header.jsp"%>
     <title>Title</title>
+    <script>
+        if (window.location.search.includes('error')) {
+            alert('접근할 수 없는 페이지입니다.');
+        }
+    </script>
     <style>
         .box {
             width: 46%;

@@ -138,7 +138,7 @@
                                 </c:choose>
                             </td>
                             <td><fmt:formatDate value="${user.createdAt}" type="date" pattern="YY/MM/dd"/></td>
-                            <td><a class="detail-btn" href="userDetail/${user.id}?currentPage=${page.currentPage}">관리</a></td>
+                            <td><a class="detail-btn" href="userDetail11/${user.id}?currentPage=${page.currentPage}">관리</a></td>
                         </tr>
                         <c:set var="num" value="${num + 1}"/>
                     </c:forEach>

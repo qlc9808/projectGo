@@ -1,5 +1,6 @@
 package com.oracle.projectGo.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
 
     @GetMapping("/")
-    public String home(Model model) {
-        
+    public String home(HttpServletRequest request, Model model) {
+        if (request.getParameter("error") != null) {
+            model.addAttribute("error", "접근권한이 없습니다.");
+        }
         return "home";
     }
 }

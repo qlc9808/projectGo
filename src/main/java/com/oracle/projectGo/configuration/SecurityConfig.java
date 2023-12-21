@@ -50,6 +50,10 @@ public class SecurityConfig {
             .logoutSuccessUrl("/")
             .invalidateHttpSession(true));
 
+        http.exceptionHandling(e -> e
+                .accessDeniedHandler(new CustomAccessDeniedHandler())
+        );
+
         http.authenticationProvider(authProvider);
         return http.build();
     }
