@@ -2,6 +2,7 @@ package com.oracle.projectGo.dao;
 
 import com.oracle.projectGo.dto.GameContents;
 import com.oracle.projectGo.dto.LearningGroup;
+import com.oracle.projectGo.dto.LearningGroupMember;
 import com.oracle.projectGo.dto.Users;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -122,9 +123,19 @@ public class LearningGroupDao {
         return deleteLearningGroup;
     }
 
-    public int totalApprovalGroupMemberCnt(int id) {
-        int totalApprovalGroupMemberCnt = session.selectOne("NoTotalApprovalGroupMemberCnt",id);
+    public int totalApprovalGroupMemberCnt(int userId) {
+        int totalApprovalGroupMemberCnt = session.selectOne("NoTotalApprovalGroupMemberCnt", userId);
         return totalApprovalGroupMemberCnt;
+    }
+
+    public List<LearningGroupMember> learningGroupMembers(int userId) {
+        List<LearningGroupMember> learningGroupMembers = null;
+        try {
+            learningGroupMembers = session.selectList("NoLearningGroupMembers", userId);
+        } catch (Exception e) {
+            log.info("LearningGroupDao learningGroupMembers e.getMessage() : " + e.getMessage());
+        }
+        return learningGroupMembers;
     }
 
 

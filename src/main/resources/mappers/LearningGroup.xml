@@ -11,7 +11,7 @@
             on      a.contentId = b.id
             WHERE   a.userId = #{userId}
             AND     b.createdAt <= SYSDATE
-            AND     b.updatedAt >= SYSDATE
+            AND     (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')) >= SYSDATE
         ]]>
         <if test="keyword != null and keyword != ''">
             AND b.title like '%' || #{keyword} || '%'
@@ -20,37 +20,37 @@
 
     <select id="NoLearningContentList" parameterType="GameContents" resultType="GameContents">
         <![CDATA[
-            SELECT   a.id, a.userId, a.contentId, b.title, b.createdAt,
-                     (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')) AS subscribeEndDate,
-                     b.maxSubscribers, (SUM(c.groupSize)) AS assignedPeople
-            FROM     payments a
-            JOIN     gameContents b
-            ON       a.contentId = b.id
-            JOIN     learningGroup c
-            ON       b.id = c.contentId
-            WHERE    a.userId = #{userId}
-            AND      b.createdAt <= SYSDATE
-            AND      (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')) >= SYSDATE
+            SELECT    a.id, a.userId, a.contentId, b.title, b.createdAt,
+                      (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')) AS subscribeEndDate,
+                      b.maxSubscribers, c.groupSize assignedPeople
+            FROM      payments a
+            JOIN      gameContents b
+            ON        a.contentId = b.id
+            LEFT JOIN (SELECT contentId, SUM(groupSize) AS groupSize FROM LearningGroup GROUP BY contentId) c
+            ON        a.contentId = c.contentId
+            WHERE     a.userId = 2
+            AND       b.createdAt <= SYSDATE
+            AND       (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')) >= SYSDATE
         ]]>
         <if test="keyword != null and keyword != ''">
             AND b.title like '%' || #{keyword} || '%'
         </if>
-            GROUP BY a.id, a.userId, a.contentId, b.title, b.createdAt,
-                     (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')),
-                    b.maxSubscribers
-            ORDER BY a.contentId ASC
+            GROUP BY  a.id, a.userId, a.contentId, b.title, b.createdAt,
+                      (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')),
+                      b.maxSubscribers, c.groupSize
+            ORDER BY  a.contentId ASC
     </select>
 
     <select id="NoInsertFormLearningContent" parameterType="int" resultType="GameContents">
-        SELECT  a.userId pay_userId, a.contentId, b.name, c.title, c.maxSubscribers, (SUM(d.groupSize)) AS AssignedPeople
-        FROM    payments a
-        JOIN    users b
-        ON      a.userId = b.id
-        JOIN    gameContents c
-        ON      a.contentId = c.id
-        JOIN    learningGroup d
-        ON      c.id = d.contentId
-        WHERE   c.id = #{id}
+        SELECT   a.userId payUserId, a.contentId, b.name, c.title, c.maxSubscribers, (SUM(d.groupSize)) AS AssignedPeople
+        FROM     payments a
+        JOIN     users b
+        ON       a.userId = b.id
+        JOIN     gameContents c
+        ON       a.contentId = c.id
+        JOIN     learningGroup d
+        ON       c.id = d.contentId
+        WHERE    c.id = #{id}
         GROUP BY a.userId, a.contentId, b.name, c.title, c.maxsubscribers
     </select>
 
@@ -134,9 +134,25 @@
     </delete>
 
     <select id="NoTotalApprovalGroupMemberCnt" parameterType="int" resultType="int">
-        SELECT COUNT(*)
-        FROM learningGroupMember
-        WHERE groupId = #{id}
+        SELECT  COUNT(*)
+        FROM    learningGroupMember a
+        JOIN    learningGroup b
+        ON      a.groupid = b.id
+        WHERE   b.userId = #{id}
+    </select>
+
+    <select id="NoLearningGroupMembers" parameterType="int" resultType="LearningGroupMember">
+        SELECT      a.groupId, a.userId, a.status, a.approvalDate, b.name userName, b.phone, c.contentId, c.name, c.groupSize, d.title, e.membersCount
+        FROM        learningGroupMember a
+        JOIN        users b
+        ON          a.userId = b.id
+        join        learningGroup c
+        ON          a.groupId = c.id
+        join        gameContents d
+        on          c.contentId = d.id
+        LEFT JOIN   (SELECT groupId, COUNT(*) as membersCount FROM LearningGroupMember GROUP BY groupId) e
+        ON          a.groupId = e.groupId
+        WHERE       c.userId = #{userId}
     </select>
 
 

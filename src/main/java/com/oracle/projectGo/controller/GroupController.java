@@ -2,6 +2,7 @@ package com.oracle.projectGo.controller;
 
 import com.oracle.projectGo.dto.GameContents;
 import com.oracle.projectGo.dto.LearningGroup;
+import com.oracle.projectGo.dto.LearningGroupMember;
 import com.oracle.projectGo.dto.Users;
 import com.oracle.projectGo.service.LearningGroupService;
 import com.oracle.projectGo.service.Paging;
@@ -309,7 +310,7 @@ public class GroupController {
 
     //
     @RequestMapping(value = "approvalGroupMember")
-    public String approvalGroupMember(int id, Model model, String currentPage) {
+    public String approvalGroupMember(Model model, String currentPage) {
         Users users = usersService.getLoggedInUserInfo();
         int userId = users.getId();
         log.info("userId : " + userId);
@@ -317,6 +318,9 @@ public class GroupController {
         try {
             int totalApprovalGroupMemberCnt = groupService.totalApprovalGroupMemberCnt(userId);
             log.info("totalApprovalGroupMemberCnt : " + totalApprovalGroupMemberCnt);
+
+            List<LearningGroupMember> learningGroupMembers = groupService.learningGroupMembers(userId);
+            log.info("learningGroupMembers : " + learningGroupMembers);
 
 
             model.addAttribute("totalApprovalMemberCnt", totalApprovalGroupMemberCnt);

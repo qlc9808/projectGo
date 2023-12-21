@@ -3,6 +3,7 @@ package com.oracle.projectGo.service;
 import com.oracle.projectGo.dao.LearningGroupDao;
 import com.oracle.projectGo.dto.GameContents;
 import com.oracle.projectGo.dto.LearningGroup;
+import com.oracle.projectGo.dto.LearningGroupMember;
 import com.oracle.projectGo.dto.Users;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -86,10 +87,16 @@ public class LearningGroupService {
         return deleteLearningGroup;
     }
 
-    public int totalApprovalGroupMemberCnt(int id) {
-        int totalApprovalGroupMemberCnt = groupDao.totalApprovalGroupMemberCnt(id);
+    public int totalApprovalGroupMemberCnt(int userId) {
+        int totalApprovalGroupMemberCnt = groupDao.totalApprovalGroupMemberCnt(userId);
 
         return totalApprovalGroupMemberCnt;
+    }
+
+    public List<LearningGroupMember> learningGroupMembers(int userId) {
+        List<LearningGroupMember> learningGroupMembers = groupDao.learningGroupMembers(userId);
+
+        return learningGroupMembers;
     }
 
 

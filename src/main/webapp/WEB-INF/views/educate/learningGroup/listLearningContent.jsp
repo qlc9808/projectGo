@@ -17,6 +17,7 @@
             }
         }
         if (checkedValue) {
+            alert(checkedValue);
             location.href = '/group/insertFormLearningContent?id=' + checkedValue;
         } else {
             alert('게임콘텐츠를 선택해주세요.');

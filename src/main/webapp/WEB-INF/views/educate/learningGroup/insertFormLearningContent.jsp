@@ -5,7 +5,24 @@
     <%@ include file="/WEB-INF/components/Header.jsp"%>
     <title>학습그룹 등록</title>
 </head>
+<script type="text/javascript">
+    window.onload = function() {
+        var subscribeDate = ${insertFormLearningContent.subscribeDate}; // subscribeDate를 가져옵니다.
+        var createdAt = new Date("${insertFormLearningContent.createdAt}"); // createdAt를 가져옵니다.
 
+        // subscribeEndDate를 계산합니다.
+        createdAt.setMonth(createdAt.getMonth() + subscribeDate);
+
+        // subscribeEndDate를 yyyy-mm-dd 형식으로 변환합니다.
+        var year = createdAt.getFullYear();
+        var month = ("0" + (createdAt.getMonth() + 1)).slice(-2);
+        var day = ("0" + createdAt.getDate()).slice(-2);
+        var subscribeEndDate = year + "-" + month + "-" + day;
+
+        // endDate input 필드의 max 속성을 설정합니다.
+        document.getElementById("endDate").max = subscribeEndDate;
+    }
+</script>
 <body>
     <%@ include file="/WEB-INF/components/TopBar.jsp"%>
     <main>
@@ -29,8 +46,8 @@
             <div class="container p-5">
                 <h3 class="pb-5">그룹 상세 정보</h3>
                 <form id="insertForm" action="/group/insertLearningGroup" method="post">
-                    <input type="hidden" id="id" name="id" value="${insertFormLearningContent.id}">
-                    <input type="hidden" id="userId" name="userId" value="${insertFormLearningContent.userId}">
+                    <input type="hidden" id="id" name="id" value="${insertFormLearningContent.contentId}">
+                    <input type="hidden" id="userId" name="userId" value="${insertFormLearningContent.payUserId}">
                     <div>
                         <label class="col-2">교육자명</label>
                         <label>${insertFormLearningContent.name}</label>
