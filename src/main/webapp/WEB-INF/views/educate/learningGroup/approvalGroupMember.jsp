@@ -12,6 +12,7 @@
         $.ajax({
             url: '/group/approvalGroupMember',
             type: 'POST',  // POST 방식으로 변경
+            dataType: 'json',
             data: {
                 groupId: $('#groupId').val()
                 // 다른 필요한 데이터들
