@@ -87,14 +87,20 @@ public class LearningGroupService {
         return deleteLearningGroup;
     }
 
-    public int totalApprovalGroupMemberCnt(int userId) {
-        int totalApprovalGroupMemberCnt = groupDao.totalApprovalGroupMemberCnt(userId);
+    public int totalApprovalGroupMemberCnt(LearningGroupMember learningGroupMember) {
+        int totalApprovalGroupMemberCnt = groupDao.totalApprovalGroupMemberCnt(learningGroupMember);
 
         return totalApprovalGroupMemberCnt;
     }
 
-    public List<LearningGroupMember> learningGroupMembers(int userId) {
-        List<LearningGroupMember> learningGroupMembers = groupDao.learningGroupMembers(userId);
+    public List<LearningGroupMember> learningGroup(LearningGroupMember learningGroupMember) {
+        List<LearningGroupMember> learningGroup = groupDao.learningGroup(learningGroupMember);
+
+        return learningGroup;
+    }
+
+    public List<LearningGroupMember> learningGroupMembers(LearningGroupMember learningGroupMember) {
+        List<LearningGroupMember> learningGroupMembers = groupDao.learningGroupMembers(learningGroupMember);
 
         return learningGroupMembers;
     }

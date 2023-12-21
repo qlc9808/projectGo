@@ -310,20 +310,27 @@ public class GroupController {
 
     //
     @RequestMapping(value = "approvalGroupMember")
-    public String approvalGroupMember(Model model, String currentPage) {
+    public String approvalGroupMember(@ModelAttribute LearningGroupMember learningGroupMember,Model model, String currentPage) {
         Users users = usersService.getLoggedInUserInfo();
+        log.info("learningGroupMember1111" + learningGroupMember.getGroupId());
         int userId = users.getId();
         log.info("userId : " + userId);
+        log.info("LearningGroupMember : " + learningGroupMember);
 
         try {
-            int totalApprovalGroupMemberCnt = groupService.totalApprovalGroupMemberCnt(userId);
+            learningGroupMember.setUserId(userId);
+
+            int totalApprovalGroupMemberCnt = groupService.totalApprovalGroupMemberCnt(learningGroupMember);
             log.info("totalApprovalGroupMemberCnt : " + totalApprovalGroupMemberCnt);
 
-            List<LearningGroupMember> learningGroupMembers = groupService.learningGroupMembers(userId);
+            List<LearningGroupMember> learningGroup = groupService.learningGroup(learningGroupMember);
+
+            List<LearningGroupMember> learningGroupMembers = groupService.learningGroupMembers(learningGroupMember);
             log.info("learningGroupMembers : " + learningGroupMembers);
 
-
             model.addAttribute("totalApprovalMemberCnt", totalApprovalGroupMemberCnt);
+            model.addAttribute("learningGroup", learningGroup);
+            model.addAttribute("learningGroupMembers", learningGroupMembers);
         } catch (Exception e) {
             log.error("GroupController approvalGroupMember e.getMessage() : " + e.getMessage());
         } finally {

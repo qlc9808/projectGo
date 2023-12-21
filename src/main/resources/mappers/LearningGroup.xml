@@ -133,15 +133,24 @@
         DELETE learningGroup WHERE id = #{id}
     </delete>
 
-    <select id="NoTotalApprovalGroupMemberCnt" parameterType="int" resultType="int">
+    <select id="NoTotalApprovalGroupMemberCnt" parameterType="LearningGroupMember" resultType="int">
         SELECT  COUNT(*)
         FROM    learningGroupMember a
         JOIN    learningGroup b
         ON      a.groupid = b.id
-        WHERE   b.userId = #{id}
+        WHERE   b.userId = #{userId}
+        <if test="groupId != 0 and groupId != ''">
+            AND     b.id = #{groupId}
+        </if>
     </select>
 
-    <select id="NoLearningGroupMembers" parameterType="int" resultType="LearningGroupMember">
+    <select id="NoLearningGroup" parameterType="LearningGroupMember" resultType="LearningGroupMember">
+        SELECT  *
+        FROM    learningGroup
+        WHERE   userId = #{userId}
+    </select>
+
+    <select id="NoLearningGroupMembers" parameterType="LearningGroupMember" resultType="LearningGroupMember">
         SELECT      a.groupId, a.userId, a.status, a.approvalDate, b.name userName, b.phone, c.contentId, c.name, c.groupSize, d.title, e.membersCount
         FROM        learningGroupMember a
         JOIN        users b
@@ -153,6 +162,9 @@
         LEFT JOIN   (SELECT groupId, COUNT(*) as membersCount FROM LearningGroupMember GROUP BY groupId) e
         ON          a.groupId = e.groupId
         WHERE       c.userId = #{userId}
+        <if test="groupId != 0 and groupId != ''">
+            AND     c.id = #{groupId}
+        </if>
     </select>
 
 

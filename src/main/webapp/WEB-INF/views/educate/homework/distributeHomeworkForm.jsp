@@ -29,6 +29,7 @@
             gameSelection();
 
             showStoredNotification();
+            alert(userId);
         });
 
     </script>

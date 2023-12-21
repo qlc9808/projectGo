@@ -61,7 +61,7 @@
         </li>
         <li class="nav-item my-page-nav-item">
             <div>
-                <a href="#"
+                <a href="/group/approvalGroupMember"
                    class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi-person-check-fill px-3"></i>
                     그룹가입 승인

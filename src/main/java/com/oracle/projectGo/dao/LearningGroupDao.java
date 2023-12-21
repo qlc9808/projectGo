@@ -123,15 +123,25 @@ public class LearningGroupDao {
         return deleteLearningGroup;
     }
 
-    public int totalApprovalGroupMemberCnt(int userId) {
-        int totalApprovalGroupMemberCnt = session.selectOne("NoTotalApprovalGroupMemberCnt", userId);
+    public int totalApprovalGroupMemberCnt(LearningGroupMember learningGroupMember) {
+        int totalApprovalGroupMemberCnt = session.selectOne("NoTotalApprovalGroupMemberCnt", learningGroupMember);
         return totalApprovalGroupMemberCnt;
     }
 
-    public List<LearningGroupMember> learningGroupMembers(int userId) {
+    public List<LearningGroupMember> learningGroup(LearningGroupMember learningGroupMember) {
+        List<LearningGroupMember> learningGroup = null;
+        try {
+            learningGroup = session.selectList("NoLearningGroup", learningGroupMember);
+        } catch (Exception e) {
+            log.info("LearningGroupDao learningGroup e.getMessage() : " + e.getMessage());
+        }
+        return learningGroup;
+    }
+
+    public List<LearningGroupMember> learningGroupMembers(LearningGroupMember learningGroupMember) {
         List<LearningGroupMember> learningGroupMembers = null;
         try {
-            learningGroupMembers = session.selectList("NoLearningGroupMembers", userId);
+            learningGroupMembers = session.selectList("NoLearningGroupMembers", learningGroupMember);
         } catch (Exception e) {
             log.info("LearningGroupDao learningGroupMembers e.getMessage() : " + e.getMessage());
         }
