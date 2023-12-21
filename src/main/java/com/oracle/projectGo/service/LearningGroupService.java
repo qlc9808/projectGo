@@ -105,6 +105,12 @@ public class LearningGroupService {
         return learningGroupMembers;
     }
 
+    public int grantMember(LearningGroupMember learningGroupMember) {
+        int grantMember = groupDao.grantMember(learningGroupMember);
+
+        return grantMember;
+    }
+
 
     public List<Users> getGroupMemberByGroupId(int groupId) {
         return groupDao.getGroupMemberByGroupId(groupId);

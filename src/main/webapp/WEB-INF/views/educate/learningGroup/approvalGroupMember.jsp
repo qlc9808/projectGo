@@ -11,35 +11,72 @@
     function listSearch() {
         $.ajax({
             url: '/group/approvalGroupMember',
-            type: 'POST',  // POST 방식으로 변경
+            type: 'POST',
             dataType: 'json',
             data: {
                 groupId: $('#groupId').val()
-                // 다른 필요한 데이터들
             },
-            success: function (data) {
-                alert(data)
+            success: function(data) {
+                /*alert(JSON.stringify(data))*/
                 var tbody = $("#homework-table tbody");
 
                 // 기존 테이블의 내용을 지웁니다.
                 tbody.empty();
 
                 // 새로운 테이블의 내용을 추가합니다.
-                $.each(data.learningGroupMembers, function(index, item) {
-                    var row = $("<tr>");
+                $.each(data, function(index, item) {
+                    var row = $("<tr>").data('item', item);         // row에 item data를 저장.
                     row.append($("<td>").text(index + 1));
                     row.append($("<td>").text(item.userName));
                     row.append($("<td>").text(item.phone));
-                    row.append($("<td>").text(item.approvalDate));
-                    row.append($("<td>").text(item.status));
+
+                    var approvalDate = new Date(item.approvalDate);
+                    var formattedDate = approvalDate.toLocaleDateString('ko-KR', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit'
+                    });
+
+                    row.append($("<td>").text(formattedDate));
+
+                    var status = (item.status == 0) ? '승인대기' : '승인완료';
+                    var statusLink = $("<a>").text(status).attr('href', '#').addClass('status-link');
+
+                    row.append($("<td>").append(statusLink));
                     tbody.append(row);
                 });
             },
-            error: function (error) {
-                console.log(error); // 오류가 발생한 경우 콘솔에 오류 출력
+            error: function(error) {
+                console.log(error);     // 오류가 발생한 경우 콘솔에 오류 출력
             }
         });
     }
+
+    // 이벤트 위임 방식으로 클릭 이벤트를 처리합니다.
+    $(document).on('click', '.status-link', function(e) {
+        e.preventDefault();     // 기본 링크 클릭 동작을 막습니다.
+
+        var item = $(this).closest('tr').data('item');      // row에서 item data를 가져옴.
+
+        $.ajax({
+            url: '/group/grantMember',
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(item), // 여기에서 item은 LearningGroupMember 객체를 나타내는 JavaScript 객체입니다.
+            success: function(response) {
+                // 컨트롤러에서 반환한 데이터를 처리합니다.
+                console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+
+
+
+
 </script>
 <body>
     <%@ include file="/WEB-INF/components/TopBar.jsp"%>
@@ -90,7 +127,7 @@
                                     <th scope="col" style="">학생이름</th>
                                     <th scope="col" style="">연락처</th>
                                     <th scope="col" style="">가입요청일자</th>
-                                    <th scope="col" style="">승인상태</th>
+                                    <th scope="col" style="">상태</th>
                                 </tr>
                                 </thead>
                                 <tbody>

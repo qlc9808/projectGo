@@ -28,7 +28,7 @@
             ON        a.contentId = b.id
             LEFT JOIN (SELECT contentId, SUM(groupSize) AS groupSize FROM LearningGroup GROUP BY contentId) c
             ON        a.contentId = c.contentId
-            WHERE     a.userId = 2
+            WHERE     a.userId = #{userId}
             AND       b.createdAt <= SYSDATE
             AND       (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')) >= SYSDATE
         ]]>
@@ -162,10 +162,14 @@
         LEFT JOIN   (SELECT groupId, COUNT(*) as membersCount FROM LearningGroupMember GROUP BY groupId) e
         ON          a.groupId = e.groupId
         WHERE       c.userId = #{userId}
-        <if test="groupId != 0 and groupId != ''">
-            AND     c.id = #{groupId}
-        </if>
+        AND         c.id = #{groupId}
     </select>
+
+    <update id="NoGrantMember" parameterType="LearningGroupMember">
+        UPDATE  learningGroupMember SET status = 1
+        WHERE   groupId = #{groupId}
+        AND     userId = #{userId}
+    </update>
 
 
     <select id="getGroupMemberByGroupId" resultType="Users">

@@ -308,31 +308,48 @@ public class GroupController {
         return "redirect:/group/listLearningGroup";
     }
 
-    //
+    @RequestMapping(value = "listApprovalMember")
+    public String listApprovalMember(LearningGroupMember learningGroupMember, Model model, String currentPage) {
+        Users users = usersService.getLoggedInUserInfo();
+        int userId = users.getId();
+        log.info("userId : " + userId);
+
+        try {
+            learningGroupMember.setUserId(userId);
+
+            int totalApprovalGroupMemberCnt = groupService.totalApprovalGroupMemberCnt(learningGroupMember);
+
+            List<LearningGroupMember> learningGroup = groupService.learningGroup(learningGroupMember);
+
+            List<LearningGroupMember> learningGroupMembers = groupService.learningGroupMembers(learningGroupMember);
+            log.info("learningGroupMembers : " + learningGroupMembers);
+
+            model.addAttribute("totalApprovalMemberCnt", totalApprovalGroupMemberCnt);
+            model.addAttribute("learningGroup", learningGroup);
+            model.addAttribute("learningGroupMembers", learningGroupMembers);
+        } catch (Exception e) {
+            log.error("GroupController listApprovalMember e.getMessage() : " + e.getMessage());
+        } finally {
+            log.info("GroupController listApprovalMember end");
+        }
+        return "educate/learningGroup/approvalGroupMember";
+    }
+
     @ResponseBody
     @RequestMapping(value = "approvalGroupMember")
     public List<LearningGroupMember> approvalGroupMember(@ModelAttribute LearningGroupMember learningGroupMember,Model model, String currentPage) {
         Users users = usersService.getLoggedInUserInfo();
-        log.info("learningGroupMember1111" + learningGroupMember.getGroupId());
         int userId = users.getId();
         log.info("userId : " + userId);
-        log.info("LearningGroupMember : " + learningGroupMember);
 
         List<LearningGroupMember> learningGroupMembers = null;
 
         try {
             learningGroupMember.setUserId(userId);
 
-            int totalApprovalGroupMemberCnt = groupService.totalApprovalGroupMemberCnt(learningGroupMember);
-            log.info("totalApprovalGroupMemberCnt : " + totalApprovalGroupMemberCnt);
-
-            List<LearningGroupMember> learningGroup = groupService.learningGroup(learningGroupMember);
-
             learningGroupMembers = groupService.learningGroupMembers(learningGroupMember);
             log.info("learningGroupMembers : " + learningGroupMembers);
 
-            model.addAttribute("totalApprovalMemberCnt", totalApprovalGroupMemberCnt);
-            model.addAttribute("learningGroup", learningGroup);
             model.addAttribute("learningGroupMembers", learningGroupMembers);
         } catch (Exception e) {
             log.error("GroupController approvalGroupMember e.getMessage() : " + e.getMessage());
@@ -343,6 +360,21 @@ public class GroupController {
         return learningGroupMembers;
     }
 
+    @RequestMapping(value = "grantMember", method = RequestMethod.POST)
+    public String grantMember(@RequestBody LearningGroupMember learningGroupMember) {
+        log.info("learningGroupMember : " + learningGroupMember);
+
+        try {
+            int grantMember = groupService.grantMember(learningGroupMember);
+            log.info("grantMember : " + grantMember);
+
+        } catch (Exception e) {
+            log.error("GroupController grantMember e.getMessage() : " + e.getMessage());
+        } finally {
+            log.info("GroupController grantMember end");
+        }
+        return "redirect:/group/approvalGroupMember";
+    }
 
     @ResponseBody
     @RequestMapping(value="getGroupMemberByGroupId",method = RequestMethod.GET)

@@ -148,6 +148,16 @@ public class LearningGroupDao {
         return learningGroupMembers;
     }
 
+    public int grantMember(LearningGroupMember learningGroupMember) {
+        int grantMember = 0;
+        try {
+            grantMember = session.update("NoGrantMember", learningGroupMember);
+        } catch (Exception e) {
+            log.info("LearningGroupDao grantMember e.getMessage() : " + e.getMessage());
+        }
+        return grantMember;
+    }
+
 
     public List<Users> getGroupMemberByGroupId(int educatorId) {
         return session.selectList("getGroupMemberByGroupId",educatorId);
