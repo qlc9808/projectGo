@@ -27,6 +27,7 @@ public class PaymentService {
         }
 
 // -----------------------------------------------------------
+
     // 내가 구독한 게임 컨텐츠 리스트 총 갯수
     public int subscribeUserPayTotalCount(int loginUserId) {
         int subscribeUserPayTotalCount = pd.subscribeUserPayTotalCount(loginUserId);
