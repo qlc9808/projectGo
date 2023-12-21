@@ -22,4 +22,8 @@ public class LearningRequestService {
     public List<LearningGroupMember> remainRequest(LearningGroupMember learningGroupMember) {
         return learningRequestDao.remainRequest(learningGroupMember);
     }
+
+    public List<LearningGroupMember> remainRequest2(LearningGroupMember learningGroupMember) {
+        return learningRequestDao.remainRequest2(learningGroupMember);
+    }
 }

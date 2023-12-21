@@ -13,8 +13,8 @@
         }
         .searchForm {
             width: 1200px;
-            border: 1px solid red;
-            height: 100px;
+            border: 0px solid red;
+            height: 50px;
         }
         .objectForm {
             width: 1200px;
@@ -44,10 +44,10 @@
             <h1 style="text-align: center;">교육자료</h1>
             <div class="container border my-4 py-3" style="width: auto;">
                 <div class="searchForm">
-                    <input type="radio" id="group" name="categoryEdu" value="그룹명">
-                    <input type="radio" id="educator" name="categoryEdu" value="교육자명">
-                    <input type="text" id="keyword" name="keyword">
-                    <button onclick="callListSearchEdu()"></button>
+<%--                    <input type="radio" id="group" name="categoryEdu" value="그룹명">--%>
+<%--                    <input type="radio" id="educator" name="categoryEdu" value="교육자명">--%>
+<%--                    <input type="text" id="keyword" name="keyword">--%>
+<%--                    <button onclick="callListSearchEdu()"></button>--%>
                 </div>
                 <div id="grid1" style="width: 1200px;"></div>
             </div>

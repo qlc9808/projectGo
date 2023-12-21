@@ -32,4 +32,8 @@ public class LearningRequestDao {
         }
         return session.selectList("remainRequest", learningGroupMember);
     }
+
+    public List<LearningGroupMember> remainRequest2(LearningGroupMember learningGroupMember) {
+        return session.selectList("remainRequest2", learningGroupMember);
+    }
 }

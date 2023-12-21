@@ -13,7 +13,7 @@
                 <%@ include file="/WEB-INF/components/AdminSidebar.jsp"%>
             </div>
             <div id="main-content" class="container p-5 col-10">
-                <h1 style="text-align: center;">detailEdu 왔다</h1>
+                <h1 style="text-align: center;">학습자료상세</h1>
                 <div class="container border my-4 py-3">
                     <div class="detailEdu-header">
                         <div class="detailEdu-title">

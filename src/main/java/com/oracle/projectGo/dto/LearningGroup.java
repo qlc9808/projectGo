@@ -50,7 +50,7 @@ public class LearningGroup {
     // date 타입 변환용
     private String  formatStartDate;
     private String  formatEndDate;
-    private boolean applied;
+    private int applied;
 
     // 그룹가입 학생 인원
     private int     studentCount;           // 그룹가입 학생 수

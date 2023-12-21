@@ -43,15 +43,27 @@
         <div id="main-content" class="container p-5 col-10" style="border: 0px solid red;">
             <div class="container border my-4 py-3">
                 <div class="container my-3 py-3" style="text-align: center">
-                    <h1>교육정보등록</h1>
+                    <h1>학습자료등록</h1>
                 </div>
                 <div>
                     <form action="/admin/resource/upload" method="post" enctype="multipart/form-data">
-                        <div class="my-4 row align-items-baseline ">
+                        <div class="my-4 row align-items-baseline">
                             <label for="title" class="col-sm-2 col-form-label fw-bold text-end"
                                    style="font-size: 20px;">학습자료명</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="title" name="title">
+                            </div>
+                        </div>
+                        <div class="my-4 row align-items-baseline">
+                            <label for="title" class="col-sm-2 col-form-label fw-bold text-end"
+                                   style="font-size: 20px;">게임컨텐츠</label>
+                            <div class="col-8 d-flex ">
+
+                                <select class="form-select mx-2" id="contentId" name="contentId">
+                                    <c:forEach items="${gameContentsList}" var="game">
+                                        <option value="${game.id}">${game.title}</option>
+                                    </c:forEach>
+                                </select>
                             </div>
                         </div>
                         <div class="my-4 row align-items-baseline ">

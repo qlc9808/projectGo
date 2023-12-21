@@ -1,9 +1,12 @@
 package com.oracle.projectGo.controller.admin;
 
 import com.oracle.projectGo.dto.EducationalResources;
+import com.oracle.projectGo.dto.GameContents;
 import com.oracle.projectGo.dto.Payments;
 import com.oracle.projectGo.dto.Users;
 import com.oracle.projectGo.service.AdminResourceService;
+import com.oracle.projectGo.service.GameService;
+import com.oracle.projectGo.service.Paging;
 import com.oracle.projectGo.service.UsersService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -30,8 +33,17 @@ import java.util.UUID;
 public class AdminResourceController {
     private final AdminResourceService adminResourceService;
     private final UsersService usersService;
+    private final GameService gameService;
     @RequestMapping(value = "/uploadForm")
-    public String educationUploadForm() {
+    public String educationUploadForm(Model model, String currentPage) {
+        int gameContentsTotalCount = gameService.gameContentsTotalCount();
+
+        GameContents gameContents = new GameContents();
+        Paging page = new Paging(gameContentsTotalCount, currentPage);
+        gameContents.setStart(page.getStart());
+        gameContents.setEnd(page.getEnd());
+        List<GameContents> gameContentsList = gameService.gameContentsList(gameContents);
+        model.addAttribute("gameContentsList", gameContentsList);
 
         return "admin/resource/upload";
     }
@@ -40,9 +52,10 @@ public class AdminResourceController {
                                   Model model,
                                   HttpServletRequest request,
                                   @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
-        educationalResources.setUserId(5);
-        educationalResources.setContentId(5);
-        // 임의로 설정한 유저ID, 게임컨텐츠ID값 나중에 수정
+        Users users = usersService.getLoggedInUserInfo();
+        educationalResources.setUserId(users.getId());
+        educationalResources.setContentId(educationalResources.getContentId());
+
         String uploadPath = request.getSession().getServletContext().getRealPath("/upload/educationalResources/");
 
         System.out.println("uploadPath->" + uploadPath);
@@ -115,11 +128,19 @@ public class AdminResourceController {
     }
 
     @GetMapping(value = "/updateEduForm")
-    public String updateEduForm(int id, Model model) {
+    public String updateEduForm(int id, Model model, String currentPage) {
 
         EducationalResources edu = adminResourceService.detailEdu(id);
-        log.info(String.valueOf(edu));
 
+        int gameContentsTotalCount = gameService.gameContentsTotalCount();
+
+        GameContents gameContents = new GameContents();
+        Paging page = new Paging(gameContentsTotalCount, currentPage);
+        gameContents.setStart(page.getStart());
+        gameContents.setEnd(page.getEnd());
+        List<GameContents> gameContentsList = gameService.gameContentsList(gameContents);
+
+        model.addAttribute("gameContentsList", gameContentsList);
         model.addAttribute("edu",edu);
 
         return "admin/resource/updateEdu";

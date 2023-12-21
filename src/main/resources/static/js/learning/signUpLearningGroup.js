@@ -98,10 +98,11 @@ function learningGroupList() {
                     formatter: function ({row}) {
                         const id = row.id;
                         const name = row.name;
-                        if (row.applied) {
-                            return `<button class="myButton" id="cancelSignUp-${id}" style="border-radius: 10px; width: 80px; height: 55px; background: rgba(70, 70, 255, 0.78); color: white;" onclick="cancelSignUp(${id}, '${name}')">취소</button>`;
-                        } else {
-                            return `<button class="myButton" id="requestSignUp-${id}" style="border-radius: 10px; width: 80px; height: 55px; background: rgba(70, 70, 255, 0.78); color: white;" onclick="requestSignUp(${id}, '${name}')">신청</button>`;
+                        switch (row.applied) {
+                            case 1: return `<button class="myButton" id="requestSignUp-${id}" style="border-radius: 10px; width: 80px; height: 55px; background: rgba(70, 70, 255, 0.78); color: white;" onclick="requestSignUp(${id}, '${name}')">신청</button>`;
+                            case 2: return `<button class="myButton" id="cancelSignUp-${id}" style="border-radius: 10px; width: 80px; height: 55px; background: rgba(70, 70, 255, 0.78); color: white;" onclick="cancelSignUp(${id}, '${name}')">취소</button>`;
+                            case 3: return `신청불가`;
+                            case 4: return `신청완료`;
                         }
                     }
                 });

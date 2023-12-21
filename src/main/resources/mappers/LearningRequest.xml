@@ -13,8 +13,16 @@
         AND    userId =  #{userId}
     </delete>
     <select id="remainRequest" parameterType="LearningGroupMember" resultType="LearningGroupMember">
-        SELECT *
-        FROM   LearningGroupMember
-        WHERE  userId = #{userId}
+        SELECT lg.contentid, lgm.groupid, lgm.userid, lgm.status, lgm.approvaldate
+        FROM   LearningGroupMember lgm
+        JOIN   learningGroup lg ON lgm.groupid = lg.id
+        WHERE  lgm.userId = #{userId}
+    </select>
+    <select id="remainRequest2" parameterType="LearningGroupMember" resultType="LearningGroupMember">
+        SELECT lg.contentid, lgm.groupid, lgm.userid, lgm.status, lgm.approvaldate
+        FROM   LearningGroupMember lgm
+        JOIN   learningGroup lg ON lgm.groupid = lg.id
+        WHERE  lgm.userId = #{userId}
+        AND    lgm.status = 1
     </select>
 </mapper>

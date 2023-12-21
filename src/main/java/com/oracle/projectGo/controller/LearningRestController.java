@@ -39,15 +39,24 @@ public class LearningRestController {
         learningGroupMember.setUserId(userId);
 
         List<LearningGroup> learningGroupList = learningGroupService.signUpLearningGroup();
-
-
         List<LearningGroupMember> member = learningRequestService.remainRequest(learningGroupMember);
+        List<LearningGroupMember> member2 = learningRequestService.remainRequest2(learningGroupMember);
+
         for (int i = 0; i < learningGroupList.size(); i++) {
             if (member != null) {
-                learningGroupList.get(i).setApplied(false);
+                learningGroupList.get(i).setApplied(1);
                 for (int j = 0; j < member.size(); j++) {
+
+                    if(learningGroupList.get(i).getContentId() == member.get(j).getContentId()) {
+                        learningGroupList.get(i).setApplied(3);
+                    }
                     if(learningGroupList.get(i).getId() == member.get(j).getGroupId() && userId == member.get(j).getUserId()) {
-                        learningGroupList.get(i).setApplied(true);
+                        learningGroupList.get(i).setApplied(2);
+                    }
+                }
+                for (int j = 0; j < member2.size(); j++) {
+                    if(learningGroupList.get(i).getId() == member2.get(j).getGroupId() && userId == member2.get(j).getUserId()) {
+                        learningGroupList.get(i).setApplied(4);
                     }
                 }
 

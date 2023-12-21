@@ -18,14 +18,26 @@
                 JOIN   GameContents g ON e.contentId = g.id
                 WHERE  e.servicetype = 1
                 <if test="id != 0">
-                    UNION
-                    SELECT e.id, e.contentId, e.userId, e.title, e.resourceType, e.fileType, e.fileAddress, e.serviceType, e.content, e.image, e.readCount, e.createdAt, e.updatedAt, g.title as gameTitle
-                    FROM   learningGroup l
-                    JOIN   EducationalResources e ON l.contentId = e.contentId
-                    JOIN   users u ON u.id = l.userId
-                    JOIN   GameContents g ON e.contentId = g.id
-                    WHERE u.id = #{id}
-                    AND   e.serviceType = 2
+                    <if test="userType != 3">
+                        UNION
+                        SELECT e.id, e.contentId, e.userId, e.title, e.resourceType, e.fileType, e.fileAddress, e.serviceType, e.content, e.image, e.readCount, e.createdAt, e.updatedAt, g.title as gameTitle
+                        FROM   learningGroup lg
+                        JOIN   EducationalResources e ON lg.contentId = e.contentId
+                        JOIN   GameContents g ON e.contentId = g.id
+                        WHERE  lg.userid = #{id}
+                        AND    e.serviceType = 2
+                    </if>
+                    <if test="userType == 3">
+                        UNION
+                        SELECT e.id, e.contentId, e.userId, e.title, e.resourceType, e.fileType, e.fileAddress, e.serviceType, e.content, e.image, e.readCount, e.createdAt, e.updatedAt, g.title as gameTitle
+                        FROM   learningGroup lg
+                        JOIN   EducationalResources e ON lg.contentId = e.contentId
+                        JOIN   GameContents g ON e.contentId = g.id
+                        JOIN   learningGroupMember lgm ON lgm.groupid = lg.id
+                        WHERE  lgm.userid = #{id}
+                        AND    e.serviceType = 2
+                        and    lgm.status = 0
+                    </if>
                 </if>
             </when>
             <otherwise>
@@ -57,7 +69,7 @@
             image = #{image}, createdAt = #{createdAt}, title = #{title},
             resourceType = #{resourceType}, fileType = #{fileType},
             fileAddress = #{fileAddress}, serviceType = #{serviceType},
-            content = #{content}
+            content = #{content}, updateDate = sysdate
         WHERE id = #{id}
     </update>
 
@@ -72,17 +84,23 @@
                     <if test="userType != 3">
                         UNION
                         SELECT e.id, e.contentId, e.userId, e.title, e.resourceType, e.fileType, e.fileAddress, e.serviceType, e.content, e.image, e.readCount, e.createdAt, e.updatedAt, g.title as gameTitle
-                        FROM   learningGroup l
-                        JOIN   EducationalResources e ON l.contentId = e.contentId
-                        JOIN   users u ON u.id = l.userId
+                        FROM   learningGroup lg
+                        JOIN   EducationalResources e ON lg.contentId = e.contentId
                         JOIN   GameContents g ON e.contentId = g.id
-                        WHERE  u.id = #{id}
+                        WHERE  lg.userid = #{id}
                         AND    e.serviceType = 2
+                        AND
                     </if>
                     <if test="userType == 3">
                         UNION
                         SELECT e.id, e.contentId, e.userId, e.title, e.resourceType, e.fileType, e.fileAddress, e.serviceType, e.content, e.image, e.readCount, e.createdAt, e.updatedAt, g.title as gameTitle
-
+                        FROM   learningGroup lg
+                        JOIN   EducationalResources e ON lg.contentId = e.contentId
+                        JOIN   GameContents g ON e.contentId = g.id
+                        JOIN   learningGroupMember lgm ON lgm.groupid = lg.id
+                        WHERE  lgm.userid = #{id}
+                        AND    e.serviceType = 2
+                        and    lgm.status = 0
                     </if>
                 </if>
             </when>
