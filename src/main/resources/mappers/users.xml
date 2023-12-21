@@ -104,4 +104,11 @@
         and phone = #{phone}
     </select>
 
+    <select id="passwordSearchByEmail" parameterType="Users" resultType="Users">
+        select password
+        from users
+        where nickname = #{nickname}
+          and email = #{email}
+    </select>
+
 </mapper>

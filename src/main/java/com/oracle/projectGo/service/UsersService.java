@@ -106,6 +106,11 @@ public class UsersService {
         Users idSearchByPhone = ud.idSearchByPhone(users);
         return idSearchByPhone;
     }
+
+    public Users passwordSearchByEmail(Users users) {
+        Users passwordSearchByEmail = ud.passwordSearchByEmail(users);
+        return passwordSearchByEmail;
+    }
     public String sendEmail(String userEmail) {
 
         String token = RandomStringUtils.randomNumeric(6);

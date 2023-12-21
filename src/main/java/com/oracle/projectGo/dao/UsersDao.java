@@ -108,4 +108,18 @@ public class UsersDao {
         }
         return getSearchUserList;
     }
+
+    public Users passwordSearchByEmail(Users users) {
+        log.info("UsersDao passwordSearchByEmail start");
+        Users passwordSearchByEmail = null;
+        try {
+            passwordSearchByEmail = session.selectOne("passwordSearchByEmail", users);
+
+        } catch (Exception e) {
+            log.info("UsersDao passwordSearchByEmail => " + e.getMessage());
+        }
+        return passwordSearchByEmail;
+    }
+
+
 }

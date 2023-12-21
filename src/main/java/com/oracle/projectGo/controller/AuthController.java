@@ -56,6 +56,34 @@ public class AuthController {
 
         return "auth/idSearchResult";
     }
+    @GetMapping("/passwordSearch")
+    public String passwordSearchForm() {
+        return "auth/passwordSearch";
+    }
+    @RequestMapping(value = "/passwordSearchResult")
+    public String passwordSearchResult(@ModelAttribute Users users , Model model) {
+
+        log.info("aaa");
+
+        try {
+            /*users.setName(name);
+            log.info("username = "+users.getName());
+            users.setPhone(phone);
+            log.info("userphone = "+ users.getPhone());*/
+
+            users = us.passwordSearchByEmail(users);
+
+            model.addAttribute("users", users);
+
+        } catch (Exception e){
+            log.info(e.getMessage());
+        }finally {
+
+
+        }
+
+        return "auth/passwordSearchResult";
+    }
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {

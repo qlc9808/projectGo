@@ -2,32 +2,48 @@ package com.oracle.projectGo.dao;
 
 import com.oracle.projectGo.dto.Payments;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class PaymentDao {
 
     private final SqlSession session;
+    private final PlatformTransactionManager transactionManager;
+
 // -----------------------------------------------------------
 
     // 결제하기 클릭 후 payments 테이블에 insert
     public int subscribePayInsert(Payments payments) {
         int subscribePayInsert = 0;
+        TransactionStatus txStatus =
+                transactionManager.getTransaction(new DefaultTransactionDefinition());
         try {
+
             subscribePayInsert = session.insert("subscribePayInsert", payments);
+            log.info("subscribePayInsert =  "+ subscribePayInsert);
 
-            //여기 추가 user status add 예정
-
+            //결제하면 Users Table에 Qualification도 동시 업데이트
+            subscribePayInsert = session.update("userQualificationUpdate", payments);
+            log.info("subscribePayInsert =  "+ subscribePayInsert);
+            transactionManager.commit(txStatus);
 
             System.out.println("PaymentDao subscribePayInsert-> " + subscribePayInsert);
         }catch (Exception e){
             System.out.println("PaymentDao subscribePayInsert e-> " + e);
+            transactionManager.rollback(txStatus);
+            subscribePayInsert = -1;
         }
+        log.info("subscribePayInsert =  "+ subscribePayInsert);
         return subscribePayInsert;
     }
 
