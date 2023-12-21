@@ -48,7 +48,6 @@
             justify-content: space-around;
             align-items: center;
         }
-
     </style>
 </head>
 <body>
