@@ -15,8 +15,8 @@
         <div id="main-content" class="container p-5 col-10">
             <%-- 이곳에 작성을 해주세요 --%>
 
-            <h3>결제 선택 방법</h3>
-            <h6>모바일에서도 신용카드, 무통장 입금 등 결제가 가능합니다.</h6><hr>
+            <h5>결제 선택 방법</h5>
+            <p>모바일에서도 신용카드, 무통장 입금 등 결제가 가능합니다.</p><hr>
 
             <form action="/subscribe/subscribePay" method="post">
                 <div id="confirmation"></div>

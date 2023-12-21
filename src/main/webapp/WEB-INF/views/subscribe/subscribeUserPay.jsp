@@ -36,7 +36,7 @@
                         <tr>
                             <td>${my.rn}</td>
                             <td><img id="gameImg" alt="UpLoad Image" src="${pageContext.request.contextPath}/upload/gameContents/${my.imageName}"></td>
-                            <td>${my.discountPrice} / ${my.subscribeDate}개월</td>
+                            <td>${my.discountPrice}원 / ${my.subscribeDate}개월</td>
                             <td>${my.purchaseDate}</td>
                             <td>${my.name}</td>
                         </tr>

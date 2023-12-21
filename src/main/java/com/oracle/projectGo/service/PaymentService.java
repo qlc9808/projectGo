@@ -16,13 +16,13 @@ public class PaymentService {
 // -----------------------------------------------------------
 
     // 결제하기 클릭 후 payments 테이블에 insert
-//    @Transactional
+    @Transactional
     public void subscribePayInsert(Payments payments) {
             try {
                 int subscribePayInsert  = pd.subscribePayInsert(payments);
-                System.out.println("PaymentDao subscribePayInsert-> " + subscribePayInsert);
+                System.out.println("PaymentService subscribePayInsert-> " + subscribePayInsert);
             }catch (Exception e){
-                System.out.println("PaymentDao subscribePayInsert e-> " + e);
+                System.out.println("PaymentService subscribePayInsert e-> " + e);
             }
         }
 
@@ -38,12 +38,9 @@ public class PaymentService {
     // 내가 구독한 게임 컨텐츠 리스트 조회
     public List<Payments> mySubscribePayList(Payments payments) {
 
-        // 구매 기간 선택해서 조회
-
-
         // 내가 구독한 게임 컨텐츠 리스트 조회
         List<Payments> mySubscribePayList = pd.mySubscribePayList(payments);
-        System.out.println("PaymentService mySubscribePayList-> " + mySubscribePayList);
+        System.out.println("PaymentService mySubscribePayList.size()-> " + mySubscribePayList.size());
 
         return mySubscribePayList;
     }

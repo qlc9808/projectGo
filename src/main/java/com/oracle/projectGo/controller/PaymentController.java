@@ -124,7 +124,6 @@ public class PaymentController {
         redirectAttributes.addAttribute("loginUserId", loginUserId);
 
         return "redirect:/subscribe/subscribeUserPay";
-       // return "redirect:/subscribe/subscribeUserPay={loginUserId}";   -------------> 사용 안해도 되는 것 같음
     }
 
 //-----------------------------------------------------------------
