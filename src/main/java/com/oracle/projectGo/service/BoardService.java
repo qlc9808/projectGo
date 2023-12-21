@@ -202,4 +202,26 @@ public class BoardService {
         return listSearchNotice;
 
     }
+
+    public void commentInsert(Board board) {
+
+        boardDao.commentInsert(board);
+
+    }
+
+
+    public List<Board> commentDetail(int id) {
+        List<Board> comments = boardDao.commentDetail(id);
+        return comments;
+    }
+
+    public int totalSearchQNA(Board board) {
+        int totalSearchQNA = boardDao.totalSearchQNA(board);
+        return totalSearchQNA;
+    }
+
+    public List<Board> listSearchQNA(Board board) {
+        List<Board> listSearchQNA = boardDao.listSearchQNA(board);
+        return listSearchQNA;
+    }
 }

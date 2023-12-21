@@ -13,7 +13,7 @@
 
     <%@ include file="/WEB-INF/components/Header.jsp"%>
 
-    <title>Title</title>
+    <title>noticeList</title>
 </head>
 <body>
     <%@ include file="/WEB-INF/components/TopBar.jsp"%>
@@ -82,7 +82,7 @@
                                 <td>${notice.userId}</td>
                                 <td><fmt:formatDate value="${notice.createdAt}" type="date" pattern="YY/MM/dd"/></td>
                                 <td>${notice.readCount}</td>
-                                <td>???</td>
+                                <td>${notice.commentStep}</td>
 
                             </tr>
                             <c:set var="num" value="${num + 1}"/>

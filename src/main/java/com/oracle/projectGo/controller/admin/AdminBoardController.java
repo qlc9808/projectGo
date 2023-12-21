@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -81,9 +78,14 @@ public class AdminBoardController {
 
 
 			boardService.increaseReadCount(id); // 조회수 증가
+			List<Board> comments = boardService.commentDetail(id);
+
+
 			model.addAttribute("board", board);
 			model.addAttribute("currentPage", currentPage);
 			model.addAttribute("fileAddress", board.getFileAddress());
+			model.addAttribute("comments", comments);
+
 			log.info("[{}]:{}", "fileAddress", board.getFileAddress());
 
 		} catch (Exception e) {
@@ -169,7 +171,9 @@ public class AdminBoardController {
 	}
 
 	@RequestMapping(value = "noticeUpdate")
-	public String noticeUpdate(Board board, String currentPage, Model model) {
+	public String noticeUpdate(@ModelAttribute Board board, @RequestParam("publishDate") String publishDateStr,
+							   @RequestParam("publishOption") String publishOption, @RequestParam("isPinned") boolean isPinned,
+							   @RequestParam("file") MultipartFile file, Model model) {
 
 		board.setBoardType("1");
 		int id = board.getId();
@@ -177,11 +181,33 @@ public class AdminBoardController {
 		log.info("id->"+id);
 
 		try {
-			log.info("[{}]:{}", "admin noticeUpdate", "start");
-			int result = boardService.noticeUpdate(board);
+			Timestamp createdAt;
+			if ("immediate".equals(publishOption)) {
+				createdAt = Timestamp.valueOf(LocalDateTime.now());
+			} else {
+				createdAt = Timestamp.valueOf(LocalDateTime.parse(publishDateStr, DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+			}
+			board.setCreatedAt(createdAt);
 
-			model.addAttribute("currentPage", currentPage);
-			model.addAttribute("id", id);
+			if (!file.isEmpty()) {
+				// 파일을 파일시스템에 저장
+				String fileName = file.getOriginalFilename();
+				String absolutePath = new File(uploadDirectory).getAbsolutePath();
+				Path path = Paths.get(absolutePath, fileName);
+				file.transferTo(path.toFile());
+
+				// 파일 경로를 Board에 설정
+				board.setFilePath(path.toString());
+				board.setFileName(fileName);
+
+				// 파일 URL 생성. 실제 서비스에서는 적절한 URL로 변경해야 합니다.
+				String fileAddress = "http://localhost:8585/file/" + file.getOriginalFilename();
+				board.setFileAddress(fileAddress);  // Board 클래스에 setFileAddress 메서드가 필요합니다.
+			}
+
+			board.setIsPinned(isPinned);
+			board.setBoardType("1");
+
 		} catch (Exception e) {
 			log.error("[{}]:{}", "admin noticeUpdate", e.getMessage());
 		} finally {
@@ -221,8 +247,9 @@ public class AdminBoardController {
 		} finally {
 			log.info("[{}]:{}", "admin noticeDelete", "end");
 		}
-		return "forward:admin/notice/notice";
+		return "redirect:/admin/board/noticeBoardList";
 	}
+
 
 	@RequestMapping(value = "noticeSearch")
 	public String noticeSearch(Board board, Integer pageSize, String currentPage, Model model, HttpServletRequest request) {
@@ -274,7 +301,12 @@ public class AdminBoardController {
 
 
 	@RequestMapping(value = "/QNABoardList")
-	public String QNABoardList(int pageSize, Board board, String currentPage, Model model) {
+	public String QNABoardList(Integer pageSize, Board board, String currentPage, Model model) {
+
+		if (pageSize == null) {
+			pageSize = 10; // 기본값 설정
+		}
+		log.info("PageSize: " + pageSize);
 
 		try {
 			log.info("[{}]:{}", "Noticeboard", "start");
@@ -306,6 +338,8 @@ public class AdminBoardController {
 
 	@RequestMapping(value = "QNADetail")
 	public String QNADetail(int id, String currentPage, Model model) {
+
+		boardService.increaseReadCount(id);
 
 		try {
 			log.info("[{}]:{}", "admin QNADetail", "start");
@@ -409,6 +443,54 @@ public class AdminBoardController {
 			log.info("[{}]:{}", "admin noticeDelete", "end");
 		}
 		return "forward:admin/qna/qna";
+	}
+
+	@RequestMapping(value = "QNASearch")
+	public String QNASearch(Board board, Integer pageSize, String currentPage, Model model, HttpServletRequest request) {
+		try {
+			log.info("[{}]:{}", "admin noticeSearch", "start");
+			int totalSearchQNA = boardService.totalSearchQNA(board);
+
+			if (pageSize == null) {
+				pageSize = 10; // 기본값 설정
+			}
+
+
+			int path = 1;
+			String keyword = request.getParameter("keyword");
+			String title = request.getParameter("title");
+			String userId = request.getParameter("userId");
+			String content = request.getParameter("content");
+			String searchType = request.getParameter("searchType");
+
+
+
+			BoardPaging page = new BoardPaging(totalSearchQNA, currentPage, pageSize);
+			board.setStart(page.getStart());
+			board.setEnd(page.getEnd());
+			board.setSearchType(searchType);
+
+
+			List<Board> listSearchQNA = boardService.listSearchQNA(board);
+
+
+			model.addAttribute("totalQNAboard", totalSearchQNA);
+			model.addAttribute("listQNABoard", listSearchQNA);
+			model.addAttribute("page", page);
+			model.addAttribute("path", path);
+			model.addAttribute("keyword", keyword);
+			model.addAttribute("title", title);
+			model.addAttribute("content", content);
+			model.addAttribute("userId", userId);
+
+		} catch(Exception e){
+			log.error("[{}]:{}", "admin noticeSearch", e.getMessage());
+		} finally{
+			log.info("[{}]:{}", "admin notice", "end");
+		}
+		return "admin/qna/qna";
+
+
 	}
 
 	@RequestMapping(value = "/FAQBoardList")
@@ -549,6 +631,22 @@ public class AdminBoardController {
 		return "forward:admin/faq/faq";
 	}
 
+
+
+	@RequestMapping(value = "/sitemap")
+	public String sitemap(Model model) {
+
+
+		try {
+			log.info("[{}]:{}", "admin sitemap", "start");
+
+		} catch (Exception e) {
+			log.error("[{}]:{}", "admin sitemap", e.getMessage());
+		} finally {
+			log.info("[{}]:{}", "admin sitemap", "end");
+		}
+		return "sitemap/sitemap";
+	}
 	// 댓글 기능 form Logic
 	@RequestMapping(value = "/commentInsertForm")
 	public String commentInsertForm(int id, int userId, Model model) {
@@ -565,24 +663,30 @@ public class AdminBoardController {
 		model.addAttribute("board", boards);
 		model.addAttribute("userId", userId);
 
-		return "board/commentInsertForm";
+		return "admin/notice/commentInsertForm";
 	}
 
 	// 댓글 기능 생성 Logic
-	/*@RequestMapping(value = "/commentInsert")
-	public String commentInser(Board board, Model model) {
+	@RequestMapping(value = "/commentInsert")
+	public String commentInsert(Board board, Model model) {
 
-		log.info("BoardController commentInser boardId : {} ", board.getId());
-		log.info("BoardController commentInser userId : {} ", board.getUserId());
-		log.info("BoardController commentInser userId : {} ", board.getContent());
 
-		boardS	ervice.commentInsert(board);
+
+		boardService.commentInsert(board);
+		board.setUserId(1);
+		board.setCommentGroupId(board.getId());
+
+		log.info("BoardController commentInsert boardId : {} ", board.getId());
+		log.info("BoardController commentInsert userId : {} ", board.getUserId());
+		log.info("BoardController commentInsert Content : {} ", board.getContent());
+		log.info("BoardController commentInsert CommentGroupId : {} ", board.getCommentGroupId());
 
 		model.addAttribute("id", board.getCommentGroupId());
-		model.addAttribute("userId", board.getUser_id());
+		model.addAttribute("userId", board.getUserId());
 
-		return "redirect:/boardDetail?id=" + board.getComment_group_id() + "&userId=" + board.getUser_id();
-	}*/
+		return "redirect:noticeDetail?id=" + board.getCommentGroupId();
+	}
+
 
 
 

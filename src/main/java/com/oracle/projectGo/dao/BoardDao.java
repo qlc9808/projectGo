@@ -306,4 +306,74 @@ public class BoardDao {
         }
         return listSearchNotice;
     }
+
+    public void commentInsert(Board board) {
+        log.info("BoardDao commentInsert Start!!");
+
+        commentShape(board);
+
+        int commentGroupId = board.getCommentGroupId();
+        int commentStep =  board.getCommentStep();
+        int commentIndent = board.getCommentIndent();
+
+        board.setCommentGroupId(commentGroupId);
+        board.setCommentStep(commentStep + 1);
+        board.setCommentIndent(commentIndent + 1);
+
+        log.info("BoardDao commentInsert getId : {}", board.getId());
+        log.info("BoardDao commentInsert getUserId : {}", board.getUserId());
+        log.info("BoardDao commentInsert getCommentGroupId : {}", commentGroupId);
+        log.info("BoardDao commentInsert getCommentStep : {}", commentStep);
+        log.info("BoardDao commentInsert getCommentIndent : {}", commentIndent);
+
+        session.insert("commentInsert", board);
+
+    }
+
+    private void commentShape(Board board) {
+        log.info("BoardDao commentShape Start!!");
+
+        int comment_group_id = 0;
+        int comment_step = 0;
+
+        comment_group_id = board.getCommentGroupId();
+        comment_step = board.getCommentStep();
+
+        log.info("BoardDao commentInsert comment_group_id : {}", comment_group_id);
+        log.info("BoardDao commentInsert comment_step : {}", comment_step);
+
+        session.update("commentInsertTest", board);
+
+    }
+
+
+        public List<Board> commentDetail(int id) {
+            List<Board> comments = session.selectList("commentDetail", id);
+            log.info("BoardDao comments size : {}", comments.size());
+            return comments;
+        }
+
+    public int totalSearchQNA(Board board) {
+        int totalSearchQNA = 0;
+        try {
+            totalSearchQNA = session.selectOne("totalSearchQNA",board);
+            log.info("noticeDaoImpl totalSearchQNA()->"+totalSearchQNA);
+        } catch (Exception e) {
+            log.info("noticeDaoImpl totalSearchQNA ->"+e.getMessage() );
+        }
+        return totalSearchQNA;
+    }
+
+    public List<Board> listSearchQNA(Board board) {
+        List<Board> listSearchQNA = null;
+
+        try {
+            listSearchQNA = session.selectList("listSearchQNA",board);
+            log.info("listSearchQNADaoImpl listSearchExperience() => " + listSearchQNA.size());
+
+        } catch (Exception e) {
+            log.info("listSearchQNADaoImpl listSearchExperience() => " + e.getMessage());
+        }
+        return listSearchQNA;
+    }
 }

@@ -18,7 +18,7 @@ public class Board {
 
     private int    commentGroupId;  // 댓글그룹
     private int    commentIndent;   // 댓글밀기
-    private String commentStep;     // 댓글최신
+    private int    commentStep;     // 댓글최신
     private Date   createdAt;       // 생성일
     private Date   updateAt;        // 수정일
 

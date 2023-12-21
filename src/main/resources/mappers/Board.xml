@@ -46,7 +46,8 @@
 
     <update id="noticeUpdate" parameterType="Board">
         UPDATE board
-        SET title = #{title}, content = #{content}, status = #{status}
+        SET title = #{title}, content = #{content}, status = #{status}, fileName = #{fileName} ,
+            fileSize =  #{fileSize},  filePath = #{filePath}, createdAt = #{createdAt}, isPinned = #{isPinned}, fileAddress = #{fileAddress}
         WHERE id = #{id}
     </update>
 
@@ -61,7 +62,7 @@
     </update>
 
     <delete id="noticeDelete" parameterType="int">
-        update board
+        delete board
         where  id = #{id}
     </delete>
 
@@ -153,6 +154,51 @@
         where  id = #{id}
     </delete>
 
+    <select id="totalSearchQNA" parameterType="board" resultType="int">
+        SELECT count(*)
+        FROM  board
+        WHERE  boardType = 3
+        <if test="searchType == 'title'">
+            AND title like '%' || #{keyword} || '%'
+        </if>
+        <if test="searchType == 'content'">
+            AND content like '%' || #{keyword} || '%'
+        </if>
+        <if test="searchType == 'userId'">
+            AND userId like '%' || #{keyword} || '%'
+        </if>
+        <if test="searchType == 'title_content'">
+            AND (title like '%' || #{keyword} || '%' OR content like '%' || #{keyword} || '%')
+        </if>
+    </select>
+
+    <select id="listSearchQNA" parameterType="board"  resultType="board">
+
+        SELECT *
+        FROM (
+        SELECT ROWNUM RN, C.*
+        FROM (
+        SELECT A.*
+        FROM BOARD A
+        WHERE boardType = 3
+        <if test="searchType == 'title'">
+            AND title like '%' || #{keyword} || '%'
+        </if>
+        <if test="searchType == 'content'">
+            AND content like '%' || #{keyword} || '%'
+        </if>
+        <if test="searchType == 'userId'">
+            AND userId like '%' || #{keyword} || '%'
+        </if>
+        <if test="searchType == 'title_content'">
+            AND (title like '%' || #{keyword} || '%' OR content like '%' || #{keyword} || '%')
+        </if>
+        ORDER BY A.isPinned DESC, A.createdAt DESC
+        ) C
+        )
+        where rn BETWEEN #{start} and #{end}
+    </select>
+
     <select id="FAQboardCount" resultType="int">
         SELECT COUNT(*)
         FROM BOARD
@@ -195,6 +241,33 @@
         update board
         where  id = #{id}
     </delete>
+
+    <update id="commentInsertTest">
+        update board
+        set commentStep = commentStep + 1
+        where commentGroupId = #{commentGroupId}
+          and commentStep > #{commentStep}
+    </update>
+
+    <insert id="commentInsert" parameterType="Board">
+        <selectKey keyProperty="id" resultType="integer" order="BEFORE">
+            select board_id_seq.nextval from dual
+        </selectKey>
+        insert into board (id, userId, title, content, readCount, commentGroupId,
+        commentStep, commentIndent, createdAt)
+        values(#{id}, #{userId}, #{title}, #{content}, 0, #{commentGroupId}, #{commentStep}, #{commentIndent},
+        sysdate)
+    </insert>
+
+
+
+    <select id="commentDetail" parameterType="int" resultType="Board">
+        select id, title, content, commentGroupId, commentStep, commentIndent
+        from board
+        where commentGroupId = #{id}
+          and commentIndent >= 0
+        order by commentStep
+    </select>
 
 
 

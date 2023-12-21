@@ -52,7 +52,7 @@
                 </div>
                 <div class="collapse navbar-collapse justify-content-center " id="navbarSupportedContent">
                     <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link app-nav-link" href="/festival">이용안내</a></li>
+                        <li class="nav-item"><a class="nav-link app-nav-link" href="/admin/board/sitemap">이용안내</a></li>
                         <li class="nav-item"><a class="nav-link app-nav-link" href="/subscribe/subscribeView">구독서비스</a></li>
                         <li class="nav-item"><a class="nav-link app-nav-link" href="/learning/signUpLearningGroup">학습서비스</a></li>
                         <li class="nav-item"><a class="nav-link app-nav-link" href="/group/listLearningContent">교육자마당</a></li>
