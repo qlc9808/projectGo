@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
@@ -56,5 +57,30 @@ private final UsersService us;
         return "admin/user/userList";
     }
 
+    @GetMapping("userDetail/{id}")
+    public String userDetail(Model model, Users users, @PathVariable int id) {
+        UUID transactionId = UUID.randomUUID();
 
+        try {
+            users.setId(id);
+            log.info("[{}]{}:{}", transactionId, "userList", "start");
+
+            Users userDetail = us.getUserById(users);
+            int buyCount = us.getBuyCount(id);
+            log.info("buyCount = "+ buyCount);
+
+            log.info("userDetail = "+ userDetail);
+            if (userDetail == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "상세정보가 없습니다");
+            }
+            model.addAttribute("userDetail", userDetail);
+            model.addAttribute("buyCount", buyCount);
+
+        } catch (Exception e) {
+            log.error("[{}]{}:{}", transactionId, "userDetail", e.getMessage());
+        } finally {
+            log.info("[{}]{}:{}", transactionId, "userDetail", "end");
+        }
+        return "admin/user/userDetail";
+    }
 }

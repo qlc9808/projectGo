@@ -138,4 +138,16 @@ public class UsersService {
         return getSearchUserList;
 
     }
+
+    public Users getUserById(Users users) {
+        Users getUserById = null;
+        getUserById = ud.getUserById(users);
+        return getUserById;
+    }
+
+    public int getBuyCount(int id) {
+        int getBuyCount = 0;
+        getBuyCount = ud.getBuyCount(id);
+        return getBuyCount;
+    }
 }

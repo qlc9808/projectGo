@@ -25,8 +25,8 @@
                     <h1>이메일 인증 </h1>
                 </div>
                 <div class="justify-content-center pb-1" align="center">
-                    <p>입력하신 내용이 회원정보와 일치하면 <br>
-                        해당하는 아이디를 확인하실 수 있습니다.</p>
+                    <p>입력하신 EMAIL에 전송된 인증코드를 입력하시면 <br>
+                        회원가입페이지로 이동합니다.</p>
                 </div>
                 <hr>
                 <div class="justify-content-start pb-3">

@@ -95,7 +95,11 @@
         where email = #{email}
     </select>
 
-
+    <select id="getUserById" parameterType="Users" resultType="Users">
+        select *
+        from users
+        where id = #{id}
+    </select>
 
     <select id="idSearchByPhone" parameterType="Users" resultType="Users">
         select nickname
@@ -109,6 +113,12 @@
         from users
         where nickname = #{nickname}
           and email = #{email}
+    </select>
+
+    <select id="getBuyCount" parameterType="int" resultType="int">
+        select count(*)
+        from payments
+        where userid = #{id}
     </select>
 
 </mapper>

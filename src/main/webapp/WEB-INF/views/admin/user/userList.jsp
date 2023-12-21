@@ -4,6 +4,17 @@
     <%@ include file="/WEB-INF/components/Header.jsp"%>
     <title>Title</title>
 </head>
+<script type="text/javascript">
+    window.onload = function() {
+        var table = document.getElementById("userTable"); // 여기에 실제 테이블의 id를 적어주세요
+        for (var i = 0; i < table.rows.length; i++) {
+            table.rows[i].ondblclick = function() { // onclick -> ondblclick
+                var id = this.id;
+                window.open('userDetail/' + id, 'User Detail', 'width=920,height=250,left=' + (screen.width/2 - 300) + ',top=' + (screen.height/2 - 300)); // 팝업창 설정
+            };
+        }
+    }
+</script>
 <style>
     th, td { text-align: center; }
 </style>
@@ -94,7 +105,7 @@
                     <tbody>
                     <c:set var="num" value="${page.start}"/>
                     <c:forEach var="user" items="${listUsers}" varStatus="st">
-                        <tr id="user${st.index}">
+                        <tr id="${user.id}">
 
                             <td>
                                 <c:choose>

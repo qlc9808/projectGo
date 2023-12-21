@@ -122,4 +122,28 @@ public class UsersDao {
     }
 
 
+    public Users getUserById(Users users) {
+        log.info("UsersDao getUserById start");
+        Users getUserById = null;
+        try {
+            getUserById = session.selectOne("getUserById", users);
+
+        } catch (Exception e) {
+            log.info("UsersDao getUserById => " + e.getMessage());
+        }
+        return getUserById;
+
+    }
+
+    public int getBuyCount(int id) {
+        log.info("UsersDao getBuyCount start");
+        int getBuyCount = 0;
+        try {
+            getBuyCount = session.selectOne("getBuyCount", id);
+
+        } catch (Exception e) {
+            log.info("UsersDao getBuyCount => " + e.getMessage());
+        }
+        return getBuyCount;
+    }
 }
