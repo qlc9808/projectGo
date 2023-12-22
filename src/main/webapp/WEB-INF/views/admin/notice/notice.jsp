@@ -7,7 +7,13 @@
         function changePageSize() {
             var pageSize = document.getElementById("pageSize").value;
             document.cookie = "pageSize=" + pageSize;
-            location.href = "noticeBoardList?pageSize=" + pageSize; // 현재 URL을 수정해야 합니다.
+
+            // Get the search type and keyword values
+            var searchType = document.getElementById("searchType").value;
+            var keyword = document.getElementsByName("keyword")[0].value.toLowerCase(); // 대소문자 구분 없이 검색
+
+            // Modify the URL with case-insensitive search parameters
+            location.href = "noticeBoardList?pageSize=" + pageSize + "&searchType=" + searchType + "&keyword=" + keyword;
         }
     </script>
     <style>

@@ -271,7 +271,7 @@ public class AdminBoardController {
 
 
 				int path = 1;
-				String keyword = request.getParameter("keyword");
+				String keyword = request.getParameter("keyword").toLowerCase();
 				String title = request.getParameter("title");
 				String userId = request.getParameter("userId");
 				String content = request.getParameter("content");

@@ -70,46 +70,45 @@
     <select id="totalSearchnotice" parameterType="board" resultType="int">
         SELECT count(*)
         FROM  board
-        WHERE  boardType = 1
+        WHERE boardType = 1
         <if test="searchType == 'title'">
-            AND title like '%' || #{keyword} || '%'
+            AND REGEXP_LIKE(title, #{keyword}, 'i')
         </if>
         <if test="searchType == 'content'">
-            AND content like '%' || #{keyword} || '%'
+            AND REGEXP_LIKE(content, #{keyword}, 'i')
         </if>
         <if test="searchType == 'userId'">
-            AND userId like '%' || #{keyword} || '%'
+            AND REGEXP_LIKE(userId, #{keyword}, 'i')
         </if>
         <if test="searchType == 'title_content'">
-            AND (title like '%' || #{keyword} || '%' OR content like '%' || #{keyword} || '%')
+            AND (REGEXP_LIKE(title, #{keyword}, 'i') OR REGEXP_LIKE(content, #{keyword}, 'i'))
         </if>
     </select>
 
-    <select id="listSearchNotice" parameterType="board"  resultType="board">
-
+    <select id="listSearchNotice" parameterType="board" resultType="board">
         SELECT *
         FROM (
-        SELECT ROWNUM RN, C.*
+        SELECT ROWNUM RN, C.*, board_Group_cnt(C.id) commentCount
         FROM (
         SELECT A.*
         FROM BOARD A
         WHERE boardType = 1
         <if test="searchType == 'title'">
-            AND title like '%' || #{keyword} || '%'
+            AND REGEXP_LIKE(title, #{keyword}, 'i')
         </if>
         <if test="searchType == 'content'">
-            AND content like '%' || #{keyword} || '%'
+            AND REGEXP_LIKE(content, #{keyword}, 'i')
         </if>
         <if test="searchType == 'userId'">
-            AND userId like '%' || #{keyword} || '%'
+            AND REGEXP_LIKE(userId, #{keyword}, 'i')
         </if>
         <if test="searchType == 'title_content'">
-            AND (title like '%' || #{keyword} || '%' OR content like '%' || #{keyword} || '%')
+            AND (REGEXP_LIKE(title, #{keyword}, 'i') OR REGEXP_LIKE(content, #{keyword}, 'i'))
         </if>
-        ORDER BY A.isPinned DESC, A.createdAt DESC
+        ORDER BY A.createdAt DESC
         ) C
         )
-        where rn BETWEEN #{start} and #{end}
+        WHERE RN BETWEEN #{start} AND #{end}
     </select>
 
     <select id="QNAboardCount" resultType="int">
