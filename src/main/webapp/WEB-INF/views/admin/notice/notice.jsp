@@ -44,6 +44,17 @@
             margin-left: -20px;
             padding-right: 0;
         }
+        .p-4 {
+            width : 1600px;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        .table-responsive {
+            width : 1350px;
+            margin-left: -50px;
+        }
+
+
 
 
 
@@ -94,8 +105,8 @@
             </div>
     </div>
 
-            <div class="container table-container p-4">
-                <div class="table-responsive">
+        <div class="container table-container p-4">
+            <div class="table-responsive">
                     <table id="userTable" class="table table-md text-center p-3">
                         <thead>
                         <h1>공지 리스트</h1>

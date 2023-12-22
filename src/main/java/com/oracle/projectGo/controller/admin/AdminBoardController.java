@@ -369,6 +369,8 @@ public class AdminBoardController {
 	@RequestMapping(value = "/QNAInsert")
 	public String QNAInsert(Board board, Model model) {
 
+		board.setUserId(1);
+
 		try {
 			log.info("[{}]:{}", "admin QNAInsert", "start");
 
@@ -381,11 +383,13 @@ public class AdminBoardController {
 			log.info("[{}]:{}", "admin QNAInsert", "end");
 		}
 
-		return "redirect:/admin/board/qna";
+		return "redirect:/admin/board/QNABoardList";
 	}
 
 	@RequestMapping(value = "/QNAInsertForm")
-	public String QNAInsertForm(Model model) {
+	public String QNAInsertForm(Board board, Model model) {
+
+		board.setUserId(1);
 
 
 		try {
@@ -452,7 +456,7 @@ public class AdminBoardController {
 		} finally {
 			log.info("[{}]:{}", "admin noticeDelete", "end");
 		}
-		return "forward:admin/qna/qna";
+		return "redirect:/admin/board/QNABoardList";
 	}
 
 	@RequestMapping(value = "QNASearch")

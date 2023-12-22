@@ -84,8 +84,8 @@
                     <label for="scheduled">원하는 날짜에 등록</label>
                 </div>
 
-                <label for="publishDate">게시일자</label>
-                <input type="datetime-local" id="publishDate" name="publishDate"><!-- 게시일자 입력 필드 추가 -->
+                <label for="publishDate" style="display: none;" id="publishDateLabel">게시일자</label>
+                <input type="datetime-local" id="publishDate" name="publishDate" style="display: none;"><!-- 게시일자 입력 필드 추가 -->
 
                 <div id="drop_zone" style="width: 300px; height: 200px; border: 1px solid black;">파일을 여기에 드래그하세요.(최대 30MB)</div>
                 <button id="uploadBtn" type="button">파일 선택 및 업로드</button>
@@ -101,9 +101,14 @@
     $(document).ready(function() {
         $('input[type=radio][name=publishOption]').change(function () {
             if (this.value == 'scheduled') {
-                $('#publishDate').prop('disabled', false);
+                // 라디오 버튼이 '원하는 날짜에 게시'에 체크되면 '게시일자' 입력 필드와 라벨을 보여줌
+                $('#publishDate').prop('disabled', false).show();
+                $('#publishDateLabel').show();
+                alert('이 경우 해당 글을 게시일까지 삭제 및 수정 할 수 없습니다'); // 알림창 띄우기
             } else if (this.value == 'immediate') {
-                $('#publishDate').prop('disabled', true);
+                // 라디오 버튼이 '즉시 등록'에 체크되면 '게시일자' 입력 필드와 라벨을 다시 숨김
+                $('#publishDate').prop('disabled', true).hide();
+                $('#publishDateLabel').hide();
             }
         });
 

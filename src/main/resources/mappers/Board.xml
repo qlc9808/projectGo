@@ -151,7 +151,7 @@
     </select>
 
     <delete id="QNADelete" parameterType="int">
-        update board
+        delete board
         where  id = #{id}
     </delete>
 
