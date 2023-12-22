@@ -60,7 +60,6 @@
         function uploadEdu() {
             window.location.href = '/admin/resource/uploadForm';
         }
-        var contextPath = "${pageContext.request.contextPath}";
     </script>
 
 

@@ -33,17 +33,26 @@
                 <%@ include file="/WEB-INF/components/LearningSidebar.jsp"%>
             </div>
             <div id="main-content" class="container p-5 col-10">
-                <h1 style="text-align: center; font-weight: bold;">학습그룹 가입신청</h1>
-                <div class="container my-4 py-3">
-                    <div class="sign-grid1" id="grid1" style="width: 1200px; height: 1000px;"></div>
-                </div>
+                <c:if test="${users.userType != '3'}">
+                    <h1 style="text-align: center; font-weight: bold;">학습그룹 가입신청</h1>
+                    <div class="container my-4 py-3" style="width: 1060px;">
+                </c:if>
+                <c:if test="${users.userType == '3'}">
+                    <h1 style="text-align: center; font-weight: bold;">학습그룹 가입신청</h1>
+                    <div class="container my-4 py-3" style="width: 1170px;">
+                </c:if>
+                        <div id="grid1"></div>
+                <c:if test="${users.userType == '3'}">
+                    </div>
+                </c:if>
+                <c:if test="${users.userType != '3'}">
+                    </div>
+                </c:if>
             </div>
         </div>
     </main>
         <%@ include file="/WEB-INF/components/Footer.jsp"%>
     <script src="/js/learning/signUpLearningGroup.js"></script>
-    <script>
-        var contextPath = "${pageContext.request.contextPath}";
-    </script>
+
 </body>
 </html>

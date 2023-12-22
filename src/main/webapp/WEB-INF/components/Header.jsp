@@ -30,5 +30,8 @@
 ></script>
 <!-- jQuery 라이브러리 불러오기 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    var contextPath = "${pageContext.request.contextPath}";
+</script>
 <link href="/css/global.css" rel="stylesheet" type="text/css">
 

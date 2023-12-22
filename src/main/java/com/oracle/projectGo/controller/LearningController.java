@@ -25,7 +25,10 @@ public class LearningController {
     private final UsersService usersService;
 
     @RequestMapping("/signUpLearningGroup")
-    public String test(){
+    public String signUpLearningGroup(Model model){
+        Users users = usersService.getLoggedInUserInfo();
+        model.addAttribute("users", users);
+
         return "learning/signUpLearningGroup";
     }
 

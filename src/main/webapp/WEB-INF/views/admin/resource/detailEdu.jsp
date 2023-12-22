@@ -13,7 +13,6 @@
                 <%@ include file="/WEB-INF/components/AdminSidebar.jsp"%>
             </div>
             <div id="main-content" class="container p-5 col-10">
-                <h1 style="text-align: center;">학습자료상세</h1>
                 <div class="container border my-4 py-3">
                     <div class="detailEdu-header">
                         <div class="detailEdu-title">
@@ -27,11 +26,11 @@
                     </div>
                     <div class="detailEdu-body">
                         <div class="detailEdu-source">
-                            <iframe width="888" height="480" src="https://www.youtube.com/embed/bxhNCYw3shY" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            <iframe width="1120" height="680" src="https://www.youtube.com/embed/bxhNCYw3shY" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                         </div>
                         <br>
                         <div class="detailEdu-textarea">
-                            <span class="contents">${edu.content}</span>
+                            <span class="contents" style="white-space: pre-line;">${edu.content}</span>
                         </div>
 
 

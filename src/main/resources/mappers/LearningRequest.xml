@@ -35,4 +35,8 @@
               AND lgm.groupid = lg.id
         )
     </select>
+    <select id="bringImage" resultType="GameContents">
+        SELECT *
+        FROM   gameContents
+    </select>
 </mapper>

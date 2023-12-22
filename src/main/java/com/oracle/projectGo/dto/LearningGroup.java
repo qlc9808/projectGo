@@ -31,6 +31,7 @@ public class LearningGroup {
     private String  content;                // 게임 패키지 내용
     private Date    createdAt;        // 구독시작 날짜
     private Date    updatedAt;          // 구독종료 날짜
+    private String  image;
 
     private String  userName;               // 교육자명
 

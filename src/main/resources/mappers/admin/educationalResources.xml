@@ -69,7 +69,7 @@
             image = #{image}, createdAt = #{createdAt}, title = #{title},
             resourceType = #{resourceType}, fileType = #{fileType},
             fileAddress = #{fileAddress}, serviceType = #{serviceType},
-            content = #{content}, updateDate = sysdate
+            content = #{content}, UPDATEDAT = sysdate
         WHERE id = #{id}
     </update>
 

@@ -17,7 +17,7 @@ function learningGroupList() {
             gridData = learningGroupList.map(function (item) {
                 return {
                     id: item.id,
-                    imageName: item.imageName,
+                    image: item.image,
                     name: item.name,
                     userName: item.userName,
                     groupSize: item.groupSize,
@@ -54,12 +54,13 @@ function learningGroupList() {
                 },
                 {
                     header: '썸네일',
-                    name: 'imageName',
+                    name: 'image',
                     align: 'center',
                     width: 100,
                     formatter: function(cellData) {
+                        console.log(contextPath);
                         var value = cellData.value;
-                        return '<img src="' + contextPath + '/upload/educationalResources/' + value +'" style="width: 50px; height: 50px;">';
+                        return '<img src="' + contextPath + '/upload/gameContents/' + value +'" style="width: 50px; height: 50px;">';
                     }
                 },
                 {
@@ -107,7 +108,7 @@ function learningGroupList() {
             if (userType === '3') {
                 console.log(userType);
                 columns.push({
-                    header: '',
+                    header: '가입신청',
                     name: '',
                     align: 'center',
                     width: 100,
@@ -115,8 +116,8 @@ function learningGroupList() {
                         const id = row.id;
                         const name = row.name;
                         switch (row.applied) {
-                            case 1: return `<button class="myButton" id="requestSignUp-${id}" style="border-radius: 10px; width: 80px; height: 55px; background: rgba(70, 70, 255, 0.78); color: white;" onclick="requestSignUp(${id}, '${name}')">신청</button>`;
-                            case 2: return `<button class="myButton" id="cancelSignUp-${id}" style="border-radius: 10px; width: 80px; height: 55px; background: rgba(70, 70, 255, 0.78); color: white;" onclick="cancelSignUp(${id}, '${name}')">취소</button>`;
+                            case 1: return `<button class="myButton" id="requestSignUp-${id}" style="border-radius: 10px; width: 60px; height: 35px; background: rgba(50,111,232,0.78); color: white;" onclick="requestSignUp(${id}, '${name}')">신청</button>`;
+                            case 2: return `<button class="myButton" id="cancelSignUp-${id}" style="border-radius: 10px; width: 60px; height: 35px; background: rgba(50,111,232,0.78); color: white;" onclick="cancelSignUp(${id}, '${name}')">취소</button>`;
                             case 3: return `신청불가`;
                             case 4: return `신청완료`;
                             case 5: return `정원초과`;

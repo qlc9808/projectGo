@@ -1,5 +1,6 @@
 package com.oracle.projectGo.dao;
 
+import com.oracle.projectGo.dto.GameContents;
 import com.oracle.projectGo.dto.LearningGroup;
 import com.oracle.projectGo.dto.LearningGroupMember;
 import lombok.RequiredArgsConstructor;
@@ -40,5 +41,9 @@ public class LearningRequestDao {
 
     public List<LearningGroup> overLimit() {
         return session.selectList("overLimit");
+    }
+
+    public List<GameContents> bringImage() {
+        return session.selectList("bringImage");
     }
 }

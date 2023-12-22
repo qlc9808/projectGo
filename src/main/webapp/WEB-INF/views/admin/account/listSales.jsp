@@ -28,8 +28,8 @@
         height: 700px;
     }
     .btnSaleSearch {
-        border-radius: 5px;
-        background: rgba(70, 70, 255, 0.78);
+        border-radius: 3px;
+        background: rgba(50,111,232,0.78);
         color: white;
     }
     .btnSaleSearch:hover {
@@ -68,7 +68,7 @@
                         </select>
 
                         검색:&nbsp;&nbsp;
-                        <input type="text" name="keyword" id="keyword" style="border-radius: 5px;">
+                        <input type="text" name="keyword" id="keyword" style="border-radius: 3px;">
                         <button class="btnSaleSearch" id="btnSearch2" onclick="search()">조회</button>
                     </div>
                 </div>
