@@ -224,4 +224,9 @@ public class BoardService {
         List<Board> listSearchQNA = boardDao.listSearchQNA(board);
         return listSearchQNA;
     }
+
+    public int getCommentCountForBoard(int id) {
+        int getCommentCountForBoard = boardDao.getCommentCountForBoard(id);
+        return getCommentCountForBoard(id);
+    }
 }

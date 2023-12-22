@@ -97,6 +97,15 @@
         </li>
         <li class="nav-item my-page-nav-item">
             <div>
+                <a href="/admin/board/FAQBoardList"
+                   class="nav-link my-page-nav-link px-3 ">
+                    <i class="title-bi bi bi-chat-square-dots-fill px-3"></i>
+                    FAQ
+                </a>
+            </div>
+        </li>
+        <li class="nav-item my-page-nav-item">
+            <div>
                 <a href="/admin/account/listSales"
                    class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi bi-graph-up-arrow px-3"></i>

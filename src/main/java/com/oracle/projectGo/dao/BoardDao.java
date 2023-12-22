@@ -376,4 +376,8 @@ public class BoardDao {
         }
         return listSearchQNA;
     }
+
+    public int getCommentCountForBoard(int id) {
+            return session.selectOne("getCommentCountForBoard", id);
+        }
 }

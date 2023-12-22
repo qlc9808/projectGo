@@ -3,35 +3,138 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>QNA 상세</title>
+    <%@ include file="/WEB-INF/components/Header.jsp"%>
+    <style>
+        .main-container {
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            margin-top: 50px;
+        }
+        .post-controls {
+            display: flex;
+            justify-content: flex-start; /* 왼쪽 정렬 */
+            font-size: 0.8rem; /* 폰트 크기를 작게 조정 */
+        }
+
+        .post-controls button, .post-controls a {
+            margin-right: 10px; /* 버튼 사이의 간격 조정 */
+        }
+    </style>
+    <title>Title</title>
 </head>
 <body>
-<form action="QNAUpdate" method="post">
-    <h1>${board.title}</h1>
-    <p>작성일: ${board.createdAt}</p>
-    <p>조회수: ${board.readCount}</p>
-    <p>${board.content}</p>
 
-    <button type="button" class="form-control btn btn-primary2 w-100" onclick="location.href='/admin/board/noticeUpdateForm?id=${board.id}&currentPage=${currentPage}'">수정하기</button>
-    <a href="#" onclick="deleteNotice('${board.id}', '${currentPage}')">삭제</a>
-</form>
-<form name="updateForm">
-    <input type="hidden" name="target_id" value="${board.id}">
-    <input type="hidden" name="title" id="${board.title}">
-    <input type="hidden" name="content" id="${board.content}">
-    <input type="hidden" name="content" id="${board.createdAt}">
+<%@ include file="/WEB-INF/components/TopBar.jsp"%>
+<main>
+    <%@ include file="/WEB-INF/components/AdminSidebar.jsp"%>
 
-</form>
+    <form action="QNAUpdate" method="post">
 
-<script>
-    function deleteNotice(id, currentPage) {
-        if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
-            location.href=`noticeDelete?id=${board.id}&currentPage=${currentPage}`;
-        }
-    }
-</script>
+        <div class="container main-container">
+            <div class="post-content">
+                <h1>${board.title}</h1>
+                <p>작성자ID : ${board.userId}</p>
+                <p>작성일 : <fmt:formatDate value="${board.createdAt}" type="date" pattern="YY/MM/dd"/></p>
+                <p>조회수: ${board.readCount}</p>
+                <p>${board.content}</p>
+            </div>
 
+            <div class="post-controls">
+                <button type="button" class="btn btn-primary2" onclick="location.href='/admin/board/QNABoardList'">목록으로</button>
+                <button type="button" class="btn btn-primary2" onclick="location.href='/admin/board/QNAUpdateForm?id=${board.id}&currentPage=${currentPage}'">수정하기</button>
+                <button type="button" class="btn btn-danger" onclick="deleteQNA('${board.id}', '${currentPage}')">삭제</button>
+            </div>
+        </div>
+    </form>
+    <form name="updateForm">
+        <input type="hidden" name="target_id" value="${board.id}">
+        <input type="hidden" name="title" id="${board.title}">
+        <input type="hidden" name="content" id="${board.content}">
+        <input type="hidden" name="content" id="${board.createdAt}">
+
+    </form>
+    <c:choose>
+        <c:when test="${board.boardType eq 3 }">
+            <div class="container p-3 comment-custom">
+                <div class="row row-cols-1 align-items-start">
+
+                    <div class="col">
+                        <!-- input 영역 -->
+                        <div class="container p-0">
+                            <form action="commentInsert" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="id" value="${board.id }">
+                                <!-- 사용자 ID 대신 고정 값인 1 사용 -->
+                                <input type="hidden" name="userId" value="1">
+                                <input type="hidden" name="commentGroupId" value="${board.id}">
+                                <input type="hidden" name="commentStep" value="${board.commentStep }">
+                                <input type="hidden" name="commentIndent" value="${board.commentIndent }">
+
+                                <div class="form-group col comment-input" style="width: 100%; height: 200px;">
+                                    <input type="text" class="form-control" style="width: 100%; height: 100%;" name="content" placeholder="답변을 입력하세요.">
+                                </div>
+
+                                <div class="form-group col comment-btn">
+                                    <c:choose>
+                                        <c:when test="${board.userId != 0 }">
+                                            <button type="submit" class="btn btn_detail_custom">등록</button>
+                                        </c:when>
+                                    </c:choose>
+                                </div>
+                            </form>
+                            <!-- input 영역 END -->
+                        </div>
+
+                        <!-- 대댓글 출력  -->
+                        <div class="container p-3 comments-custom">
+                            <c:forEach var="comments" items="${comments }">
+                                <div class="row row-cols-2 align-items-start">
+                                    <div class="col comments-nickname">
+                                        <p>${comments.id }</p>
+                                    </div>
+
+                                    <div class="col comments-content" style="width: 100%; height: 200px;">
+                                        <p class="d-inline-flex gap-1" style="width: 100%; height: 100%;">
+                                            <c:forEach begin="2" end="${comments.commentIndent }">└▶</c:forEach>
+                                            <button class="btn" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapseExample${comments.id}"
+                                                    aria-expanded="false" aria-controls="collapseExample"
+                                                    style="width: 100%; text-align: left;">
+                                                    ${comments.content }
+                                            </button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:when>
+    </c:choose>
+</main>
 </body>
 </html>
+
+<script>
+    function deleteQNA(id, currentPage) {
+        if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
+            location.href=`QNADelete?id=${board.id}&currentPage=${currentPage}`;
+        }
+    }
+    $.ajax({
+        type: "POST",
+        url: "commentInsert",
+        data: $("#commentGroupId").serialize(),
+        success: function(response){
+            // 댓글이 성공적으로 등록되면, 버튼을 숨김
+            if(response.status == 'success'){
+                $('.btn_detail_custom').hide();
+            }
+        }
+    });
+</script>
+
 
 

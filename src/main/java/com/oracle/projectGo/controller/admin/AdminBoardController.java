@@ -41,26 +41,33 @@ public class AdminBoardController {
 		log.info("PageSize: " + pageSize);
 
 		try {
-			log.info("[{}]:{}", "Noticeboard", "start");
+            log.info("[{}]:{}", "Noticeboard", "start");
 
-			int path = 0;
+            int path = 0;
 
-			int totalnoticeboard = boardService.totalnoticeboard();
+            int totalnoticeboard = boardService.totalnoticeboard();
 
-			BoardPaging page = new BoardPaging(totalnoticeboard, currentPage, pageSize);
-			board.setStart(page.getStart());
-			board.setEnd(page.getEnd());
+            BoardPaging page = new BoardPaging(totalnoticeboard, currentPage, pageSize);
+            board.setStart(page.getStart());
+            board.setEnd(page.getEnd());
+
+            List<Board> listnoticeBoard = boardService.listnoticeBoard(board);
+
+            /*for (Board notice : listnoticeBoard) {
+                int commentCount = boardService.getCommentCountForBoard(notice.getId());
+                notice.setCommentCount(commentCount);
+            }*/
 
 
-			List<Board> listnoticeBoard = boardService.listnoticeBoard(board);
+            listnoticeBoard = boardService.listnoticeBoard(board);
 
-			model.addAttribute("pageSize", pageSize);
-			model.addAttribute("totalnoticeboard", totalnoticeboard);
-			model.addAttribute("listnoticeBoard", listnoticeBoard);
-			model.addAttribute("page", page);
-			model.addAttribute("path", path);
+            model.addAttribute("pageSize", pageSize);
+            model.addAttribute("totalnoticeboard", totalnoticeboard);
+            model.addAttribute("listnoticeBoard", listnoticeBoard);
+            model.addAttribute("page", page);
+            model.addAttribute("path", path);
 
-		} catch (Exception e) {
+        } catch (Exception e) {
 			log.error("[{}]:{}", "Noticeboard", e.getMessage());
 		} finally {
 			log.info("[{}]:{}", "Noticeboard", "end");
@@ -79,6 +86,7 @@ public class AdminBoardController {
 
 			boardService.increaseReadCount(id); // 조회수 증가
 			List<Board> comments = boardService.commentDetail(id);
+			board.setCommentCount(board.getCommentCount());
 
 
 			model.addAttribute("board", board);
@@ -340,6 +348,7 @@ public class AdminBoardController {
 	public String QNADetail(int id, String currentPage, Model model) {
 
 		boardService.increaseReadCount(id);
+		List<Board> comments = boardService.commentDetail(id);
 
 		try {
 			log.info("[{}]:{}", "admin QNADetail", "start");
@@ -347,6 +356,7 @@ public class AdminBoardController {
 
 			model.addAttribute("board", board);
 			model.addAttribute("currentPage", currentPage);
+			model.addAttribute("comments", comments);
 
 		} catch (Exception e) {
 			log.error("[{}]:{}", "admin QNADetail", e.getMessage());
@@ -510,8 +520,8 @@ public class AdminBoardController {
 			List<Board> listFAQBoard = boardService.listFAQBoard(board);
 
 
-			model.addAttribute("totalFNAboard", totalFAQboard);
-			model.addAttribute("listFNABoard", listFAQBoard);
+			model.addAttribute("totalFAQboard", totalFAQboard);
+			model.addAttribute("listFAQBoard", listFAQBoard);
 			model.addAttribute("page", page);
 			model.addAttribute("path", path);
 
@@ -672,9 +682,10 @@ public class AdminBoardController {
 
 
 
-		boardService.commentInsert(board);
+
 		board.setUserId(1);
 		board.setCommentGroupId(board.getId());
+		boardService.commentInsert(board);
 
 		log.info("BoardController commentInsert boardId : {} ", board.getId());
 		log.info("BoardController commentInsert userId : {} ", board.getUserId());

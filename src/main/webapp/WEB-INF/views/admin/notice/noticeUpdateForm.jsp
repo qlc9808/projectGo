@@ -4,6 +4,56 @@
     <%@ include file="/WEB-INF/components/Header.jsp"%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>수정</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        #drop_zone {
+            margin-top: 20px;
+            padding: 10px;
+            text-align: center;
+            width: 500px;
+            height: 200px;
+            border: 1px solid black;
+        }
+
+        #uploadBtn {
+            display: block;
+            margin-top: 20px;
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
@@ -11,38 +61,35 @@
     <%@ include file="/WEB-INF/components/AdminSidebar.jsp"%>
     <div class="container col-9 justify-content-center align-items-center mb-2 p-3 pt-0">
         <div class="container table-container p-4">
+            <form action="noticeUpdate?id=${board.id}&currentPage=${currentPage}" method="post" enctype="multipart/form-data">
+                <H1>수정등록</H1>
 
 
-    <form action="noticeUpdate?id=${board.id}&currentPage=${currentPage}" method="post" enctype="multipart/form-data">
-    <H1>수정등록</H1>
+                <label for="title">제목</label>
+                <input type="text" id="title" name="title" value="${board.title}" required>
 
+                <label for="content">내용</label>
+                <textarea id="content" name="content" required>${board.content}</textarea>
 
-    <label for="title">제목</label>
-    <input type="text" id="title" name="title" value="${board.title}" required>
+                <input type="hidden" id="isPinnedHidden" name="isPinned" value="${board.isPinned}">
+                <input type="checkbox" id="isPinned" name="isPinned">
+                <label for="isPinned">상단에 고정</label>
 
-    <label for="content">내용</label>
-    <textarea id="content" name="content" required>${board.content}</textarea>
+                <input type="radio" id="immediate" name="publishOption" value="immediate" checked>
+                <label for="immediate">즉시 등록</label>
 
-    <input type="hidden" id="isPinnedHidden" name="isPinned" value="${board.isPinned}">
-    <input type="checkbox" id="isPinned" name="isPinned">
-    <label for="isPinned">상단에 고정</label>
+                <input type="radio" id="scheduled" name="publishOption" value="scheduled">
+                <label for="scheduled">원하는 날짜에 등록</label>
 
-    <input type="radio" id="immediate" name="publishOption" value="immediate" checked>
-    <label for="immediate">즉시 등록</label>
+                <label for="publishDate">게시일자</label>
+                <input type="datetime-local" id="publishDate" name="publishDate">
 
-    <input type="radio" id="scheduled" name="publishOption" value="scheduled">
-    <label for="scheduled">원하는 날짜에 등록</label>
+                <div id="drop_zone">파일을 여기에 드래그하세요.(최대 30MB)</div>
+                <button id="uploadBtn" type="button">파일 선택 및 업로드</button>
+                <input type="file" id="file" name="file" multiple style="display: none;">
 
-    <label for="publishDate">게시일자</label>
-    <input type="datetime-local" id="publishDate" name="publishDate">
-
-    <div id="drop_zone" style="width: 500px; height: 200px; border: 1px solid black;">파일을 여기에 드래그하세요.(최대 30MB)</div>
-    <button id="uploadBtn" type="button">파일 선택 및 업로드</button>
-    <input type="file" id="file" name="file" multiple style="display: none;">
-
-    <input type="submit" value="수정">
-</form>
-
+                <input type="submit" value="수정">
+            </form>
         </div>
     </div>
 </main>

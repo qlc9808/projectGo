@@ -4,17 +4,63 @@
     <%@ include file="/WEB-INF/components/Header.jsp"%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        #drop_zone {
+            margin-top: 20px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #uploadBtn {
+            display: block;
+            margin-top: 20px;
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
-    <%@ include file="/WEB-INF/components/Sidebar.jsp"%>
+    <%@ include file="/WEB-INF/components/AdminSidebar.jsp"%>
     <div class="container col-9 justify-content-center align-items-center mb-2 p-3 pt-0">
         <div class="container table-container p-4">
             <body>
             <form action="noticeInsert" method="post" enctype="multipart/form-data">
-                <H1>개시등록</H1>
-
+                <H1>공지 등록</H1>
 
                 <label for="title">제목</label>
                 <input type="text" id="title" name="title" required>
@@ -22,15 +68,21 @@
                 <label for="content">내용</label>
                 <textarea id="content" name="content" required></textarea>
 
-                <input type="hidden" id="isPinnedHidden" name="isPinned" value="0">
-                <input type="checkbox" id="isPinned" name="isPinned">
-                <label for="isPinned">상단에 고정</label>
+                <div style="display: flex; align-items: center;">
+                    <input type="hidden" id="isPinnedHidden" name="isPinned" value="0">
+                    <input type="checkbox" id="isPinned" name="isPinned">
+                    <label for="isPinned">상단에 고정</label>
+                </div>
 
-                <input type="radio" id="immediate" name="publishOption" value="immediate" checked>
-                <label for="immediate">즉시 등록</label>
+                <div style="display: flex; align-items: center;">
+                    <input type="radio" id="immediate" name="publishOption" value="immediate" checked>
+                    <label for="immediate">즉시 등록</label>
+                </div>
 
-                <input type="radio" id="scheduled" name="publishOption" value="scheduled">
-                <label for="scheduled">원하는 날짜에 등록</label>
+                <div style="display: flex; align-items: center;">
+                    <input type="radio" id="scheduled" name="publishOption" value="scheduled">
+                    <label for="scheduled">원하는 날짜에 등록</label>
+                </div>
 
                 <label for="publishDate">게시일자</label>
                 <input type="datetime-local" id="publishDate" name="publishDate"><!-- 게시일자 입력 필드 추가 -->

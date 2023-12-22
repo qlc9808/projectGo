@@ -16,11 +16,13 @@ public class Board {
     private String status;          // 상태 공개:1, 비공개:0
     private int    readCount;       // 조회수
 
+
     private int    commentGroupId;  // 댓글그룹
     private int    commentIndent;   // 댓글밀기
     private int    commentStep;     // 댓글최신
     private Date   createdAt;       // 생성일
     private Date   updateAt;        // 수정일
+    private int    commentCount;    // 댓글 수
 
     /* 페이지 처리 */
     private String pageNum;
