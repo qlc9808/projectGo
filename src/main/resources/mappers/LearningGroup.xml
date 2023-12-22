@@ -207,4 +207,18 @@
         ORDER BY lg.id desc
     </select>
 
+    <select id="signUpLearningGroup2" resultType="LearningGroup">
+        SELECT   lg.id, lg.contentId, lg.userId, lg.name, TO_CHAR(lg.startdate, 'YYYY-MM-DD') as startdate, TO_CHAR(lg.enddate, 'YYYY-MM-DD') as enddate, lg.groupSize, lg.etc1, lg.etc2, g.imageName, g.imagePath, u.name as userName, g.title
+        FROM     LearningGroup lg
+        JOIN     Users u ON lg.userId = u.id
+        JOIN     GameContents g ON lg.contentId = g.id
+        <if test="category == '교육자명'">
+            WHERE    u.name like #{value}
+        </if>
+        <if test="category == '그룹명'">
+            WHERE lg.name like #{value}
+        </if>
+        ORDER BY lg.id desc
+    </select>
+
 </mapper>

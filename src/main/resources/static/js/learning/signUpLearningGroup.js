@@ -5,10 +5,14 @@ document.addEventListener("DOMContentLoaded", function (){
     learningGroupList();
 })
 
-function learningGroupList() {
+function learningGroupList(value, category) {
     $.ajax({
         url: "/learning/api/signUpLearningGroup",
         method: "GET",
+        data: {
+          value: value,
+          category: category
+        },
         success: function (response) {
             let learningGroupList = response.learningGroupList;
             let userType = response.userType;
@@ -108,7 +112,7 @@ function learningGroupList() {
             if (userType === '3') {
                 console.log(userType);
                 columns.push({
-                    header: '가입신청',
+                    header: '상태',
                     name: '',
                     align: 'center',
                     width: 100,
@@ -116,8 +120,8 @@ function learningGroupList() {
                         const id = row.id;
                         const name = row.name;
                         switch (row.applied) {
-                            case 1: return `<button class="myButton" id="requestSignUp-${id}" style="border-radius: 10px; width: 60px; height: 35px; background: rgba(50,111,232,0.78); color: white;" onclick="requestSignUp(${id}, '${name}')">신청</button>`;
-                            case 2: return `<button class="myButton" id="cancelSignUp-${id}" style="border-radius: 10px; width: 60px; height: 35px; background: rgba(50,111,232,0.78); color: white;" onclick="cancelSignUp(${id}, '${name}')">취소</button>`;
+                            case 1: return `<button class="myButton" id="requestSignUp-${id}" style="border-radius: 10px; width: 40px; height: 35px; background: #0C4DA2; color: white;" onclick="requestSignUp(${id}, '${name}')">신청</button>`;
+                            case 2: return `<button class="myButton" id="cancelSignUp-${id}" style="border-radius: 10px; width: 40px; height: 35px; background: #0C4DA2; color: white;" onclick="cancelSignUp(${id}, '${name}')">취소</button>`;
                             case 3: return `신청불가`;
                             case 4: return `신청완료`;
                             case 5: return `정원초과`;
@@ -191,4 +195,57 @@ function cancelSignUp(id, name) {
     }
 }
 
+function updateOptions(selectedValue) {
+    var slgSelected = document.getElementById('slg-selected');
 
+    // slg-selected의 기존 옵션을 모두 제거
+    while (slgSelected.firstChild) {
+        slgSelected.removeChild(slgSelected.firstChild);
+    }
+
+    if (selectedValue === '그룹명') {
+        $.ajax({
+            url: '/learning/api/selected?keyword='+selectedValue,
+            method: 'GET',
+            success: function (response) {
+                var groupNames = response.slg;
+
+                groupNames.forEach(function(groupName) {
+                    var option = document.createElement('option');
+                    option.text = groupName;
+                    slgSelected.add(option);
+                });
+            }
+        })
+
+    } else if (selectedValue === '교육자명') {
+        $.ajax({
+            url: '/learning/api/selected?keyword='+selectedValue,
+            method: 'GET',
+            success: function (response) {
+                var userNames = response.slg;
+
+                userNames.forEach(function(userName) {
+                    var option = document.createElement('option');
+                    option.text = userName;
+                    slgSelected.add(option);
+                });
+            }
+        })
+    }
+}
+
+// 'slg-select'의 변경을 감지
+document.getElementById('slg-select').addEventListener('change', function() {
+    updateOptions(this.value);
+});
+
+// 페이지 로드 시 '그룹명'에 해당하는 옵션을 'slg-selected'에 추가
+window.addEventListener('load', function() {
+    updateOptions('그룹명');
+});
+
+function slgsearch(selectedValue, category) {
+    grid.destroy();
+    learningGroupList(selectedValue, category);
+}

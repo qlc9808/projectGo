@@ -134,6 +134,9 @@ body {
     top: 10px; /* 텍스트를 10px 아래로 이동 */
 
 }
+#grid1 .tui-grid-cell-header {
+    background-color: #c7c7c7; /* 원하는 배경색으로 설정 */
+}
 
 .notification.show {
     opacity: 1;

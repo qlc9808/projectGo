@@ -36,4 +36,8 @@ public class LearningRequestService {
     public List<GameContents> bringImage() {
         return learningRequestDao.bringImage();
     }
+
+    public List<String> slgSelected(String keyword) {
+        return learningRequestDao.slgSelected(keyword);
+    }
 }

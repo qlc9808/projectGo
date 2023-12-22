@@ -31,15 +31,20 @@ public class LearningRestController {
 
     @GetMapping("/api/signUpLearningGroup")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> signUpLearningGroup() throws ParseException {
+    public ResponseEntity<Map<String, Object>> signUpLearningGroup(@RequestParam(required = false) String value,
+                                                                   @RequestParam(required = false) String category) throws ParseException {
         Map<String, Object> response = new HashMap<>();
         Users users = usersService.getLoggedInUserInfo();
         int userId = users.getId();
 
+
+
         LearningGroupMember learningGroupMember = new LearningGroupMember();
         learningGroupMember.setUserId(userId);
-
         List<LearningGroup> learningGroupList = learningGroupService.signUpLearningGroup();
+        if (value != null) {
+            learningGroupList = learningGroupService.signUpLearningGroup(value, category);
+        }
         List<LearningGroupMember> member = learningRequestService.remainRequest(learningGroupMember);
         List<LearningGroupMember> member2 = learningRequestService.remainRequest2(learningGroupMember);
         List<LearningGroup> overLimit = learningRequestService.overLimit();
@@ -130,6 +135,15 @@ public class LearningRestController {
 
         response.put("result", result);
 
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(value = "/api/selected")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> slgSelected(String keyword) {
+        Map<String, Object> response = new HashMap<>();
+        List<String> slgSelected = learningRequestService.slgSelected(keyword);
+        response.put("slg", slgSelected);
         return ResponseEntity.ok(response);
     }
 

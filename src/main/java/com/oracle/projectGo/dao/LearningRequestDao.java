@@ -46,4 +46,9 @@ public class LearningRequestDao {
     public List<GameContents> bringImage() {
         return session.selectList("bringImage");
     }
+
+    public List<String> slgSelected(String keyword) {
+        System.out.println(keyword);
+        return session.selectList("slgSelected", keyword);
+    }
 }

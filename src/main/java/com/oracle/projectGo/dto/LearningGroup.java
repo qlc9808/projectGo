@@ -57,4 +57,5 @@ public class LearningGroup {
     private int     studentCount;           // 그룹가입 학생 수
 
     private String keyword;
+    private String category;
 }

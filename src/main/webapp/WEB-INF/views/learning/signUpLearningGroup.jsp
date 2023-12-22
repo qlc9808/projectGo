@@ -33,14 +33,24 @@
                 <%@ include file="/WEB-INF/components/LearningSidebar.jsp"%>
             </div>
             <div id="main-content" class="container p-5 col-10">
+
                 <c:if test="${users.userType != '3'}">
                     <h1 style="text-align: center; font-weight: bold;">학습그룹 가입신청</h1>
                     <div class="container my-4 py-3" style="width: 1060px;">
                 </c:if>
                 <c:if test="${users.userType == '3'}">
                     <h1 style="text-align: center; font-weight: bold;">학습그룹 가입신청</h1>
-                    <div class="container my-4 py-3" style="width: 1170px;">
+                    <div class="container my-4 py-3" style="width: 1160px;">
                 </c:if>
+                    <select id="slg-select">
+                        <option>그룹명</option>
+                        <option>교육자명</option>
+                    </select>
+                    ㅡ
+                    <select id="slg-selected">
+                        <option></option>
+                    </select>
+                    <button onclick="slgsearch(document.getElementById('slg-selected').value, document.getElementById('slg-select').value)">조회하기</button>
                         <div id="grid1"></div>
                 <c:if test="${users.userType == '3'}">
                     </div>

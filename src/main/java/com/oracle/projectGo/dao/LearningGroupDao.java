@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -182,6 +183,18 @@ public class LearningGroupDao {
         return signUpLearningGroup;
     }
 
-
+    public List<LearningGroup> signUpLearningGroup(String value, String category) {
+        List<LearningGroup> signUpLearningGroup = null;
+        Map<String, Object> params = new HashMap<>();
+        params.put("value", value);
+        params.put("category", category);
+        try {
+            signUpLearningGroup = session.selectList("signUpLearningGroup2", params);
+            log.info(signUpLearningGroup.toString());
+        } catch (Exception e) {
+            log.info(e.getMessage());
+        }
+        return signUpLearningGroup;
+    }
 
 }

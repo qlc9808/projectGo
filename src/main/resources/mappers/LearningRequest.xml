@@ -39,4 +39,15 @@
         SELECT *
         FROM   gameContents
     </select>
+    <select id="slgSelected" parameterType="String" resultType="String">
+        <if test="keyword == '그룹명'">
+            SELECT   DISTINCT name
+            FROM     LearningGroup lg
+        </if>
+        <if test="keyword == '교육자명'">
+            SELECT DISTINCT u.name as userName
+            FROM LearningGroup lg
+            JOIN Users u ON lg.userId = u.id
+        </if>
+    </select>
 </mapper>

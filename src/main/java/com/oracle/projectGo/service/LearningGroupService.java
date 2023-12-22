@@ -126,6 +126,10 @@ public class LearningGroupService {
 
     public List<LearningGroup> signUpLearningGroup() {
         return groupDao.signUpLearningGroup();
+
+    }
+    public List<LearningGroup> signUpLearningGroup(String value, String category) {
+        return groupDao.signUpLearningGroup(value, category);
     }
 
 
