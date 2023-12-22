@@ -1,6 +1,7 @@
 package com.oracle.projectGo.service;
 
 import com.oracle.projectGo.dao.LearningRequestDao;
+import com.oracle.projectGo.dto.LearningGroup;
 import com.oracle.projectGo.dto.LearningGroupMember;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,9 @@ public class LearningRequestService {
 
     public List<LearningGroupMember> remainRequest2(LearningGroupMember learningGroupMember) {
         return learningRequestDao.remainRequest2(learningGroupMember);
+    }
+
+    public List<LearningGroup> overLimit() {
+        return learningRequestDao.overLimit();
     }
 }

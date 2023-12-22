@@ -28,6 +28,21 @@ function learningGroupList() {
                 };
             });
 
+            function BoldTextRenderer(props) {
+                var el = document.createElement('div');
+                el.innerHTML = props.value;
+                el.style.fontWeight = 'bold';
+                return {
+                    el: el,
+                    render: function(props) {
+                        this.el.innerHTML = props.value;
+                    },
+                    getElement: function() {
+                        return this.el;
+                    }
+                };
+            }
+
             let columns = [
                 {
                     header: 'NO',
@@ -52,7 +67,8 @@ function learningGroupList() {
                     name: 'name',
                     align: 'center',
                     width: 'auto',
-                    minWidth: 150
+                    minWidth: 150,
+                    renderer: BoldTextRenderer
                 },
                 {
                     header: '교육자명',
@@ -103,6 +119,7 @@ function learningGroupList() {
                             case 2: return `<button class="myButton" id="cancelSignUp-${id}" style="border-radius: 10px; width: 80px; height: 55px; background: rgba(70, 70, 255, 0.78); color: white;" onclick="cancelSignUp(${id}, '${name}')">취소</button>`;
                             case 3: return `신청불가`;
                             case 4: return `신청완료`;
+                            case 5: return `정원초과`;
                         }
                     }
                 });

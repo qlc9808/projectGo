@@ -1,5 +1,6 @@
 package com.oracle.projectGo.dao;
 
+import com.oracle.projectGo.dto.LearningGroup;
 import com.oracle.projectGo.dto.LearningGroupMember;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,5 +36,9 @@ public class LearningRequestDao {
 
     public List<LearningGroupMember> remainRequest2(LearningGroupMember learningGroupMember) {
         return session.selectList("remainRequest2", learningGroupMember);
+    }
+
+    public List<LearningGroup> overLimit() {
+        return session.selectList("overLimit");
     }
 }

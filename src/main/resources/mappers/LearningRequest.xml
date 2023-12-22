@@ -25,4 +25,14 @@
         WHERE  lgm.userId = #{userId}
         AND    lgm.status = 1
     </select>
+    <select id="overLimit" resultType="LearningGroup">
+        SELECT lg.*
+        FROM learninggroup lg
+        WHERE lg.groupsize = (
+            SELECT COUNT(*)
+            FROM learninggroupmember lgm
+            WHERE lgm.status = 1
+              AND lgm.groupid = lg.id
+        )
+    </select>
 </mapper>

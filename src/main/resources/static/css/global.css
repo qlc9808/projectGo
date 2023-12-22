@@ -124,6 +124,16 @@ body {
     text-align: center;
     z-index: 9999; /* 다른 요소 위에 표시되도록 z-index 설정 */
 }
+#grid1 .tui-grid-cell {
+    background-color: white;
+    border-bottom: 1px solid rgba(159, 159, 159, 0.56);
+}
+#grid1 .tui-page-btn {
+    text-align: center; /* 텍스트를 가운데 정렬 */
+    border-radius: 3px;
+    top: 10px; /* 텍스트를 10px 아래로 이동 */
+
+}
 
 .notification.show {
     opacity: 1;

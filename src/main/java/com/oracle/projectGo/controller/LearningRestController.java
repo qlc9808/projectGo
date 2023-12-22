@@ -41,10 +41,12 @@ public class LearningRestController {
         List<LearningGroup> learningGroupList = learningGroupService.signUpLearningGroup();
         List<LearningGroupMember> member = learningRequestService.remainRequest(learningGroupMember);
         List<LearningGroupMember> member2 = learningRequestService.remainRequest2(learningGroupMember);
+        List<LearningGroup> overLimit = learningRequestService.overLimit();
 
         for (int i = 0; i < learningGroupList.size(); i++) {
             if (member != null) {
                 learningGroupList.get(i).setApplied(1);
+
                 for (int j = 0; j < member.size(); j++) {
 
                     if(learningGroupList.get(i).getContentId() == member.get(j).getContentId()) {
@@ -59,6 +61,12 @@ public class LearningRestController {
                         learningGroupList.get(i).setApplied(4);
                     }
                 }
+                for (int j = 0; j < overLimit.size() ; j++) {
+                    if (overLimit.get(j).getGroupId() == learningGroupList.get(i).getGroupId()) {
+                        learningGroupList.get(i).setApplied(5);
+                    }
+                }
+
 
             }
         }

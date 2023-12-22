@@ -22,6 +22,7 @@
             background-color: rgba(90, 90, 255, 0.78); /* 배경색을 좀 더 밝은 파란색으로 변경 */
             border: 0px solid white; /* 테두리를 흰색으로 강조 */
         }
+
     </style>
 </head>
 <body>
@@ -34,7 +35,7 @@
             <div id="main-content" class="container p-5 col-10">
                 <h1 style="text-align: center; font-weight: bold;">학습그룹 가입신청</h1>
                 <div class="container my-4 py-3">
-                    <div id="grid1" style="width: 1200px; height: 1000px;"></div>
+                    <div class="sign-grid1" id="grid1" style="width: 1200px; height: 1000px;"></div>
                 </div>
             </div>
         </div>
