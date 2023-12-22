@@ -16,7 +16,6 @@ function learningGroupList(value, category) {
         success: function (response) {
             let learningGroupList = response.learningGroupList;
             let userType = response.userType;
-            let result = response.result;
 
             gridData = learningGroupList.map(function (item) {
                 return {
@@ -28,7 +27,9 @@ function learningGroupList(value, category) {
                     etc: item.etc1+"<br/>/"+"<br/>"+item.etc2,
                     startDate: item.startDate,
                     endDate: item.endDate,
-                    applied: item.applied
+                    applied: item.applied,
+                    value: item.value,
+                    category: item.category
                 };
             });
 
@@ -119,9 +120,11 @@ function learningGroupList(value, category) {
                     formatter: function ({row}) {
                         const id = row.id;
                         const name = row.name;
+                        const value = row.value;
+                        const category = row.category;
                         switch (row.applied) {
-                            case 1: return `<button class="myButton" id="requestSignUp-${id}" style="border-radius: 10px; width: 40px; height: 35px; background: #0C4DA2; color: white;" onclick="requestSignUp(${id}, '${name}')">신청</button>`;
-                            case 2: return `<button class="myButton" id="cancelSignUp-${id}" style="border-radius: 10px; width: 40px; height: 35px; background: #0C4DA2; color: white;" onclick="cancelSignUp(${id}, '${name}')">취소</button>`;
+                            case 1: return `<button class="myButton" id="requestSignUp-${id}" style="border-radius: 10px; width: 40px; height: 35px; background: #0C4DA2; color: white;" onclick="requestSignUp(${id}, '${name}', '${value}', '${category}')">신청</button>`;
+                            case 2: return `<button class="myButton" id="cancelSignUp-${id}" style="border-radius: 10px; width: 40px; height: 35px; background: #0C4DA2; color: white;" onclick="cancelSignUp(${id}, '${name}', '${value}', '${category}')">취소</button>`;
                             case 3: return `신청불가`;
                             case 4: return `신청완료`;
                             case 5: return `정원초과`;
@@ -146,7 +149,7 @@ function learningGroupList(value, category) {
     })
 }
 
-function requestSignUp(id, name) {
+function requestSignUp(id, name, value, category) {
     let confirmMessage = "그룹명 '" + name + "'에 그룹가입을 신청하시겠습니까?";
     if (confirm(confirmMessage)) {
         $.ajax({
@@ -162,6 +165,8 @@ function requestSignUp(id, name) {
                     button.textContent = '취소';
                     button.id = `cancelSignUp-${id}`;
                     button.setAttribute('onclick', `cancelSignUp(${id})`);
+                    grid.destroy();
+                    learningGroupList(value, category);
                 } else {
                     alert("신청실패..");
                 }
@@ -170,7 +175,7 @@ function requestSignUp(id, name) {
     }
 }
 
-function cancelSignUp(id, name) {
+function cancelSignUp(id, name, value, category) {
     let confirmMessage = "그룹명 '" + name + "'에 그룹가입신청을 취소하시겠습니까?";
     if (confirm(confirmMessage)) {
         $.ajax({
@@ -186,6 +191,8 @@ function cancelSignUp(id, name) {
                     button.textContent = '신청';
                     button.id = `requestSignUp-${id}`;
                     button.setAttribute('onclick', `requestSignUp(${id})`);
+                    grid.destroy();
+                    learningGroupList(value, category);
                 } else {
                     alert("신청취소실패..");
                 }
