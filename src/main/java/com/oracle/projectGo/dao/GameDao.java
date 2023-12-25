@@ -29,7 +29,7 @@ public class GameDao {
         return gameContentInsert;
     }
 
-    // 총 갯수
+    // 총 갯수(운영자 화면)
     public int gameContentsTotalCount() {
         System.out.println("GameDao gameContentsTotalCount Start !");
 
@@ -43,7 +43,7 @@ public class GameDao {
         return gameContentsTotalCount;
     }
 
-    // 리스트 조회
+    // 리스트 조회(운영자 화면)
     public List<GameContents> gameContentsList(GameContents gameContents) {
         System.out.println("GameDao gameContentsList Start !");
 
@@ -55,6 +55,36 @@ public class GameDao {
             System.out.println("GameDao gameContentsList Exception-> " + e);
         }
         return  gameContentsList;
+    }
+
+// -----------------------------------------------------------
+
+    // 총 갯수(리스트에서 구독할 컨텐츠 조회 페이지)
+    public int subscribeTotalCount() {
+        System.out.println("GameDao subscribeTotalCount Start !");
+
+        int subscribeTotalCount = 0;
+        try {
+            subscribeTotalCount = session.selectOne("subscribeTotalCount");
+            System.out.println("GameDao subscribeTotalCount-> " + subscribeTotalCount);
+        }catch(Exception e) {
+            System.out.println("GameDao subscribeTotalCount Exception-> " + e);
+        }
+        return subscribeTotalCount;
+    }
+
+    // 리스트 조회(리스트에서 구독할 컨텐츠 조회 페이지)
+    public List<GameContents> subscribeGameList(GameContents gameContents) {
+        System.out.println("GameDao subscribeGameList Start !");
+
+        List<GameContents> subscribeGameList = null;
+        try{
+            subscribeGameList = session.selectList("subscribeGameList", gameContents);
+            System.out.println("GameDao subscribeGameList.size()-> " + subscribeGameList.size());
+        }catch (Exception e){
+            System.out.println("GameDao subscribeGameList Exception-> " + e);
+        }
+        return  subscribeGameList;
     }
 
 // -----------------------------------------------------------
@@ -77,16 +107,50 @@ public class GameDao {
         return getGameContentsById;
     }
 
+    // 공개(0) -> 비공개(1)
+    public int deleteYes(GameContents gameContents) {
+        System.out.println("GameDao deleteYes Start !");
+
+        int deleteYes = 0;
+        try {
+            deleteYes = session.update("deleteYes", gameContents);
+            System.out.println("GameDao deleteYes-> " + deleteYes);
+        }catch (Exception e){
+            System.out.println("GameDao deleteYes Exception-> " + e);
+        }
+        return deleteYes;
+    }
+
+    // 게임테이블의 isDeleted = 1 이라면 공개로 변경하기 위한 체크
+    public int isDeletedCheck(GameContents gameContents) {
+        System.out.println("GameDao isDeletedCheck Start !");
+
+        int isDeletedCheck = 0;
+        try {
+            isDeletedCheck = session.selectOne("isDeletedCheck", gameContents);
+            System.out.println("GameDao isDeletedCheck-> " + isDeletedCheck);
+        }catch (Exception e){
+            System.out.println("GameDao isDeletedCheck Exception-> " + e);
+        }
+        return isDeletedCheck;
+    }
+
+    // 비공개(1) -> 공개(0)
+    public int deleteNo(GameContents gameContents) {
+        System.out.println("GameDao deleteNo Start !");
+
+        int deleteNo = 0;
+        try {
+            deleteNo = session.update("deleteNo", gameContents);
+            System.out.println("GameDao deleteNo-> " + deleteNo);
+        }catch (Exception e){
+            System.out.println("GameDao deleteNo Exception-> " + e);
+        }
+        return deleteNo;
+    }
+
     public List<GameContents> getSubscribedGameContents(int userId){
         return session.selectList("getSubscribedGameContents", userId);
     }
-
-
-
-
-
-
-
-
 
 }

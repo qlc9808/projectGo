@@ -43,11 +43,21 @@
               where  rn between #{start} and #{end}
     </select>
 
+
+    <!-- Payments 테이블에 gameContents의 id가 있는지 체크 -->
+    <select id="deleteCheck" parameterType="payments" resultType="int">
+        select  count(*)
+        from    payments
+        where   contentId = #{contentId}
+    </select>
+
+
     <update id="userQualificationUpdate" parameterType="payments">
         UPDATE users
         SET  Qualification=1
         WHERE id = #{userId}
     </update>
+
 
 
 </mapper>

@@ -22,7 +22,7 @@ public class GameService {
         return gameContentInsert;
     }
 
-    // 총 갯수
+    // 총 갯수(운영자 화면)
     public int gameContentsTotalCount() {
         System.out.println("ContentService gameContentsTotalCount Start !");
         int gameContentsTotalCount = gd.gameContentsTotalCount();
@@ -30,12 +30,30 @@ public class GameService {
         return gameContentsTotalCount;
     }
 
-    // 리스트 조회
+    // 리스트 조회(운영자 화면)
     public List<GameContents> gameContentsList(GameContents gameContents) {
         System.out.println("ContentService gameContentsList Start !");
         List<GameContents> gameContentsList = gd.gameContentsList(gameContents);
 
         return gameContentsList;
+    }
+
+//------------------------------------------------------
+
+    // 총 갯수(리스트에서 구독할 컨텐츠 조회 페이지)
+    public int subscribeTotalCount() {
+        System.out.println("ContentService subscribeTotalCount Start !");
+        int subscribeTotalCount = gd.subscribeTotalCount();
+
+        return subscribeTotalCount;
+    }
+
+    // 리스트 조회(리스트에서 구독할 컨텐츠 조회 페이지)
+    public List<GameContents> subscribeGameList(GameContents gameContents) {
+        System.out.println("ContentService subscribeGameList Start !");
+        List<GameContents> subscribeGameList = gd.subscribeGameList(gameContents);
+
+        return subscribeGameList;
     }
 
 //------------------------------------------------------
@@ -48,15 +66,32 @@ public class GameService {
         return getGameContentsById;
     }
 
+    // 공개(0) -> 비공개(1)
+    public int deleteYes(GameContents gameContents) {
+        System.out.println("ContentService deleteYes Start !");
+        int deleteYes = gd.deleteYes(gameContents);
+
+        return deleteYes;
+    }
+
+    // 게임테이블의 isDeleted = 1 이라면 공개로 변경하기 위한 체크
+    public int isDeletedCheck(GameContents gameContents) {
+        System.out.println("ContentService isDeletedCheck Start !");
+        int isDeletedCheck = gd.isDeletedCheck(gameContents);
+
+        return isDeletedCheck;
+    }
+
+    // 비공개(1) -> 공개(0)
+    public int deleteNo(GameContents gameContents) {
+        System.out.println("ContentService deleteNo Start !");
+        int deleteNo = gd.deleteNo(gameContents);
+
+        return deleteNo;
+    }
+
     public  List<GameContents> getSubscribedGameContents(int userId) {
         return gd.getSubscribedGameContents(userId);
     }
-
-
-
-
-
-
-
 
 }

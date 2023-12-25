@@ -34,23 +34,23 @@ public class PaymentController {
     @RequestMapping(value = "/subscribeView")
     public String gameSubscribe(String currentPage, Model model) {
 
-        // 총 갯수
-        int gameContentsTotalCount = gs.gameContentsTotalCount();
-        System.out.println("GameController gameContentsTotalCount-> " + gameContentsTotalCount);
+        // 총 갯수(리스트에서 구독할 컨텐츠 조회 페이지)
+        int subscribeTotalCount = gs.subscribeTotalCount();
+        System.out.println("GameController subscribeTotalCount-> " + subscribeTotalCount);
 
         // 페이징 작업
         GameContents gameContents = new GameContents();
-        Paging page = new Paging(gameContentsTotalCount, currentPage);
+        Paging page = new Paging(subscribeTotalCount, currentPage);
         gameContents.setStart(page.getStart());
         gameContents.setEnd(page.getEnd());
 
-        // 리스트 조회
-        List<GameContents> gameContentsList = gs.gameContentsList(gameContents);
-        System.out.println("GameController gameContentsList.size()-> " + gameContentsList.size());
+        // 리스트 조회(리스트에서 구독할 컨텐츠 조회 페이지)
+        List<GameContents> subscribeGameList = gs.subscribeGameList(gameContents);
+        System.out.println("GameController subscribeGameList.size()-> " + subscribeGameList.size());
 
-        model.addAttribute("gameContentsTotalCount", gameContentsTotalCount);
+        model.addAttribute("subscribeTotalCount", subscribeTotalCount);
         model.addAttribute("page", page);
-        model.addAttribute("gameContentsList", gameContentsList);
+        model.addAttribute("subscribeGameList", subscribeGameList);
 
         return "subscribe/subscribeView";
     }

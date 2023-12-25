@@ -23,6 +23,7 @@
         <div id="main-content" class="container p-5 col-10">
             <%-- 이곳에 작성을 해주세요 --%>
             <p>컨텐츠 조회 및 구독 신청</p>
+            <p>총 건수: ${subscribeTotalCount}</p>
 
             <form action="/subscribe/subscribeClick" method="post">
                 <table class="table table-bordered">
@@ -30,7 +31,7 @@
                         <th>구독</th> <th>No.</th> <th>콘텐츠 이미지</th> <th>가격 / 구독 기간(개월)</th> <th>상품 소개</th>
                     </tr>
 
-                    <c:forEach var="gameContent" items="${gameContentsList}">
+                    <c:forEach var="gameContent" items="${subscribeGameList}">
                         <tr id="gameContent${gameContent.rn}">
                             <td><input type="checkbox" name="gameIds" value="${gameContent.id}"></td>
                             <td>${gameContent.rn}</td>

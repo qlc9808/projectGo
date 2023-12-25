@@ -46,6 +46,15 @@ public class PaymentService {
         return mySubscribePayList;
     }
 
+    // Payments 테이블에 gameContents의 id가 있는지 체크
+    public int deleteCheck(Payments payments) {
+        int deleteCheck = pd.deleteCheck(payments);
+        System.out.println("PaymentService deleteCheck 갯수-> " + deleteCheck);
+
+        return deleteCheck;
+    }
+
+
 }
 
 

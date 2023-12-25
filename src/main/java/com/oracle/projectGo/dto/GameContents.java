@@ -36,6 +36,8 @@ public class GameContents {
 
     private int    discountPrice;       // 판매가
 
+    private String isDeleted;           // 삭제 (0: 삭제X, 1: 삭제)
+
     // 페이징 작업
     private int rn;
     private String search;   	private String keyword;

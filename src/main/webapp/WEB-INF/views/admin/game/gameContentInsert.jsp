@@ -25,7 +25,6 @@
         function calculateDiscountedPriceValue(price, discountRate){
             return price * (1 - discountRate / 100);
         }
-
     </script>
 </head>
 <body>

@@ -1,9 +1,11 @@
 package com.oracle.projectGo.controller;
 
 import com.oracle.projectGo.dto.GameContents;
+import com.oracle.projectGo.dto.Payments;
 import com.oracle.projectGo.dto.Users;
 import com.oracle.projectGo.service.GameService;
 import com.oracle.projectGo.service.Paging;
+import com.oracle.projectGo.service.PaymentService;
 import com.oracle.projectGo.service.UsersService;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,6 +42,7 @@ public class GameController {
 
     private final UsersService us;
     private final GameService gs;
+    private final PaymentService ps;
 //-----------------------------------------------------------------
     @RequestMapping(value = "gameContent")
     public String gameContent(){
@@ -105,25 +108,67 @@ public class GameController {
     @RequestMapping(value = "/gameContentSelect")
     public String gameSelect(String currentPage, Model model){
 
-        // 총 갯수
+        // 총 갯수(운영자 화면)
         int gameContentsTotalCount = gs.gameContentsTotalCount();
         System.out.println("GameController gameContentsTotalCount-> " + gameContentsTotalCount);
-        model.addAttribute("gameContentsTotalCount", gameContentsTotalCount);
 
         // 페이징 작업
         GameContents gameContents = new GameContents();
         Paging page = new Paging(gameContentsTotalCount, currentPage);
         gameContents.setStart(page.getStart());
         gameContents.setEnd(page.getEnd());
-        model.addAttribute("page", page);
 
-        // 리스트 조회
+        // 리스트 조회(운영자 화면)
         List<GameContents> gameContentsList = gs.gameContentsList(gameContents);
         System.out.println("GameController gameContentsList.size()-> " + gameContentsList.size());
+
+        model.addAttribute("gameContentsTotalCount", gameContentsTotalCount);
+        model.addAttribute("page", page);
         model.addAttribute("gameContentsList", gameContentsList);
 
         return "admin/game/gameContentSelect";
     }
+
+    // 사용자가 공개/비공개 설정
+    @ResponseBody
+    @RequestMapping(value = "deleteCheck")
+    public String deleteCheck(int id){
+        System.out.println("GameController deleteCheck Start");
+
+        Payments payments = new Payments();
+        payments.setContentId(id);
+        System.out.println("payments.getContentId()-> " + payments.getContentId());
+
+        GameContents gameContents = new GameContents();
+        gameContents.setId(id);
+        System.out.println("gameContents.getId()-> " + gameContents.getId());
+
+        // Payments 테이블에 gameContents의 id의 갯수로 존재 여부 체크
+        int deleteCheck = ps.deleteCheck(payments);
+        System.out.println("Payments 테이블에 존재여부 확인(1=존재, 0=존재안함)-> " + deleteCheck);
+
+        String result = "";
+        // 공개(0) -> 비공개(1)
+        if(deleteCheck == 0) {  // payments 테이블에 존재하지 않음
+            int deleteYes = gs.deleteYes(gameContents);
+            System.out.println("1이면 비공개 처리-> " + deleteYes);
+            result = "nondisclosure";
+        }
+
+        // 게임테이블의 isDeleted = 비공개(1) 이라면 공개로 변경하기 위한 체크
+        int isDeletedCheck = gs.isDeletedCheck(gameContents);
+        System.out.println("게임테이블의 isDeleted = 비공개(1) 이라면 공개로 변경하기 위한 체크-> " + isDeletedCheck);
+
+        // 비공개(1) -> 공개(0)
+        if(isDeletedCheck == 1){
+            int deleteNo = gs.deleteNo(gameContents);
+            System.out.println("1이면 공개 처리-> " + deleteNo);
+            result = "public";
+        }
+        return result;
+    }
+
+
 
 
 

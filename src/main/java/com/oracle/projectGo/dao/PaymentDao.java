@@ -28,7 +28,6 @@ public class PaymentDao {
         TransactionStatus txStatus =
                 transactionManager.getTransaction(new DefaultTransactionDefinition());
         try {
-
             subscribePayInsert = session.insert("subscribePayInsert", payments);
             log.info("subscribePayInsert =  "+ subscribePayInsert);
 
@@ -72,6 +71,19 @@ public class PaymentDao {
         }
         return mySubscribePayList;
     }
+
+    // Payments 테이블에 gameContents의 id가 있는지 체크
+    public int deleteCheck(Payments payments) {
+        int deleteCheck = 0;
+        try {
+            deleteCheck = session.selectOne("deleteCheck", payments);
+            System.out.println("PaymentDao deleteCheck 갯수-> " + deleteCheck);
+        }catch (Exception e){
+            System.out.println("PaymentDao deleteCheck e-> " + e);
+        }
+        return deleteCheck;
+    }
+
 
 }
 
