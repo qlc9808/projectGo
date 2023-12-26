@@ -109,6 +109,17 @@
                 // 라디오 버튼이 '즉시 등록'에 체크되면 '게시일자' 입력 필드와 라벨을 다시 숨김
                 $('#publishDate').prop('disabled', true).hide();
                 $('#publishDateLabel').hide();
+
+                // 현재 날짜와 시간을 얻어옴
+                var now = new Date();
+                var year = now.getFullYear();
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                var day = ("0" + now.getDate()).slice(-2);
+                var hours = ("0" + now.getHours()).slice(-2);
+                var minutes = ("0" + now.getMinutes()).slice(-2);
+
+                // HTML datetime-local input에 현재 날짜와 시간을 설정
+                $('#publishDate').val(year + "-" + month + "-" + day + "T" + hours + ":" + minutes);
             }
         });
 
@@ -171,5 +182,18 @@
             }
         });
     })
+    $(document).ready(function() {
+        // 체크박스 상태 감지
+        $('#isPinned').change(function() {
+            if($(this).is(":checked")) {
+                // 체크박스가 체크되면 hidden input의 value를 1로 변경
+                $('#isPinnedHidden').val('1');
+            } else {
+                // 체크박스가 체크 해제되면 hidden input의 value를 0으로 변경
+                $('#isPinnedHidden').val('0');
+            }
+        });
+
+    });
 </script>
 </html>

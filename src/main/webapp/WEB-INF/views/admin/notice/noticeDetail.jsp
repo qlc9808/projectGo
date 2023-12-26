@@ -3,6 +3,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <%@ include file="/WEB-INF/components/Header.jsp"%>
         <style>
             .main-container {
@@ -55,7 +57,8 @@
         <input type="hidden" name="target_id" value="${board.id}">
         <input type="hidden" name="title" id="${board.title}">
         <input type="hidden" name="content" id="${board.content}">
-        <input type="hidden" name="content" id="${board.createdAt}">
+        <input type="hidden" name="createdAt" id="${board.createdAt}">
+        <input type="hidden" name="boardType" id="${board.boardType}">
 
     </form>
 
@@ -74,6 +77,7 @@
                             <input type="hidden" name="commentGroupId" value="${board.id}">
                             <input type="hidden" name="commentStep" value="${board.commentStep }">
                             <input type="hidden" name="commentIndent" value="${board.commentIndent }">
+                            <input type="hidden" name="boardType" value="${board.boardType}">
 
                             <div class="form-group col comment-input">
                                 <input type="text" class="form-control" name="content" placeholder="댓글을 입력하세요.">
@@ -95,7 +99,7 @@
                         <c:forEach var="comments" items="${comments }">
                             <div class="row row-cols-2 align-items-start gap-1">
                                 <div class="col comments-nickname">
-                                    <p>${comments.id }</p>
+                                    <p>${comments.name }</p>
                                 </div>
 
                                 <div class="col comments-content">
@@ -106,7 +110,7 @@
                                                 aria-expanded="false" aria-controls="collapseExample"
                                                 style="width: 900px; text-align: left;">
                                                 ${comments.content }</button>
-
+                                        <button type="button" class="btn btn-danger" onclick="deleteComment(${comments.id})">X</button>
                                     </p>
                                     <span class="blink" style="font-size: 16px; font-weight: bold; color: #FF4379; margin-left: -640px; margin-top: 6px;">new</span>
                                 </div>
@@ -122,6 +126,8 @@
                                                         <input type="hidden" name="commentGroupId" value="${board.id }">
                                                         <input type="hidden" name="commentStep" value="${comments.commentStep }">
                                                         <input type="hidden" name="commentIndent" value="${comments.commentIndent }">
+                                                        <input type="hidden" name="boardType" value="${board.boardType}">
+
 
                                                         <div class="row row-cols-3 p-0 gap-1">
                                                             <div class="form-group col comment-md-input">
@@ -132,6 +138,7 @@
                                                                 <button type="submit" class="btn">등록</button>
                                                             </div>
                                                         </div>
+
                                                     </form>
                                                     <!-- input 영역 END -->
                                                 </div>
@@ -150,12 +157,30 @@
 </c:choose>
 </main>
 </body>
-</html>
-
 <script>
     function deleteNotice(id, currentPage) {
         if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
             location.href=`noticeDelete?id=${board.id}&currentPage=${currentPage}`;
         }
     }
+    function deleteComment(commentId) {
+        if (confirm('정말로 이 댓글을 삭제하시겠습니까?')) {
+            // 서버에 댓글 삭제 요청을 보냅니다.
+            fetch('commentDelete?id=' + parseInt(commentId))
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    // 댓글이 성공적으로 삭제되었음을 알립니다.
+                    alert('댓글이 성공적으로 삭제되었습니다.');
+
+                    // 댓글 삭제 후 페이지를 새로고침합니다.
+                    location.reload();
+                })
+        }
+    }
+
 </script>
+</html>
+

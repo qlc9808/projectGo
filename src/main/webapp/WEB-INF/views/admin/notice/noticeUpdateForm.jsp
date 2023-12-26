@@ -71,9 +71,11 @@
                 <label for="content">내용</label>
                 <textarea id="content" name="content" required>${board.content}</textarea>
 
-                <input type="hidden" id="isPinnedHidden" name="isPinned" value="${board.isPinned}">
-                <input type="checkbox" id="isPinned" name="isPinned">
-                <label for="isPinned">상단에 고정</label>
+                <div style="display: flex; align-items: center;">
+                    <input type="hidden" id="isPinnedHidden" name="isPinned" value="${board.isPinned}">
+                    <input type="checkbox" id="isPinned" name="isPinned" ${board.isPinned ? "checked" : ""} onchange="updateIsPinnedValue()">
+                    <label for="isPinned">상단에 고정</label>
+                </div>
 
                 <input type="radio" id="immediate" name="publishOption" value="immediate" checked>
                 <label for="immediate">즉시 등록</label>
@@ -88,6 +90,7 @@
                 <button id="uploadBtn" type="button">파일 선택 및 업로드</button>
                 <input type="file" id="file" name="file" multiple style="display: none;">
 
+                <input type="hidden" id="createdAt" name="createdAt" value="<fmt:formatDate value='${board.createdAt}' pattern='EEE MMM dd HH:mm:ss zzz yyyy'/>" required>
                 <input type="submit" value="수정">
             </form>
         </div>
@@ -174,25 +177,40 @@
             }
         }
     });
-    $('form').on('submit', function(event) {
-        if (!$(this).data('submitted')) {
-            event.preventDefault();
+    $(document).ready(function() {
+        $('input[type=radio][name=publishOption]').change(function () {
+            if (this.value == 'scheduled') {
+                // 라디오 버튼이 '원하는 날짜에 게시'에 체크되면 '게시일자' 입력 필드와 라벨을 보여줌
+                $('#publishDate').prop('disabled', false).show();
+                $('#publishDateLabel').show();
+                alert('이 경우 해당 글을 게시일까지 삭제 및 수정 할 수 없습니다'); // 알림창 띄우기
+            } else if (this.value == 'immediate') {
+                // 라디오 버튼이 '즉시 등록'에 체크되면 '게시일자' 입력 필드와 라벨을 다시 숨김
+                $('#publishDate').prop('disabled', true).hide();
+                $('#publishDateLabel').hide();
 
-            var formData = new FormData(this);
+                // 현재 날짜와 시간을 얻어옴
+                var now = new Date();
+                var year = now.getFullYear();
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                var day = ("0" + now.getDate()).slice(-2);
+                var hours = ("0" + now.getHours()).slice(-2);
+                var minutes = ("0" + now.getMinutes()).slice(-2);
 
-            $.ajax({
-                url: $(this).attr('action'),
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false
-            }).done(function(response) {
-                $('form').data('submitted', true);
-                $('form').submit();
-            }).fail(function(xhr, status, error) {
-                // 실패 시 특별한 처리를 하지 않습니다.
-            });
+                // HTML datetime-local input에 현재 날짜와 시간을 설정
+                $('#publishDate').val(year + "-" + month + "-" + day + "T" + hours + ":" + minutes);
+            }
+        });
+    })
+    function updateIsPinnedValue() {
+        var checkbox = document.getElementById('isPinned');
+        var hiddenInput = document.getElementById('isPinnedHidden');
+        if (checkbox.checked) {
+            hiddenInput.value = 1;
+        } else {
+            hiddenInput.value = 0;
         }
-    });
+    }
+
 </script>
 </html>

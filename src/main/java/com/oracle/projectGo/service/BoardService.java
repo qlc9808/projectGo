@@ -225,8 +225,21 @@ public class BoardService {
         return listSearchQNA;
     }
 
-    public int getCommentCountForBoard(int id) {
-        int getCommentCountForBoard = boardDao.getCommentCountForBoard(id);
-        return getCommentCountForBoard(id);
+    public int commentDelete(int id) {
+        int commentDelete = 0;
+
+        commentDelete = boardDao.commentDelete(id);
+
+        return commentDelete;
+    }
+
+    public List<Board> listSearchFAQ(Board board) {
+        List<Board> listSearchFAQ = boardDao.listSearchFAQ(board);
+        return listSearchFAQ;
+    }
+
+    public int totalSearchFAQ(Board board) {
+        int totalSearchFAQ = boardDao.totalSearchFAQ(board);
+        return totalSearchFAQ;
     }
 }

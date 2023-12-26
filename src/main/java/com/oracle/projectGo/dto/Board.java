@@ -1,6 +1,7 @@
 package com.oracle.projectGo.dto;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -20,7 +21,9 @@ public class Board {
     private int    commentGroupId;  // 댓글그룹
     private int    commentIndent;   // 댓글밀기
     private int    commentStep;     // 댓글최신
-    private Date   createdAt;       // 생성일
+
+    @DateTimeFormat(pattern = "EEE MMM dd HH:mm:ss zzz yyyy")
+    public  Date   createdAt;       // 등록일
     private Date   updateAt;        // 수정일
     private int    commentCount;    // 댓글 수
 
@@ -32,9 +35,10 @@ public class Board {
     /* 검색처리 */
     private String keyword;
     private String searchType;
+    private String name;
 
     /*스케줄 처리*/
-
+    @DateTimeFormat(pattern = "EEE MMM dd HH:mm:ss zzz yyyy")
     private LocalDateTime publishDate;
 
 

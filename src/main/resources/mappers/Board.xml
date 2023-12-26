@@ -24,13 +24,14 @@
     </select>
 
     <select id="listNoticeBoard" resultType="Board">
-        SELECT  A.rn ,A.id, A.BoardType, A.TITLE, A.userId, A.createdAt, A.readCount, board_Group_cnt(A.id) commentCount
+        SELECT A.rn ,A.id, A.BoardType, A.TITLE, A.userId, A.name, A.createdAt, A.readCount, board_Group_cnt(A.id) commentCount
         FROM
             (
                 SELECT ROWNUM RN, C.*
                 FROM (
-                         SELECT b.*
+                         SELECT b.*, U.name
                          FROM BOARD b
+                                  INNER JOIN USERS U ON b.userId = U.id
                          WHERE b.boardType = 1
                            AND   sysdate >= b.createdAt
                          ORDER BY b.isPinned DESC, b.createdAt DESC
@@ -90,22 +91,23 @@
         FROM (
         SELECT ROWNUM RN, C.*, board_Group_cnt(C.id) commentCount
         FROM (
-        SELECT A.*
-        FROM BOARD A
-        WHERE boardType = 1
+        SELECT b.*, U.name
+        FROM BOARD b
+        INNER JOIN USERS U ON b.userId = U.id
+        WHERE b.boardType = 1
         <if test="searchType == 'title'">
             AND REGEXP_LIKE(title, #{keyword}, 'i')
         </if>
         <if test="searchType == 'content'">
             AND REGEXP_LIKE(content, #{keyword}, 'i')
         </if>
-        <if test="searchType == 'userId'">
-            AND REGEXP_LIKE(userId, #{keyword}, 'i')
+        <if test="searchType == 'name'">
+            AND REGEXP_LIKE(u.name, #{keyword}, 'i')
         </if>
         <if test="searchType == 'title_content'">
             AND (REGEXP_LIKE(title, #{keyword}, 'i') OR REGEXP_LIKE(content, #{keyword}, 'i'))
         </if>
-        ORDER BY A.createdAt DESC
+        ORDER BY b.createdAt DESC
         ) C
         )
         WHERE RN BETWEEN #{start} AND #{end}
@@ -118,16 +120,17 @@
     </select>
 
     <select id="listQNABoard" resultType="Board">
-        SELECT  A.rn ,A.id, A.BoardType, A.TITLE, A.userId, A.createdAt, A.readCount, board_Group_cnt(A.id) commentCount
+        SELECT A.rn ,A.id, A.BoardType, A.TITLE, A.userId, A.name, A.createdAt, A.readCount, board_Group_cnt(A.id) commentCount
         FROM
             (
                 SELECT ROWNUM RN, C.*
                 FROM (
-                         SELECT b.*
+                         SELECT b.*, U.name
                          FROM BOARD b
+                                  INNER JOIN USERS U ON b.userId = U.id
                          WHERE b.boardType = 3
-                         AND   sysdate >= b.createdAt
-                         ORDER BY b.createdAt DESC
+                           AND   sysdate >= b.createdAt
+                         ORDER BY b.isPinned DESC, b.createdAt DESC
                      ) C
             )  A
         WHERE A.rn BETWEEN #{start} AND #{end}
@@ -158,46 +161,46 @@
     <select id="totalSearchQNA" parameterType="board" resultType="int">
         SELECT count(*)
         FROM  board
-        WHERE  boardType = 3
+        WHERE boardType = 3
         <if test="searchType == 'title'">
-            AND title like '%' || #{keyword} || '%'
+            AND REGEXP_LIKE(title, #{keyword}, 'i')
         </if>
         <if test="searchType == 'content'">
-            AND content like '%' || #{keyword} || '%'
+            AND REGEXP_LIKE(content, #{keyword}, 'i')
         </if>
-        <if test="searchType == 'userId'">
-            AND userId like '%' || #{keyword} || '%'
+        <if test="searchType == 'name'">
+            AND REGEXP_LIKE(u.name, #{keyword}, 'i')
         </if>
         <if test="searchType == 'title_content'">
-            AND (title like '%' || #{keyword} || '%' OR content like '%' || #{keyword} || '%')
+            AND (REGEXP_LIKE(title, #{keyword}, 'i') OR REGEXP_LIKE(content, #{keyword}, 'i'))
         </if>
     </select>
 
-    <select id="listSearchQNA" parameterType="board"  resultType="board">
-
+    <select id="listSearchQNA" parameterType="board" resultType="board">
         SELECT *
         FROM (
-        SELECT ROWNUM RN, C.*
+        SELECT ROWNUM RN, C.*, board_Group_cnt(C.id) commentCount
         FROM (
-        SELECT A.*
-        FROM BOARD A
-        WHERE boardType = 3
+        SELECT b.*, U.name
+        FROM BOARD b
+        INNER JOIN USERS U ON b.userId = U.id
+        WHERE b.boardType = 3
         <if test="searchType == 'title'">
-            AND title like '%' || #{keyword} || '%'
+            AND REGEXP_LIKE(title, #{keyword}, 'i')
         </if>
         <if test="searchType == 'content'">
-            AND content like '%' || #{keyword} || '%'
+            AND REGEXP_LIKE(content, #{keyword}, 'i')
         </if>
-        <if test="searchType == 'userId'">
-            AND userId like '%' || #{keyword} || '%'
+        <if test="searchType == 'name'">
+            AND REGEXP_LIKE(u.name, #{keyword}, 'i')
         </if>
         <if test="searchType == 'title_content'">
-            AND (title like '%' || #{keyword} || '%' OR content like '%' || #{keyword} || '%')
+            AND (REGEXP_LIKE(title, #{keyword}, 'i') OR REGEXP_LIKE(content, #{keyword}, 'i'))
         </if>
-        ORDER BY A.isPinned DESC, A.createdAt DESC
+        ORDER BY b.createdAt DESC
         ) C
         )
-        where rn BETWEEN #{start} and #{end}
+        WHERE RN BETWEEN #{start} AND #{end}
     </select>
 
     <select id="FAQboardCount" resultType="int">
@@ -207,17 +210,20 @@
     </select>
 
     <select id="listFAQBoard" resultType="Board">
-        SELECT *
-        FROM (
-                 SELECT ROWNUM RN, C.*
-                 FROM (
-                          SELECT A.*
-                          FROM BOARD A
-                          WHERE A.boardType = 2
-                          ORDER BY A.id DESC
-                      ) C
-             )
-        where rn between #{start} and #{end}
+        SELECT A.rn ,A.id, A.BoardType, A.TITLE, A.userId, A.name, A.createdAt, A.readCount, board_Group_cnt(A.id) commentCount
+        FROM
+            (
+                SELECT ROWNUM RN, C.*
+                FROM (
+                         SELECT b.*, U.name
+                         FROM BOARD b
+                                  INNER JOIN USERS U ON b.userId = U.id
+                         WHERE b.boardType = 2
+                           AND   sysdate >= b.createdAt
+                         ORDER BY b.isPinned DESC, b.createdAt DESC
+                     ) C
+            )  A
+        WHERE A.rn BETWEEN #{start} AND #{end}
     </select>
 
     <insert id="InsertFAQBoard" parameterType="Board">
@@ -231,6 +237,51 @@
         SET title = #{title}, content = #{content}, status = #{status}
         WHERE id = #{id}
     </update>
+
+    <select id="totalSearchFAQ" parameterType="board" resultType="int">
+        SELECT count(*)
+        FROM  board
+        WHERE boardType = 2
+        <if test="searchType == 'title'">
+            AND REGEXP_LIKE(title, #{keyword}, 'i')
+        </if>
+        <if test="searchType == 'content'">
+            AND REGEXP_LIKE(content, #{keyword}, 'i')
+        </if>
+        <if test="searchType == 'name'">
+            AND REGEXP_LIKE(u.name, #{keyword}, 'i')
+        </if>
+        <if test="searchType == 'title_content'">
+            AND (REGEXP_LIKE(title, #{keyword}, 'i') OR REGEXP_LIKE(content, #{keyword}, 'i'))
+        </if>
+    </select>
+
+    <select id="listSearchFAQ" parameterType="board" resultType="board">
+        SELECT *
+        FROM (
+        SELECT ROWNUM RN, C.*, board_Group_cnt(C.id) commentCount
+        FROM (
+        SELECT b.*, U.name
+        FROM BOARD b
+        INNER JOIN USERS U ON b.userId = U.id
+        WHERE b.boardType = 2
+        <if test="searchType == 'title'">
+            AND REGEXP_LIKE(title, #{keyword}, 'i')
+        </if>
+        <if test="searchType == 'content'">
+            AND REGEXP_LIKE(content, #{keyword}, 'i')
+        </if>
+        <if test="searchType == 'name'">
+            AND REGEXP_LIKE(u.name, #{keyword}, 'i')
+        </if>
+        <if test="searchType == 'title_content'">
+            AND (REGEXP_LIKE(title, #{keyword}, 'i') OR REGEXP_LIKE(content, #{keyword}, 'i'))
+        </if>
+        ORDER BY b.createdAt DESC
+        ) C
+        )
+        WHERE RN BETWEEN #{start} AND #{end}
+    </select>
 
     <select id="detailFAQ" resultType="Board" parameterType="int">
         SELECT *
@@ -263,15 +314,18 @@
 
 
     <select id="commentDetail" parameterType="int" resultType="Board">
-        select id, title, content, commentGroupId, commentStep, commentIndent
-        from board
-        where commentGroupId = #{id}
+        select a.id, b.name, a.content, a.commentGroupId, a.commentStep, a.commentIndent
+        from board a, users b
+        where  a.userId = b.id
+          and commentGroupId = #{id}
           and commentIndent >= 0
         order by commentStep
     </select>
 
-    <!--<select id="getCommentCountForBoard" resultType="int" parameterType="int">
-        SELECT COUNT(*) FROM board WHERE commentGroupId = #{id}
-    </select>-->
+    <delete id="commentDelete" parameterType="int">
+        delete board
+        where id = #{id}
+    </delete>
+
 
 </mapper>

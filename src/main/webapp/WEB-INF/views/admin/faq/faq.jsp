@@ -7,7 +7,13 @@
         function changePageSize() {
             var pageSize = document.getElementById("pageSize").value;
             document.cookie = "pageSize=" + pageSize;
-            location.href = "FAQBoardList?pageSize=" + pageSize; // 현재 URL을 수정해야 합니다.
+
+            // Get the search type and keyword values
+            var searchType = document.getElementById("searchType").value;
+            var keyword = document.getElementsByName("keyword")[0].value.toLowerCase(); // 대소문자 구분 없이 검색
+
+            // Modify the URL with case-insensitive search parameters
+            location.href = "FAQBoardList?pageSize=" + pageSize + "&searchType=" + searchType + "&keyword=" + keyword;
         }
     </script>
     <style>
@@ -38,6 +44,17 @@
             margin-left: -20px;
             padding-right: 0;
         }
+        .p-4 {
+            width : 1600px;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        .table-responsive {
+            width : 1350px;
+            margin-left: -50px;
+        }
+
+
 
 
 
@@ -72,7 +89,7 @@
                         <select id="searchType" name="searchType" class="form-select">
                             <option value="title" ${title ? 'selected' : ''}>제목</option>
                             <option value="content" ${content ? 'selected' : ''}>내용</option>
-                            <option value="userId" ${userId ? 'selected' : ''}>작성자</option>
+                            <option value="name" ${name ? 'selected' : ''}>작성자</option>
                         </select>
                     </div>
                     <div class="d-flex col-6 mx-2 my-custom-class">
@@ -92,8 +109,8 @@
             <div class="table-responsive">
                 <table id="userTable" class="table table-md text-center p-3">
                     <thead>
-                    <h1>공지 리스트</h1>
-                    <h3>총 게시글 수 : ${totalFAQboard}</h3>
+                    <h1>FAQ 리스트</h1>
+                    <h5>총 게시글 수 : ${totalFAQboard}</h5>
                     <tr>
                         <th scope="col">순번</th>
                         <th scope="col">분류</th>
@@ -116,7 +133,7 @@
                                 </c:choose>
                             </td>
                             <td><a href="FAQDetail?id=${FAQ.id}">${FAQ.title}</a></td>
-                            <td>${FAQ.userId}</td>
+                            <td>${FAQ.name}</td>
                             <td><fmt:formatDate value="${FAQ.createdAt}" type="date" pattern="YY/MM/dd"/></td>
                             <td>${FAQ.readCount}</td>
 

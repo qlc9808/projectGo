@@ -185,6 +185,7 @@ public class AdminBoardController {
 
 		board.setBoardType("1");
 		int id = board.getId();
+		boardService.noticeUpdate(board);
 
 		log.info("id->"+id);
 
@@ -213,8 +214,6 @@ public class AdminBoardController {
 				board.setFileAddress(fileAddress);  // Board 클래스에 setFileAddress 메서드가 필요합니다.
 			}
 
-			board.setIsPinned(isPinned);
-			board.setBoardType("1");
 
 		} catch (Exception e) {
 			log.error("[{}]:{}", "admin noticeUpdate", e.getMessage());
@@ -422,7 +421,7 @@ public class AdminBoardController {
 		} finally {
 			log.info("[{}]:{}", "admin QNAUpdate", "end");
 		}
-		return "redirect:/admin/qna/qnaDetail?id="+id;
+		return "redirect:/admin/board/QNADetail?id="+id;
 	}
 
 	@GetMapping(value="/QNAUpdateForm")
@@ -508,7 +507,11 @@ public class AdminBoardController {
 	}
 
 	@RequestMapping(value = "/FAQBoardList")
-	public String FAQBoardList(Board board, String currentPage, Model model) {
+	public String FAQBoardList(Integer pageSize, Board board, String currentPage, Model model) {
+
+		if (pageSize == null) {
+			pageSize = 10; // 기본값 설정
+		}
 
 		try {
 			log.info("[{}]:{}", "FAQboard", "start");
@@ -544,6 +547,7 @@ public class AdminBoardController {
 		try {
 			log.info("[{}]:{}", "admin FAQDetail", "start");
 			Board board = boardService.detailFAQ(id);
+			boardService.increaseReadCount(id);
 
 			model.addAttribute("board", board);
 			model.addAttribute("currentPage", currentPage);
@@ -571,7 +575,7 @@ public class AdminBoardController {
 			log.info("[{}]:{}", "admin FAQInsert", "end");
 		}
 
-		return "redirect:/admin/board/faq";
+		return "redirect:/admin/board/FAQBoardList";
 	}
 
 	@RequestMapping(value = "/FAQInsertForm")
@@ -608,7 +612,7 @@ public class AdminBoardController {
 		} finally {
 			log.info("[{}]:{}", "admin FAQUpdate", "end");
 		}
-		return "redirect:/admin/faq/faqDetail?id="+id;
+		return "redirect:/admin/board/FAQDetail?id="+id;
 	}
 
 	@GetMapping(value="/FAQUpdateForm")
@@ -645,7 +649,51 @@ public class AdminBoardController {
 		return "forward:admin/faq/faq";
 	}
 
+	@RequestMapping(value = "FAQSearch")
+	public String FAQSearch(Board board, Integer pageSize, String currentPage, Model model, HttpServletRequest request) {
+		try {
+			log.info("[{}]:{}", "admin noticeSearch", "start");
+			int totalSearchFAQ = boardService.totalSearchFAQ(board);
 
+			if (pageSize == null) {
+				pageSize = 10; // 기본값 설정
+			}
+
+
+			int path = 1;
+			String keyword = request.getParameter("keyword");
+			String title = request.getParameter("title");
+			String userId = request.getParameter("userId");
+			String content = request.getParameter("content");
+			String searchType = request.getParameter("searchType");
+
+
+			BoardPaging page = new BoardPaging(totalSearchFAQ, currentPage, pageSize);
+			board.setStart(page.getStart());
+			board.setEnd(page.getEnd());
+			board.setSearchType(searchType);
+
+
+			List<Board> listSearchFAQ = boardService.listSearchFAQ(board);
+
+
+			model.addAttribute("totalFAQboard", totalSearchFAQ);
+			model.addAttribute("listFAQBoard", listSearchFAQ);
+			model.addAttribute("page", page);
+			model.addAttribute("path", path);
+			model.addAttribute("keyword", keyword);
+			model.addAttribute("title", title);
+			model.addAttribute("content", content);
+			model.addAttribute("userId", userId);
+
+		} catch (Exception e) {
+			log.error("[{}]:{}", "admin noticeSearch", e.getMessage());
+		} finally {
+			log.info("[{}]:{}", "admin notice", "end");
+		}
+		return "admin/faq/faq";
+
+	}
 
 	@RequestMapping(value = "/sitemap")
 	public String sitemap(Model model) {
@@ -699,8 +747,44 @@ public class AdminBoardController {
 		model.addAttribute("id", board.getCommentGroupId());
 		model.addAttribute("userId", board.getUserId());
 
-		return "redirect:noticeDetail?id=" + board.getCommentGroupId();
+		int boardType = Integer.parseInt(board.getBoardType());
+
+		log.info("BoardController commentInsert boardType : {} ", board.getBoardType());
+
+		if (boardType == 1) {
+			return "redirect:noticeDetail?id=" + board.getCommentGroupId();
+		} else if (boardType == 3) {
+			return "redirect:QNADetail?id=" + board.getCommentGroupId();
+		} else {
+			return "redirect:home";
+		}
+
+		}
+	@RequestMapping(value = "commentDelete")
+	public String commentDelete(int id, Board board, Model model) {
+		try {
+			log.info("[{}]:{}", "commentDelete", "start");
+
+			board.setId(board.getId());
+			int result = boardService.commentDelete(id);
+
+			log.info("CommentDelete result: " + result);
+
+
+			model.addAttribute("id", board.getId());
+
+			log.info("CommentDelete id : " + id);
+
+		} catch (Exception e) {
+			log.error("[{}]:{}", "commentDelete", e.getMessage());
+		} finally {
+			log.info("[{}]:{}", "commentDelete", "end");
+		}
+
+		// 댓글 삭제 후 리다이렉트 등의 작업을 수행할 수 있음
+		return "admin/notice/noticeDetail";
 	}
+
 
 
 

@@ -70,6 +70,7 @@
                                 <input type="hidden" name="commentGroupId" value="${board.id}">
                                 <input type="hidden" name="commentStep" value="${board.commentStep }">
                                 <input type="hidden" name="commentIndent" value="${board.commentIndent }">
+                                <input type="hidden" name="boardType" value="${board.boardType}">
 
                                 <div class="form-group col comment-input" style="width: 100%; height: 200px;">
                                     <input type="text" class="form-control" style="width: 100%; height: 100%;" name="content" placeholder="답변을 입력하세요.">
@@ -78,7 +79,7 @@
                                 <div class="form-group col comment-btn">
                                     <c:choose>
                                         <c:when test="${board.userId != 0 }">
-                                            <button type="submit" class="btn btn_detail_custom">등록</button>
+                                            <button type="submit" class="btn btn_detail_custom" onclick="registerComment()">등록</button>
                                         </c:when>
                                     </c:choose>
                                 </div>
@@ -91,7 +92,7 @@
                             <c:forEach var="comments" items="${comments }">
                                 <div class="row row-cols-2 align-items-start">
                                     <div class="col comments-nickname">
-                                        <p>${comments.id }</p>
+                                        <p>${comments.name }</p>
                                     </div>
 
                                     <div class="col comments-content" style="width: 100%; height: 200px;">
@@ -103,6 +104,7 @@
                                                     style="width: 100%; text-align: left;">
                                                     ${comments.content }
                                             </button>
+                                            <button type="button" class="btn btn-danger" onclick="deleteComment(${comments.id})">X</button>
                                         </p>
                                     </div>
                                 </div>
@@ -123,17 +125,43 @@
             location.href=`QNADelete?id=${board.id}&currentPage=${currentPage}`;
         }
     }
-    $.ajax({
-        type: "POST",
-        url: "commentInsert",
-        data: $("#commentGroupId").serialize(),
-        success: function(response){
-            // 댓글이 성공적으로 등록되면, 버튼을 숨김
-            if(response.status == 'success'){
-                $('.btn_detail_custom').hide();
+    function registerComment() {
+        $.ajax({
+            type: "POST",
+            url: "commentInsert",
+            data: $("#commentGroupId").serialize(),
+            success: function(response) {
+                // 댓글이 성공적으로 등록되면, 버튼을 숨김
+                if (response.status === 'success') {
+                    $('button.btn_detail_custom').hide();
+                    // 댓글이 성공적으로 등록되면, 입력란을 초기화
+                    $('input[name="content"]').val('');
+                }
+            },
+            error: function(error) {
+                console.error('댓글 등록 실패:', error);
             }
+        });
+    }
+    function deleteComment(commentId) {
+        if (confirm('정말로 이 댓글을 삭제하시겠습니까?')) {
+            // 서버에 댓글 삭제 요청을 보냅니다.
+            fetch('commentDelete?id=' + parseInt(commentId))
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    // 댓글이 성공적으로 삭제되었음을 알립니다.
+                    alert('댓글이 성공적으로 삭제되었습니다.');
+
+                    // 댓글 삭제 후 페이지를 새로고침합니다.
+                    location.reload();
+                })
         }
-    });
+    }
+
+
 </script>
 
 

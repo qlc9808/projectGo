@@ -89,7 +89,7 @@
                         <select id="searchType" name="searchType" class="form-select">
                             <option value="title" ${title ? 'selected' : ''}>제목</option>
                             <option value="content" ${content ? 'selected' : ''}>내용</option>
-                            <option value="userId" ${userId ? 'selected' : ''}>작성자</option>
+                            <option value="name" ${name ? 'selected' : ''}>작성자</option>
                         </select>
                     </div>
                     <div class="d-flex col-6 mx-2 my-custom-class">
@@ -135,7 +135,7 @@
                                 </c:choose>
                                 </td>
                                 <td><a href="noticeDetail?id=${notice.id}">${notice.title}</a></td>
-                                <td>${notice.userId}</td>
+                                <td>${notice.name}</td>
                                 <td><fmt:formatDate value="${notice.createdAt}" type="date" pattern="YY/MM/dd"/></td>
                                 <td>${notice.readCount}</td>
                                 <td>${notice.commentCount}</td>

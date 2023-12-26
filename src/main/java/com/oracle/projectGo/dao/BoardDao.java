@@ -380,4 +380,40 @@ public class BoardDao {
     public int getCommentCountForBoard(int id) {
             return session.selectOne("getCommentCountForBoard", id);
         }
+
+    public int commentDelete(int id) {
+        int commentDelete = 0;
+        try {
+            commentDelete = session.delete("commentDelete",id);
+        } catch (Exception e) {
+        }
+
+        return commentDelete;
+
+    }
+
+    public List<Board> listSearchFAQ(Board board) {
+        List<Board> listSearchFAQ = null;
+
+        try {
+            listSearchFAQ = session.selectList("listSearchFAQ",board);
+            log.info("listSearchQNADaoImpl listSearchFAQ() => " + listSearchFAQ.size());
+
+        } catch (Exception e) {
+            log.info("listSearchQNADaoImpl listSearchFAQ() => " + e.getMessage());
+        }
+        return listSearchFAQ;
+    }
+
+    public int totalSearchFAQ(Board board) {
+        int totalSearchFAQ = 0;
+        try {
+            totalSearchFAQ = session.selectOne("totalSearchFAQ",board);
+            log.info("noticeDaoImpl totalSearchFAQ()->"+totalSearchFAQ);
+        } catch (Exception e) {
+            log.info("noticeDaoImpl totalSearchFAQ ->"+e.getMessage() );
+        }
+        return totalSearchFAQ;
+    }
+
 }
