@@ -32,6 +32,7 @@
                         <li class="nav-item"><a class="nav-link app-nav-link" href="/subscribe/subscribeView">구독서비스</a></li>
                         <li class="nav-item"><a class="nav-link app-nav-link" href="/learning/signUpLearningGroup">학습서비스</a></li>
                         <li class="nav-item"><a class="nav-link app-nav-link" href="/group/listLearningContent">교육자마당</a></li>
+                        <li class="nav-item"><a class="nav-link app-nav-link" href="/lookup/board/noticeBoardList">조회마당</a></li>
                         <li class="nav-item"><a class="nav-link app-nav-link" href="/game/gameContentSelect">운영마당</a></li>
                     </ul>
                 </div>

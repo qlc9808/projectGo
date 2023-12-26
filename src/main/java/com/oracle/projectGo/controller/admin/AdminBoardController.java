@@ -4,6 +4,7 @@ import com.oracle.projectGo.dto.Board;
 import com.oracle.projectGo.service.BoardPaging;
 import com.oracle.projectGo.service.BoardService;
 import com.oracle.projectGo.service.Paging;
+import com.oracle.projectGo.service.UsersService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ import java.util.List;
 public class AdminBoardController {
 
 	private final BoardService boardService;
-
+	private final UsersService usersService;
 
 	//공지사항 리스트
 	@RequestMapping(value = "/noticeBoardList")
@@ -115,7 +116,9 @@ public class AdminBoardController {
 							   @RequestParam("publishOption") String publishOption, @RequestParam("isPinned") boolean isPinned,
 							   @RequestParam("file") MultipartFile file, Model model) {
 
-		board.setUserId(1);
+		int userId = usersService.getLoggedInId();
+		board.setUserId(userId);
+
 		log.info("userId: {}", board.getUserId());
 
 		try {
@@ -163,7 +166,9 @@ public class AdminBoardController {
 	@RequestMapping(value = "/noticeInsertForm")
 	public String noticeInsertForm(Board board, Model model) {
 
-		board.setUserId(1);
+		int userId = usersService.getLoggedInId();
+		board.setUserId(userId);
+
 		log.info("userId: {}", board.getUserId());
 
 
@@ -368,7 +373,8 @@ public class AdminBoardController {
 	@RequestMapping(value = "/QNAInsert")
 	public String QNAInsert(Board board, Model model) {
 
-		board.setUserId(1);
+		int userId = usersService.getLoggedInId();
+		board.setUserId(userId);
 
 		try {
 			log.info("[{}]:{}", "admin QNAInsert", "start");
@@ -388,7 +394,8 @@ public class AdminBoardController {
 	@RequestMapping(value = "/QNAInsertForm")
 	public String QNAInsertForm(Board board, Model model) {
 
-		board.setUserId(1);
+		int userId = usersService.getLoggedInId();
+		board.setUserId(userId);
 
 
 		try {
@@ -563,6 +570,9 @@ public class AdminBoardController {
 	@RequestMapping(value = "/FAQInsert")
 	public String FAQInsert(Board board, Model model) {
 
+		int userId = usersService.getLoggedInId();
+		board.setUserId(userId);
+
 		try {
 			log.info("[{}]:{}", "admin FAQInsert", "start");
 
@@ -735,7 +745,8 @@ public class AdminBoardController {
 
 
 
-		board.setUserId(1);
+		int userId = usersService.getLoggedInId();
+		board.setUserId(userId);
 		board.setCommentGroupId(board.getId());
 		boardService.commentInsert(board);
 
