@@ -102,19 +102,28 @@
 
 
             <!-- 페이징 작업 -->
-            <ul class="pagination justify-content-center">
+                <nav aria-label="Page navigation example ">
+
+                <ul class="pagination justify-content-center">
                 <c:if test="${page.startPage > page.pageBlock}">
-                    <a href="gameContentSelect?currentPage=${page.startPage - page.pageBlock}">[이전]</a>
+                    <li class="page-item">
+                        <a class="page-link ${page.currentPage == i ? "active":"" }" href="gameContentSelect?currentPage=${page.startPage - page.pageBlock}">이전</a>
+                    </li>
                 </c:if>
 
                 <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-                    <a href="gameContentSelect?currentPage=${i}">[${i}]</a>
+                <li class="page-item">
+                    <a class="page-link ${page.currentPage == i ? "active":"" }" href="gameContentSelect?currentPage=${i}">${i}</a>
+                </li>
                 </c:forEach>
 
                 <c:if test="${page.endPage < page.totalPage}">
-                    <a href="gameContentSelect?currentPage=${page.startPage + page.pageBlock}">[다음]</a>
+                <li class="page-item">
+                    <a class="page-link ${page.currentPage == i ? "active":"" }" href="gameContentSelect?currentPage=${page.startPage + page.pageBlock}">다음</a>
+                </li>
                 </c:if>
             </ul>
+                </nav>
 
         </div>
     </div>
