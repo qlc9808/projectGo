@@ -12,10 +12,6 @@
         margin-bottom: auto;
         text-align: center;
         background-color: #003983;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
     }
 </style>
 <footer class="py-5">
