@@ -5,7 +5,7 @@
     <title>Title</title>
     <script>
         function isDeleted(row, isDeletedValue) {
-            // 해당 행의 isDeleted 클래스에 값을 설정
+            // 클릭된 행 내에서 클래스가 "isDeleted"인 요소를 찾기 위해 jQuery ($(row))를 사용하고 해당 요소의 값을 isDeletedValue로 설정
             $(row).find(".isDeleted").val(isDeletedValue);
         }
 
@@ -69,11 +69,8 @@
 
                     <c:forEach var="gameContent" items="${gameContentsList}">
                         <tr id="gameContent${gameContent.rn}" onclick="isDeleted(this, ${gameContent.isDeleted})">
-
                             <td>${gameContent.rn}</td>
-                            <td>
-                                <img id="gameImg" alt="UpLoad Image" src="${pageContext.request.contextPath}/upload/gameContents/${gameContent.imageName}">
-                            </td>
+                            <td><img id="gameImg" alt="UpLoad Image" src="${pageContext.request.contextPath}/upload/gameContents/${gameContent.imageName}"></td>
                             <td>${gameContent.title}</td>
                             <td>${gameContent.content}</td>
                             <td>${gameContent.gameLevel}</td>
@@ -88,9 +85,8 @@
                                     <option value="1" ${gameContent.isDeleted eq '1' ? 'selected' : ''}>비공개</option>
                                 </select>--%>
                                     <input type="checkbox" name="isDeleted" class="isDeleted" onclick="deleteCheck(${gameContent.id})"
-                                           value="${gameContent.isDeleted}" ${gameContent.isDeleted eq '1' ? 'checked' : ''}>
-                                    <label for="isDeleted${gameContent.rn}">${gameContent.isDeleted eq '1' ? '비공개' : '공개'}</label>
-
+                                           value="${gameContent.isDeleted == '1' ? '0' : '1'}" ${gameContent.isDeleted == '1' ? 'checked' : ''}>
+                                    <label for="isDeleted${gameContent.rn}">${gameContent.isDeleted == '1' ? '비공개' : '공개'}</label>
                             </td>
                         </tr>
                     </c:forEach>

@@ -145,7 +145,7 @@ public class GameController {
 
         // Payments 테이블에 gameContents의 id의 갯수로 존재 여부 체크
         int deleteCheck = ps.deleteCheck(payments);
-        System.out.println("Payments 테이블에 존재여부 확인(1=존재, 0=존재안함)-> " + deleteCheck);
+        System.out.println("Payments 테이블에 존재여부 확인(1부터 존재)-> " + deleteCheck);
 
         String result = "";
         // 공개(0) -> 비공개(1)
