@@ -22,6 +22,16 @@
             background-color: rgba(90, 90, 255, 0.78); /* 배경색을 좀 더 밝은 파란색으로 변경 */
             border: 0px solid white; /* 테두리를 흰색으로 강조 */
         }
+        .slg-search {
+            background: rgba(50,111,232,0.78);
+            color: white;
+            border-radius: 3px;
+            height: 25px;
+
+        }
+        .slg-select-box {
+            margin-bottom: 10px;
+        }
 
     </style>
 </head>
@@ -42,15 +52,18 @@
                     <h1 style="text-align: center; font-weight: bold;">학습그룹 가입신청</h1>
                     <div class="container my-4 py-3" style="width: 1160px;">
                 </c:if>
-                    <select id="slg-select">
-                        <option>그룹명</option>
-                        <option>교육자명</option>
-                    </select>
-                    ㅡ
-                    <select id="slg-selected">
-                        <option></option>
-                    </select>
-                    <button onclick="slgsearch(document.getElementById('slg-selected').value, document.getElementById('slg-select').value)">조회하기</button>
+                        <div class="slg-select-box">
+                            <select id="slg-select">
+                                <option>그룹명</option>
+                                <option>교육자명</option>
+                            </select>
+                            ㅡ
+                            <select id="slg-selected">
+                                <option></option>
+                            </select>
+                            <button onclick="slgsearch(document.getElementById('slg-selected').value, document.getElementById('slg-select').value)" class="slg-search">조회하기</button>
+
+                        </div>
                         <div id="grid1"></div>
                 <c:if test="${users.userType == '3'}">
                     </div>

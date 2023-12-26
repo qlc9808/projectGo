@@ -107,12 +107,14 @@ public class AdminResourceController {
     @GetMapping(value = "/detailEdu")
     public String detailEdu(int id, Model model) {
         log.info(String.valueOf(id));
+        Users users = usersService.getLoggedInUserInfo();
 
         EducationalResources edu = adminResourceService.detailEdu(id);
         adminResourceService.readCnt(id);
 
         model.addAttribute("id", id);
         model.addAttribute("edu", edu);
+        model.addAttribute("users",users);
 
         return "admin/resource/detailEdu";
     }

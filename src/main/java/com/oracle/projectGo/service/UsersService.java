@@ -150,4 +150,10 @@ public class UsersService {
         getBuyCount = ud.getBuyCount(id);
         return getBuyCount;
     }
+
+    public int userUpdate(Users users) {
+        int userUpdate = 0;
+        userUpdate = ud.userUpdate(users);
+        return userUpdate;
+    }
 }

@@ -10,38 +10,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <header id="topbar" class="app-navbar fixed-top" >
-    <div class="container d-flex justify-content-between align-items-center">
-        <div>
-            <a class="navbar-brand" href="/">
-                <img src="/asset/logo.png" height="70" alt="Logo">
-            </a>
-        </div>
-        <div>
-            <h1>게임으로 배우는 바둑 교실</h1>
-        </div>
-        <div>
-            <%
-                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-                String role = auth.getAuthorities().stream()
-                        .map(GrantedAuthority::getAuthority)
-                        .findFirst()
-                        .orElse(UsersRoleType.ANONYMOUS.getLabel());
-                System.out.println(auth.getAuthorities()+ auth.getName());
-                boolean isAuthenticated = !role.contains(UsersRoleType.ANONYMOUS.getLabel());
-            %>
-            <% if (isAuthenticated) { %>
-            <a href="/logout">로그아웃</a>
-            <% } else { %>
-            <a href="/login">로그인</a>
-            <% } %>
-
-        </div>
-
-    </div>
-
-    <div class="d-flex justify-content-center align-items-center">
+    <div class="container">
         <nav class="navbar  navbar-expand-md navbar-light  justify-content-between ">
-            <div class="container d-flex justify-content-between ">
+            <div class="col-3">
+                <a class="navbar-brand" href="/">
+                    <img src="/asset/logo.png" height="50" alt="Logo">
+                </a>
+            </div>
+            <div class=" col-8 d-flex justify-content-end ">
                 <div>
                     <button class="navbar-toggler" type="button"
                             data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -50,7 +26,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 </div>
-                <div class="collapse navbar-collapse justify-content-center " id="navbarSupportedContent">
+                <div class="collapse navbar-collapse justify-content-end " id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item"><a class="nav-link app-nav-link" href="/admin/board/sitemap">이용안내</a></li>
                         <li class="nav-item"><a class="nav-link app-nav-link" href="/subscribe/subscribeView">구독서비스</a></li>
@@ -59,6 +35,23 @@
                         <li class="nav-item"><a class="nav-link app-nav-link" href="/game/gameContentSelect">운영마당</a></li>
                     </ul>
                 </div>
+            </div>
+            <div class=" col-1 d-flex justify-content-end">
+                <%
+                    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                    String role = auth.getAuthorities().stream()
+                            .map(GrantedAuthority::getAuthority)
+                            .findFirst()
+                            .orElse(UsersRoleType.ANONYMOUS.getLabel());
+                    System.out.println(auth.getAuthorities()+ auth.getName());
+                    boolean isAuthenticated = !role.contains(UsersRoleType.ANONYMOUS.getLabel());
+                %>
+                <% if (isAuthenticated) { %>
+                <a href="/logout">로그아웃</a>
+                <% } else { %>
+                <a href="/login">로그인</a>
+                <% } %>
+
             </div>
         </nav>
     </div>

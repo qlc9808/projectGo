@@ -12,6 +12,7 @@
             WHERE   a.userId = #{userId}
             AND     b.createdAt <= SYSDATE
             AND     (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')) >= SYSDATE
+            AND     b.isDeleted = 0
         ]]>
         <if test="keyword != null and keyword != ''">
             AND b.title like '%' || #{keyword} || '%'
@@ -20,25 +21,33 @@
 
     <select id="NoLearningContentList" parameterType="GameContents" resultType="GameContents">
         <![CDATA[
-            SELECT    a.id, a.userId, a.contentId, b.title, b.createdAt,
-                      (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')) AS subscribeEndDate,
-                      b.maxSubscribers, c.groupSize assignedPeople
-            FROM      payments a
-            JOIN      gameContents b
-            ON        a.contentId = b.id
-            LEFT JOIN (SELECT contentId, SUM(groupSize) AS groupSize FROM LearningGroup GROUP BY contentId) c
-            ON        a.contentId = c.contentId
-            WHERE     a.userId = #{userId}
-            AND       b.createdAt <= SYSDATE
-            AND       (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')) >= SYSDATE
+        SELECT *
+        FROM (
+            SELECT ROWNUM RN, T.*
+            FROM (
+                SELECT    a.id, a.userId, a.contentId, b.title, b.createdAt,
+                          (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')) AS subscribeEndDate,
+                          b.maxSubscribers, c.groupSize assignedPeople
+                FROM      payments a
+                JOIN      gameContents b
+                ON        a.contentId = b.id
+                LEFT JOIN (SELECT contentId, SUM(groupSize) AS groupSize FROM LearningGroup GROUP BY contentId) c
+                ON        a.contentId = c.contentId
+                WHERE     a.userId = #{userId}
+                AND       b.createdAt <= SYSDATE
+                AND       (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')) >= SYSDATE
+                AND       b.isDeleted = 0
         ]]>
-        <if test="keyword != null and keyword != ''">
-            AND b.title like '%' || #{keyword} || '%'
-        </if>
-            GROUP BY  a.id, a.userId, a.contentId, b.title, b.createdAt,
-                      (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')),
-                      b.maxSubscribers, c.groupSize
-            ORDER BY  a.contentId ASC
+            <if test="keyword != null and keyword != ''">
+                AND b.title like '%' || #{keyword} || '%'
+            </if>
+                GROUP BY  a.id, a.userId, a.contentId, b.title, b.createdAt,
+                          (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')),
+                          b.maxSubscribers, c.groupSize
+                ORDER BY  a.contentId ASC
+                ) T
+            )
+            WHERE RN BETWEEN #{start} AND #{end}
     </select>
 
     <select id="NoInsertFormLearningContent" parameterType="int" resultType="GameContents">
@@ -55,8 +64,8 @@
     </select>
 
     <insert id="NoInsertLearningGroup" parameterType="LearningGroup">
-        INSERT INTO learningGroup(id, contentId, userId, name, startDate, endDate, groupSize, etc1, etc2)
-        VALUES(LEARNINGGROUP_ID_SEQ.NEXTVAL, #{id}, #{userId}, #{name}, #{startDate}, #{endDate}, #{groupSize}, #{etc1}, #{etc2})
+        INSERT INTO learningGroup(id, contentId, userId, name, startDate, endDate, groupSize, etc1, etc2, isDeleted)
+        VALUES(LEARNINGGROUP_ID_SEQ.NEXTVAL, #{id}, #{userId}, #{name}, #{startDate}, #{endDate}, #{groupSize}, #{etc1}, #{etc2}, 0)
     </insert>
 
     <select id="NoTotalLearningGroupCnt" parameterType="LearningGroup" resultType="int">
@@ -68,6 +77,7 @@
             WHERE  a.userId = #{userId}
             AND    a.startDate <= SYSDATE
             AND    a.endDate >= SYSDATE
+            AND    a.isDeleted = 0
         ]]>
         <if test="keyword != null and keyword != ''">
             AND a.name like '%' || #{keyword} || '%'
@@ -85,6 +95,7 @@
             WHERE       a.userId = #{userId}
             AND         a.startDate <= SYSDATE
             AND         a.endDate >= SYSDATE
+            AND         a.isDeleted = 0
             ]]>
             <if test="keyword != null and keyword != ''">
                 AND a.name like '%' || #{keyword} || '%'
@@ -139,6 +150,7 @@
         JOIN    learningGroup b
         ON      a.groupid = b.id
         WHERE   b.userId = #{userId}
+        AND     a.isDeleted = 0
         <if test="groupId != 0 and groupId != ''">
             AND     b.id = #{groupId}
         </if>
@@ -148,6 +160,7 @@
         SELECT  *
         FROM    learningGroup
         WHERE   userId = #{userId}
+        AND     isDeleted = 0
     </select>
 
     <select id="NoLearningGroupMembers" parameterType="LearningGroupMember" resultType="LearningGroupMember">
@@ -162,6 +175,7 @@
         LEFT JOIN   (SELECT groupId, COUNT(*) as membersCount FROM LearningGroupMember GROUP BY groupId) e
         ON          a.groupId = e.groupId
         WHERE       c.userId = #{userId}
+        AND         a.isDeleted = 0
         AND         c.id = #{groupId}
     </select>
 

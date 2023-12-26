@@ -17,6 +17,7 @@ public class LearningGroup {
     private int     groupSize;              // 등록가능인원
     private String  etc1;                   // 기타항목1
     private String  etc2;                   // 기타항목2
+    private String  isDeleted;              // 삭제여부  삭제:1, 미삭제:0;
 
     /* 페이지 처리 */
     private String  pageNum;

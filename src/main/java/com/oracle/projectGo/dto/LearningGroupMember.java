@@ -10,6 +10,7 @@ public class LearningGroupMember {
     private int    userId;              // 회원번호
     private String status;              // 승인여부 승인:1 , 미승인:0
     private Date   approvalDate;        // 승인요청일자
+    private String isDeleted;           // 삭제여부 삭제:1, 미삭제:0
 
     // users
     private String userName;            // 이름
