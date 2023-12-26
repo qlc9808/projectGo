@@ -72,8 +72,8 @@ function learningGroupList(value, category) {
                     header: '그룹명',
                     name: 'name',
                     align: 'center',
-                    width: 'auto',
-                    minWidth: 150,
+                    width: 200,
+                    minWidth: 170,
                     renderer: BoldTextRenderer
                 },
                 {

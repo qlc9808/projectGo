@@ -55,7 +55,7 @@
                 </c:if>
                 <c:if test="${users.userType == '3'}">
                     <h1 style="text-align: center; font-weight: bold;">학습그룹 가입신청</h1>
-                    <div class="container my-4 py-3" style="width: 1273px;">
+                    <div class="container my-4 py-3" style="width: 1302px;">
                 </c:if>
                         <div class="slg-select-box">
                             <select id="slg-select">
