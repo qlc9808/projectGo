@@ -36,6 +36,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests((authorizeRequests) ->authorizeRequests
+                .requestMatchers("/homework/submissionHomework").hasRole(UsersRoleType.STUDENT.getLabel())
                 .requestMatchers("/homework/**").hasRole(UsersRoleType.EDUCATOR.getLabel())
                 .anyRequest().permitAll()
         );
