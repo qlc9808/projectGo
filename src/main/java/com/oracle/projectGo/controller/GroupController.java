@@ -111,11 +111,15 @@ public class GroupController {
 
     // 게임콘텐츠에서 그룹을 생성하는 폼
     @RequestMapping(value = "insertFormLearningContent")
-    public String insertFormLearningContent(int id, Model model){
-        log.info("id : " + id);
+    public String insertFormLearningContent(GameContents gameContents, Model model){
+        Users users = usersService.getLoggedInUserInfo();
+        int userId = users.getId();
+        gameContents.setUserId(userId);
+
+        log.info("gameContents : " + gameContents);
 
         try {
-            GameContents insertFormLearningContent = groupService.insertFormLearningContent(id);
+            GameContents insertFormLearningContent = groupService.insertFormLearningContent(gameContents);
             log.info("insertFormLearningContent : " + insertFormLearningContent);
 
             model.addAttribute("insertFormLearningContent", insertFormLearningContent);

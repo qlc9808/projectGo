@@ -31,8 +31,8 @@
                 FROM      payments a
                 JOIN      gameContents b
                 ON        a.contentId = b.id
-                LEFT JOIN (SELECT contentId, SUM(groupSize) AS groupSize FROM LearningGroup GROUP BY contentId) c
-                ON        a.contentId = c.contentId
+                LEFT JOIN (SELECT contentId, userId, SUM(groupSize) AS groupSize FROM LearningGroup GROUP BY contentId, userId) c
+                ON        a.contentId = c.contentId AND a.userId = c.userId
                 WHERE     a.userId = #{userId}
                 AND       b.createdAt <= SYSDATE
                 AND       (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')) >= SYSDATE
@@ -44,23 +44,24 @@
                 GROUP BY  a.id, a.userId, a.contentId, b.title, b.createdAt,
                           (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')),
                           b.maxSubscribers, c.groupSize
-                ORDER BY  a.contentId ASC
                 ) T
             )
             WHERE RN BETWEEN #{start} AND #{end}
     </select>
 
-    <select id="NoInsertFormLearningContent" parameterType="int" resultType="GameContents">
-        SELECT   a.userId payUserId, a.contentId, b.name, c.title, c.maxSubscribers, (SUM(d.groupSize)) AS AssignedPeople
-        FROM     payments a
-        JOIN     users b
-        ON       a.userId = b.id
-        JOIN     gameContents c
-        ON       a.contentId = c.id
-        JOIN     learningGroup d
-        ON       c.id = d.contentId
-        WHERE    c.id = #{id}
-        GROUP BY a.userId, a.contentId, b.name, c.title, c.maxsubscribers
+    <select id="NoInsertFormLearningContent" parameterType="GameContents" resultType="GameContents">
+        SELECT    a.userId payUserId, a.contentId, b.name, c.title, c.maxSubscribers, COALESCE(SUM(d.groupSize), 0) AssignedPeople
+        FROM      payments a
+        JOIN      users b
+        ON        a.userId = b.id
+        JOIN      gameContents c
+        ON        a.contentId = c.id
+        LEFT JOIN LearningGroup d
+        ON        a.userId = d.userId
+        AND       a.contentId = d.contentId
+        WHERE     c.id = #{id}
+        AND       a.userId = #{userId}
+        GROUP BY  a.userId, a.contentId, b.name, c.title, c.maxSubscribers
     </select>
 
     <insert id="NoInsertLearningGroup" parameterType="LearningGroup">
@@ -136,13 +137,14 @@
         WHERE id = #{id}
     </update>
 
-    <delete id="NoDeleteLearningGroupMember" parameterType="int">
-        DELETE learningGroupMember WHERE groupId = #{id}
-    </delete>
+    <update id="NoDeleteLearningGroupMember" parameterType="int">
+        UPDATE learningGroupMember SET isdeleted = 1, status = 0
+        WHERE groupId = #{id}
+    </update>
 
-    <delete id="NoDeleteLearningGroup" parameterType="int">
-        DELETE learningGroup WHERE id = #{id}
-    </delete>
+    <update id="NoDeleteLearningGroup" parameterType="int">
+        UPDATE learningGroup SET isdeleted = 1 WHERE id = #{id}
+    </update>
 
     <select id="NoTotalApprovalGroupMemberCnt" parameterType="LearningGroupMember" resultType="int">
         SELECT  COUNT(*)

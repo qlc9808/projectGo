@@ -37,10 +37,10 @@ public class LearningGroupDao {
         return learningContentList;
     }
 
-    public GameContents insertFormLearningContent(int id) {
+    public GameContents insertFormLearningContent(GameContents gameContents) {
         GameContents insertFormLearningContent = null;
         try {
-            insertFormLearningContent = session.selectOne("NoInsertFormLearningContent", id);
+            insertFormLearningContent = session.selectOne("NoInsertFormLearningContent", gameContents);
         } catch (Exception e) {
             log.info("LearningGroupDao insertFormLearningContent e.getMessage() : " + e.getMessage());
         }

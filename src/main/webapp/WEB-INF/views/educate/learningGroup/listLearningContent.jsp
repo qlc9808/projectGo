@@ -47,7 +47,7 @@
                         </tr>
                         <c:forEach var="contentList" items="${learningContentList}">
                             <tr>
-                                <td><input type="radio" name="gameContent" id="gameContent" value="${contentList.id}"></td>
+                                <td><input type="radio" name="gameContent" id="gameContent" value="${contentList.contentId}"></td>
                                 <td>${contentList.title}</td>
                                 <td>
                                     <fmt:formatDate value="${contentList.createdAt}" type="date" pattern="yyyy.MM.dd"></fmt:formatDate>

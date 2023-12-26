@@ -55,6 +55,13 @@
         e.preventDefault();     // 기본 링크 클릭 동작을 막습니다.
 
         var item = $(this).closest('tr').data('item');      // row에서 item data를 가져옴.
+        var item = row.data('item');  // 행에서 item data를 가져옴.
+
+        // 사용자에게 실행 여부를 물어봅니다.
+        var doProceed = confirm("그룹 가입 신청을 승인하시겠습니까?");
+        if (!doProceed) {
+            return; // 사용자가 취소를 클릭하면 작업을 중단합니다.
+        }
 
         $.ajax({
             url: '/group/grantMember',
@@ -65,6 +72,9 @@
             success: function(response) {
                 // 컨트롤러에서 반환한 데이터를 처리합니다.
                 console.log(response);
+
+                // 추가: AJAX 호출이 성공적으로 완료된 후 해당 행의 상태를 '승인완료'로 변경합니다.
+                row.find('.status-link').text('승인완료');  // 상태 링크 텍스트를 '승인완료'로 변경합니다.
             },
             error: function(error) {
                 console.log(error);

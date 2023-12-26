@@ -35,8 +35,8 @@ public class LearningGroupService {
         return learningContentList;
     }
 
-    public GameContents insertFormLearningContent(int id) {
-        GameContents insertFormLearningContent = groupDao.insertFormLearningContent(id);
+    public GameContents insertFormLearningContent(GameContents gameContents) {
+        GameContents insertFormLearningContent = groupDao.insertFormLearningContent(gameContents);
         return insertFormLearningContent;
     }
 
