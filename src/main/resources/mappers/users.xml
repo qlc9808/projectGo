@@ -121,4 +121,10 @@
         where userid = #{id}
     </select>
 
+    <update id="userUpdate" parameterType="Users">
+        UPDATE users
+        SET password=#{password}, gender=#{gender}, userType=#{userType}, address=#{address}, phone=#{phone},
+            consent1=#{consent1}, consent2=#{consent2}
+        WHERE id = #{id}
+    </update>
 </mapper>

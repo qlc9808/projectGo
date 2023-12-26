@@ -146,4 +146,17 @@ public class UsersDao {
         }
         return getBuyCount;
     }
+
+    public int userUpdate(Users users) {
+        log.info("UsersDao userUpdate start");
+        int userUpdate = 0;
+        try {
+            userUpdate = session.update("userUpdate", users);
+
+        } catch (Exception e) {
+            log.info("UsersDao userUpdate => " + e.getMessage());
+        }
+        return userUpdate;
+
+    }
 }

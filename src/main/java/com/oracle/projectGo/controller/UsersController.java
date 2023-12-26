@@ -8,10 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -82,5 +79,49 @@ private final UsersService us;
             log.info("[{}]{}:{}", transactionId, "userDetail", "end");
         }
         return "admin/user/userDetail";
+    }
+
+    @RequestMapping(value = "/userUpdateForm/{id}")
+    public String userUpdateForm (Model model, Users users, @PathVariable int id){
+        UUID transactionId = UUID.randomUUID();
+
+        try {
+            users.setId(id);
+            log.info("[{}]{}:{}", transactionId, "userUpdateForm", "start");
+
+            Users userDetail = us.getUserById(users);
+            log.info("userDetail = "+ userDetail);
+
+            if (userDetail == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "상세정보가 없습니다");
+            }
+            model.addAttribute("userDetail", userDetail);
+
+        } catch (Exception e) {
+            log.error("[{}]{}:{}", transactionId, "userDetail", e.getMessage());
+        } finally {
+            log.info("[{}]{}:{}", transactionId, "userDetail", "end");
+        }
+        return "admin/user/userUpdateForm";
+    }
+
+    @PostMapping(value = "userUpdate")
+    public String userUpdate (Model model, Users users){
+        UUID transactionId = UUID.randomUUID();
+
+        try {
+            log.info("[{}]{}:{}", transactionId, "userUpdateForm", "start");
+
+            int userUpdateResult = us.userUpdate(users);
+            log.info("userUpdate = "+ userUpdateResult);
+
+
+
+        } catch (Exception e) {
+            log.error("[{}]{}:{}", transactionId, "userUpdate", e.getMessage());
+        } finally {
+            log.info("[{}]{}:{}", transactionId, "userUpdate", "end");
+        }
+        return "redirect:userList";
     }
 }
