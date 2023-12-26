@@ -18,26 +18,33 @@
                 data        : {'id' : id},      // 보낼 데이터
                 dataType    : 'text',           // 받아올 데이터 자료형 지정
                 success     : function(data){
-                    alert("data-> " + data);
                     if (data === "nondisclosure" || data === "public") {
-                        // 비공개 처리되었거나 공개 처리되었을 경우에만 체크박스 상태 변경
-                        toggleCheckbox(id);
+                        // 서버에서 받은 데이터에 따라 체크박스 상태 설정
+                        toggleCheckbox(id, data === "nondisclosure");
+                        console.log(data);
+                        alert("data-> " + data);
+                    } else if(data === "paymentExist"){
+                        alert("data-> " + data);
+                    } else{
+                        alert("알 수 없는 결과.");
                     }
                 }
             });
         }
 
         // 체크박스 상태 전환 함수
-        function toggleCheckbox(id) {
+        function toggleCheckbox(id, isChecked) {
             // 해당 ID를 가진 체크박스 선택
-            var checkbox = $("tr#gameContent" + id + " .isDeleted");
+            const checkbox = $("tr#gameContent" + id + " .isDeleted");
+            console.log(checkbox);
 
-            // 체크박스 상태 변경
-            checkbox.prop('checked', !checkbox.prop('checked'));
+            // 체크박스 상태 설정
+            checkbox.prop('checked', isChecked);
 
             // 비공개일 때 레이블 변경
-            var label = $("tr#gameContent" + id + " label[for=isDeleted]");
-            label.text(checkbox.prop('checked') ? '공개' : '비공개');
+            const label = $("#gameContent" + id + " label[for=isDeleted" + id + "]");
+            label.text(isChecked ? '비공개' : '공개');
+
         }
     </script>
 </head>
@@ -68,7 +75,7 @@
                     </tr>
 
                     <c:forEach var="gameContent" items="${gameContentsList}">
-                        <tr id="gameContent${gameContent.rn}" onclick="isDeleted(this, ${gameContent.isDeleted})">
+                        <tr id="gameContent${gameContent.id}" onclick="isDeleted(this, ${gameContent.isDeleted})">
                             <td>${gameContent.rn}</td>
                             <td><img id="gameImg" alt="UpLoad Image" src="${pageContext.request.contextPath}/upload/gameContents/${gameContent.imageName}"></td>
                             <td>${gameContent.title}</td>
@@ -86,7 +93,7 @@
                                 </select>--%>
                                     <input type="checkbox" name="isDeleted" class="isDeleted" onclick="deleteCheck(${gameContent.id})"
                                            value="${gameContent.isDeleted == '1' ? '0' : '1'}" ${gameContent.isDeleted == '1' ? 'checked' : ''}>
-                                    <label for="isDeleted${gameContent.rn}">${gameContent.isDeleted == '1' ? '비공개' : '공개'}</label>
+                                    <label for="isDeleted${gameContent.id}">${gameContent.isDeleted == '1' ? '비공개' : '공개'}</label>
                             </td>
                         </tr>
                     </c:forEach>
