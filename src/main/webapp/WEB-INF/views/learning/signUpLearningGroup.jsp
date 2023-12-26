@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: gyuco
-  Date: 2023-12-05
-  Time: 오후 2:45
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <html>
 <head>
@@ -32,6 +25,18 @@
         .slg-select-box {
             margin-bottom: 10px;
         }
+        .tui-ico-next, .tui-ico-last, .tui-ico-prev, .tui-ico-prev, .tui-ico-first {
+            position: relative;
+            top: 7px;
+        }
+        .tui-pagination .tui-is-selected, .tui-pagination strong {
+
+            background: #0C4DA2;
+        }
+        .tui-pagination .tui-is-selected:hover, .tui-pagination strong:hover {
+            background: #0C4DA2;
+            color: white;
+        }
 
     </style>
 </head>
@@ -46,11 +51,11 @@
 
                 <c:if test="${users.userType != '3'}">
                     <h1 style="text-align: center; font-weight: bold;">학습그룹 가입신청</h1>
-                    <div class="container my-4 py-3" style="width: 1060px;">
+                    <div class="container my-4 py-3" style="width: 1190px;">
                 </c:if>
                 <c:if test="${users.userType == '3'}">
                     <h1 style="text-align: center; font-weight: bold;">학습그룹 가입신청</h1>
-                    <div class="container my-4 py-3" style="width: 1160px;">
+                    <div class="container my-4 py-3" style="width: 1273px;">
                 </c:if>
                         <div class="slg-select-box">
                             <select id="slg-select">

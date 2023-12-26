@@ -5,7 +5,7 @@
 <mapper namespace="com.oracle.projectGo.LearningRequestMapper">
     <insert id="requestSignUp" parameterType="LearningGroupMember">
         INSERT INTO LearningGroupMember
-        VALUES (#{groupId}, #{userId}, 0, sysdate)
+        VALUES (#{groupId}, #{userId}, 0, sysdate, 0)
     </insert>
     <delete id="cancelSignUp" parameterType="LearningGroupMember">
         DELETE LearningGroupMember

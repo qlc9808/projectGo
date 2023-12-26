@@ -60,10 +60,10 @@ function listEdu() {
                         header: '썸네일',
                         name: 'image',
                         align: 'center',
-                        width: 100,
+                        width: 150,
                         formatter: function(cellData) {
                             var value = cellData.value;
-                            return '<img src="' + contextPath + '/upload/educationalResources/' + value +'" style="width: 50px; height: 50px;">';
+                            return '<img src="' + contextPath + '/upload/educationalResources/' + value +'" style="width: 150px; height: 150px;">';
                         }
                     },
                     {

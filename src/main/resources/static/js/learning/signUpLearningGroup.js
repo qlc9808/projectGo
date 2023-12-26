@@ -61,11 +61,11 @@ function learningGroupList(value, category) {
                     header: '썸네일',
                     name: 'image',
                     align: 'center',
-                    width: 100,
+                    width: 120,
                     formatter: function(cellData) {
                         console.log(contextPath);
                         var value = cellData.value;
-                        return '<img src="' + contextPath + '/upload/gameContents/' + value +'" style="width: 50px; height: 50px;">';
+                        return '<img src="' + contextPath + '/upload/gameContents/' + value +'" style="width: 120px; height: 120px;">';
                     }
                 },
                 {
@@ -95,7 +95,7 @@ function learningGroupList(value, category) {
                     name: 'etc',
                     align: 'center',
                     minWidth: 100,
-                    width: 'auto'
+                    width: 300,
                 },
                 {
                     header: '학습시작날짜',
@@ -142,7 +142,7 @@ function learningGroupList(value, category) {
                 columns: columns,
                 pageOptions: {
                     useClient: true,
-                    perPage: 10
+                    perPage: 5
                 },
             });
         },

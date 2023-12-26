@@ -94,18 +94,17 @@ $.ajax({
         });
         const monthlySalesAvg = monthlySalesSum.map((sum, i) => {
             if (monthlySalesCount[i] === 0) {
-                // 해당 월의 매출이 없으면 평균 매출을 0으로 설정
                 return 0;
             } else {
-                // 그렇지 않으면 평균 매출을 계산
                 return Math.floor(sum / monthlySalesCount[i]);
             }
         });
-        monthlySalesSum = monthlySalesSum.map(sum => Math.floor(sum / 10000));
+        monthlySalesSum = monthlySalesSum.map(sum => (sum / 10000));
 
         // 총 매출액 계산
         const totalSales = monthlySalesSum.reduce((a, b) => a + b, 0) * 10000; // 만원 단위에서 원 단위로 변경
-        document.getElementById('total-discountPrice').value = totalSales;
+        const formattedTotalSales = totalSales.toLocaleString();
+        document.getElementById('total-discountPrice').value = formattedTotalSales;
 
         // 총 건수 계산
         const totalCount = monthlySalesCount.reduce((a, b) => a + b, 0);
@@ -206,7 +205,8 @@ function search() {
                 totalSales += item.discountPrice;
                 totalCount += 1;
             }
-            document.getElementById('total-discountPrice').value = totalSales;
+            const formattedTotalSales = totalSales.toLocaleString();
+            document.getElementById('total-discountPrice').value = formattedTotalSales;
             document.getElementById('totalCount').value = totalCount;
         }
     })
