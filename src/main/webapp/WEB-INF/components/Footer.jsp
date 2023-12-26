@@ -7,10 +7,15 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <style>
+    body { height: 100% }
     footer {
-        margin-top: auto;
+        margin-bottom: auto;
         text-align: center;
         background-color: #003983;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
     }
 </style>
 <footer class="py-5">
