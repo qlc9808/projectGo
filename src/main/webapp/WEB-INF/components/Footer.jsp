@@ -10,10 +10,10 @@
     footer {
         margin-top: auto;
         text-align: center;
-        background-color: #EEFFC2;
+        background-color: #003983;
     }
 </style>
-<footer class="py-5 fixed-bottom">
+<footer class="py-5">
     <div class="container footer-banner-custom">
         <div class="row  row-cols-1">
 
