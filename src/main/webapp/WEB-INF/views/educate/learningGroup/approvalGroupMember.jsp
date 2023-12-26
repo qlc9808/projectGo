@@ -54,7 +54,7 @@
     $(document).on('click', '.status-link', function(e) {
         e.preventDefault();     // 기본 링크 클릭 동작을 막습니다.
 
-        var item = $(this).closest('tr').data('item');      // row에서 item data를 가져옴.
+        var row = $(this).closest('tr');  // 클릭한 항목의 행을 가져옴.
         var item = row.data('item');  // 행에서 item data를 가져옴.
 
         // 사용자에게 실행 여부를 물어봅니다.
