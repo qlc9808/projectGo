@@ -58,9 +58,9 @@
                                 <option>교육자명</option>
                             </select>
                             ㅡ
-                            <sselect id="slg-selected">
+                            <select id="slg-selected">
                                 <option></option>
-                            </sselect>
+                            </select>
                             <button onclick="slgsearch(document.getElementById('slg-selected').value, document.getElementById('slg-select').value)" class="slg-search">조회하기</button>
 
                         </div>
