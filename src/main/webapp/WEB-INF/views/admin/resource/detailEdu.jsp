@@ -20,8 +20,10 @@
                         </div>
                         <div class="detailEdu-object">
                             <button onclick="eduList()">목록</button>
-                            <button onclick="eduUpdate(${id})">수정</button>
-                            <button onclick="eduDelete(${id})">삭제</button>
+                            <c:if test="${users.userType == '1'}">
+                                <button onclick="eduUpdate(${id})">수정</button>
+                                <button onclick="eduDelete(${id})">삭제</button>
+                            </c:if>
                         </div>
                     </div>
                     <div class="detailEdu-body">

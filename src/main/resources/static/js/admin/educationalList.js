@@ -81,14 +81,18 @@ function listEdu() {
                         name: 'resourceType',
                         align: 'center',
                         width: 'auto',
-                        minWidth: 150
+                        minWidth: 150,
+                        sortable: true,
+                        sortingType: 'desc'
                     },
                     {
                         header: '서비스',
                         name: 'serviceType',
                         align: 'center',
                         width: 'auto',
-                        minWidth: 150
+                        minWidth: 150,
+                        sortable: true,
+                        sortingType: 'desc'
                     },
                     {
                         header: '자료업로드일자',
