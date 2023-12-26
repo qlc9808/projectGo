@@ -328,6 +328,7 @@ public class BoardController {
 
         int userId = usersService.getLoggedInId();
         board.setUserId(userId);
+
         log.info("userId: " + userId);
 
         try {
@@ -348,6 +349,7 @@ public class BoardController {
             model.addAttribute("listQNABoard", listQNABoard);
             model.addAttribute("page", page);
             model.addAttribute("path", path);
+            model.addAttribute("userId", userId);
 
         } catch (Exception e) {
             log.error("[{}]:{}", "Noticeboard", e.getMessage());

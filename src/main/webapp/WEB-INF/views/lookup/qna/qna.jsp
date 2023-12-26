@@ -15,17 +15,17 @@
             // Modify the URL with case-insensitive search parameters
             location.href = "QNABoardList?pageSize=" + pageSize + "&searchType=" + searchType + "&keyword=" + keyword;
         }
-        function onRegistButtonClick() {
-
-            var userId = getUserId();
+            function checkLogin() {
+            var userId = "${userId}";  // 서버에서 전달받은 로그인된 사용자의 ID
 
             if (userId === null || userId === undefined || userId === "") {
-                // 로그인 페이지로 이동합니다.
-                location.href = 'http://localhost:8585/login';
-            } else {
-                // 로그인이 되어 있으면 QNAInsertForm 페이지로 이동합니다.
-                location.href = 'QNAInsertForm';
-            }
+            // 로그인이 안되어 있으면 경고창을 띄우고, 로그인 페이지로 이동
+            alert("로그인이 필요한 서비스입니다. 로그인 페이지로 이동합니다.");
+            location.href = 'http://localhost:8585/login';
+        } else {
+            // 로그인이 되어 있으면 QNAInsertForm 페이지로 이동
+            location.href = 'QNAInsertForm';
+        }
         }
     </script>
     <style>
@@ -113,7 +113,7 @@
                 </div>
             </form>
             <div class="container justify-content-end p-0">
-                <button style="float: right; margin-right: 12px;" id="regist-btn" type="button" class="btn btn-primary mb-4" onclick="onRegistButtonClick()">등록</button>
+                <button style="float: right; margin-right: 12px;" id="regist-btn" type="button" class="btn btn-primary mb-4" onclick="checkLogin()">등록</button>
             </div>
         </div>
         <div class="container table-container p-4">
