@@ -97,26 +97,18 @@
     </select>
 
 
-    <!-- 공개(0) -> 비공개(1) -->
-    <update id="deleteYes" parameterType="int">
-        update  gamecontents
-        set     isdeleted = 1
-        where   id = #{id}
-    </update>
-
-
-    <!-- 게임테이블의 isDeleted = 1 이라면 공개로 변경하기 위한 체크 ,, resultType="int"  ?? -->
-    <select id="isDeletedCheck" parameterType="int" resultType="int">
-        select  isDeleted
-        from    gameContents
-        where   id = #{id}
-    </select>
-
-
     <!-- 비공개(1) -> 공개(0) -->
     <update id="deleteNo" parameterType="int">
         update  gamecontents
         set     isdeleted = 0
+        where   id = #{id}
+    </update>
+
+
+    <!-- 공개(0) -> 비공개(1) -->
+    <update id="deleteYes" parameterType="int">
+        update  gamecontents
+        set     isdeleted = 1
         where   id = #{id}
     </update>
 

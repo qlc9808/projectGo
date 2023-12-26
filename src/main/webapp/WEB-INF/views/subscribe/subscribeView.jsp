@@ -47,19 +47,27 @@
             </form>
 
             <!-- 페이징 작업 -->
-            <ul class="pagination justify-content-center">
-                <c:if test="${page.startPage > page.pageBlock}">
-                    <a href="subscribeView?currentPage=${page.startPage - page.pageBlock}">[이전]</a>
-                </c:if>
+            <nav aria-label="Page navigation example ">
+                <ul class="pagination justify-content-center">
+                    <c:if test="${page.startPage > page.pageBlock}">
+                        <li class="page-item">
+                            <a class="page-link ${page.currentPage == i ? "active":"" }" href="subscribeView?currentPage=${page.startPage - page.pageBlock}">이전</a>
+                        </li>
+                    </c:if>
 
-                <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-                    <a href="subscribeView?currentPage=${i}">[${i}]</a>
-                </c:forEach>
+                    <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+                        <li class="page-item">
+                            <a class="page-link ${page.currentPage == i ? "active":"" }" href="subscribeView?currentPage=${i}">${i}</a>
+                        </li>
+                    </c:forEach>
 
-                <c:if test="${page.endPage < page.totalPage}">
-                    <a href="subscribeView?currentPage=${page.startPage + page.pageBlock}">[다음]</a>
-                </c:if>
-            </ul>
+                    <c:if test="${page.endPage < page.totalPage}">
+                        <li class="page-item">
+                            <a class="page-link ${page.currentPage == i ? "active":"" }" href="subscribeView?currentPage=${page.startPage + page.pageBlock}">다음</a>
+                        </li>
+                    </c:if>
+                </ul>
+            </nav>
 
         </div>
     </div>

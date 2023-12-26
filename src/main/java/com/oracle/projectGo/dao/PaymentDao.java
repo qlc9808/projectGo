@@ -31,11 +31,10 @@ public class PaymentDao {
             subscribePayInsert = session.insert("subscribePayInsert", payments);
             log.info("subscribePayInsert =  "+ subscribePayInsert);
 
-            //결제하면 Users Table에 Qualification도 동시 업데이트
+            // 결제 하면 Users Table에 Qualification도 동시 업데이트
             subscribePayInsert = session.update("userQualificationUpdate", payments);
             log.info("subscribePayInsert =  "+ subscribePayInsert);
             transactionManager.commit(txStatus);
-
             System.out.println("PaymentDao subscribePayInsert-> " + subscribePayInsert);
         }catch (Exception e){
             System.out.println("PaymentDao subscribePayInsert e-> " + e);

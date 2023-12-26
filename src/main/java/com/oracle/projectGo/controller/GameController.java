@@ -129,11 +129,10 @@ public class GameController {
         return "admin/game/gameContentSelect";
     }
 
-    // 사용자가 공개/비공개 설정
+    // 운영자가 공개/비공개 설정
     @ResponseBody
     @RequestMapping(value = "deleteCheck")
     public String deleteCheck(int id){
-        String result = null;
         System.out.println("GameController deleteCheck Start");
 
         Payments payments = new Payments();
@@ -144,33 +143,30 @@ public class GameController {
         gameContents.setId(id);
         System.out.println("gameContents.getId()-> " + gameContents.getId());
 
+        String result = null;
+
+        // 각 게임 아이디의 리스트 조회: 각 게임 아이디의 isDeleted를 확인하기 위해
         GameContents pGameContents =  gs.getGameContentsById(id);
-        log.info("pGameContents:{}",pGameContents);
+        log.info("pGameContents: {}", pGameContents);
 
-        if ( pGameContents.getIsDeleted().equals("1") ){
-            /* TODO : 비공개상태인 게임컨텐츠를 공개상태로 변경.*/
-            // 게임테이블의 isDeleted = 비공개(1) 이라면 공개로 변경하기 위한 체크
-
-            // 비공개(1) -> 공개(0)
-            int deleteNo = gs.deleteNo(gameContents);
+        if(pGameContents.getIsDeleted().equals("1") ){      // 비공개 상태임
+            int deleteNo = gs.deleteNo(gameContents);       // 공개 상태(0)로 변경
             System.out.println("1이면 공개 처리-> " + deleteNo);
             result = "public";
         } else {
-            /* TODO : 공개상태인 게임컨텐츠를 비공개상태로 변경.*/
             // Payments 테이블에 gameContents의 id의 갯수로 존재 여부 체크
             int deleteCheck = ps.deleteCheck(payments);
-            System.out.println("Payments 테이블에 존재여부 확인(1부터 존재)-> " + deleteCheck);
+            System.out.println("1 초과 하면 Payments 테이블에 존재-> " + deleteCheck);
 
-            // 공개(0) -> 비공개(1)
-            if(deleteCheck > 0) {  // payments 테이블에 존재하지 않음
+            // payments 테이블에 존재
+            if(deleteCheck > 0) {
                 result = "paymentExist";
-            } else{
-                int deleteYes = gs.deleteYes(gameContents);
+            }else{
+                int deleteYes = gs.deleteYes(gameContents);     // 비공개 상태(1)로 변경
                 System.out.println("1이면 비공개 처리-> " + deleteYes);
                 result = "nondisclosure";
             }
         }
-
         return result;
     }
 

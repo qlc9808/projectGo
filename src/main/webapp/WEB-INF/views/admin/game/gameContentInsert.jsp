@@ -71,7 +71,7 @@
                     <tr>
                         <th>구독 가능 인원 수</th>
                         <td>
-                            <input type="number" min="1" name="maxSubscribers">
+                            <input type="number" min="1" name="maxSubscribers"> 명
                         </td>
                     </tr>
 

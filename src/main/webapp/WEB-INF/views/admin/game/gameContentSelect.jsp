@@ -14,18 +14,17 @@
             alert("삭제/비공개 설정하는 게임 id: " + id);
             $.ajax({
                 url         : 'deleteCheck',
-      //          type        : "POST",
                 data        : {'id' : id},      // 보낼 데이터
                 dataType    : 'text',           // 받아올 데이터 자료형 지정
                 success     : function(data){
-                    if (data === "nondisclosure" || data === "public") {
+                    if(data === "nondisclosure" || data === "public") {
                         // 서버에서 받은 데이터에 따라 체크박스 상태 설정
                         toggleCheckbox(id, data === "nondisclosure");
                         console.log(data);
                         alert("data-> " + data);
-                    } else if(data === "paymentExist"){
+                    }else if(data === "paymentExist"){
                         alert("data-> " + data);
-                    } else{
+                    }else{
                         alert("알 수 없는 결과.");
                     }
                 }
@@ -44,7 +43,6 @@
             // 비공개일 때 레이블 변경
             const label = $("#gameContent" + id + " label[for=isDeleted" + id + "]");
             label.text(isChecked ? '비공개' : '공개');
-
         }
     </script>
 </head>
@@ -52,6 +50,7 @@
     th, td {
         text-align: center;
         vertical-align: middle;
+        width: 120px;
     }
     #gameImg{
         width: 110px;
@@ -70,8 +69,9 @@
 
                 <table class="table table-bordered">
                     <tr>
-                        <th>No.</th> <th>콘텐츠 이미지</th> <th>게임 콘텐츠명</th> <th>패키지 내용</th> <th>level</th> <th>구독 가능 인원</th>
-                        <th>구독 기간</th> <th>정가</th> <th>할인율</th> <th>판매가</th> <th>공개 여부</th>
+                        <th>No.</th> <th>콘텐츠 이미지</th> <th>게임 콘텐츠명</th> <th>패키지 내용</th>
+                        <th>Level<br><br>1=초급<br>2=중급<br>3=고급</th>
+                        <th>구독 가능 인원</th> <th>구독 기간</th> <th>정가</th> <th>할인율</th> <th>판매가</th> <th>공개 여부</th>
                     </tr>
 
                     <c:forEach var="gameContent" items="${gameContentsList}">
@@ -87,42 +87,35 @@
                             <td>${gameContent.discountRate}%</td>
                             <td>${gameContent.discountPrice}원</td>
                             <td>
-                                <%--<select name="isDeleted" class="isDeleted" onclick="deleteCheck(${gameContent.id})">
-                                    <option value="0" ${gameContent.isDeleted eq '0' ? 'selected' : ''}>공개</option>
-                                    <option value="1" ${gameContent.isDeleted eq '1' ? 'selected' : ''}>비공개</option>
-                                </select>--%>
-                                    <input type="checkbox" name="isDeleted" class="isDeleted" onclick="deleteCheck(${gameContent.id})"
-                                           value="${gameContent.isDeleted == '1' ? '0' : '1'}" ${gameContent.isDeleted == '1' ? 'checked' : ''}>
-                                    <label for="isDeleted${gameContent.id}">${gameContent.isDeleted == '1' ? '비공개' : '공개'}</label>
+                                <input type="checkbox" name="isDeleted" class="isDeleted" onclick="deleteCheck(${gameContent.id})"
+                                       value="${gameContent.isDeleted == '1' ? '0' : '1'}" ${gameContent.isDeleted == '1' ? 'checked' : ''}>
+                                <label for="isDeleted${gameContent.id}">${gameContent.isDeleted == '1' ? '비공개' : '공개'}</label>
                             </td>
                         </tr>
                     </c:forEach>
                 </table>
-                    <%--<button type="submit">등록하기</button>--%>
 
-
-            <!-- 페이징 작업 -->
+                <!-- 페이징 작업 -->
                 <nav aria-label="Page navigation example ">
+                    <ul class="pagination justify-content-center">
+                        <c:if test="${page.startPage > page.pageBlock}">
+                            <li class="page-item">
+                                <a class="page-link ${page.currentPage == i ? "active":"" }" href="gameContentSelect?currentPage=${page.startPage - page.pageBlock}">이전</a>
+                            </li>
+                        </c:if>
 
-                <ul class="pagination justify-content-center">
-                <c:if test="${page.startPage > page.pageBlock}">
-                    <li class="page-item">
-                        <a class="page-link ${page.currentPage == i ? "active":"" }" href="gameContentSelect?currentPage=${page.startPage - page.pageBlock}">이전</a>
-                    </li>
-                </c:if>
+                        <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+                            <li class="page-item">
+                                <a class="page-link ${page.currentPage == i ? "active":"" }" href="gameContentSelect?currentPage=${i}">${i}</a>
+                            </li>
+                        </c:forEach>
 
-                <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-                <li class="page-item">
-                    <a class="page-link ${page.currentPage == i ? "active":"" }" href="gameContentSelect?currentPage=${i}">${i}</a>
-                </li>
-                </c:forEach>
-
-                <c:if test="${page.endPage < page.totalPage}">
-                <li class="page-item">
-                    <a class="page-link ${page.currentPage == i ? "active":"" }" href="gameContentSelect?currentPage=${page.startPage + page.pageBlock}">다음</a>
-                </li>
-                </c:if>
-            </ul>
+                        <c:if test="${page.endPage < page.totalPage}">
+                            <li class="page-item">
+                                <a class="page-link ${page.currentPage == i ? "active":"" }" href="gameContentSelect?currentPage=${page.startPage + page.pageBlock}">다음</a>
+                            </li>
+                        </c:if>
+                    </ul>
                 </nav>
 
         </div>

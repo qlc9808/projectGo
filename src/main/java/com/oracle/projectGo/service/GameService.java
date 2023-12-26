@@ -74,13 +74,6 @@ public class GameService {
         return deleteYes;
     }
 
-    // 게임테이블의 isDeleted = 1 이라면 공개로 변경하기 위한 체크
-    public int isDeletedCheck(GameContents gameContents) {
-        System.out.println("ContentService isDeletedCheck Start !");
-        int isDeletedCheck = gd.isDeletedCheck(gameContents);
-
-        return isDeletedCheck;
-    }
 
     // 비공개(1) -> 공개(0)
     public int deleteNo(GameContents gameContents) {
