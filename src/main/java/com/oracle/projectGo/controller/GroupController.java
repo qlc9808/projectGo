@@ -50,13 +50,13 @@ public class GroupController {
             // LearningContent Count 조회
             int totalLearningContentCnt = groupService.totalLearningContentCnt(gameContents);
 
-            // LearningContentList 조회
-            List<GameContents> learningContentList = groupService.learningContentList(gameContents);
-
             // paging 처리
             Paging page = new Paging(totalLearningContentCnt, currentPage);
-            gameContents.setStart(page.getCurrentPage());
+            gameContents.setStart(page.getStart());
             gameContents.setEnd(page.getEnd());
+
+            // LearningContentList 조회
+            List<GameContents> learningContentList = groupService.learningContentList(gameContents);
 
             model.addAttribute("learningContentCnt", totalLearningContentCnt);
             model.addAttribute("learningContentList", learningContentList);
@@ -92,7 +92,7 @@ public class GroupController {
 
             // paging 처리
             Paging page = new Paging(totalLearningContentCnt, currentPage);
-            gameContents.setStart(page.getCurrentPage());
+            gameContents.setStart(page.getStart());
             gameContents.setEnd(page.getEnd());
 
             model.addAttribute("learningContentCnt", totalLearningContentCnt);

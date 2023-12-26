@@ -20,25 +20,32 @@
 
     <select id="NoLearningContentList" parameterType="GameContents" resultType="GameContents">
         <![CDATA[
-            SELECT    a.id, a.userId, a.contentId, b.title, b.createdAt,
-                      (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')) AS subscribeEndDate,
-                      b.maxSubscribers, c.groupSize assignedPeople
-            FROM      payments a
-            JOIN      gameContents b
-            ON        a.contentId = b.id
-            LEFT JOIN (SELECT contentId, SUM(groupSize) AS groupSize FROM LearningGroup GROUP BY contentId) c
-            ON        a.contentId = c.contentId
-            WHERE     a.userId = #{userId}
-            AND       b.createdAt <= SYSDATE
-            AND       (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')) >= SYSDATE
+        SELECT *
+        FROM (
+            SELECT ROWNUM RN, T.*
+            FROM (
+                SELECT    a.id, a.userId, a.contentId, b.title, b.createdAt,
+                          (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')) AS subscribeEndDate,
+                          b.maxSubscribers, c.groupSize assignedPeople
+                FROM      payments a
+                JOIN      gameContents b
+                ON        a.contentId = b.id
+                LEFT JOIN (SELECT contentId, SUM(groupSize) AS groupSize FROM LearningGroup GROUP BY contentId) c
+                ON        a.contentId = c.contentId
+                WHERE     a.userId = #{userId}
+                AND       b.createdAt <= SYSDATE
+                AND       (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')) >= SYSDATE
         ]]>
-        <if test="keyword != null and keyword != ''">
-            AND b.title like '%' || #{keyword} || '%'
-        </if>
-            GROUP BY  a.id, a.userId, a.contentId, b.title, b.createdAt,
-                      (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')),
-                      b.maxSubscribers, c.groupSize
-            ORDER BY  a.contentId ASC
+            <if test="keyword != null and keyword != ''">
+                AND b.title like '%' || #{keyword} || '%'
+            </if>
+                GROUP BY  a.id, a.userId, a.contentId, b.title, b.createdAt,
+                          (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')),
+                          b.maxSubscribers, c.groupSize
+                ORDER BY  a.contentId ASC
+                ) T
+            )
+            WHERE RN BETWEEN #{start} AND #{end}
     </select>
 
     <select id="NoInsertFormLearningContent" parameterType="int" resultType="GameContents">

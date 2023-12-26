@@ -36,12 +36,10 @@
                         month: '2-digit',
                         day: '2-digit'
                     });
-
                     row.append($("<td>").text(formattedDate));
 
                     var status = (item.status == 0) ? '승인대기' : '승인완료';
                     var statusLink = $("<a>").text(status).attr('href', '#').addClass('status-link');
-
                     row.append($("<td>").append(statusLink));
                     tbody.append(row);
                 });

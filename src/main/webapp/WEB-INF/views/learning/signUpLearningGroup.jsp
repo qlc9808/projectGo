@@ -22,6 +22,7 @@
             background-color: rgba(90, 90, 255, 0.78); /* 배경색을 좀 더 밝은 파란색으로 변경 */
             border: 0px solid white; /* 테두리를 흰색으로 강조 */
         }
+        .grid1
 
     </style>
 </head>
