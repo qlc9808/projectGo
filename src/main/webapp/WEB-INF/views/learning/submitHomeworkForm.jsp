@@ -96,7 +96,7 @@
         </div>
         <div id="main-content" class=" container p-5  col-9">
             <div class="container  my-4 py-3">
-                <h1>숙제 등록</h1>
+                <h1>숙제 제출</h1>
                 <form action="/homework/submissionHomework" method="post">
                     <hr/>
                     <div class="container d-flex justify-content-between">

@@ -55,7 +55,7 @@
                 <a href="/learning/submitHomeworkForm"
                    class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi-journal-arrow-up px-3"></i>
-                    숙제 전송
+                    숙제 제출
                 </a>
             </div>
         </li>
