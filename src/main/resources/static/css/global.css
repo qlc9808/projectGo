@@ -97,7 +97,7 @@
 }
 
 main {
-    padding-top:70px;
+    margin-top:70px;
     display: flex;
     flex-direction: column;
     width: 100%;
