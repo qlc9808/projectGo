@@ -166,8 +166,8 @@
             </div>
         </div>
 
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
+        <nav aria-label="Page navigation example" style="text-align: center; margin-left: 30px;">
+            <ul class="pagination" style="margin-left: 120px;">
                 <c:choose>
                     <c:when test="${path ==0}">
                         <c:if test="${page.startPage > page.pageBlock}">

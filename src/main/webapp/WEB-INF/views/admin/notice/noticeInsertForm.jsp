@@ -1,96 +1,113 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <html>
 <head>
     <%@ include file="/WEB-INF/components/Header.jsp"%>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Title</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        form {
-            max-width: 600px;
-            margin: auto;
-        }
-
-        label {
-            display: block;
-            margin-top: 20px;
-        }
-
-        input[type="text"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            box-sizing: border-box;
-        }
-
-        #drop_zone {
-            margin-top: 20px;
-            padding: 10px;
-            text-align: center;
-        }
-
-        #uploadBtn {
-            display: block;
-            margin-top: 20px;
-        }
-
-        input[type="submit"] {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-    </style>
 </head>
+<style>
+    #main-content {
+        margin-left: 440px;
+    }
+    .date-text {
+        font-size: 16px;
+        font-weight: 600;
+        margin-right: 20px;
+        margin-left: 10px;
+        text-align: center;
+    }
+
+    h1 {
+        color: black;
+        font-size: 32px;
+        font-weight: 600;
+        word-wrap: break-word;
+        text-align: center;
+    }
+    .form-check-input[type=radio] {
+        width: 20px;
+        height: 20px;
+        border-width: 2px;
+    }
+
+</style>
+
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
-    <%@ include file="/WEB-INF/components/AdminSidebar.jsp"%>
-    <div class="container col-9 justify-content-center align-items-center mb-2 p-3 pt-0">
-        <div class="container table-container p-4">
-            <form action="noticeInsert" method="post" enctype="multipart/form-data">
+    <div class="d-flex">
+        <div class="col-second">
+            <%@ include file="/WEB-INF/components/AdminSidebar.jsp"%>
+        </div>
+    </div>
+    <div id="main-content" class="container p-5 col-10" style="border: 0px solid red;">
+        <div class="container border my-4 py-3">
+            <div class="container my-3 py-3" style="text-align: center">
                 <H1>공지 등록</H1>
+            </div>
+            <div>
+            <form action="noticeInsert" method="post" enctype="multipart/form-data">
+                <div class="my-4 row align-items-baseline">
+                    <label for="title" class="col-sm-2 col-form-label fw-bold text-end"
+                           style="font-size: 20px;">제목</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="title" name="title" required>
+                    </div>
+                <div class="my-4 row align-items-baseline">
+                <label for="content" class="col-sm-2 col-form-label fw-bold text-end"
+                       style="font-size: 20px;">내용</label>
+                    <div class="col-sm-8">
+                    <textarea id="content" name="content" class="form-control" required></textarea>
+                    </div>
+                </div>
 
-                <label for="title">제목</label>
-                <input type="text" id="title" name="title" required>
-
-                <label for="content">내용</label>
-                <textarea id="content" name="content" required></textarea>
-
-                <div style="display: flex; align-items: center;">
+                <div class="my-4 row align-items-baseline ">
                     <input type="hidden" id="isPinnedHidden" name="isPinned" value="0">
-                    <input type="checkbox" id="isPinned" name="isPinned">
-                    <label for="isPinned">상단에 고정</label>
+                    <label for="isPinned" class="col-sm-2 col-form-label fw-bold text-end" style="font-size: 20px;"> 상단에 고정 </label>
+                    <div class="col-sm-8">
+                        <input type="checkbox" id="isPinned" name="isPinned">
+                    </div>
                 </div>
+                    <div class="my-4 row align-items-baseline ">
+                       <label for="immediate" class="col-sm-2 col-form-label fw-bold text-end"
+                           style="font-size: 20px;">등록 일자 </label>
+                        <div class="col-sm-8">
+                            <div class="form-check">
+                        <input class="form-check-input" type="radio" id="immediate" name="publishOption" value="immediate" checked>
+                                <label class="form-check-label" for="immediate" style="font-size: 20px; font-weight: bold;">
+                                    즉시 등록
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="scheduled" name="publishOption" value="scheduled">
+                                <label class="form-check-label" for="scheduled" style="font-size: 20px; font-weight: bold;">원하는 날짜에 등록
+                                </label>
+                            </div>
+                        </div>
+                        <div class="my-4 row align-items-baseline ">
+                        <label for="publishDate" class="col-sm-2 col-form-label fw-bold text-end"
+                        style="font-size: 20px; display: none;" id="publishDateLabel">게시일자</label>
+                        <input type="datetime-local" id="publishDate" name="publishDate" style="display: none; width: 300px;"><!-- 게시일자 입력 필드 추가 -->
+                        </div>
 
-                <div style="display: flex; align-items: center;">
-                    <input type="radio" id="immediate" name="publishOption" value="immediate" checked>
-                    <label for="immediate">즉시 등록</label>
+                        <div class="my-4 row align-items-baseline ">
+                            <label for="title" class="col-sm-2 col-form-label fw-bold text-end"
+                                       style="font-size: 20px;">파일 업로드</label>
+                            <div class="col-sm-8" id="drop_zone" style="width: 300px; height: 200px; border: 1px solid black;">
+                                파일을 여기에 드래그하세요.(최대 30MB)</div>
+                            </div>
+                        <button id="uploadBtn" type="button" style="width: 300px; margin-left: 195px;">파일 선택 및 업로드</button>
+                            <input type="file" id="file" name="file" multiple style="display: none;">
+                        </div>
+                        </div>
+
+                <div class="container row justify-content-center my-5">
+
+                    <button type="submit" class="btn btn-primary col-4 px-3 mx-2"
+                            style="background: #52525C; border: none">저장하기
+                    </button>
+                    <button type="reset" class="btn btn-primary col-4 px-3 mx-2">취소</button>
+
                 </div>
-
-                <div style="display: flex; align-items: center;">
-                    <input type="radio" id="scheduled" name="publishOption" value="scheduled">
-                    <label for="scheduled">원하는 날짜에 등록</label>
-                </div>
-
-                <label for="publishDate" style="display: none;" id="publishDateLabel">게시일자</label>
-                <input type="datetime-local" id="publishDate" name="publishDate" style="display: none;"><!-- 게시일자 입력 필드 추가 -->
-
-                <div id="drop_zone" style="width: 300px; height: 200px; border: 1px solid black;">파일을 여기에 드래그하세요.(최대 30MB)</div>
-                <button id="uploadBtn" type="button">파일 선택 및 업로드</button>
-                <input type="file" id="file" name="file" multiple style="display: none;">
-
-                <input type="submit" value="등록">
             </form>
 
         </div>
