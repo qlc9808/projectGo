@@ -1,148 +1,80 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <html>
 <head>
     <%@ include file="/WEB-INF/components/Header.jsp"%>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Title</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        form {
-            max-width: 600px;
-            margin: auto;
-        }
-
-        label {
-            display: block;
-            margin-top: 20px;
-        }
-
-        input[type="text"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            box-sizing: border-box;
-        }
-
-        #drop_zone {
-            margin-top: 20px;
-            padding: 10px;
-            text-align: center;
-        }
-
-        #uploadBtn {
-            display: block;
-            margin-top: 20px;
-        }
-
-        input[type="submit"] {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-    </style>
 </head>
+<style>
+    #main-content {
+        margin-left: 440px;
+    }
+    .date-text {
+        font-size: 16px;
+        font-weight: 600;
+        margin-right: 20px;
+        margin-left: 10px;
+        text-align: center;
+    }
+
+    h1 {
+        color: black;
+        font-size: 32px;
+        font-weight: 600;
+        word-wrap: break-word;
+        text-align: center;
+    }
+    .form-check-input[type=radio] {
+        width: 20px;
+        height: 20px;
+        border-width: 2px;
+    }
+
+</style>
+
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
-    <%@ include file="/WEB-INF/components/LookupSidebar.jsp"%>
-    <div class="container col-9 justify-content-center align-items-center mb-2 p-3 pt-0">
-        <div class="container table-container p-4">
-            <body>
-            <form action="QNAInsert" method="post" enctype="multipart/form-data">
+    <div class="d-flex">
+        <div class="col-second">
+            <%@ include file="/WEB-INF/components/LookupSidebar.jsp"%>
+        </div>
+    </div>
+    <div id="main-content" class="container p-5 col-10" style="border: 0px solid red;">
+        <div class="container border my-4 py-3">
+            <div class="container my-3 py-3" style="text-align: center">
                 <H1>QNA 등록</H1>
+            </div>
+            <div>
+                <form action="QNAInsert" method="post" enctype="multipart/form-data">
+                    <div class="my-4 row align-items-baseline">
+                        <label for="title" class="col-sm-2 col-form-label fw-bold text-end"
+                               style="font-size: 20px;">제목</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+                        <div class="my-4 row align-items-baseline">
+                            <label for="content" class="col-sm-2 col-form-label fw-bold text-end"
+                                   style="font-size: 20px;">내용</label>
+                            <div class="col-sm-8">
+                                <textarea id="content" name="content" class="form-control" required></textarea>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="container row justify-content-center my-5">
 
-                <label for="title">제목</label>
-                <input type="text" id="title" name="title" required>
+                        <button type="submit" class="btn btn-primary col-4 px-3 mx-2"
+                                style="background: #52525C; border: none">저장하기
+                        </button>
+                        <button type="reset" class="btn btn-primary col-4 px-3 mx-2" onclick="window.location.href='QNABoardList'">취소</button>
 
-                <label for="content">내용</label>
-                <textarea id="content" name="content" required></textarea>
+                    </div>
 
-                <input type="submit" value="등록">
-            </form>
-            </body>
+                </form>
+
+            </div>
         </div>
     </div>
 </main>
-<script>
-    $(document).ready(function() {
-        $('input[type=radio][name=publishOption]').change(function () {
-            if (this.value == 'scheduled') {
-                $('#publishDate').prop('disabled', false);
-            } else if (this.value == 'immediate') {
-                $('#publishDate').prop('disabled', true);
-            }
-        });
-
-        var dropZone = document.getElementById('drop_zone');
-        var fileInfo = "";
-
-        dropZone.ondragover = function (event) {
-            event.preventDefault();
-            this.style.background = "#cccccc";
-        };
-
-        dropZone.ondragleave = function (event) {
-            event.preventDefault();
-            this.style.background = "white";
-        };
-
-        dropZone.ondrop = function (event) {
-            event.preventDefault();
-            this.style.background = "white";
-
-            var files = event.dataTransfer.files;
-            if (handleFiles(files)) {
-                fileInfo += displayFileInfo(files);
-                document.getElementById("drop_zone").innerHTML = fileInfo;
-            }
-        };
-
-        function displayFileInfo(files) {
-            var result = "";
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                var sizeInMB = (file.size / 1000000).toFixed(2); // 파일 크기를 메가바이트로 변환
-                result += "File " + (i + 1) + ":<br>"; // 파일 번호
-                result += "Name: " + file.name + "<br>";
-                result += "Size: " + sizeInMB + " MB<br><br>";
-            }
-            return result;
-        }
-
-        function handleFiles(files) {
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                var sizeInMB = (file.size / 1000000).toFixed(2); // 파일 크기를 메가바이트로 변환
-                if (sizeInMB > 30) { // 파일 크기가 30MB를 초과하는지 체크
-                    alert('파일 크기가 30MB를 초과하였습니다. 다른 파일을 선택해주세요.');
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        document.getElementById('uploadBtn').addEventListener('click', function() {
-            document.getElementById('file').click();
-        });
-
-        document.getElementById('file').addEventListener('change', function() {
-            if (handleFiles(this.files)) {
-                fileInfo += displayFileInfo(this.files);
-                document.getElementById("drop_zone").innerHTML = fileInfo;
-            }
-        });
-    })
-</script>
+</body>
 </html>

@@ -293,7 +293,7 @@
     </select>
 
     <delete id="FAQDelete" parameterType="int">
-        update board
+        delete board
         where  id = #{id}
     </delete>
 

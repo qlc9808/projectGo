@@ -684,7 +684,7 @@ public class AdminBoardController {
 		} finally {
 			log.info("[{}]:{}", "admin FAQDelete", "end");
 		}
-		return "forward:admin/faq/faq";
+		return "redirect:/admin/board/FAQBoardList";
 	}
 
 	@RequestMapping(value = "FAQSearch")
