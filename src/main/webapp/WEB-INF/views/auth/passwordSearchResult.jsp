@@ -22,22 +22,9 @@
                     <h1>비밀번호 찾기</h1>
                 </div>
                 <div class="justify-content-center pb-1" align="center">
-                    <p>입력하신 내용과 일치하는 회원의 비밀번호는 다음과 같습니다.</p>
+                    <p>입력하신 EMAIL로 임시비밀번호 발급하였습니다 .</p>
                 </div>
-                <hr>
-                <div class="justify-content-start pb-3">
-                    <label for="password" class="form-label mb-2">비밀번호</label>
-                    <c:choose>
-                        <c:when test="${users.password != null}">
-                            <input type="text" class="form-control" name="password" id="password"
-                                   value="${users.password}" disabled>
-                        </c:when>
-                        <c:otherwise>
-                            <input type="text" class="form-control" name="password" id="password"
-                                   value="등록중인 ID가 없습니다 회원정보를 확인해주세요 " disabled>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
+
                 <div class="justify-content-center pt-3 pb-3" align="center">
                     <div>
                         <button type="button" class="btn btn-primary" onclick="location.href='login'">로그인</button>

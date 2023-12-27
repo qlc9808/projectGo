@@ -127,4 +127,10 @@
             consent1=#{consent1}, consent2=#{consent2}
         WHERE id = #{id}
     </update>
+
+    <update id="userUpdatePassword" parameterType="Users">
+        UPDATE users
+        SET password=#{password}
+        WHERE id = #{id}
+    </update>
 </mapper>

@@ -66,20 +66,13 @@ public class AuthController {
         log.info("aaa");
 
         try {
-            /*users.setName(name);
-            log.info("username = "+users.getName());
-            users.setPhone(phone);
-            log.info("userphone = "+ users.getPhone());*/
+            String newPassword = us.getPasswordResetToken(users.getNickname());
 
-            users = us.passwordSearchByEmail(users);
 
-            model.addAttribute("users", users);
 
-        } catch (Exception e){
+
+        } catch (Exception e) {
             log.info(e.getMessage());
-        }finally {
-
-
         }
 
         return "auth/passwordSearchResult";

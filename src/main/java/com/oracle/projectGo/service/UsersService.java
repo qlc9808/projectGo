@@ -83,6 +83,47 @@ public class UsersService {
         return UsersRoleType.findByLabel(roleLabel);
     }
 
+    public String getPasswordResetToken(String nickname) {
+        // 1. 닉네임으로 사용자 찾기
+        Users user = ud.getUserByNickname(nickname);
+
+        if (user != null) {
+            // 2. 새로운 비밀번호 생성
+            String newPassword = generateRandomPassword();
+
+            // 3. 새로운 비밀번호를 사용자에게 전송
+            // 3. 새로운 비밀번호를 사용자에게 전송
+            sendPasswordResetNotification(user.getEmail(), newPassword);
+
+            Users users = new Users();
+            users.setId(user.getId());
+            String encryptedPassword = bCryptPasswordEncoder.encode(newPassword);
+            users.setPassword(encryptedPassword);
+            log.info("newPassword = "+ users.getPassword());
+            log.info("users nickname = "+ user.getId());
+            ud.userUpdatePassword(users);
+
+            // 4. 새로운 비밀번호를 반환
+            return newPassword;
+        }
+
+        // 사용자를 찾지 못한 경우에 대한 예외를 던짐
+        return null;
+    }
+
+    private String generateRandomPassword() {
+        // 적절한 방식으로 무작위 비밀번호 생성
+        return RandomStringUtils.randomNumeric(6);
+    }
+
+    public void sendPasswordResetNotification(String email, String newPassword) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);  // userEmail 변수를 email로 수정
+        message.setSubject("비밀번호 재설정 안내");
+        message.setText("새로운 비밀번호: " + newPassword);
+
+        mailSender.send(message);
+    }
 
 
 

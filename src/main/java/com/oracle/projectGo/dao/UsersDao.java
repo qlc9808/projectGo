@@ -153,10 +153,27 @@ public class UsersDao {
         try {
             userUpdate = session.update("userUpdate", users);
 
+            log.info("userUpdate result"+ userUpdate);
+
         } catch (Exception e) {
             log.info("UsersDao userUpdate => " + e.getMessage());
         }
         return userUpdate;
+
+    }
+
+    public int userUpdatePassword(Users users) {
+        log.info("UsersDao userUpdatePassword start");
+        int userUpdatePassword = 0;
+        try {
+            userUpdatePassword = session.update("userUpdatePassword", users);
+
+            log.info("userUpdatePassword result"+ userUpdatePassword);
+
+        } catch (Exception e) {
+            log.info("UsersDao userUpdatePassword => " + e.getMessage());
+        }
+        return userUpdatePassword;
 
     }
 }
