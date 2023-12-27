@@ -4,12 +4,8 @@
     <%@ include file="/WEB-INF/components/Header.jsp"%>
     <title>Title</title>
     <style>
-        .d-flex {
-            margin: auto;
-        }
         #main-content {
-            border: 0px solid red;
-            margin: auto auto auto 350px;
+            margin-left: 400px;
         }
         .searchForm {
             width: 1200px;
@@ -41,8 +37,8 @@
             </div>
         </div>
         <div id="main-content" class="container p-5 col-10">
-            <h1 style="text-align: center;">교육자료</h1>
-            <div class="container border my-4 py-3" style="width: 1195px;">
+            <h1 style="text-align: center; font-weight: bold;">교육자료</h1>
+            <div class="container border my-4 py-3" style="width: 1280px;">
                 <div class="searchForm">
 <%--                    <input type="radio" id="group" name="categoryEdu" value="그룹명">--%>
 <%--                    <input type="radio" id="educator" name="categoryEdu" value="교육자명">--%>

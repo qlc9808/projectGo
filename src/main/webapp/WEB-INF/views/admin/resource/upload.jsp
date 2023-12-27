@@ -6,8 +6,7 @@
 </head>
 <style>
     #main-content {
-        border: 0px solid red;
-        margin: 60px auto auto 550px;
+        margin-left: 440px;
     }
     .date-text {
         font-size: 16px;
@@ -95,8 +94,8 @@
                         <div class="my-4 row align-items-baseline ">
                             <label for="title" class="col-sm-2 col-form-label fw-bold text-end"
                                    style="font-size: 20px;">자료file주소</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="fileAddress" name="fileAddress">
+                            <div class="col-sm-8" style="display: flex;">
+                                https://youtu.be/&nbsp;<input type="text" class="form-control" id="fileAddress" name="fileAddress">
                             </div>
                         </div>
 

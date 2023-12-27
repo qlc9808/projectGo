@@ -75,7 +75,7 @@ public class AdminResourceController {
         int result = adminResourceService.educationUpload(educationalResources);
         log.info(String.valueOf(result));
 
-        return "redirect:/admin/resource/listEdu";
+        return "redirect:/lookup/board/listEdu";
     }
 
     @GetMapping(value = "/listEdu")
@@ -116,7 +116,7 @@ public class AdminResourceController {
         model.addAttribute("edu", edu);
         model.addAttribute("users",users);
 
-        return "admin/resource/detailEdu";
+        return "lookup/resource/detailEdu";
     }
 
     @GetMapping(value = "api/detailEdu")
@@ -142,6 +142,9 @@ public class AdminResourceController {
         gameContents.setEnd(page.getEnd());
         List<GameContents> gameContentsList = gameService.gameContentsList(gameContents);
 
+        log.info(edu.getGameTitle());
+        log.info(String.valueOf(edu.getContentId()));
+
         model.addAttribute("gameContentsList", gameContentsList);
         model.addAttribute("edu",edu);
 
@@ -153,6 +156,9 @@ public class AdminResourceController {
                             HttpServletRequest request,
                             @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
         String uploadPath = request.getSession().getServletContext().getRealPath("/upload/educationalResources/");
+
+        log.info(String.valueOf(edu.getContentId()));
+        log.info(edu.getGameTitle());
 
         System.out.println("uploadPath->" + uploadPath);
         System.out.println("originalName : " + file.getOriginalFilename());
@@ -171,7 +177,6 @@ public class AdminResourceController {
             edu.setImage(saveName);
         }
         int result = adminResourceService.updateEdu(edu);
-        System.out.println("마지막");
         return "redirect:/admin/resource/detailEdu?id="+edu.getId();
     }
 

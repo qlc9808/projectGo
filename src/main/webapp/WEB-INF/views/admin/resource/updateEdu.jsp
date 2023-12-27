@@ -6,8 +6,7 @@
 </head>
 <style>
     #main-content {
-        border: 0px solid red;
-        margin: 60px auto auto 550px;
+        margin-left: 440px;
     }
     .date-text {
         font-size: 16px;
@@ -37,7 +36,7 @@
     <main>
         <div class="d-flex">
             <div class="col-second">
-                <%@ include file="/WEB-INF/components/AdminSidebar.jsp"%>
+                <%@ include file="/WEB-INF/components/LookupSidebar.jsp"%>
             </div>
         </div>
         <div id="main-content" class="container p-5 col-10" style="border: 0px solid red;">
@@ -48,7 +47,6 @@
                 <div>
                     <form action="/admin/resource/updateEdu" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="${edu.id}">
-                        <input type="hidden" name="contentId" value="${edu.contentId}">
                         <input type="hidden" name="userId" value="${edu.userId}">
                         <input type="hidden" name="image" value="${edu.image}">
                         <input type="hidden" name="createdAt" value="${edu.createdAt}">
@@ -66,7 +64,9 @@
 
                                 <select class="form-select mx-2" id="contentId" name="contentId">
                                     <c:forEach items="${gameContentsList}" var="game">
-                                        <option value="${game.id}" selected="${edu.contentId}">${game.title}</option>
+                                        <option value="${game.id}"
+                                                <c:if test="${game.id == edu.contentId}">selected</c:if>
+                                        >${game.title}</option>
                                     </c:forEach>
                                 </select>
                             </div>
@@ -100,8 +100,8 @@
                         <div class="my-4 row align-items-baseline ">
                             <label for="title" class="col-sm-2 col-form-label fw-bold text-end"
                                    style="font-size: 20px;">자료file주소</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="fileAddress" name="fileAddress" value="${edu.fileAddress}">
+                            <div class="col-sm-8" style="display: flex;">
+                                https://youtu.be/&nbsp;<input type="text" class="form-control" id="fileAddress" name="fileAddress" value="${edu.fileAddress}">
                             </div>
                         </div>
 

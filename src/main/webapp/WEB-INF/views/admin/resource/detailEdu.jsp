@@ -28,7 +28,6 @@
                     </div>
                     <div class="detailEdu-body">
                         <div class="detailEdu-source">
-                            <iframe width="900" height="566" src="https://www.youtube.com/embed/lmDNGO-9guw?si=7-Qn7mlgIKAtzfiX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </div>
                         <br>
                         <div class="detailEdu-textarea">

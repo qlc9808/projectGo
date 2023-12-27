@@ -4,10 +4,6 @@
     <%@ include file="/WEB-INF/components/Header.jsp"%>
     <title>Title</title>
     <style>
-        #main-content {
-            border: 0px solid red;
-            margin: 70px auto auto 550px;
-        }
         .searchForm {
             width: 1200px;
             border: 0px solid red;

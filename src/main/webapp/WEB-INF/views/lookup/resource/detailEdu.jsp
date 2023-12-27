@@ -5,12 +5,14 @@
     <title>Title</title>
 </head>
 <link rel="stylesheet" href="/css/edu/detailEdu.css?after">
+<style>
+</style>
 <body>
     <%@ include file="/WEB-INF/components/TopBar.jsp"%>
     <main>
         <div class="d-flex">
             <div class="col-2">
-                <%@ include file="/WEB-INF/components/AdminSidebar.jsp"%>
+                <%@ include file="/WEB-INF/components/LookupSidebar.jsp"%>
             </div>
             <div id="main-content" class="container p-5 col-10">
                 <div class="container border my-4 py-3">
@@ -28,7 +30,11 @@
                     </div>
                     <div class="detailEdu-body">
                         <div class="detailEdu-source">
-                            <iframe width="900" height="566" src="https://www.youtube.com/embed/lmDNGO-9guw?si=7-Qn7mlgIKAtzfiX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            <c:if test="${edu.fileAddress != null}">
+                                <iframe width="1100" height="720" src="https://www.youtube.com/embed/${edu.fileAddress}"
+                                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                                </iframe>
+                            </c:if>
                         </div>
                         <br>
                         <div class="detailEdu-textarea">

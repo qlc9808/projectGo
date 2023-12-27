@@ -6,8 +6,7 @@
 </head>
 <style>
     #main-content {
-        border: 0px solid red;
-        margin: 60px auto auto 550px;
+        margin-left: 420px;
     }
     .search-form {
         border: 1px solid black;

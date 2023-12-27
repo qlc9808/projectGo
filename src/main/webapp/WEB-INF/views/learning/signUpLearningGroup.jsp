@@ -5,8 +5,7 @@
     <title>Title</title>
     <style>
         #main-content {
-            border: 0px solid red;
-
+            margin-left: 100px;
         }
         .myButton:hover {
             background-color: rgba(90, 90, 255, 0.78); /* 배경색을 좀 더 밝은 파란색으로 변경 */

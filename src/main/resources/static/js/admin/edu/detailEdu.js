@@ -1,5 +1,5 @@
 function eduList() {
-    window.location.href = '/admin/resource/listEdu';
+    window.location.href = '/lookup/board/listEdu';
 }
 
 function eduUpdate(id) {

@@ -63,7 +63,7 @@ function listEdu() {
                         width: 150,
                         formatter: function(cellData) {
                             var value = cellData.value;
-                            return '<img src="' + contextPath + '/upload/educationalResources/' + value +'" style="width: 150px; height: 150px;">';
+                            return '<img src="' + contextPath + '/upload/educationalResources/' + value +'" style="width: 110px; height: 110px;">';
                         }
                     },
                     {
@@ -118,7 +118,7 @@ function listEdu() {
                 ],
                 pageOptions: {
                     useClient: true,
-                    perPage: 10
+                    perPage: 5
                 },
             });
 
