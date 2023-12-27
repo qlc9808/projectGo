@@ -15,7 +15,6 @@
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
-    <%@ include file="/WEB-INF/components/Sidebar.jsp"%>
     <div class="container col-4 justify-content-start border mt-3 p-5">
         <form action="/emailVerify" method="post">
             <input type="hidden" name="userName" value="${userName}">

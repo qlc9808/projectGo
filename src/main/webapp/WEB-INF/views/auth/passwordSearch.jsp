@@ -15,7 +15,6 @@
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
-    <%@ include file="/WEB-INF/components/Sidebar.jsp"%>
     <div class="container col-4 justify-content-start border mt-3 p-5">
         <form action="/passwordSearchResult" method="post">
             <div class="mt-5 mb-5">
