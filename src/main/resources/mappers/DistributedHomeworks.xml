@@ -3,21 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.oracle.projectGo.DistributedHomeworksMapper">
-<!--    <insert id="insertDistributedHomeworksByBulk" parameterType="java.util.List">-->
-<!--        INSERT ALL-->
-<!--        <foreach collection="list" item="item">-->
-<!--            INTO DistributedHomeworks (homeworkId, userId, progress, createdAt)-->
-<!--            VALUES ( #{item.homeworkId}, #{item.userId},#{item.progress},sysdate)-->
-<!--        </foreach>-->
-<!--        SELECT * FROM dual-->
-<!--    </insert>-->
     <insert id="insertDistributedHomeworksByBulk" parameterType="java.util.List">
-        <foreach collection="list" item="item" open="" close="" separator=";">
-            MERGE INTO DistributedHomeworks USING dual ON (homeworkId = #{item.homeworkId} AND userId = #{item.userId})
-            WHEN NOT MATCHED THEN
-            INSERT (homeworkId, userId, progress, createdAt)
-            VALUES (#{item.homeworkId}, #{item.userId}, #{item.progress}, SYSDATE)
+        INSERT ALL
+        <foreach collection="list" item="item">
+            INTO DistributedHomeworks (homeworkId, userId, progress, createdAt)
+            VALUES ( #{item.homeworkId}, #{item.userId},#{item.progress},sysdate)
         </foreach>
+        SELECT * FROM dual
     </insert>
     <insert id="insertDistributedHomeworks" parameterType="DistributedHomeworks">
         INSERT INTO distributedHomeworks(homeworkId, userId, createdAt)

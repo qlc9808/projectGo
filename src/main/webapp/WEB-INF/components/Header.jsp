@@ -34,4 +34,4 @@
     var contextPath = "${pageContext.request.contextPath}";
 </script>
 <link href="/css/global.css" rel="stylesheet" type="text/css">
-
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>

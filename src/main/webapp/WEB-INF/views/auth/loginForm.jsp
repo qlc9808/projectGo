@@ -14,7 +14,6 @@
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
-    <%@ include file="/WEB-INF/components/Sidebar.jsp"%>
     <div id="main-content">
         <main class=" m-5 p-5" >
             <div class="container col-4 justify-content-start ">
