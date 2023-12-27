@@ -73,7 +73,7 @@
                 <a href="/admin/board/noticeBoardList"
                    class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi bi-chat-square-dots-fill px-3"></i>
-                    공지 등록
+                    공지 관리
                 </a>
             </div>
         </li>
@@ -82,7 +82,7 @@
                 <a href="/admin/board/QNABoardList"
                    class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi bi-chat-square-dots-fill px-3"></i>
-                    Q&A 올리기
+                    Q&A 관리
                 </a>
             </div>
         </li>
@@ -91,7 +91,7 @@
                 <a href="/admin/board/FAQBoardList"
                    class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi bi-chat-square-dots-fill px-3"></i>
-                    FAQ
+                    FAQ 관리
                 </a>
             </div>
         </li>

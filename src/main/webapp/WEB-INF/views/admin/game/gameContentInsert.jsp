@@ -35,6 +35,9 @@
         text-align: center;
         margin: 30px;
     }
+    #submit{
+        width: auto;
+    }
 </style>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
@@ -48,7 +51,6 @@
             <h4>게임콘텐츠 등록</h4>
 
             <form:form action="gameContentInsert" method="post" enctype="multipart/form-data">
-
                 <table class="table table-bordered">
                     <tr>
                         <th>게임 콘텐츠명</th>
@@ -59,7 +61,7 @@
                     </tr>
 
                     <tr>
-                        <th>학습난이도</th>
+                        <th>학습 난이도</th>
                         <td>
                             <select name="gameLevel">
                                     <option value="1">초급</option>
@@ -125,7 +127,7 @@
                     </tr>
 
                     <tr>
-                        <td><button type="submit" class="btn btn-primary col-lg-2">등록하기</button></td>
+                        <td><button type="submit" class="btn btn-primary col-lg-2" id="submit">등록하기</button></td>
                     </tr>
                 </table>
             </form:form>

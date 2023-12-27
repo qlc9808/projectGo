@@ -35,7 +35,7 @@
         <div class="container main-container">
             <div class="post-content">
                 <h1>${board.title}</h1>
-                <p>작성자ID : ${board.userId}</p>
+                <p>작성자 : ${board.name}</p>
                 <p>작성일 : <fmt:formatDate value="${board.createdAt}" type="date" pattern="YY/MM/dd"/></p>
                 <p>조회수: ${board.readCount}</p>
                 <p>${board.content}</p>
@@ -43,8 +43,10 @@
 
             <div class="post-controls">
                 <button type="button" class="btn btn-primary2" onclick="location.href='/lookup/board/QNABoardList'">목록으로</button>
-                <button type="button" class="btn btn-primary2" onclick="location.href='/lookup/board/QNAUpdateForm?id=${board.id}&currentPage=${currentPage}'">수정하기</button>
-                <button type="button" class="btn btn-danger" onclick="deleteQNA('${board.id}', '${currentPage}')">삭제</button>
+                <c:if test="${board.userId == userId}">
+                    <button type="button" class="btn btn-primary2" onclick="location.href='/lookup/board/QNAUpdateForm?id=${board.id}&currentPage=${currentPage}'">수정하기</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteQNA('${board.id}', '${currentPage}')">삭제</button>
+                </c:if>
             </div>
         </div>
     </form>

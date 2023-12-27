@@ -54,9 +54,10 @@
     </update>
 
     <select id="noticeDetail" resultType="Board" parameterType="int">
-        SELECT *
+        SELECT BOARD.*, USERS.name AS name
         FROM BOARD
-        WHERE id = #{id}
+                 LEFT JOIN USERS ON BOARD.userId = USERS.id
+        WHERE BOARD.id = #{id}
     </select>
 
     <update id="increaseReadCount" parameterType="Board">
@@ -148,9 +149,10 @@
     </update>
 
     <select id="detailQNA" resultType="Board" parameterType="int">
-        SELECT *
+        SELECT BOARD.*, USERS.name AS name
         FROM BOARD
-        WHERE id = #{id}
+                 LEFT JOIN USERS ON BOARD.userId = USERS.id
+        WHERE BOARD.id = #{id}
     </select>
 
     <delete id="QNADelete" parameterType="int">
@@ -284,9 +286,10 @@
     </select>
 
     <select id="detailFAQ" resultType="Board" parameterType="int">
-        SELECT *
+        SELECT BOARD.*, USERS.name AS name
         FROM BOARD
-        WHERE id = #{id}
+                 LEFT JOIN USERS ON BOARD.userId = USERS.id
+        WHERE BOARD.id = #{id}
     </select>
 
     <delete id="FAQDelete" parameterType="int">
@@ -314,7 +317,7 @@
 
 
     <select id="commentDetail" parameterType="int" resultType="Board">
-        select a.id, b.name, a.content, a.commentGroupId, a.commentStep, a.commentIndent
+        select a.id, a.userId, b.name, a.content, a.commentGroupId, a.commentStep, a.commentIndent
         from board a, users b
         where  a.userId = b.id
           and commentGroupId = #{id}

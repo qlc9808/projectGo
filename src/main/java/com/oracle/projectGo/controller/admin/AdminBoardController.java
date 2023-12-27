@@ -339,6 +339,7 @@ public class AdminBoardController {
 			model.addAttribute("page", page);
 			model.addAttribute("path", path);
 
+
 		} catch (Exception e) {
 			log.error("[{}]:{}", "Noticeboard", e.getMessage());
 		} finally {

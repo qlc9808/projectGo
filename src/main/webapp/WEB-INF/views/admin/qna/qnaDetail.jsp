@@ -35,7 +35,7 @@
         <div class="container main-container">
             <div class="post-content">
                 <h1>${board.title}</h1>
-                <p>작성자ID : ${board.userId}</p>
+                <p>작성자 : ${board.name}</p>
                 <p>작성일 : <fmt:formatDate value="${board.createdAt}" type="date" pattern="YY/MM/dd"/></p>
                 <p>조회수: ${board.readCount}</p>
                 <p>${board.content}</p>
