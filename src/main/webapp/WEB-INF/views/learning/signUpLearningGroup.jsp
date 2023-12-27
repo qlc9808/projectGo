@@ -44,6 +44,7 @@
                 </c:if>
                         <div class="slg-select-box">
                             <select id="slg-select">
+                                <option>선택없음</option>
                                 <option>그룹명</option>
                                 <option>교육자명</option>
                             </select>
@@ -51,7 +52,7 @@
                             <select id="slg-selected">
                                 <option></option>
                             </select>
-                            <button onclick="slgsearch(document.getElementById('slg-selected').value, document.getElementById('slg-select').value)" class="slg-search">조회하기</button>
+                            <button onclick="slgsearch(document.getElementById('slg-selected').value, document.getElementById('slg-select').value)" id="slg-search" class="slg-search">조회하기</button>
 
                         </div>
                         <div id="grid1"></div>

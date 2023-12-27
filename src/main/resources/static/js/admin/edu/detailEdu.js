@@ -20,7 +20,7 @@ function eduDelete(id) {
             success: function (response) {
                 if (response.result > 0) {
                     alert("교육자료 삭제성공!");
-                    window.location.href = '/admin/resource/listEdu';
+                    window.location.href = '/lookup/board/listEdu';
                 } else {
                     alert("교육자료 삭제실패..");
                 }

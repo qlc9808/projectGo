@@ -205,7 +205,6 @@ function cancelSignUp(id, name, value, category) {
 function updateOptions(selectedValue) {
     var slgSelected = document.getElementById('slg-selected');
 
-    // slg-selected의 기존 옵션을 모두 제거
     while (slgSelected.firstChild) {
         slgSelected.removeChild(slgSelected.firstChild);
     }
@@ -239,6 +238,13 @@ function updateOptions(selectedValue) {
                 });
             }
         })
+    } else if (selectedValue === '선택없음') {
+        var option = document.createElement('option');
+        option.hidden = true;
+        slgSelected.add(option);
+
+        grid.destroy();
+        learningGroupList();
     }
 }
 
@@ -249,7 +255,7 @@ document.getElementById('slg-select').addEventListener('change', function() {
 
 // 페이지 로드 시 '그룹명'에 해당하는 옵션을 'slg-selected'에 추가
 window.addEventListener('load', function() {
-    updateOptions('그룹명');
+    updateOptions('선택없음');
 });
 
 function slgsearch(selectedValue, category) {

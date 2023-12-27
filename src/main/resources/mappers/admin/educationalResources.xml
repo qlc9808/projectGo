@@ -36,7 +36,7 @@
                         JOIN   learningGroupMember lgm ON lgm.groupid = lg.id
                         WHERE  lgm.userid = #{id}
                         AND    e.serviceType = 2
-                        and    lgm.status = 0
+                        and    lgm.status = 1
                     </if>
                 </if>
             </when>
@@ -100,7 +100,7 @@
                         JOIN   learningGroupMember lgm ON lgm.groupid = lg.id
                         WHERE  lgm.userid = #{id}
                         AND    e.serviceType = 2
-                        and    lgm.status = 0
+                        and    lgm.status = 1
                     </if>
                 </if>
             </when>
