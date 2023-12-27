@@ -97,7 +97,10 @@
 }
 
 main {
-    padding-top:70px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
 }
 body {
     margin: 0;
@@ -146,3 +149,19 @@ body {
 .notification.success { border-left-color: #7cff2d; }
 .notification.warn { border-left-color: #FFEEAA; }
 .notification.error { border-left-color: #f44336; }
+
+.tui-ico-next, .tui-ico-last, .tui-ico-prev, .tui-ico-prev, .tui-ico-first {
+    position: relative;
+    top: 7px;
+}
+.tui-pagination .tui-is-selected, .tui-pagination strong {
+
+    background: #0C4DA2;
+}
+.tui-pagination .tui-is-selected:hover, .tui-pagination strong:hover {
+    background: #0C4DA2;
+    color: white;
+}
+html {
+    position: relative;
+}

@@ -7,11 +7,18 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <style>
-    body { height: 100% }
+    /*footer {*/
+    /*    margin-bottom: auto;*/
+    /*    text-align: center;*/
+    /*    background-color: #003983;*/
+    /*}*/
     footer {
-        margin-bottom: auto;
-        text-align: center;
-        background-color: #003983;
+        width: 100%;
+        height: 60px;
+        /* Set the fixed height of the footer here */
+        line-height: 60px;
+        /* Vertically center the text there */
+        background-color:  #003983;;
     }
 </style>
 <footer class="py-5">

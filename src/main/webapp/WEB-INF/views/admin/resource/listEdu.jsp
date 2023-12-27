@@ -4,9 +4,6 @@
     <%@ include file="/WEB-INF/components/Header.jsp"%>
     <title>Title</title>
     <style>
-        .d-flex {
-            margin: auto;
-        }
         #main-content {
             border: 0px solid red;
             margin: auto auto auto 350px;

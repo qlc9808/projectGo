@@ -1,8 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <style>
-    body {
-        position: relative; /* 부모 요소에 position: relative; 설정 */
-    }
 
     .biz-page-sidebar {
         background-color: #171717;

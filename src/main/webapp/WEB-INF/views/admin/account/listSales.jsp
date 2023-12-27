@@ -5,9 +5,6 @@
     <title>Title</title>
 </head>
 <style>
-    .d-flex {
-        margin: auto;
-    }
     #main-content {
         border: 0px solid red;
         margin: auto auto auto 400px;

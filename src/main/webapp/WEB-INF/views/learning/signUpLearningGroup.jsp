@@ -4,13 +4,6 @@
     <%@ include file="/WEB-INF/components/Header.jsp"%>
     <title>Title</title>
     <style>
-        .d-flex {
-            margin: auto;
-        }
-        #main-content {
-            border: 0px solid red;
-            margin: auto auto auto 100px;
-        }
         .myButton:hover {
             background-color: rgba(90, 90, 255, 0.78); /* 배경색을 좀 더 밝은 파란색으로 변경 */
             border: 0px solid white; /* 테두리를 흰색으로 강조 */
@@ -25,18 +18,7 @@
         .slg-select-box {
             margin-bottom: 10px;
         }
-        .tui-ico-next, .tui-ico-last, .tui-ico-prev, .tui-ico-prev, .tui-ico-first {
-            position: relative;
-            top: 7px;
-        }
-        .tui-pagination .tui-is-selected, .tui-pagination strong {
 
-            background: #0C4DA2;
-        }
-        .tui-pagination .tui-is-selected:hover, .tui-pagination strong:hover {
-            background: #0C4DA2;
-            color: white;
-        }
 
     </style>
 </head>
@@ -51,7 +33,7 @@
 
                 <c:if test="${users.userType != '3'}">
                     <h1 style="text-align: center; font-weight: bold;">학습그룹 가입신청</h1>
-                    <div class="container my-4 py-3" style="width: 1190px;">
+                    <div class="container my-4 py-3" style="width: 1199px;">
                 </c:if>
                 <c:if test="${users.userType == '3'}">
                     <h1 style="text-align: center; font-weight: bold;">학습그룹 가입신청</h1>
