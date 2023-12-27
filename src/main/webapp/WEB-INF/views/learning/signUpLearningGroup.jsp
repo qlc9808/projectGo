@@ -4,6 +4,10 @@
     <%@ include file="/WEB-INF/components/Header.jsp"%>
     <title>Title</title>
     <style>
+        #main-content {
+            border: 0px solid red;
+            margin: 60px auto auto 200px;
+        }
         .myButton:hover {
             background-color: rgba(90, 90, 255, 0.78); /* 배경색을 좀 더 밝은 파란색으로 변경 */
             border: 0px solid white; /* 테두리를 흰색으로 강조 */

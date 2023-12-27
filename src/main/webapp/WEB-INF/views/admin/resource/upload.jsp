@@ -7,7 +7,7 @@
 <style>
     #main-content {
         border: 0px solid red;
-        margin: auto auto auto 300px;
+        margin: 60px auto auto 550px;
     }
     .date-text {
         font-size: 16px;

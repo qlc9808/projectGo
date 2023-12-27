@@ -6,7 +6,7 @@
     <style>
         #main-content {
             border: 0px solid red;
-            margin: auto auto auto 350px;
+            margin: 70px auto auto 550px;
         }
         .searchForm {
             width: 1200px;
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div id="main-content" class="container p-5 col-10">
-            <h1 style="text-align: center;">교육자료</h1>
+            <h1 style="text-align: center; font-weight: bold;">교육자료</h1>
             <div class="container border my-4 py-3" style="width: 1245px;">
                 <div class="searchForm">
 <%--                    <input type="radio" id="group" name="categoryEdu" value="그룹명">--%>

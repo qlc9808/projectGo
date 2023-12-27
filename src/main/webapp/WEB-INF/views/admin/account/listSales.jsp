@@ -7,7 +7,7 @@
 <style>
     #main-content {
         border: 0px solid red;
-        margin: auto auto auto 400px;
+        margin: 60px auto auto 550px;
     }
     .search-form {
         border: 1px solid black;
@@ -50,7 +50,7 @@
             </div>
         </div>
         <div id="main-content" class="container p-5 col-10">
-            <h1 style="text-align: center;">매출 정보 조회</h1>
+            <h1 style="text-align: center; font-weight: bold;">매출 정보 조회</h1>
             <div class="container border my-4 py-3">
                 <div id="search" style="display: flex; align-items: end; justify-content: end;">
                     <div class="search-form">
