@@ -34,6 +34,19 @@ public class PaymentController {
     @RequestMapping(value = "/subscribeView")
     public String gameSubscribe(String currentPage, Model model) {
 
+        // 교육자(2), 일반인(4)인 경우에만 구독 버튼 보임
+        Users users = us.getLoggedInUserInfo();
+        log.info("로그인 getUserType : {}", users.getUserType());
+        String loginUserType = users.getUserType();
+
+        int result = 0;
+        if(loginUserType.equals("2") || loginUserType.equals("4")){
+            result = 1;
+            System.out.println("교육자(2), 일반인(4)인 경우");
+        } else {
+            System.out.println("교육자(2), 일반인(4)이 아닌 경우");
+        }
+
         // 총 갯수(리스트에서 구독할 컨텐츠 조회 페이지)
         int subscribeTotalCount = gs.subscribeTotalCount();
         System.out.println("GameController subscribeTotalCount-> " + subscribeTotalCount);
@@ -51,6 +64,7 @@ public class PaymentController {
         model.addAttribute("subscribeTotalCount", subscribeTotalCount);
         model.addAttribute("page", page);
         model.addAttribute("subscribeGameList", subscribeGameList);
+        model.addAttribute("result", result);
 
         return "subscribe/subscribeView";
     }

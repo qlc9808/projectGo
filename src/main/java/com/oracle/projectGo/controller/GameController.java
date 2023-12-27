@@ -53,9 +53,16 @@ public class GameController {
     // 게임콘텐츠 insert
     @RequestMapping(value = "gameContentInsert", method = RequestMethod.POST)
     public String gameContentInsert(@Valid @ModelAttribute GameContents gameContents, BindingResult bindingResult,
-                                    @RequestParam(value = "file1", required = false)MultipartFile file1,
+                                    @RequestParam(value = "file1", required = false) MultipartFile file1,
                                     HttpServletRequest request, Model model) throws IOException {
         System.out.println("GameController gameContentInsert Start !");
+
+        // Validation
+        if(bindingResult.hasErrors()){
+            System.out.println("game Controller gameContentInsert hasErrors");
+            return "admin/game/gameContentInsert";
+        }
+
         System.out.println("구독 기간(개월 수)-> " + gameContents.getSubscribeDate());
 
         //                  실제 파일 시스템 경로를 가져옴
@@ -129,7 +136,7 @@ public class GameController {
         return "admin/game/gameContentSelect";
     }
 
-    // 운영자가 공개/비공개 설정
+    // 운영자가 게임콘텐츠 공개/비공개 설정
     @ResponseBody
     @RequestMapping(value = "deleteCheck")
     public String deleteCheck(int id){

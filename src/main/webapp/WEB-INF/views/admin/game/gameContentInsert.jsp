@@ -4,6 +4,11 @@
 <head>
     <%@ include file="/WEB-INF/components/Header.jsp"%>
     <title>Title</title>
+
+    <style>
+        .error {color: red}
+    </style>
+
     <script>
         function calculateDiscountedPrice(){
             // 사용자한테 정가(price)와 할인율 입력 받기
@@ -56,14 +61,14 @@
                         <th>게임 콘텐츠명</th>
                         <td>
                             <textarea cols="50" rows="1" name="title"></textarea>
-                            <form:errors path="title"/>
+                            <form:errors path="title" cssClass="error"/>
                         </td>
                     </tr>
 
                     <tr>
                         <th>학습 난이도</th>
                         <td>
-                            <select name="gameLevel">
+                            <select name="gameLevel" required>
                                     <option value="1">초급</option>
                                     <option value="2">중급</option>
                                     <option value="3">고급</option>
@@ -75,14 +80,14 @@
                         <th>구독 기간</th>
                         <td>
                             <label for="months"></label>
-                            <input type="number" id="months" name="subscribeDate" min="1" max="12"> 개월
+                            <input type="number" id="months" name="subscribeDate" min="1" max="12" required> 개월
                         </td>
                     </tr>
 
                     <tr>
                         <th>구독 가능 인원 수</th>
                         <td>
-                            <input type="number" min="1" name="maxSubscribers"> 명
+                            <input type="number" min="1" name="maxSubscribers" required> 명
                         </td>
                     </tr>
 
@@ -91,7 +96,8 @@
                             <label for="price">정가</label>
                         </th>
                         <td>
-                            <input type="number" name="price" id="price" oninput="calculateDiscountedPrice()" placeholder="정가를 입력하세요"> 원
+                            <input type="number" name="price" id="price"
+                                   oninput="calculateDiscountedPrice()" placeholder="정가를 입력하세요" required> 원
                         </td>
                     </tr>
 
@@ -100,7 +106,8 @@
                             <label for="discountRate">할인율</label>
                         </th>
                         <td>
-                            <input type="number" name="discountRate" id="discountRate" oninput="calculateDiscountedPrice()" placeholder="할인율을 입력하세요"> %
+                            <input type="number" name="discountRate" id="discountRate"
+                                   oninput="calculateDiscountedPrice()" placeholder="할인율을 입력하세요" required> %
                         </td>
                     </tr>
 
@@ -115,14 +122,14 @@
                         <th>패키지 내용</th>
                         <td>
                             <textarea cols="50" rows="10" name="content"></textarea>
-                            <form:errors path="content"/>
+                            <form:errors path="content" cssClass="error"/>
                         </td>
                     </tr>
 
                     <tr>
                         <th>썸네일</th>
                         <td>
-                            <input type="file" id="file" name="file1">
+                            <input type="file" id="file" name="file1" required>
                         </td>
                     </tr>
 

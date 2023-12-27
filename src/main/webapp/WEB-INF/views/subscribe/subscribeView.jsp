@@ -49,7 +49,9 @@
                         </tr>
                     </c:forEach>
                 </table>
-                <button type="submit" class="btn btn-primary col-lg-2">구독하기</button>
+                <c:if test="${result == 1}">
+                    <button type="submit" class="btn btn-primary col-lg-2">구독하기</button>
+                </c:if>
             </form>
 
             <!-- 페이징 작업 -->
