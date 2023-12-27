@@ -1,7 +1,8 @@
 <%@ page import="org.springframework.security.core.Authentication" %>
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <%@ page import="com.oracle.projectGo.type.UsersRoleType" %>
-<%@ page import="org.springframework.security.core.GrantedAuthority" %><%--
+<%@ page import="org.springframework.security.core.GrantedAuthority" %>
+<%@ page import="com.oracle.projectGo.service.UsersService" %><%--
   Created by IntelliJ IDEA.
   User: admin
   Date: 2023-12-05
@@ -17,7 +18,7 @@
                     <img src="/asset/logo.png" height="50" alt="Logo">
                 </a>
             </div>
-            <div class=" col-8 d-flex justify-content-end ">
+            <div class=" col-7 d-flex justify-content-end ">
                 <div>
                     <button class="navbar-toggler" type="button"
                             data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -37,7 +38,7 @@
                     </ul>
                 </div>
             </div>
-            <div class=" col-1 d-flex justify-content-end">
+            <div class=" col-2 d-flex justify-content-end">
                 <%
                     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
                     String role = auth.getAuthorities().stream()
@@ -47,7 +48,11 @@
                     System.out.println(auth.getAuthorities()+ auth.getName());
                     boolean isAuthenticated = !role.contains(UsersRoleType.ANONYMOUS.getLabel());
                 %>
-                <% if (isAuthenticated) { %>
+
+                <% if (isAuthenticated) {
+%>
+
+                <a href="/userUpdateForm/${userId}" style="margin-right: 10px;">정보수정</a>
                 <a href="/logout">로그아웃</a>
                 <% } else { %>
                 <a href="/login">로그인</a>

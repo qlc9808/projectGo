@@ -122,6 +122,13 @@ private final UsersService us;
         } finally {
             log.info("[{}]{}:{}", transactionId, "userUpdate", "end");
         }
-        return "redirect:userList";
+
+        if (users.getUserType().equals("1"))
+            return "redirect:userList";
+        else {
+            return "redirect:/";
+        }
+
+
     }
 }

@@ -77,7 +77,7 @@
 <main>
 
 
-    <%@ include file="/WEB-INF/components/Sidebar.jsp"%>
+    
     <div id="main-content">
         <div class="my-5">
             <div class="" id="detail-main-container">
