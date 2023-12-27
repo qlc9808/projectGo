@@ -93,13 +93,14 @@
                             <input type="hidden" name="commentIndent" value="${board.commentIndent }">
                             <input type="hidden" name="boardType" value="${board.boardType}">
 
+                                <c:choose>
+                                    <c:when test="${userId != 0 }">
                             <div class="form-group col comment-input">
                                 <input type="text" class="form-control" name="content" placeholder="댓글을 입력하세요.">
                             </div>
 
                             <div class="form-group col comment-btn">
-                                <c:choose>
-                                    <c:when test="${board.userId != 0 }">
+
                                         <button type="submit" class="btn btn_detail_custom">등록</button>
                                     </c:when>
                                 </c:choose>
@@ -132,7 +133,7 @@
                                     <span class="blink" style="font-size: 16px; font-weight: bold; color: #FF4379; margin-left: -640px; margin-top: 6px;">new</span>
                                 </div>
                                 <c:choose>
-                                    <c:when test="${board.userId != 0 }">
+                                    <c:when test="${userId != 0 }">
                                         <div class="collapse comments-collapse-custom" id="collapseExample${comments.id}">
                                             <div class="card card-body comments-body-custom">
                                                 <!-- input 영역 -->

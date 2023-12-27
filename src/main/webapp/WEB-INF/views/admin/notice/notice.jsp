@@ -78,10 +78,6 @@
             margin-left: -50px;
         }
 
-
-
-
-
     </style>
 
     <%@ include file="/WEB-INF/components/Header.jsp"%>

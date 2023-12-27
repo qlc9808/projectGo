@@ -42,7 +42,7 @@
       </div>
 
       <div class="post-controls">
-        <button type="button" class="btn btn-primary2" onclick="location.href='/admin/board/FAQBoardList'">목록으로</button>
+        <button type="button" class="btn btn-primary2" onclick="location.href='/lookup/board/FAQBoardList'">목록으로</button>
       </div>
     </div>
   </form>

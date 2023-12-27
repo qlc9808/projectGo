@@ -7,10 +7,8 @@
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
-    <div class="d-flex">
-        <div class="col-2">
-            <%@ include file="/WEB-INF/components/Sidebar.jsp"%>
-        </div>
+    <div class="d-flex justify-content-center align-items-center">
+
 
 <div style="width: 1440px; height: 1024px; position: relative; background: white">
     <h1 style="position: absolute; left: 50%; transform: translateX(-50%); top: 120px;">사이트 맵</h1>

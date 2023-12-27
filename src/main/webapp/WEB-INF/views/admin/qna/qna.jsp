@@ -124,9 +124,6 @@
                     </div>
                 </div>
             </form>
-            <div class="container justify-content-end p-0">
-                <button style="float: right; margin-right: 12px;" id="regist-btn" type="button" class="btn btn-primary mb-4" onclick="location.href='QNAInsertForm'">등록</button>
-            </div>
         </div>
         <div class="container table-container p-4">
             <div class="table-responsive">

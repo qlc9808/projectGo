@@ -109,6 +109,7 @@ public class AdminBoardController {
 
 
 	@Value("${spring.servlet.multipart.location}")
+
 	private String uploadDirectory;
 
 	@RequestMapping(value = "/noticeInsert")
@@ -148,6 +149,32 @@ public class AdminBoardController {
 				String fileAddress = "http://localhost:8585/file/" + file.getOriginalFilename();
 				board.setFileAddress(fileAddress);  // Board 클래스에 setFileAddress 메서드가 필요합니다.
 			}
+
+			/*if (!file.isEmpty()) {
+				// 파일을 파일시스템에 저장
+				String fileName = file.getOriginalFilename();
+
+				// 프로젝트의 경로를 가져옵니다.
+				String projectPath = new File("").getAbsolutePath();
+
+				// 상대 경로를 생성합니다. 이 예에서는 프로젝트 경로 아래의 'uploaded' 폴더에 파일을 저장합니다.
+				String relativePath = "/upload/notice/";
+
+				// 상대 경로를 절대 경로로 변환합니다.
+				String absolutePath = Paths.get(projectPath, relativePath).toString();
+
+				Path path = Paths.get(absolutePath, fileName);
+				file.transferTo(path.toFile());
+
+				// 파일 경로를 Board에 설정
+				board.setFilePath(path.toString());
+				board.setFileName(fileName);
+
+				// 파일 URL 생성. 실제 서비스에서는 적절한 URL로 변경해야 합니다.
+				// 이 예에서는 프로젝트 경로를 기반으로 상대 URL을 생성합니다.
+				String fileAddress = "http://localhost:8585/file/" + file.getOriginalFilename();
+				board.setFileAddress(fileAddress);  // Board 클래스에 setFileAddress 메서드가 필요합니다.
+			}*/
 
 			board.setIsPinned(isPinned);
 			board.setBoardType("1");

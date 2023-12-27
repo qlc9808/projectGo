@@ -102,12 +102,12 @@
         $('input[type=radio][name=publishOption]').change(function () {
             if (this.value == 'scheduled') {
                 // 라디오 버튼이 '원하는 날짜에 게시'에 체크되면 '게시일자' 입력 필드와 라벨을 보여줌
-                $('#publishDate').prop('disabled', false).show();
+                $('#publishDate').show();
                 $('#publishDateLabel').show();
                 alert('이 경우 해당 글을 게시일까지 삭제 및 수정 할 수 없습니다'); // 알림창 띄우기
             } else if (this.value == 'immediate') {
                 // 라디오 버튼이 '즉시 등록'에 체크되면 '게시일자' 입력 필드와 라벨을 다시 숨김
-                $('#publishDate').prop('disabled', true).hide();
+                $('#publishDate').hide();
                 $('#publishDateLabel').hide();
 
                 // 현재 날짜와 시간을 얻어옴
