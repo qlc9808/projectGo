@@ -6,11 +6,14 @@ import com.oracle.projectGo.type.UsersRoleType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -25,6 +28,8 @@ public class UsersService {
 
     private final UsersDao ud;
     private final JavaMailSender mailSender;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
 
     public Optional<Users> getUserByNickname(String nickname) {
@@ -87,11 +92,18 @@ public class UsersService {
         log.info("UsersService start");
         int insertUsers = 0;
 
+        // 사용자로부터 입력받은 비밀번호를 암호화
+        String encryptedPassword = bCryptPasswordEncoder.encode(users.getPassword());
+
+        // 암호화된 비밀번호를 사용자 객체에 설정
+        users.setPassword(encryptedPassword);
+
+        // 나머지 사용자 정보를 설정
+
+        // 사용자 정보를 데이터베이스에 저장
         insertUsers = ud.insertUsers(users);
         return insertUsers;
-
     }
-
     public int nickCheck(Users users) {
         int result = ud.nickCheck(users);
         return result;
@@ -153,6 +165,11 @@ public class UsersService {
 
     public int userUpdate(Users users) {
         int userUpdate = 0;
+
+        String encryptedPassword = bCryptPasswordEncoder.encode(users.getPassword());
+
+        // 암호화된 비밀번호를 사용자 객체에 설정
+        users.setPassword(encryptedPassword);
         userUpdate = ud.userUpdate(users);
         return userUpdate;
     }
