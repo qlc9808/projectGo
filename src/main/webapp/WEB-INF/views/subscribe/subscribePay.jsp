@@ -4,7 +4,13 @@
     <%@ include file="/WEB-INF/components/Header.jsp"%>
     <title>Title</title>
 </head>
-
+<style>
+    h4{
+        color: black;
+        font-weight: 600;
+        word-wrap: break-word;
+    }
+</style>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
@@ -14,8 +20,7 @@
         </div>
         <div id="main-content" class="container p-5 col-10">
             <%-- 이곳에 작성을 해주세요 --%>
-
-            <h5>결제 선택 방법</h5>
+            <h4>결제 선택 방법</h4>
             <p>모바일에서도 신용카드, 무통장 입금 등 결제가 가능합니다.</p><hr>
 
             <form action="/subscribe/subscribePay" method="post">
@@ -58,7 +63,7 @@
                         <th>입금자명</th> <td colspan="3">${users.name}</td>
                     </tr>
                 </table>
-                <button type="submit" class="btn btn-primary">결제하기</button>
+                <button type="submit" class="btn btn-primary col-lg-2">결제하기</button>
             </form>
 
         </div>

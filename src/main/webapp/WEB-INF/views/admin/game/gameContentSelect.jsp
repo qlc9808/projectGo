@@ -50,10 +50,33 @@
     th, td {
         text-align: center;
         vertical-align: middle;
-        width: 120px;
     }
     #gameImg{
         width: 110px;
+    }
+    h4{
+        color: black;
+        font-weight: 600;
+        word-wrap: break-word;
+        text-align: center;
+    }
+    .gameLevel{
+        width: 85px;
+    }
+    .subscribeDate{
+        width: 87px;
+    }
+    .price{
+        width: 100px;
+    }
+    .discountRate{
+        width: 70px;
+    }
+    .discountPrice{
+        width: 100px;
+    }
+    .isDeleted{
+        width: 70px;
     }
 </style>
 <body>
@@ -65,13 +88,14 @@
         </div>
         <div id="main-content" class="container p-5 col-10">
             <%-- 이곳에 작성을 해주세요 --%>
+            <h4>게임콘텐츠 조회</h4>
             <p>총 건수: ${gameContentsTotalCount}</p>
 
                 <table class="table table-bordered">
                     <tr>
                         <th>No.</th> <th>콘텐츠 이미지</th> <th>게임 콘텐츠명</th> <th>패키지 내용</th>
                         <th>Level<br><br>1=초급<br>2=중급<br>3=고급</th>
-                        <th>구독 가능 인원</th> <th>구독 기간</th> <th>정가</th> <th>할인율</th> <th>판매가</th> <th>공개 여부</th>
+                        <th>구독<br>가능 인원</th> <th>구독 기간</th> <th>정가</th> <th>할인율</th> <th>판매가</th> <th>공개 여부</th>
                     </tr>
 
                     <c:forEach var="gameContent" items="${gameContentsList}">
@@ -80,13 +104,13 @@
                             <td><img id="gameImg" alt="UpLoad Image" src="${pageContext.request.contextPath}/upload/gameContents/${gameContent.imageName}"></td>
                             <td>${gameContent.title}</td>
                             <td>${gameContent.content}</td>
-                            <td>${gameContent.gameLevel}</td>
+                            <td class="gameLevel">${gameContent.gameLevel}</td>
                             <td>${gameContent.maxSubscribers}명</td>
-                            <td>${gameContent.subscribeDate}개월</td>
-                            <td>${gameContent.price}원</td>
-                            <td>${gameContent.discountRate}%</td>
-                            <td>${gameContent.discountPrice}원</td>
-                            <td>
+                            <td class="subscribeDate">${gameContent.subscribeDate}개월</td>
+                            <td class="price">${gameContent.price}원</td>
+                            <td class="discountRate">${gameContent.discountRate}%</td>
+                            <td class="discountPrice">${gameContent.discountPrice}원</td>
+                            <td class="isDeleted">
                                 <input type="checkbox" name="isDeleted" class="isDeleted" onclick="deleteCheck(${gameContent.id})"
                                        value="${gameContent.isDeleted == '1' ? '0' : '1'}" ${gameContent.isDeleted == '1' ? 'checked' : ''}>
                                 <label for="isDeleted${gameContent.id}">${gameContent.isDeleted == '1' ? '비공개' : '공개'}</label>

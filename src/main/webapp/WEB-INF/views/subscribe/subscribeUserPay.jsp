@@ -12,6 +12,12 @@
     #gameImg{
         width: 110px;
     }
+    h4{
+        color: black;
+        font-weight: 600;
+        word-wrap: break-word;
+        text-align: center;
+    }
 </style>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
@@ -22,9 +28,8 @@
         </div>
         <div id="main-content" class="container p-5 col-10">
             <%-- 이곳에 작성을 해주세요 --%>
-            <p>나의 구독 상품 조회하기</p>
-
-                <p>총 건수: ${subscribeUserPayTotalCount}</p>
+            <h4>나의 구독 상품 조회하기</h4>
+            <p>총 건수: ${subscribeUserPayTotalCount}</p>
 
                 <table class="table table-bordered">
                     <tr>

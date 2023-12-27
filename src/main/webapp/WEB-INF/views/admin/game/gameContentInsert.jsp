@@ -27,6 +27,15 @@
         }
     </script>
 </head>
+<style>
+    h4{
+        color: black;
+        font-weight: 600;
+        word-wrap: break-word;
+        text-align: center;
+        margin: 30px;
+    }
+</style>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
@@ -36,7 +45,7 @@
         </div>
         <div id="main-content" class="container p-5 col-10">
             <%-- 이곳에 작성을 해주세요 --%>
-            <p>게임콘텐츠 등록</p>
+            <h4>게임콘텐츠 등록</h4>
 
             <form:form action="gameContentInsert" method="post" enctype="multipart/form-data">
 
@@ -116,7 +125,7 @@
                     </tr>
 
                     <tr>
-                        <td><button type="submit" class="btn btn-primary">등록하기</button></td>
+                        <td><button type="submit" class="btn btn-primary col-lg-2">등록하기</button></td>
                     </tr>
                 </table>
             </form:form>

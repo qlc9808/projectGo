@@ -12,6 +12,12 @@
     #gameImg{
         width: 110px;
     }
+    h4{
+        color: black;
+        font-weight: 600;
+        word-wrap: break-word;
+        text-align: center;
+    }
 </style>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
@@ -22,7 +28,7 @@
         </div>
         <div id="main-content" class="container p-5 col-10">
             <%-- 이곳에 작성을 해주세요 --%>
-            <p>컨텐츠 조회 및 구독 신청</p>
+            <h4>컨텐츠 구독 신청</h4>
             <p>총 건수: ${subscribeTotalCount}</p>
 
             <form action="/subscribe/subscribeClick" method="post">
@@ -43,7 +49,7 @@
                         </tr>
                     </c:forEach>
                 </table>
-                <button type="submit" class="btn btn-primary">구독하기</button>
+                <button type="submit" class="btn btn-primary col-lg-2">구독하기</button>
             </form>
 
             <!-- 페이징 작업 -->
