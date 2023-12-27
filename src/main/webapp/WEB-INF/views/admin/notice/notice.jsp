@@ -102,7 +102,7 @@
                     </c:choose>
                 </c:forEach>
             </select>
-            <form action="noticeSearch" method="get" class="container justify-content-center">
+            <form action="noticeSearch" method="get" class="container justify-content-center" style="text-align: center; margin-left: 50px;">
                 <div class="col-15 my-5 d-flex align-items-center">
                     <label for="searchType" class="col-form-label col-1  mx-2">검색어</label>
                     <div class="col-4">
@@ -125,8 +125,8 @@
             </div>
     </div>
 
-        <div class="container table-container p-4">
-            <div class="table-responsive">
+        <div class="container table-container p-4" style="text-align: center;">
+            <div class="table-responsive" style="text-align: center; margin-left: 20px;">
                     <table id="userTable" class="table table-md text-center p-3">
                         <thead>
                         <h1>공지 리스트</h1>
@@ -154,7 +154,16 @@
                                     <c:when test="${notice.boardType == 3}">QnA</c:when>
                                 </c:choose>
                                 </td>
-                                <td><a href="noticeDetail?id=${notice.id}">${notice.title}</a></td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${notice.isPinned eq true}">
+                                            <a href="noticeDetail?id=${notice.id}" style="font-weight: bold;">${notice.title}</a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a href="noticeDetail?id=${notice.id}">${notice.title}</a>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
                                 <td>${notice.name}</td>
                                 <td><fmt:formatDate value="${notice.createdAt}" type="date" pattern="YY/MM/dd"/></td>
                                 <td>${notice.readCount}</td>

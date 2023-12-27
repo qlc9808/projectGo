@@ -24,7 +24,7 @@
     </select>
 
     <select id="listNoticeBoard" resultType="Board">
-        SELECT A.rn ,A.id, A.BoardType, A.TITLE, A.userId, A.name, A.createdAt, A.readCount, board_Group_cnt(A.id) commentCount
+        SELECT A.rn ,A.id, A.BoardType, A.TITLE, A.userId, A.name, A.createdAt, A.readCount, A.isPinned, board_Group_cnt(A.id) commentCount
         FROM
             (
                 SELECT ROWNUM RN, C.*

@@ -119,8 +119,8 @@
                     </c:choose>
                 </c:forEach>
             </select>
-            <form action="QNASearch" method="get" class="container justify-content-center">
-                <div class="col-15 my-5 d-flex align-items-center">
+            <form action="QNASearch" method="get" class="container justify-content-center" style="text-align: center; margin-left: 50px;">
+            <div class="col-15 my-5 d-flex align-items-center">
                     <label for="searchType" class="col-form-label col-1  mx-2">검색어</label>
                     <div class="col-4">
                         <select id="searchType" name="searchType" class="form-select">
@@ -141,8 +141,8 @@
                 <button style="float: right; margin-right: 12px;" id="regist-btn" type="button" class="btn btn-primary mb-4" onclick="checkLogin()">등록</button>
             </div>
         </div>
-        <div class="container table-container p-4">
-            <div class="table-responsive">
+        <div class="container table-container p-4" style="text-align: center;">
+            <div class="table-responsive" style="text-align: center; margin-left: 20px;">
                 <table id="userTable" class="table table-md text-center p-3">
                     <thead>
                     <h1>QNA 리스트</h1>

@@ -58,7 +58,6 @@
     <%@ include file="/WEB-INF/components/AdminSidebar.jsp"%>
     <div class="container col-9 justify-content-center align-items-center mb-2 p-3 pt-0">
         <div class="container table-container p-4">
-            <body>
             <form action="noticeInsert" method="post" enctype="multipart/form-data">
                 <H1>공지 등록</H1>
 
@@ -93,10 +92,11 @@
 
                 <input type="submit" value="등록">
             </form>
-            </body>
+
         </div>
     </div>
 </main>
+</body>
 <script>
     $(document).ready(function() {
         $('input[type=radio][name=publishOption]').change(function () {
