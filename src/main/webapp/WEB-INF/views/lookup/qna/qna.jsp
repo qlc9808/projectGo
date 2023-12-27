@@ -18,7 +18,7 @@
             function checkLogin() {
             var userId = "${userId}";  // 서버에서 전달받은 로그인된 사용자의 ID
 
-            if (userId === null || userId === undefined || userId === "") {
+            if (userId === null || userId === undefined || userId === "0") {
             // 로그인이 안되어 있으면 경고창을 띄우고, 로그인 페이지로 이동
             alert("로그인이 필요한 서비스입니다. 로그인 페이지로 이동합니다.");
             location.href = 'http://localhost:8585/login';

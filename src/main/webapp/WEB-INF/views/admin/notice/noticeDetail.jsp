@@ -73,7 +73,7 @@
                         <form action="commentInsert" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="id" value="${board.id }">
                             <!-- 사용자 ID 대신 고정 값인 1 사용 -->
-                            <input type="hidden" name="userId" value="1">
+                            <input type="hidden" name="userId" value=${board.userId}>
                             <input type="hidden" name="commentGroupId" value="${board.id}">
                             <input type="hidden" name="commentStep" value="${board.commentStep }">
                             <input type="hidden" name="commentIndent" value="${board.commentIndent }">
@@ -122,7 +122,7 @@
                                                 <div class="container p-0 row row-cols-2 gap-1">
                                                     <form class="col" action="commentInsert" method="post" enctype="multipart/form-data">
                                                         <input type="hidden" name="id" value="${board.id }">
-                                                        <input type="hidden" name="userId" value="1">
+                                                        <input type="hidden" name="userId" value="${board.userId}">
                                                         <input type="hidden" name="commentGroupId" value="${board.id }">
                                                         <input type="hidden" name="commentStep" value="${comments.commentStep }">
                                                         <input type="hidden" name="commentIndent" value="${comments.commentIndent }">

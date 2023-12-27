@@ -66,7 +66,7 @@
                             <form action="commentInsert" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="id" value="${board.id }">
                                 <!-- 사용자 ID 대신 고정 값인 1 사용 -->
-                                <input type="hidden" name="userId" value="1">
+                                <input type="hidden" name="userId" value=${board.userId}>
                                 <input type="hidden" name="commentGroupId" value="${board.id}">
                                 <input type="hidden" name="commentStep" value="${board.commentStep }">
                                 <input type="hidden" name="commentIndent" value="${board.commentIndent }">
