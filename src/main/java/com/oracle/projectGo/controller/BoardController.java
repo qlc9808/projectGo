@@ -85,7 +85,10 @@ public class BoardController {
 
         try {
             log.info("[{}]:{}", "lookup noticeDetail", "start");
+            int userId = usersService.getLoggedInId();
             Board board = boardService.detailnotice(id);
+
+
 
 
             boardService.increaseReadCount(id); // 조회수 증가
@@ -97,6 +100,8 @@ public class BoardController {
             model.addAttribute("currentPage", currentPage);
             model.addAttribute("fileAddress", board.getFileAddress());
             model.addAttribute("comments", comments);
+            model.addAttribute("userId", userId);
+
 
             log.info("[{}]:{}", "fileAddress", board.getFileAddress());
 
@@ -338,6 +343,7 @@ public class BoardController {
 
             int totalQNAboard = boardService.totalQNAboard();
 
+
             BoardPaging page = new BoardPaging(totalQNAboard, currentPage, pageSize);
             board.setStart(page.getStart());
             board.setEnd(page.getEnd());
@@ -367,13 +373,16 @@ public class BoardController {
         List<Board> comments = boardService.commentDetail(id);
 
 
+
         try {
             log.info("[{}]:{}", "lookup QNADetail", "start");
             Board board = boardService.detailQNA(id);
+            int userId = usersService.getLoggedInId();
 
             model.addAttribute("board", board);
             model.addAttribute("currentPage", currentPage);
             model.addAttribute("comments", comments);
+            model.addAttribute("userId", userId);
 
         } catch (Exception e) {
             log.error("[{}]:{}", "lookup QNADetail", e.getMessage());
@@ -751,11 +760,10 @@ public class BoardController {
     public String commentInsert(Board board, Model model) {
 
 
-
-
-        board.setUserId(1);
         board.setCommentGroupId(board.getId());
+        board.setUserId(usersService.getLoggedInId()); // 사용자 아이디 설정
         boardService.commentInsert(board);
+        int userId = usersService.getLoggedInId();
 
         log.info("BoardController commentInsert boardId : {} ", board.getId());
         log.info("BoardController commentInsert userId : {} ", board.getUserId());
@@ -763,7 +771,7 @@ public class BoardController {
         log.info("BoardController commentInsert CommentGroupId : {} ", board.getCommentGroupId());
 
         model.addAttribute("id", board.getCommentGroupId());
-        model.addAttribute("userId", board.getUserId());
+        model.addAttribute("userId", userId);
 
         int boardType = Integer.parseInt(board.getBoardType());
 

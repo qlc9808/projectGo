@@ -23,6 +23,30 @@
             .post-controls button, .post-controls a {
                 margin-right: 10px; /* 버튼 사이의 간격 조정 */
             }
+            .comment-md-input {
+                width: 700px;
+                height: 100px;
+                margin-top: 10px;
+            }
+            .comment-md-btn {
+                margin-top: 10px;
+            }
+
+            .comments-body-custom {
+                width: 1200px; /* 원하는 높이로 설정 */
+                height: 100px;
+                margin-bottom: 0;
+            }
+
+            .custom-container {
+                width: 800px;
+                height: 100px;
+            }
+
+            .custom-row {
+                width: 1400px; /* 원하는 크기로 설정 */
+            }
+
     </style>
     <title>Title</title>
 </head>
@@ -37,7 +61,7 @@
     <div class="container main-container">
         <div class="post-content">
             <h1>${board.title}</h1>
-            <p>작성자ID : ${board.userId}</p>
+            <p>작성자 : ${board.name}</p>
             <p>작성일: <fmt:formatDate value="${board.createdAt}" type="date" pattern="YY/MM/dd"/></p>
             <p>조회수: ${board.readCount}</p>
             <p>${board.content}</p>
@@ -63,8 +87,7 @@
                     <div class="container p-0">
                         <form action="commentInsert" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="id" value="${board.id }">
-                            <!-- 사용자 ID 대신 고정 값인 1 사용 -->
-                            <input type="hidden" name="userId" value="1">
+                            <input type="hidden" name="userId" value=${board.userId}>
                             <input type="hidden" name="commentGroupId" value="${board.id}">
                             <input type="hidden" name="commentStep" value="${board.commentStep }">
                             <input type="hidden" name="commentIndent" value="${board.commentIndent }">
@@ -101,7 +124,10 @@
                                                 aria-expanded="false" aria-controls="collapseExample"
                                                 style="width: 900px; text-align: left;">
                                                 ${comments.content }</button>
-                                        <button type="button" class="btn btn-danger" onclick="deleteComment(${comments.id})">X</button>
+                                                 <c:if test="${userId == comments.userId}">
+                                                <!-- 작성자와 로그인한 사용자의 ID가 같을 때에만 X 버튼 표시 -->
+                                                <button type="button" class="btn btn-danger" onclick="deleteComment(${comments.id})">X</button>
+                                                 </c:if>
                                     </p>
                                     <span class="blink" style="font-size: 16px; font-weight: bold; color: #FF4379; margin-left: -640px; margin-top: 6px;">new</span>
                                 </div>
@@ -110,7 +136,7 @@
                                         <div class="collapse comments-collapse-custom" id="collapseExample${comments.id}">
                                             <div class="card card-body comments-body-custom">
                                                 <!-- input 영역 -->
-                                                <div class="container p-0 row row-cols-2 gap-1">
+                                                <div class="container p-0 row row-cols-2 gap-1 custom-container">
                                                     <form class="col" action="commentInsert" method="post" enctype="multipart/form-data">
                                                         <input type="hidden" name="id" value="${board.id }">
                                                         <input type="hidden" name="userId" value=${board.userId}>
@@ -120,7 +146,7 @@
                                                         <input type="hidden" name="boardType" value="${board.boardType}">
 
 
-                                                        <div class="row row-cols-3 p-0 gap-1">
+                                                        <div class="row row-cols-3 p-0 gap-1 custom-row">
                                                             <div class="form-group col comment-md-input">
                                                                 <input type="text" class="form-control" name="content"
                                                                        placeholder="댓글을 입력하세요.">

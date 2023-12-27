@@ -8,12 +8,36 @@
             var pageSize = document.getElementById("pageSize").value;
             document.cookie = "pageSize=" + pageSize;
 
-            // Get the search type and keyword values
-            var searchType = document.getElementById("searchType").value;
-            var keyword = document.getElementsByName("keyword")[0].value.toLowerCase(); // 대소문자 구분 없이 검색
+            // Get the search type and keyword values from cookies
+            var searchType = getCookie("searchType");
+            var keyword = getCookie("keyword");
 
-            // Modify the URL with case-insensitive search parameters
-            location.href = "FAQBoardList?pageSize=" + pageSize + "&searchType=" + searchType + "&keyword=" + keyword;
+            console.log("pageSize:", pageSize);
+            console.log("searchType:", searchType);
+            console.log("keyword:", keyword);
+
+            // Get the current URL
+            var currentUrl = new URL(window.location.href);
+
+            // Set the new parameters
+            currentUrl.searchParams.set("pageSize", pageSize);
+            if (searchType) currentUrl.searchParams.set("searchType", searchType);
+            if (keyword) currentUrl.searchParams.set("keyword", keyword);
+
+            // Redirect to the new URL
+            location.href = currentUrl.href;
+        }
+
+        // Function to get cookie by name
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
         }
     </script>
     <style>
