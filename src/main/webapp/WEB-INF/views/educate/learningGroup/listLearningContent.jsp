@@ -83,7 +83,7 @@
                             </table>
                         </div>
                         <div class="text-center">
-                            <button class="btn btn-primary col-lg-2" onclick="goToDetailLearningContent()">학습그룹 상세입력</button>
+                            <button class="btn btn-primary col-lg-2" onclick="goToDetailLearningContent()">학습그룹 생성</button>
                         </div>
                     </div>
                 </div>

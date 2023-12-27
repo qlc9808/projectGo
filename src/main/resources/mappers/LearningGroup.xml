@@ -121,13 +121,16 @@
     </select>
 
     <select id="NoUpdateFormLearningGroup" parameterType="int" resultType="LearningGroup">
-        SELECT  a.*, b.title, b.maxSubscribers, c.name userName
-        FROM    learningGroup a
-        JOIN    gameContents b
-        ON      a.contentId = b.id
-        JOIN    users c
-        ON      a.userId = c.id
-        WHERE   a.id = #{id}
+        SELECT    a.id, a.contentid, a.userid, a.name, a.startdate, a.enddate, a.groupsize,
+                  a.etc1, a.etc2, a.isdeleted, b.title, b.maxSubscribers, c.name AS userName,
+                  COALESCE(SUM(d.groupSize), 0) AS AssignedPeople
+        FROM      learningGroup a
+        JOIN      gameContents b ON a.contentId = b.id
+        JOIN      users c ON a.userId = c.id
+        LEFT JOIN learningGroup d ON a.contentId = d.contentId AND a.userId = d.userId
+        WHERE     a.id = #{id}
+        GROUP BY  a.id, a.contentid, a.userid, a.name, a.startdate, a.enddate, a.groupsize,
+                  a.etc1, a.etc2, a.isdeleted, b.title, b.maxSubscribers, c.name
     </select>
 
     <update id="NoUpdateLearningGroup" parameterType="LearningGroup">

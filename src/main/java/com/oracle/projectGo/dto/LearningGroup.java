@@ -59,4 +59,6 @@ public class LearningGroup {
 
     private String keyword;
     private String category;
+
+    private int     assignedPeople;    // 컨텐츠 그룹에 가입된 인원
 }
