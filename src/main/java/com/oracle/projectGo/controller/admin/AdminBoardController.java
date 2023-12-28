@@ -27,7 +27,12 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping(value = "/admin/board")
+
 public class AdminBoardController {
+
+	@Value("${spring.servlet.multipart.location}")
+
+	private String uploadDirectory;
 
 	private final BoardService boardService;
 	private final UsersService usersService;
@@ -106,15 +111,8 @@ public class AdminBoardController {
 	}
 
 
-
-
-	@Value("${spring.servlet.multipart.location}")
-
-	private String uploadDirectory;
-
 	@RequestMapping(value = "/noticeInsert")
-	public String noticeInsert(@ModelAttribute Board board, @RequestParam("publishDate") String publishDateStr,
-							   @RequestParam("publishOption") String publishOption, @RequestParam("isPinned") boolean isPinned,
+	public String noticeInsert(@ModelAttribute Board board, @RequestParam("publishDate") String publishDateStr, @RequestParam("publishOption") String publishOption, @RequestParam("isPinned") boolean isPinned,
 							   @RequestParam("file") MultipartFile file, Model model) {
 
 		int userId = usersService.getLoggedInId();
@@ -134,8 +132,8 @@ public class AdminBoardController {
 			}
 			board.setCreatedAt(createdAt);
 
+			// 파일 처리 부분을 `MultipartFile` 파라미터를 사용하여 진행
 			if (!file.isEmpty()) {
-				// 파일을 파일시스템에 저장
 				String fileName = file.getOriginalFilename();
 				String absolutePath = new File(uploadDirectory).getAbsolutePath();
 				Path path = Paths.get(absolutePath, fileName);
@@ -210,28 +208,20 @@ public class AdminBoardController {
 		return "admin/notice/noticeInsertForm";
 	}
 
-	@RequestMapping(value = "noticeUpdate")
-	public String noticeUpdate(@ModelAttribute Board board, @RequestParam("publishDate") String publishDateStr,
-							   @RequestParam("publishOption") String publishOption, @RequestParam("isPinned") boolean isPinned,
-							   @RequestParam("file") MultipartFile file, Model model) {
+
+	@RequestMapping(value = "/noticeUpdate")
+	public String noticeUpdate(@ModelAttribute Board board, @RequestParam("file") MultipartFile file, Model model) {
 
 		board.setBoardType("1");
 		int id = board.getId();
-		boardService.noticeUpdate(board);
+
+
 
 		log.info("id->"+id);
 
 		try {
-			Timestamp createdAt;
-			if ("immediate".equals(publishOption)) {
-				createdAt = Timestamp.valueOf(LocalDateTime.now());
-			} else {
-				createdAt = Timestamp.valueOf(LocalDateTime.parse(publishDateStr, DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-			}
-			board.setCreatedAt(createdAt);
 
 			if (!file.isEmpty()) {
-				// 파일을 파일시스템에 저장
 				String fileName = file.getOriginalFilename();
 				String absolutePath = new File(uploadDirectory).getAbsolutePath();
 				Path path = Paths.get(absolutePath, fileName);
@@ -246,6 +236,7 @@ public class AdminBoardController {
 				board.setFileAddress(fileAddress);  // Board 클래스에 setFileAddress 메서드가 필요합니다.
 			}
 
+			boardService.noticeUpdate(board);
 
 		} catch (Exception e) {
 			log.error("[{}]:{}", "admin noticeUpdate", e.getMessage());

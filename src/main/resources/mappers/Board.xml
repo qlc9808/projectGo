@@ -49,7 +49,7 @@
     <update id="noticeUpdate" parameterType="Board">
         UPDATE board
         SET title = #{title}, content = #{content}, status = #{status}, fileName = #{fileName} ,
-            fileSize =  #{fileSize},  filePath = #{filePath}, createdAt = #{createdAt}, isPinned = #{isPinned}, fileAddress = #{fileAddress}
+            fileSize =  #{fileSize},  filePath = #{filePath}, isPinned = #{isPinned}, fileAddress = #{fileAddress}
         WHERE id = #{id}
     </update>
 
