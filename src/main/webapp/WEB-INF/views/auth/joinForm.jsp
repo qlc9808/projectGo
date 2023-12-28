@@ -132,10 +132,10 @@
             const nickname = $("#nickname").val();
 
             // 공백없이 영문, 숫자 조합 6자 이상을 체크하는 정규식
-            const regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+            const regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6}$/;
 
             if(!regExp.test(nickname)){
-                alert("공백 없이 영문, 숫자 조합 6자 이상으로 입력해주세요.");
+                alert("공백 없이 영문, 숫자 조합 6자로 입력해주세요.");
                 $("#nickname").val("");
                 return;
             }
@@ -208,7 +208,7 @@
                                     style="color: #FF4379; font-size: 18px;">*</SUP></label>
                             <div class="col-sm-8 d-flex">
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="nickname" id="nickname" required="required">
+                                    <input type="text" class="form-control" name="nickname" id="nickname" required="required" placeholder="공백없이 영문/숫자 6자">
                                 </div>
                                 <div class="col-sm-2">
                                     <button type="button" class="btn btn-primary w-100" onclick="fn_nickCheck()">중복 확인</button>
@@ -221,7 +221,7 @@
                             <label for="password" class="col-sm-2 col-form-label fw-bold text-end">비밀번호<SUP
                                     style="color: #FF4379; font-size: 18px;">*</SUP></label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" name="password" id="password" required="required">
+                                <input type="password" class="form-control" name="password" id="password" required="required" placeholder="공백없이 영문/숫자 및 특수문자 포함 8~10자">
                             </div>
                         </div>
 
@@ -229,7 +229,7 @@
                             <label for="passwordCheck" class="col-sm-2 col-form-label fw-bold text-end">비밀번호확인<SUP
                                     style="color: #FF4379; font-size: 18px;">*</SUP></label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" name="passwordCheck" id="passwordCheck" required="required">
+                                <input type="password" class="form-control" name="passwordCheck" id="passwordCheck" required="required" placeholder="공백없이 영문/숫자 및 특수문자 포함 8~10자">
                             </div>
                         </div>
 
@@ -286,7 +286,7 @@
                             <label for="phone" class="col-sm-2 col-form-label fw-bold text-end">전화번호<SUP
                                     style="color: #FF4379; font-size: 18px;">*</SUP></label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" name="phone" id="phone">
+                                <input type="text" class="form-control" name="phone" id="phone" placeholder="(-)제외한 지역번호 포함 번호">
                             </div>
                         </div>
 

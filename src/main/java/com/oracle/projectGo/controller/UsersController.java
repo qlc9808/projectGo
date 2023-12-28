@@ -46,6 +46,7 @@ private final UsersService us;
             model.addAttribute("listUsers", listUsers);
             model.addAttribute("page", page);
             model.addAttribute("searchOption", users);
+            model.addAttribute("total",totalUsersCount);
         } catch (Exception e) {
             log.error("[{}]{}:{}", transactionId, "userList", e.getMessage());
         } finally {
