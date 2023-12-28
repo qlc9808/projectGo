@@ -37,7 +37,10 @@
                 </div>
                 <div class="justify-content-center pt-3 pb-3" align="center">
                     <button type="submit" class="btn btn-primary">다음</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='/login'">취소</button>
                 </div>
+
+
             </div>
         </form>
     </div>

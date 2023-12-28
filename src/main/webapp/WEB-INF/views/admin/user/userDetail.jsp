@@ -12,7 +12,7 @@
 <head>
     <title>Title</title>
 </head>
-<body>
+<body style="margin-top: 0;">
 <table class="table table-striped-columns" style="margin-top: 10px" border="2px">
     <tr>
         <td>성명</td>

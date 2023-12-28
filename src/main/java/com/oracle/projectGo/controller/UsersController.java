@@ -34,10 +34,8 @@ private final UsersService us;
 
             Paging page = new Paging(totalUsersCount,currentPage);
             users.setStart(page.getStart());
-            log.info("startpage = "+ page.getStart());
             users.setEnd(page.getEnd());
-            log.info("endpage = "+ page.getEnd());
-            log.info("userType = "+ users.getUserType());
+
 
             listUsers = us.getSearchUserList(users);
             if (listUsers == null) {

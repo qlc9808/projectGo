@@ -66,7 +66,7 @@
                 </select>
             </div>
             <div class="col-4 mx-2">
-                <input type="text" name="keyword" class="form-control" value="${keyword}">
+                <input type="text" name="keyword" class="form-control" value="${keyword}" placeholder="검색어를 입력하세요">
             </div>
         </div>
 
@@ -100,7 +100,6 @@
     </div>
     </form>
     </div>
-
 
     <div style="padding: 15px">
         <div class="table-responsive">

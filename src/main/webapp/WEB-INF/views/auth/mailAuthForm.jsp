@@ -77,11 +77,11 @@
                 </div>
                 <h6>
                     <input type="checkbox" id="terms1" name="terms1">
-                    <label for="terms1">이용 약관 [필수]</label>
+                    <label for="terms1">이용 약관 <span style="color: red;">[필수]</span></label>
                 </h6>
                 <h6>
                     <input type="checkbox" id="terms2" name="terms2">
-                    <label for="terms2">개인정보 필수 항목에 대한 처리 및 이용 [필수]</label>
+                    <label for="terms2">개인정보 필수 항목에 대한 처리 및 이용 <span style="color: red;">[필수]</span></label>
                 </h6>
                 <h6>
                     <input type="checkbox" id="terms3" name="terms3">
@@ -93,7 +93,7 @@
                 </h6>
                 <h6>
                     <input type="checkbox" id="terms5" name="terms5">
-                    <label for="terms5">개인정보의 위탁 [필수]</label>
+                    <label for="terms5">개인정보의 위탁 <span style="color: red;">[필수]</span></label>
                 </h6>
             </div>
 
