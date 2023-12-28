@@ -27,13 +27,15 @@
             .filter(checkbox => checkbox.checked)
             .map(checkbox => checkbox.value);
 
+        var form = document.getElementById('subscribeForm');
+
         if (selectedGameIds.length === 0) {
             alert("구독할 게임을 선택하세요");
             // 선택된 게임이 없을 때만 페이지 이동
-            window.location.href = "/subscribe/subscribeView";
+            // window.location.href = "/subscribe/subscribeView";
         } else {
             // 선택된 게임이 있으면 폼을 서버로 제출
-            document.getElementById('subscribeForm').submit();
+            form.submit();  // 이 부분이 수정된 부분입니다.
         }
     }
 </script>
@@ -51,7 +53,7 @@
             <h4>컨텐츠 구독 신청</h4>
             <p>총 건수: ${subscribeTotalCount}</p>
 
-            <form action="/subscribe/subscribeClick" method="post">
+            <form id="subscribeForm" action="/subscribe/subscribeClick" method="post">
                 <table class="table table-bordered">
                     <tr>
                         <th>구독</th> <th>No.</th> <th>콘텐츠 이미지</th> <th>가격 / 구독 기간(개월)</th> <th>상품 소개</th>
@@ -70,7 +72,7 @@
                     </c:forEach>
                 </table>
                 <c:if test="${result == 1}">
-                    <button type="submit" onclick="subscribe()" class="btn btn-primary col-lg-2">구독하기</button>
+                    <button type="submit" onclick="event.preventDefault();subscribe()" class="btn btn-primary col-lg-2">구독하기</button>
                 </c:if>
             </form>
 
