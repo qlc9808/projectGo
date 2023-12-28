@@ -27,7 +27,7 @@
                 <div id="confirmation"></div>
 
                 <input type="hidden" id="gameIds"  value="${gameIds}" name="gameIds"/>
-                확인용 - 구독한 게임 아이디(여러 개 가능) : ${gameIds}
+                <%--확인용 - 구독한 게임 아이디(여러 개 가능) : ${gameIds}--%>
 
                 <table class="table table-bordered">
                     <tr>
