@@ -81,10 +81,38 @@ private final UsersService us;
         return "admin/user/userDetail";
     }
 
+
+    //admin user 정보수정
     @RequestMapping(value = "/userUpdateForm/{id}")
     public String userUpdateForm (Model model, Users users, @PathVariable int id){
         UUID transactionId = UUID.randomUUID();
 
+        try {
+            users.setId(id);
+            log.info("[{}]{}:{}", transactionId, "userUpdateForm", "start");
+
+            Users userDetail = us.getUserById(users);
+            log.info("userDetail = "+ userDetail);
+
+            if (userDetail == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "상세정보가 없습니다");
+            }
+            model.addAttribute("userDetail", userDetail);
+
+        } catch (Exception e) {
+            log.error("[{}]{}:{}", transactionId, "userDetail", e.getMessage());
+        } finally {
+            log.info("[{}]{}:{}", transactionId, "userDetail", "end");
+        }
+        return "admin/user/userUpdateForm";
+    }
+
+
+    //개인 user 정보수정
+    @RequestMapping(value = "/userUpdateForm1")
+    public String userUpdateForm1 (Model model, Users users){
+        UUID transactionId = UUID.randomUUID();
+        int id = us.getLoggedInId();
         try {
             users.setId(id);
             log.info("[{}]{}:{}", transactionId, "userUpdateForm", "start");

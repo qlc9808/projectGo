@@ -39,29 +39,64 @@
     }
 
     function fn_register() {
+        // 필수 checkbox들을 가져옴
+        var terms1 = document.getElementById("terms1");
+        var terms2 = document.getElementById("terms2");
+        var terms5 = document.getElementById("terms5");
+
         if (!isEmailchecked) {
             alert("email 중복 확인을 해주세요.");
-            event.preventDefault()
-            return;
-        } else{
-
+            event.preventDefault();
         }
-
+        else if (!terms1.checked || !terms2.checked || !terms5.checked) {
+            alert("필수 약관에 동의해주세요.");
+            event.preventDefault();
+        }
+        else {
+            // 필수 항목에 모두 동의하고 이메일 중복 확인도 완료한 경우 폼 제출
+            document.getElementById('mailAuth').submit(); // 'formId'는 실제 폼의 id로 변경해주세요.
+        }
     }
 </script>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
     <div class="container col-4 justify-content-start border mt-3 p-5">
-        <form action="/emailAuth" method="post">
-            <div class="mt-5 mb-5">
-                <div class="justify-content-center pt-3 pb-3" align="center">
-                    <h1>이메일 인증 </h1>
+        <form id="mailAuth" action="/emailAuth" method="post">
+            <div class="mt-2 mb-5">
+                <div class="justify-content-center pt-3 pb-3">
+                    <h3>약관 동의</h3>
                 </div>
-                <div class="justify-content-center pb-1" align="center">
-                    <p>입력하신 EMAIL로 인증번호를 보냅니다</p>
+                <h6>
+                    <input type="checkbox" id="terms1" name="terms1">
+                    <label for="terms1">이용 약관 [필수]</label>
+                </h6>
+                <h6>
+                    <input type="checkbox" id="terms2" name="terms2">
+                    <label for="terms2">개인정보 필수 항목에 대한 처리 및 이용 [필수]</label>
+                </h6>
+                <h6>
+                    <input type="checkbox" id="terms3" name="terms3">
+                    <label for="terms3">개인정보 선택항목에 대한 처리 및 이용 [선택]</label>
+                </h6>
+                <h6>
+                    <input type="checkbox" id="terms4" name="terms4">
+                    <label for="terms4">개인정보 마케팅 및 광고 활용 [선택]</label>
+                </h6>
+                <h6>
+                    <input type="checkbox" id="terms5" name="terms5">
+                    <label for="terms5">개인정보의 위탁 [필수]</label>
+                </h6>
+            </div>
+
+            <hr>
+            <div class="mt-2 mb-2">
+                <div class="justify-content-center pt-3 pb-3">
+                    <h3>이메일 인증 </h3>
                 </div>
-                <hr>
+                <div class="justify-content-center pb-1">
+                    <h6>입력하신 EMAIL로 인증번호를 보냅니다</h6>
+                </div>
                 <div class="justify-content-start pb-3">
                     <label for="name" class="form-label mb-2">이름</label>
                     <input type="text" class="form-control" name="name" id ="name" required>

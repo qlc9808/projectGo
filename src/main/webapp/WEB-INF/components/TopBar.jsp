@@ -52,7 +52,7 @@
                 <% if (isAuthenticated) {
 %>
 
-                <a href="/userUpdateForm/${userId}" style="margin-right: 10px;">정보수정</a>
+                <a href="/userUpdateForm1" style="margin-right: 10px;">정보수정</a>
                 <a href="/logout">로그아웃</a>
                 <% } else { %>
                 <a href="/login">로그인</a>

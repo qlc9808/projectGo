@@ -20,8 +20,6 @@ public class MainController {
 
     @GetMapping("/")
     public String home(HttpServletRequest request, Model model) {
-        int id = us.getLoggedInId();
-        model.addAttribute("userId", id);
         if (request.getParameter("error") != null) {
             model.addAttribute("error", "접근권한이 없습니다.");
         }
