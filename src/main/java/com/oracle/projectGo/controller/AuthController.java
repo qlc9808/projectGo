@@ -13,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 @Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -35,13 +38,8 @@ public class AuthController {
     @RequestMapping(value = "/idSearchResult")
     public String idSearchResult(@ModelAttribute Users users , Model model) {
 
-        log.info("aaa");
 
         try {
-            /*users.setName(name);
-            log.info("username = "+users.getName());
-            users.setPhone(phone);
-            log.info("userphone = "+ users.getPhone());*/
 
             users = us.idSearchByPhone(users);
 
@@ -94,18 +92,6 @@ public class AuthController {
     public String join(Users users, Model model){
 
 
-        log.info("usernick="+users.getNickname());
-        log.info("userpassword="+users.getPassword());
-        log.info("username="+users.getName());
-        log.info("userbirthdate="+users.getBirthdate());
-        log.info("useremail="+users.getEmail());
-        log.info("usereType="+users.getUserType());
-        log.info("usergender="+users.getGender());
-        log.info("useraddress="+users.getAddress());
-        log.info("userphone="+users.getPhone());
-        log.info("userConsent1="+users.getConsent1());
-        log.info("userConsent2="+users.getConsent2());
-
         try {
             int result = us.insertUsers(users);
         } catch (Exception e){
@@ -157,7 +143,7 @@ public class AuthController {
     }
 
     @PostMapping("/emailVerify")
-    public String emailVerify(HttpServletRequest request, Model model) {
+    public String emailVerify(HttpServletRequest request, Model model,HttpServletResponse response) throws IOException {
         String userInputToken = request.getParameter("token");
         String sessionToken = (String) request.getSession().getAttribute("authToken");
         String userName = request.getParameter("userName");
@@ -167,13 +153,16 @@ public class AuthController {
 
         if (userInputToken.equals(sessionToken)) {
 
-            model.addAttribute("userName",userName);
+            model.addAttribute("userName", userName);
             model.addAttribute("userEmail", userEmail);
             // 인증 성공, 회원 가입 페이지로 이동
             return "auth/joinForm";
         } else {
-            // 인증 실패, 에러 메시지 출력
-            return "home";
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('인증번호가 일치하지 않습니다. 다시 진행 해주시기 바랍니다'); location.href='/emailAuth';</script>");
+            out.flush();
+            return null;
         }
     }
 }

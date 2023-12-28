@@ -57,6 +57,14 @@
             document.getElementById('mailAuth').submit(); // 'formId'는 실제 폼의 id로 변경해주세요.
         }
     }
+
+    function checkInput(input) {
+        const regex = /[^\u1100-\u11FF\u3130-\u318F\uAC00-\uD7AF]/g;
+        if (regex.test(input.value)) {
+            input.value = input.value.replace(regex, '');
+            alert("한글만 입력해주세요.");
+        }
+    }
 </script>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
@@ -99,7 +107,7 @@
                 </div>
                 <div class="justify-content-start pb-3">
                     <label for="name" class="form-label mb-2">이름</label>
-                    <input type="text" class="form-control" name="name" id ="name" required>
+                    <input type="text" class="form-control" name="name" id ="name" required oninput="checkInput(this)">
                 </div>
 
                 <div class="justify-content-start pb-3">

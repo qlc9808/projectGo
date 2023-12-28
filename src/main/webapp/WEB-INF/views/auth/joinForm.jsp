@@ -87,12 +87,20 @@
                 return false;
             }
 
+            var pwReg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,10}$/;
+            if (!pwReg.test(pw.value)) {
+                alert("패스워드는 공백 없이 영문, 숫자 및 특수문자의 조합으로 8~10자로 설정해주세요.");
+                event.preventDefault();
+                return false;
+            }
+
             // 패스워드와 패스워드 확인이 일치하는지 확인
             if (pw.value !== pw2.value) {
                 alert("패스워드가 일치하지 않습니다.");
                 event.preventDefault();
                 return false;
             }
+
 
 
             // 사용자명이 제공되었는지 확인
@@ -122,11 +130,12 @@
 
         function fn_nickCheck(){
             const nickname = $("#nickname").val();
-            // 한글을 체크하는 정규식
-            const regExp = /[\u3131-\u314e|\u314f-\u3163|\uac00-\ud7a3]/g;
 
-            if(regExp.test(nickname)){
-                alert("한글을 입력할 수 없습니다.");
+            // 공백없이 영문, 숫자 조합 6자 이상을 체크하는 정규식
+            const regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+
+            if(!regExp.test(nickname)){
+                alert("공백 없이 영문, 숫자 조합 6자 이상으로 입력해주세요.");
                 $("#nickname").val("");
                 return;
             }
@@ -149,6 +158,7 @@
                 }
             })
         }
+
 
         function fn_register() {
             if (!isNicknameChecked) {
