@@ -55,7 +55,7 @@
             <%-- 이곳에 작성을 해주세요 --%>
             <h4>게임콘텐츠 등록</h4>
 
-            <form:form action="gameContentInsert" method="post" enctype="multipart/form-data">
+            <form:form action="gameContentInsert" method="post" enctype="multipart/form-data" modelAttribute="gameContents">
                 <table class="table table-bordered">
                     <tr>
                         <th>게임 콘텐츠명</th>
@@ -68,7 +68,8 @@
                     <tr>
                         <th>학습 난이도</th>
                         <td>
-                            <select name="gameLevel" required>
+                            <select name="gameLevel">
+                                <form:errors path="gameLevel" cssClass="error"/>
                                     <option value="1">초급</option>
                                     <option value="2">중급</option>
                                     <option value="3">고급</option>
@@ -80,14 +81,16 @@
                         <th>구독 기간</th>
                         <td>
                             <label for="months"></label>
-                            <input type="number" id="months" name="subscribeDate" min="1" max="12" required> 개월
+                            <input type="number" id="months" name="subscribeDate" min="1" max="12" > 개월
+                            <%--<form:errors path="subscribeDate" cssClass="error"/>--%>
                         </td>
                     </tr>
 
                     <tr>
                         <th>구독 가능 인원 수</th>
                         <td>
-                            <input type="number" min="1" name="maxSubscribers" required> 명
+                            <input type="number" min="1" name="maxSubscribers"> 명
+                            <%--<form:errors path="maxSubscribers" cssClass="error"/>--%>
                         </td>
                     </tr>
 
@@ -97,7 +100,8 @@
                         </th>
                         <td>
                             <input type="number" name="price" id="price"
-                                   oninput="calculateDiscountedPrice()" placeholder="정가를 입력하세요" required> 원
+                                   oninput="calculateDiscountedPrice()" placeholder="정가를 입력하세요"> 원
+                            <%--<form:errors path="price" cssClass="error"/>--%>
                         </td>
                     </tr>
 
@@ -107,7 +111,8 @@
                         </th>
                         <td>
                             <input type="number" name="discountRate" id="discountRate"
-                                   oninput="calculateDiscountedPrice()" placeholder="할인율을 입력하세요" required> %
+                                   oninput="calculateDiscountedPrice()" placeholder="할인율을 입력하세요"> %
+                            <%--<form:errors path="discountRate" cssClass="error"/>--%>
                         </td>
                     </tr>
 
@@ -129,7 +134,7 @@
                     <tr>
                         <th>썸네일</th>
                         <td>
-                            <input type="file" id="file" name="file1" required>
+                            <input type="file" id="file" name="file1">
                         </td>
                     </tr>
 

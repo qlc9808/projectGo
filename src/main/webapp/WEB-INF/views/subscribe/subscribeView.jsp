@@ -1,9 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <html>
 <head>
-    <%@ include file="/WEB-INF/components/Header.jsp"%>
-    <title>Title</title>
-</head>
+<%@ include file="/WEB-INF/components/Header.jsp"%>
+<title>Title</title>
+
 <style>
     th, td {
         text-align: center;
@@ -19,6 +19,24 @@
         text-align: center;
     }
 </style>
+
+<script>
+    function subscribe() {
+        var checkboxes = document.getElementsByName('gameIds');
+        var selectedGameIds = Array.from(checkboxes)
+            .filter(checkbox => checkbox.checked)
+            .map(checkbox => checkbox.value);
+
+        if (selectedGameIds.length === 0) {
+            alert("구독할 게임을 선택하세요");
+        } else {
+            // 선택된 게임이 있으면 폼을 서버로 제출
+            document.getElementById('subscribeForm').submit();
+        }
+    }
+</script>
+</head>
+
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
@@ -50,7 +68,7 @@
                     </c:forEach>
                 </table>
                 <c:if test="${result == 1}">
-                    <button type="submit" class="btn btn-primary col-lg-2">구독하기</button>
+                    <button type="submit" onclick="subscribe()" class="btn btn-primary col-lg-2">구독하기</button>
                 </c:if>
             </form>
 

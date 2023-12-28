@@ -39,13 +39,23 @@ public class PaymentController {
         log.info("로그인 getUserType : {}", users.getUserType());
         String loginUserType = users.getUserType();
 
+//        int result = 0;
+//        if(loginUserType.equals("2") || loginUserType.equals("4")){
+//            result = 1;
+//            System.out.println("교육자(2), 일반인(4)인 경우");
+//        } else {
+//            // 비회원(null)도 화면 볼 수 있게
+//            System.out.println("");
+//        }
+
         int result = 0;
-        if(loginUserType.equals("2") || loginUserType.equals("4")){
+        if(loginUserType != null && (loginUserType.equals("2") || loginUserType.equals("4"))){
             result = 1;
             System.out.println("교육자(2), 일반인(4)인 경우");
         } else {
-            System.out.println("교육자(2), 일반인(4)이 아닌 경우");
+            System.out.println("교육자(2), 일반인(4)이 아닌 경우 또는 loginUserType이 null인 경우");
         }
+
 
         // 총 갯수(리스트에서 구독할 컨텐츠 조회 페이지)
         int subscribeTotalCount = gs.subscribeTotalCount();

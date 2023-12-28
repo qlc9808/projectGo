@@ -45,7 +45,13 @@ public class GameController {
     private final PaymentService ps;
 //-----------------------------------------------------------------
     @RequestMapping(value = "gameContent")
-    public String gameContent(){
+    public String gameContent(Model model){
+
+        // Validation : form에서 modelAttribute="gameContents" 을 하면
+        // 이 객체가 어떤 건지 알 수 있어야 하니까 객체 생성함
+        GameContents gameContents = new GameContents();
+
+        model.addAttribute("gameContents", gameContents);
 
         return "admin/game/gameContentInsert";
     }
