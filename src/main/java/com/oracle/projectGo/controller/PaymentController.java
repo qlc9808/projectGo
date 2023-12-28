@@ -39,15 +39,6 @@ public class PaymentController {
         log.info("로그인 getUserType : {}", users.getUserType());
         String loginUserType = users.getUserType();
 
-//        int result = 0;
-//        if(loginUserType.equals("2") || loginUserType.equals("4")){
-//            result = 1;
-//            System.out.println("교육자(2), 일반인(4)인 경우");
-//        } else {
-//            // 비회원(null)도 화면 볼 수 있게
-//            System.out.println("");
-//        }
-
         int result = 0;
         if(loginUserType != null && (loginUserType.equals("2") || loginUserType.equals("4"))){
             result = 1;
@@ -55,7 +46,6 @@ public class PaymentController {
         } else {
             System.out.println("교육자(2), 일반인(4)이 아닌 경우 또는 loginUserType이 null인 경우");
         }
-
 
         // 총 갯수(리스트에서 구독할 컨텐츠 조회 페이지)
         int subscribeTotalCount = gs.subscribeTotalCount();
@@ -107,7 +97,6 @@ public class PaymentController {
             gameContentsList.add(gameContents);                             // add()-> ArrayList에서 맨 뒤에 데이터 추가
         }
 
-        // 나중에 아무 클릭 안하고 구독 하기 눌렀을 때 validation 커스텀으로 하기
         if (!gameContentsList.isEmpty()) {
             title = gameContentsList.get(0).getTitle() + " 외 " + (gameContentsList.size() - 1);
         }

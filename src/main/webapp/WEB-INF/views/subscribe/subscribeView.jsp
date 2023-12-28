@@ -29,6 +29,8 @@
 
         if (selectedGameIds.length === 0) {
             alert("구독할 게임을 선택하세요");
+            // 선택된 게임이 없을 때만 페이지 이동
+            window.location.href = "/subscribe/subscribeView";
         } else {
             // 선택된 게임이 있으면 폼을 서버로 제출
             document.getElementById('subscribeForm').submit();
