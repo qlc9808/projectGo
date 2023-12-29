@@ -11,27 +11,27 @@
         flex-shrink: 0;
         background-color:#003983;
     }
-    h2{
+    #footer-icon {
         font-size: 20px;
         color:white;
     }
-    h3 {
+    #footer-title {
         font-size: 20px;
         color: #F6D675;
     }
-    h4 {
+    #footer-cp {
         font-size: 15px;
         color: #F8FCF4;
         text-align: start;
     }
-    p {
+    #footer-team {
         font-size: 13px;
         color : #F8FCF4;
     }
-    hr {
+    #footer-hr {
         color: white;
     }
-    a {
+    .footer-link {
         font-size: 13px;
         color: #9E9E9E;
     }
@@ -42,19 +42,19 @@
             <div class="col-2"></div>
             <div class="col-10 row  row-cols-1">
                 <div class="col-7">
-                    <h3>(주)진격의 거민</h3>
-                    <p>팀원 : 황남오(팀장), 강한빛, 윤상엽, 이규현, 정송환, 차예지</p>
+                    <h3 id="footer-title">(주)진격의 거민</h3>
+                    <p id="footer-team">팀원 : 황남오(팀장), 강한빛, 윤상엽, 이규현, 정송환, 차예지</p>
                 </div>
                 <div class="col-3">
                     <div class="container my-2">
-                        <span><a href="#">이용약관</a></span><br>
-                        <span><a href="#">개인정보처리방침</a></span><br>
-                        <span><a href="#">저작권보호정책</a></span><br>
+                        <span><a class="footer-link" href="#">이용약관</a></span><br>
+                        <span><a class="footer-link" href="#">개인정보처리방침</a></span><br>
+                        <span><a class="footer-link" href="#">저작권보호정책</a></span><br>
                     </div>
                 </div>
                 <div class="col-2">
                     <div class="container my-3">
-                        <h2>
+                        <h2 id="footer-icon">
                             <i class="bi bi-facebook"></i>
                             <i class="bi bi-instagram"></i>
                             <i class="bi bi-twitter-x"></i>
@@ -63,9 +63,9 @@
                     </div>
 
                 </div>
-                <hr>
+                <hr id="footer-hr">
                 <div class="container">
-                    <h4 class="text-center bold">© Copyright 진격의거민. All Rights Reserved</h4>
+                    <h4 id="footer-cp" class="text-center bold">© Copyright 진격의거민. All Rights Reserved</h4>
                 </div>
 
             </div>
