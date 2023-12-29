@@ -41,15 +41,15 @@
         <div class="row  row-cols-1">
             <div class="col-2"></div>
             <div class="col-10 row  row-cols-1">
-                <div class="col-7">
+                <div class="col-6">
                     <h3 id="footer-title">(주)진격의 거민</h3>
                     <p id="footer-team">팀원 : 황남오(팀장), 강한빛, 윤상엽, 이규현, 정송환, 차예지</p>
                 </div>
-                <div class="col-3">
-                    <div class="container my-2">
-                        <span><a class="footer-link" href="#">이용약관</a></span><br>
-                        <span><a class="footer-link" href="#">개인정보처리방침</a></span><br>
-                        <span><a class="footer-link" href="#">저작권보호정책</a></span><br>
+                <div class="col-4">
+                    <div class="container  my-2">
+                        <span><a class="footer-link" href="#">이용약관</a></span>
+                        <span><a class="footer-link" href="#">개인정보처리방침</a></span>
+                        <span><a class="footer-link" href="#">저작권보호정책</a></span>
                     </div>
                 </div>
                 <div class="col-2">
