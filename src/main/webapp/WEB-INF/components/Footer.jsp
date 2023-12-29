@@ -20,7 +20,7 @@
         color: #F6D675;
     }
     h4 {
-        font-size: 20px;
+        font-size: 15px;
         color: #F8FCF4;
         text-align: start;
     }
@@ -41,17 +41,19 @@
         <div class="row  row-cols-1">
             <div class="col-2"></div>
             <div class="col-10 row  row-cols-1">
-                <div class="col-6">
+                <div class="col-7">
                     <h3>(주)진격의 거민</h3>
                     <p>팀원 : 황남오(팀장), 강한빛, 윤상엽, 이규현, 정송환, 차예지</p>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <div class="container my-2">
-                        <a href="#">이용약관</a>
-                        <a href="#">개인정보처리방침</a>
-                        <a href="#">저작권보호정책</a>
+                        <span><a href="#">이용약관</a></span><br>
+                        <span><a href="#">개인정보처리방침</a></span><br>
+                        <span><a href="#">저작권보호정책</a></span><br>
                     </div>
-                    <div class="container my-2">
+                </div>
+                <div class="col-2">
+                    <div class="container my-3">
                         <h2>
                             <i class="bi bi-facebook"></i>
                             <i class="bi bi-instagram"></i>
@@ -59,6 +61,7 @@
                             <i class="bi bi-youtube"></i>
                         </h2>
                     </div>
+
                 </div>
                 <hr>
                 <div class="container">
