@@ -7,63 +7,175 @@
         if (window.location.search.includes('error')) {
             alert('접근할 수 없는 페이지입니다.');
         }
+        $(document).ready(function() {
+            const next=document.querySelector('#next')
+            const prev=document.querySelector('#prev')
+
+            function handleScrollNext (direction) {
+                const cards = document.querySelector('.card-content')
+                cards.scrollLeft=cards.scrollLeft += window.innerWidth / 2 > 600 ? window.innerWidth /2 : window.innerWidth -100
+            }
+
+            function handleScrollPrev (direction) {
+                const cards = document.querySelector('.card-content')
+                cards.scrollLeft=cards.scrollLeft -= window.innerWidth / 2 > 600 ? window.innerWidth /2 : window.innerWidth -100
+            }
+
+            next.addEventListener('click', handleScrollNext)
+            prev.addEventListener('click', handleScrollPrev)
+        });
     </script>
     <style>
-        .box {
-            width: 46%;
-            border: solid 1px;
-            height: 100px;
-            margin: 20px;
-            padding: 12px;
-            border-radius: 40px;
-        }
-
-        .notify_box{
-            width: 100%;
-            border: solid 1px;
-            height: 100px;
-            margin: 20px;
-            padding: 12px;
-        }
-
-        .container_notify {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            align-items: center;
-            width: 100%;
-        }
-
         .container_top {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
             align-items: center;
         }
-
-        .container_middle {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            align-items: center;
-        }
-
-        .container_bottom {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            align-items: center;
-        }
         .carousel-item {
-            height: 350px;
+            height: 250px;
+            object-fit: cover;
+        }
+        .carousel-item img{
+            height: 250px;
+            object-fit: cover;
+
         }
 
-        .carousel-item img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            min-height: 350px;
+        h2 {
+            color: #0C4DA2;
+            font-size: 24px;
+            font-weight: 800;
+            word-wrap: break-word
         }
+        h3 {
+            color: #6D6A6A;
+            font-size: 20px;
+            font-weight: 600;
+            word-wrap: break-word
+        }
+        h4 {
+            color: black;
+            font-size: 15px;
+            font-weight: 500;
+            word-wrap: break-word
+        }
+        td {
+            text-align: start;
+        }
+    </style>
+
+    <style>
+
+        .card {
+            width: 250px;
+            min-width: 250px;
+            height:auto;
+            background:#fff;
+            border-radius:30px;
+            position:relative;
+            z-index:10;
+            margin:15px;
+            min-height:356px;
+            cursor:pointer;
+            transition: all .25s ease;
+            box-shadow: 0px 0px 0px 0px rgba(0,0,0, .08);
+        }
+
+        .card:hover {
+            transform:translate(0, -10px);
+            box-shadow: 0px 17px 35px 0px rgba(0,0,0,.07);
+        }
+
+        .card .card-text {
+            padding: 20px;
+        }
+
+        p {
+            font-size: .8rem;
+            opacity: .6;
+            margin-top: 10px;
+        }
+
+        .card .card-img {
+            margin: 25px 0;
+            /*padding: 25px 0;*/
+            display:flex;
+            align-items: center;
+            justify-content:center;
+            transition: all .35s ease-out;
+        }
+
+        .card img {
+            height:180px;
+        }
+
+        .card img.blur {
+            position:absolute;
+            filter:blur(15px);
+            z-index:-1;
+            opacity:.40;
+            transition: all .35s ease-out;
+        }
+
+        .card:hover .card-img {
+            transform:scale(1.10);
+        }
+
+        .card:hover .card-img img.blur {
+            transform:translate(-100px,35px) scale(.85);
+            opacity:.25;
+            filter:blur(20px);
+        }
+
+        .card-content {
+            display:flex;
+            align-items:center;
+            justify-content:flex-start;
+            width:100%;
+            overflow:auto;
+            scroll-behavior:smooth;
+        }
+
+        .card-content::-webkit-scrollbar {
+            height:0px;
+        }
+
+        .card-content:after {
+            display:block;
+            min-width:20px;
+            position:relative;
+        }
+
+        .btn{
+            min-width:60px;
+            margin:auto 30px;
+            height:60px;
+            border-radius:20px;
+            background:rgb(242,243,248);
+            border:0px;
+            outline:none;
+            cursor:pointer;
+            z-index:9999;
+            box-shadow: 0px 0px 0px 0px rgba(0,0,0,.08);
+            transition: all .25s ease;
+        }
+
+        .btn:hover{
+            box-shadow: 0px 17px 35px 0px rgba(0,0,0,.07);
+        }
+
+        .btn i {
+            font-size:1.2rem;
+        }
+
+        .slider {
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            overflow:hidden;
+        }
+
     </style>
 </head>
 <body>
@@ -76,8 +188,8 @@
                     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
                     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active" data-bs-interval="10000">
+                <div class="carousel-inner justify-content-center">
+                    <div class="carousel-item active" data-bs-interval="2000">
                         <img src="https://file.tygem.com/updata/ckimages/20219/92023846x298.jpg" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item" data-bs-interval="2000">
@@ -97,33 +209,93 @@
                 </button>
             </div>
         </div>
-        <div class="d-flex">
+        <div class="d-flex ">
+            <div id="main-content" class="container">
+                <div class="container px-5">
+                    <div class="container container_top mt-5 px-5">
+                        <div class="container col-6 ">
+                            <h3 class="mx-2"> 공지사항</h3>
+                            <hr class="mx-2">
+                            <table  class="table table-md text-center p-3 border">
+                                <thead>
+                                <tr>
+                                    <th style="width: 90%">제목</th>
+                                    <th style="width: 10%">공지일</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>fdsafadasf</td>
+                                    <td>2023/12/1</td>
+                                </tr>
+                                <tr>
+                                    <td>하하하하</td>
+                                    <td>2023/12/1</td>
+                                </tr>
+                                <tr>
+                                    <td>하하하하</td>
+                                    <td>2023/12/1</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-            <div id="main-content" class="container px-5 ">
-                <div class="container_top">
-                    <div class="box">- 공지사항 </div>
-                    <div class="box" style="position: relative; height: 230px;">
-                        <h2 style="color: black; text-align: center;">인기 교육자료</h2>
-                        <iframe style="margin-left: 20px; margin-right: 15px;" width="45%" height="170px" src="https://www.youtube.com/embed/sSi4Nf0goLo"
-                                title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+                        <div class="container col-6" >
+                            <h3 class="mx-2"> 인기 교육자료</h3>
+                            <hr class="mx-2">
+                            <div class="d-flex justify-content-around">
+                                <iframe width="45%" height="170px" src="https://www.youtube.com/embed/sSi4Nf0goLo"
+                                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
                                         encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-                        </iframe>
-
-                        <iframe style="" width="45%" height="170px" src="https://www.youtube.com/embed/r2YIc57hUiE"
-                                title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+                                </iframe>
+                                <iframe width="45%" height="170px" src="https://www.youtube.com/embed/r2YIc57hUiE"
+                                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
                                         encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-                        </iframe>
-
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" mt-5 px-5">
+                        <h3 class="mx-2"> 인기 게임</h3>
+                        <hr class="mx-2">
                     </div>
                 </div>
-                <div class="container_middle">
-                    <div class="box">- 우수 학습그룹<br>- 이달의 우수 학습자(숙제 제출시 많이 제출하고 평가가 좋게나온 사람)</div>
-                    <div class="box">- 이달의 우수 학습자(숙제 제출시 많이 제출하고 평가가 좋게나온 사람)</div>
+                <div class="">
+                    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+                    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+                    <div class="slider" >
+                        <button id="prev" class="btn">
+                            <i class="las la-angle-left"></i>
+                        </button>
+                        <div class="card-content">
+                            <c:forEach var="i" begin="1" end="15">
+                                <!-- Card -->
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img src="https://play-lh.googleusercontent.com/Xi9QHr6WJcxZyqGFCp8fxsGFl_JF_AbxKnb-J07sr6l8eNyZCD6V9kapDOuEwz7rR3c=w240-h480-rw"alt="">
+<%--                                        <img class="blur" src="https://photo-cdn.icons8.com/assets/sata/editor/object/244/fc8f52e5-219e-47a0-8475-b96d4f3e6529.png" alt="">--%>
+                                    </div>
+                                    <div class="card-text">
+                                        <h2>Basket Ball</h2>
+                                        <p>I show you how to make a card group easily and very functional with the use of flexbox and its magic and JavaScript.<p>
+                                    </div>
+                                </div>
+                                <!-- Card End -->
+                            </c:forEach>
+
+                        </div>
+                        <button id="next" class="btn">
+                            <i class="las la-angle-right"></i>
+                        </button>
+                    </div>
                 </div>
+
             </div>
         </div>
 
     </main>
+
     <%@ include file="/WEB-INF/components/Footer.jsp"%>
 </body>
 </html>
