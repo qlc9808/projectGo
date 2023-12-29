@@ -47,6 +47,7 @@
         <if test="userId != null and userId != '' and userId != 0  ">
             AND D.userId = #{userId}
         </if>
+        ORDER BY D.submissionDate DESC, H.deadline DESC
     </select>
 
 <!--    <update id="updateDistributedHomeworks" parameterType="java.util.List" >
