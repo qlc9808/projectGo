@@ -32,6 +32,22 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     var contextPath = "${pageContext.request.contextPath}";
+    window.onload = function() {
+        // 현재 페이지의 URL을 가져옵니다.
+        var url = window.location.href;
+
+        // nav-link 클래스를 가진 모든 요소를 가져옵니다.
+        var navLinks = document.getElementsByClassName('my-page-nav-link');
+
+        // 모든 nav-link 요소에 대해 순회하면서
+        for (var i = 0; i < navLinks.length; i++) {
+            // 현재 nav-link 요소의 href가 현재 페이지의 URL과 일치하는지 확인합니다.
+            if (navLinks[i].href === url) {
+                // 일치한다면, 해당 요소에 active 클래스를 추가합니다.
+                navLinks[i].classList.add('active');
+            }
+        }
+    };
 </script>
 <link href="/css/global.css" rel="stylesheet" type="text/css">
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>

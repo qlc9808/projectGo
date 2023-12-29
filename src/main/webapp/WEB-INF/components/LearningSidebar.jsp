@@ -25,12 +25,12 @@
     }
 
     .my-page-nav-link:hover {
-        background-color: #9BDB04; /* 마우스를 올렸을 때의 배경색 */
+        background-color: white; /* 마우스를 올렸을 때의 배경색 */
         color: #171717 !important;
     }
 
     .my-page-nav-link.active {
-        background-color: #9BDB04 !important; /* 마우스를 올렸을 때의 배경색 */
+        background-color: white !important; /* 마우스를 올렸을 때의 배경색 */
         color: #171717
     }
 

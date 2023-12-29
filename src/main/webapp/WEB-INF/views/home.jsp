@@ -68,8 +68,8 @@
 <body>
     <%@ include file="/WEB-INF/components/TopBar.jsp"%>
     <main>
-        <div class="container ">
-            <div id="carouselExampleDark" class="carousel carousel-dark slide">
+        <div class="container px-5">
+            <div id="carouselExampleDark" class="carousel carousel-dark slide px-5">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -77,26 +77,14 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active" data-bs-interval="10000">
-                        <img src="..." class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>First slide label</h5>
-                            <p>Some representative placeholder content for the first slide.</p>
-                        </div>
+                        <img src="https://file.tygem.com/updata/ckimages/20219/92023846x298.jpg" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item" data-bs-interval="2000">
-                        <img src="..." class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Second slide label</h5>
-                            <p>Some representative placeholder content for the second slide.</p>
-                        </div>
+                        <img src="https://mgameimage.gscdn.com/mgamezzang/games/baduk_2009/lecture/091215_banner_2.jpg" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="..." class="d-block w-100" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Third slide label</h5>
-                            <p>Some representative placeholder content for the third slide.</p>
+                        <img src="http://file.tygem.com/updata/ckimages/20218/155327201.jpg" class="d-block w-100" alt="...">
                         </div>
-                    </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -110,25 +98,17 @@
         </div>
         <div class="d-flex">
 
-            <div id="main-content" class="container border ">
+            <div id="main-content" class="container px-5 ">
                 <%-- 이곳에 작성을 해주세요 --%>
                 <h1>HOME</h1>
-                    <div class="container_notify">
-                        <div class="notify_box">- 이용가이드(필수)<br>- 공지사항(필수)<br>- 인기 게시글</div>
-                    </div>
-                    <div class="container_top">
-                        <div class="box">- 이벤트, 광고 등</div>
-                        <div class="box">- 인기게임 튜토리얼 영상</div>
-                    </div>
-                    <div class="container_middle">
-                        <div class="box">- 우수 학습그룹<br>- 이달의 우수 학습자(숙제 제출시 많이 제출하고 평가가 좋게나온 사람)</div>
-                        <div class="box">- 이달의 우수 학습자(숙제 제출시 많이 제출하고 평가가 좋게나온 사람)</div>
-                    </div>
-                    <div class="container_bottom">
-                        <div class="box">- 신규게임<br>- 인기게임 튜토리얼 영상</div>
-                        <div class="box">- 인기게임(매출기준)<br>- 이달의 게임(이번달 매출기준)<br>- 금주의 게임(이번주 매출기준)</div>
-                    </div>
-
+                <div class="container_top">
+                    <div class="box">- 공지사항 </div>
+                    <div class="box">- 인기게임 튜토리얼 영상</div>
+                </div>
+                <div class="container_middle">
+                    <div class="box">- 우수 학습그룹<br>- 이달의 우수 학습자(숙제 제출시 많이 제출하고 평가가 좋게나온 사람)</div>
+                    <div class="box">- 이달의 우수 학습자(숙제 제출시 많이 제출하고 평가가 좋게나온 사람)</div>
+                </div>
             </div>
         </div>
 
