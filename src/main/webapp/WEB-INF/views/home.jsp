@@ -15,6 +15,7 @@
             height: 100px;
             margin: 20px;
             padding: 12px;
+            border-radius: 40px;
         }
 
         .notify_box{
@@ -99,11 +100,21 @@
         <div class="d-flex">
 
             <div id="main-content" class="container px-5 ">
-                <%-- 이곳에 작성을 해주세요 --%>
-                <h1>HOME</h1>
                 <div class="container_top">
                     <div class="box">- 공지사항 </div>
-                    <div class="box">- 인기게임 튜토리얼 영상</div>
+                    <div class="box" style="position: relative; height: 230px;">
+                        <h2 style="color: black; text-align: center;">인기 교육자료</h2>
+                        <iframe style="margin-left: 20px; margin-right: 15px;" width="45%" height="170px" src="https://www.youtube.com/embed/sSi4Nf0goLo"
+                                title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+                                        encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                        </iframe>
+
+                        <iframe style="" width="45%" height="170px" src="https://www.youtube.com/embed/r2YIc57hUiE"
+                                title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+                                        encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                        </iframe>
+
+                    </div>
                 </div>
                 <div class="container_middle">
                     <div class="box">- 우수 학습그룹<br>- 이달의 우수 학습자(숙제 제출시 많이 제출하고 평가가 좋게나온 사람)</div>
