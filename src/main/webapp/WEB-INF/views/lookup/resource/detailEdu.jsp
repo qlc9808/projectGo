@@ -31,8 +31,9 @@
                     <div class="detailEdu-body">
                         <div class="detailEdu-source">
                             <c:if test="${edu.fileAddress != null}">
-                                <iframe width="1100" height="720" src="https://www.youtube.com/embed/${edu.fileAddress}"
-                                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                                <iframe style="margin-left: 110px;" width="900" height="620" src="https://www.youtube.com/embed/${edu.fileAddress}"
+                                        title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+                                        encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
                                 </iframe>
                             </c:if>
                         </div>

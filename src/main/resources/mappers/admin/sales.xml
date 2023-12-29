@@ -16,7 +16,8 @@
         FROM   payments
     </select>
     <select id="saleSearchList" resultType="Payments">
-        SELECT   p.id, p.userId, p.contentId, p.paymentType, p.status, p.purchaseDate, g.discountPrice, u.name, g.title
+        SELECT   p.id, p.userId, p.contentId, p.paymentType,
+                 p.status, p.purchaseDate, g.discountPrice, u.name, g.title
         FROM     payments p
         JOIN     gamecontents g ON g.id = p.contentId
         JOIN     users u        ON u.id = p.userId

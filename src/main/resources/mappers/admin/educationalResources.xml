@@ -13,23 +13,28 @@
     <select id="listEdu" parameterType="Users" resultType="EducationalResources">
         <choose>
             <when test="userType != 1">
-                SELECT e.id, e.contentId, e.userId, e.title, e.resourceType, e.fileType, e.fileAddress, e.serviceType, e.content, e.image, e.readCount, e.createdAt, e.updatedAt, g.title as gameTitle
+                SELECT e.id, e.contentId, e.userId, e.title, e.resourceType, e.fileType, e.fileAddress,
+                       e.serviceType, e.content, e.image, e.readCount, e.createdAt, e.updatedAt, g.title as gameTitle
                 FROM   EducationalResources e
                 JOIN   GameContents g ON e.contentId = g.id
                 WHERE  e.servicetype = 1
                 <if test="id != 0">
                     <if test="userType != 3">
                         UNION
-                        SELECT e.id, e.contentId, e.userId, e.title, e.resourceType, e.fileType, e.fileAddress, e.serviceType, e.content, e.image, e.readCount, e.createdAt, e.updatedAt, g.title as gameTitle
-                        FROM   learningGroup lg
-                        JOIN   EducationalResources e ON lg.contentId = e.contentId
-                        JOIN   GameContents g ON e.contentId = g.id
-                        WHERE  lg.userid = #{id}
+                        SELECT e.id, e.contentId, e.userId, e.title, e.resourceType, e.fileType, e.fileAddress,
+                        e.serviceType, e.content, e.image, e.readCount, e.createdAt, e.updatedAt, g.title as gameTitle
+                        FROM   users u
+                        JOIN   Payments p ON p.userId = u.id
+                        JOIN   EducationalResources e ON p.contentId = e.contentId
+                        JOIN   GameContents g ON p.contentId = g.id
+                        WHERE  u.Id = #{id}
                         AND    e.serviceType = 2
+                        AND    p.status = 1
                     </if>
                     <if test="userType == 3">
                         UNION
-                        SELECT e.id, e.contentId, e.userId, e.title, e.resourceType, e.fileType, e.fileAddress, e.serviceType, e.content, e.image, e.readCount, e.createdAt, e.updatedAt, g.title as gameTitle
+                        SELECT e.id, e.contentId, e.userId, e.title, e.resourceType, e.fileType, e.fileAddress,
+                               e.serviceType, e.content, e.image, e.readCount, e.createdAt, e.updatedAt, g.title as gameTitle
                         FROM   learningGroup lg
                         JOIN   EducationalResources e ON lg.contentId = e.contentId
                         JOIN   GameContents g ON e.contentId = g.id
@@ -41,7 +46,8 @@
                 </if>
             </when>
             <otherwise>
-                SELECT e.id, e.contentId, e.userId, e.title, e.resourceType, e.fileType, e.fileAddress, e.serviceType, e.content, e.image, e.readCount, e.createdAt, e.updatedAt, g.title as gameTitle
+                SELECT e.id, e.contentId, e.userId, e.title, e.resourceType, e.fileType, e.fileAddress,
+                       e.serviceType, e.content, e.image, e.readCount, e.createdAt, e.updatedAt, g.title as gameTitle
                 FROM   EducationalResources e, GameContents g
                 WHERE  e.contentId = g.id
                 ORDER by e.id desc

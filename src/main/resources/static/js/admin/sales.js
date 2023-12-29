@@ -145,11 +145,6 @@ function search() {
     let searchType = document.getElementById('searchType').value
     let status = 1;
 
-    if (keywordDate2 < keywordDate1) {
-        alert("기간조회 날짜를 다시 확인해주세요.");
-        return null;
-    }
-
     if ((keywordDate1 == null || keywordDate1 === "") && (keywordDate2 == null || keywordDate2 === "")) {
         status = 2;
     }

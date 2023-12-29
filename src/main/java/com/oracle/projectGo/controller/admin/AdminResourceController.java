@@ -243,25 +243,14 @@ public class AdminResourceController {
     }
 
     private String uploadFile(String originalName, byte[] fileData, String uploadPath) throws IOException {
-        UUID uid = UUID.randomUUID();  // universally unique identifier 국제 유일 식별자, 해당 객체를 사용한다면 같은 파일을 올려도 서로 다른 이름을 갖는다.
-        // requestPath = requestPath + "/resources/image";
-        System.out.println("uploadPath->" + uploadPath);
-        //Directory 생성, jsp는 폴더가 없을 때 수동으로 폴더를 만들어주지만 spring boot는 없을경우 자동으로 만들 수 있음
-        File fileDirectory = new File(uploadPath);
-        if (!fileDirectory.exists()) { // 해당 경로에 폴더가 없다면 신규폴더를 생성
-            //신규 폴더 생성
-            fileDirectory.mkdirs(); // 해당 메서드를 사용하면 자동으로 디렉토리(폴더)를 만들 수 있음
-            System.out.println("시스템 업로드용 폴더 생성 :" + uploadPath);
-        }
+        UUID uid = UUID.randomUUID();
 
+        File fileDirectory = new File(uploadPath);
+        if (!fileDirectory.exists()) {
+            fileDirectory.mkdirs();
+        }
         String savedName = uid.toString() + "_" + originalName;
-        log.info("saveName : " + savedName);
         File target = new File(uploadPath, savedName);
-        //file target = new file(requestPath, savedName
-        // file UpLoad ----> uploadPath / UUID + _ + originalname
-        FileCopyUtils.copy(fileData, target);  // import org.springframework.util.FileCopyUtils;
-        // 용량, target을 넣으면 내부적으로 업로드
-        // 만든 타겟을 카피하면 업로드, 시스템적으로 떨어져 있더라도 업로드 시킨다.
         return savedName;
     }
 
