@@ -35,14 +35,14 @@
             <%@ include file="/WEB-INF/components/EducateSidebar.jsp" %>
         </div>
         <div id="main-content" class="container p-5 col-10">
-            <div class="container border my-4 py-3">
-                <div class="container my-3 py-3">
+            <div class="container border my-1 py-1">
+                <div class="container my-1 py-1">
                     <h1>숙제정보입력</h1>
                 </div>
                 <div>
                     <form action="/homework/insertHomeworkForm" method="post">
                         <input type="hidden" name="userId" id="userId" value="${userId}">
-                        <div class="my-4 row align-items-baseline ">
+                        <div class="my-1 row align-items-baseline ">
                             <label class="col-sm-2 col-form-label fw-bold text-end"
                                    style="font-size: 20px;">게임컨텐츠</label>
                             <div class="col-sm-8 d-flex align-items-center">
@@ -53,24 +53,24 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="my-4 row align-items-baseline ">
+                        <div class="my-1 row align-items-baseline ">
                             <label for="title" class="col-sm-2 col-form-label fw-bold text-end"
                                    style="font-size: 20px;">숙제명</label>
                             <div class="col-sm-8" >
                                 <input type="text" class="typeahead form-control md-0 pd-0" id="title" name="title">
                             </div>
                         </div>
-                        <div class="my-4 row align-items-baseline ">
+                        <div class="my-1 row align-items-baseline ">
                             <label for="progress" class="col-sm-2 col-form-label fw-bold text-end"
                                    style="font-size: 20px;">숙제진도</label>
                             <div class="col-sm-8">
                                 <input type="number" class="form-control" id="progress" name="progress">
-                                <p class="helptext text-start">숙제 진도는 숫자만 입력바랍니다.</p>
+                                <p style="color: #6D6A6A" class="helptext text-start">숙제 진도는 숫자만 입력바랍니다.</p>
                             </div>
                         </div>
 
 
-                        <div class="my-4 row align-items-center ">
+                        <div class="my-1 row align-items-center ">
                             <label class="col-sm-2 col-form-label fw-bold text-end"
                                    style="font-size: 20px;">제출기한</label>
                             <div class="col-sm-8 d-flex align-items-center">
@@ -101,21 +101,21 @@
                             </div>
                         </div>
 
-                        <div class="my-4 row align-items-baseline ">
+                        <div class="my-1 row align-items-baseline ">
                             <label for="content" class="col-sm-2 col-form-label fw-bold text-end"
                                    style="font-size: 20px;">숙제내용</label>
                             <div class="col-sm-8">
-                            <textarea class="form-control" aria-label="With textarea" id="content" rows="5"
+                            <textarea class="form-control" aria-label="With textarea" id="content" rows="3"
                                       name="content"></textarea>
                                 <p id="textarea-validate" class="helptext text-end"></p>
                             </div>
                         </div>
 
 
-                        <div class="container row justify-content-center my-5">
+                        <div class="container row justify-content-center my-1">
 
                             <button type="submit" id="submitBtn" class="btn btn-primary col-4 px-3 mx-2"
-                                    style="background: #52525C; border: none"
+                                    style="background: #52525C; color: #F8FCF4; border: none"
                                     onclick="event.preventDefault();">저장하기
                             </button>
                             <button type="reset" class="btn btn-primary col-4 px-3 mx-2">취소</button>

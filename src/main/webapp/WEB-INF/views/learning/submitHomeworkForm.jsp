@@ -104,7 +104,7 @@
                         <button class="btn btn-primary col-lg-2">제출하기</button>
                     </div>
                     <hr/>
-                    <div class="d-flex border justify-content-around" style="border-radius:15px;background-color: #0C4DA2">
+                    <div class="d-flex border justify-content-around" style="border-radius:15px;background-color: black">
                         <div class="col-5  d-flex p-3 text-center" >
                             <div class="col-1 d-flex justify-content-center align-content-center flex-wrap">
                             </div>
@@ -122,7 +122,7 @@
                     <input type="hidden" name="distributedHomeworks[${st.index}].homeworkId" value="${distributedHomeworks.homeworkId}">
                     <input type="hidden" name="distributedHomeworks[${st.index}].userId" value="${distributedHomeworks.userId}">
                     <div id="slot-${st.index}" class="d-flex slot " >
-                        <div class="col-5  d-flex p-3 my-5" >
+                        <div class="col-5  d-flex p-2 my-4" >
                             <div class="col-1 d-flex justify-content-center align-content-center flex-wrap">
                                 <input type="checkbox" class="form-check-input" name="distributedHomeworks[${st.index}].checked"  style="font-size: 30px"
                                        value="true" data-index="${st.index}" ${(distributedHomeworks.submissionDate != null)? 'disabled':''}>
@@ -138,7 +138,7 @@
                             </div>
                         </div>
                         <div class="vr my-5"></div>
-                        <div class="col-5 p-3 my-5">
+                        <div class="col-5 p-2 my-4">
                             <c:choose>
                                 <c:when test="${distributedHomeworks.submissionDate != null}">
                                     <div class="d-flex justify-content-between align-content-center"  >
