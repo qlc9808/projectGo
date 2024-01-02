@@ -50,6 +50,7 @@
     th, td {
         text-align: center;
         vertical-align: middle;
+        /*white-space: nowrap;*/
     }
     #gameImg{
         width: 110px;
@@ -92,11 +93,14 @@
             <p>총 건수: ${gameContentsTotalCount}</p>
 
                 <table class="table table-bordered">
+                    <thead>
                     <tr>
                         <th>No.</th> <th>콘텐츠 이미지</th> <th>게임 콘텐츠명</th> <th>패키지 내용</th>
                         <th>Level<br>
-                        <th>구독<br>가능 인원</th> <th>구독 기간</th> <th>정가</th> <th>할인율</th> <th>판매가</th> <th>공개 여부</th>
+                        <th>인원</th> <th>구독 기간</th> <th>정가</th> <th>할인율</th> <th>판매가</th> <th>공개 여부</th>
                     </tr>
+
+                    </thead>
 
                     <c:forEach var="gameContent" items="${gameContentsList}">
                         <tr id="gameContent${gameContent.id}" onclick="isDeleted(this, ${gameContent.isDeleted})">

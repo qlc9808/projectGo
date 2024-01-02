@@ -33,6 +33,13 @@
     </script>
 </head>
 <style>
+    h1 {
+        color: black;
+        font-size: 32px;
+        font-weight: 600;
+        word-wrap: break-word;
+        text-align: center;
+    }
     h4{
         color: black;
         font-weight: 600;
@@ -42,6 +49,9 @@
     }
     #submit{
         width: auto;
+    }
+    .table {
+        border: #FF4379 !important;
     }
 </style>
 <body>
@@ -53,14 +63,15 @@
         </div>
         <div id="main-content" class="container p-5 col-10">
             <%-- 이곳에 작성을 해주세요 --%>
-            <h4>게임콘텐츠 등록</h4>
+            <h1>게임콘텐츠 등록</h1>
 
             <form:form action="gameContentInsert" method="post" enctype="multipart/form-data" modelAttribute="gameContents">
-                <table class="table table-bordered">
+                <table class="table ">
                     <tr>
                         <th>게임 콘텐츠명</th>
                         <td>
-                            <textarea cols="50" rows="1" name="title"></textarea>
+                            <input type="text" class="form-control" name="title">
+<%--                            <textarea cols="50" rows="1" name="title"></textarea>--%>
                             <form:errors path="title" cssClass="error"/>
                         </td>
                     </tr>
@@ -68,7 +79,7 @@
                     <tr>
                         <th>학습 난이도</th>
                         <td>
-                            <select name="gameLevel">
+                            <select name="gameLevel" class="form-select">
                                 <form:errors path="gameLevel" cssClass="error"/>
                                     <option value="1">초급</option>
                                     <option value="2">중급</option>
@@ -80,17 +91,23 @@
                     <tr>
                         <th>구독 기간</th>
                         <td>
+                            <div class="input-group">
                             <label for="months"></label>
-                            <input type="number" id="months" name="subscribeDate" min="1" max="12" > 개월
+                            <input type="number" class="form-control" id="months" name="subscribeDate" min="1" max="12" >
                             <%--<form:errors path="subscribeDate" cssClass="error"/>--%>
+                            <span class="input-group-text" >개월</span>
+                            </div>
                         </td>
                     </tr>
 
                     <tr>
                         <th>구독 가능 인원 수</th>
                         <td>
-                            <input type="number" min="1" name="maxSubscribers"> 명
+                            <div class="input-group">
+                            <input type="number" class="form-control" min="1" name="maxSubscribers">
                             <%--<form:errors path="maxSubscribers" cssClass="error"/>--%>
+                                <span class="input-group-text" >명</span>
+                            </div>
                         </td>
                     </tr>
 
@@ -98,10 +115,12 @@
                         <th>
                             <label for="price">정가</label>
                         </th>
-                        <td>
-                            <input type="number" name="price" id="price"
-                                   oninput="calculateDiscountedPrice()" placeholder="정가를 입력하세요"> 원
-                            <%--<form:errors path="price" cssClass="error"/>--%>
+                        <td >
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="price" id="price" oninput="calculateDiscountedPrice()" placeholder="정가를 입력하세요">
+<%--                                <form:errors path="price" cssClass="error"/>--%>
+                                <span class="input-group-text" >원</span>
+                            </div>
                         </td>
                     </tr>
 
@@ -110,23 +129,29 @@
                             <label for="discountRate">할인율</label>
                         </th>
                         <td>
-                            <input type="number" name="discountRate" id="discountRate"
-                                   oninput="calculateDiscountedPrice()" placeholder="할인율을 입력하세요"> %
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="discountRate" id="discountRate"
+                                   oninput="calculateDiscountedPrice()" placeholder="할인율을 입력하세요">
                             <%--<form:errors path="discountRate" cssClass="error"/>--%>
+                                <span class="input-group-text" >%</span>
+                            </div>
                         </td>
                     </tr>
 
                     <tr>
                         <th>판매가</th>
                         <td>
-                            <input type="number" name="discountPrice" id="discountPrice" readonly> 원
+                            <div class="input-group">
+                            <input type="number" class="form-control" name="discountPrice" id="discountPrice" readonly>
+                                <span class="input-group-text" >원</span>
+                            </div>
                         </td>
                     </tr>
 
                     <tr>
                         <th>패키지 내용</th>
                         <td>
-                            <textarea cols="50" rows="10" name="content"></textarea>
+                            <textarea class="form-control" cols="50" rows="10" name="content"></textarea>
                             <form:errors path="content" cssClass="error"/>
                         </td>
                     </tr>
