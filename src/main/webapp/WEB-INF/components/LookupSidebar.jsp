@@ -41,24 +41,6 @@
 <div class="d-flex flex-column flex-shrink-0 p-0 sidebar biz-page-sidebar"
      style="width: 280px;">
     <ul class="nav flex-column mt-5 pt-4">
-        <li class="nav-item my-page-nav-item">
-            <div>
-                <a href="/lookup/board/subscribeView"
-                   class="nav-link my-page-nav-link px-3 ">
-                    <i class=" title-bi bi bi-controller px-3"></i>
-                    게임 콘텐츠 조회
-                </a>
-            </div>
-        </li>
-        <li class="nav-item my-page-nav-item">
-            <div>
-                <a href="/lookup/board/listEdu"
-                   class="nav-link my-page-nav-link px-3 ">
-                    <i class=" title-bi bi bi-controller px-3"></i>
-                    학습 자료 조회
-                </a>
-            </div>
-        </li>
             <div>
                 <a href="/lookup/board/noticeBoardList"
                    class="nav-link my-page-nav-link px-3 ">
@@ -82,6 +64,24 @@
                    class="nav-link my-page-nav-link px-3 ">
                     <i class="title-bi bi bi-chat-square-dots-fill px-3"></i>
                     FAQ
+                </a>
+            </div>
+        </li>
+        <li class="nav-item my-page-nav-item">
+            <div>
+                <a href="/lookup/board/subscribeView"
+                   class="nav-link my-page-nav-link px-3 ">
+                    <i class=" title-bi bi bi-controller px-3"></i>
+                    게임 콘텐츠 조회
+                </a>
+            </div>
+        </li>
+        <li class="nav-item my-page-nav-item">
+            <div>
+                <a href="/lookup/board/listEdu"
+                   class="nav-link my-page-nav-link px-3 ">
+                    <i class=" title-bi bi bi-controller px-3"></i>
+                    학습 자료 조회
                 </a>
             </div>
         </li>
