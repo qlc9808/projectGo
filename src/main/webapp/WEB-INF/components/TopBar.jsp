@@ -11,6 +11,17 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <header id="topbar" class="app-navbar fixed-top" >
+
+    <%
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String role = auth.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .findFirst()
+                .orElse(UsersRoleType.ANONYMOUS.getLabel());
+        System.out.println(auth.getAuthorities()+ auth.getName());
+        boolean isAuthenticated = !role.contains(UsersRoleType.ANONYMOUS.getLabel());
+        boolean isAdmin = role.contains(UsersRoleType.ADMIN.getLabel());
+    %>
     <div class="container">
         <nav class="navbar  navbar-expand-md navbar-light  justify-content-between ">
             <div class="col-3">
@@ -34,25 +45,19 @@
                         <li class="nav-item"><a class="nav-link app-nav-link" href="/learning/signUpLearningGroup">학습서비스</a></li>
                         <li class="nav-item"><a class="nav-link app-nav-link" href="/group/listLearningContent">교육자마당</a></li>
                         <li class="nav-item"><a class="nav-link app-nav-link" href="/lookup/board/noticeBoardList">조회마당</a></li>
-                        <c:if test="${userRole eq 'ADMIN'}">
-                        <li class="nav-item"><a class="nav-link app-nav-link" href="/game/gameContentSelect">운영마당</a></li>
-                        </c:if>
+
+                        <% if (isAdmin) {
+                        %>
+                            <li class="nav-item"><a class="nav-link app-nav-link" href="/game/gameContentSelect">운영마당</a></li>
+                        <% } %>
                     </ul>
                 </div>
             </div>
             <div class=" col-2 d-flex justify-content-end">
-                <%
-                    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-                    String role = auth.getAuthorities().stream()
-                            .map(GrantedAuthority::getAuthority)
-                            .findFirst()
-                            .orElse(UsersRoleType.ANONYMOUS.getLabel());
-                    System.out.println(auth.getAuthorities()+ auth.getName());
-                    boolean isAuthenticated = !role.contains(UsersRoleType.ANONYMOUS.getLabel());
-                %>
+
 
                 <% if (isAuthenticated) {
-%>
+                %>
 
                 <a href="/userUpdateForm1" style="margin-right: 10px;">정보수정</a>
                 <a href="/logout">로그아웃</a>
