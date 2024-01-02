@@ -94,7 +94,7 @@
                 <table class="table table-bordered">
                     <tr>
                         <th>No.</th> <th>콘텐츠 이미지</th> <th>게임 콘텐츠명</th> <th>패키지 내용</th>
-                        <th>Level<br><br>1=초급<br>2=중급<br>3=고급</th>
+                        <th>Level<br>
                         <th>구독<br>가능 인원</th> <th>구독 기간</th> <th>정가</th> <th>할인율</th> <th>판매가</th> <th>공개 여부</th>
                     </tr>
 
@@ -104,7 +104,7 @@
                             <td><img id="gameImg" alt="UpLoad Image" src="${pageContext.request.contextPath}/upload/gameContents/${gameContent.imageName}"></td>
                             <td>${gameContent.title}</td>
                             <td>${gameContent.content}</td>
-                            <td class="gameLevel">${gameContent.gameLevel}</td>
+                            <td class="gameLevel">${(gameContent.gameLevel==1)?"초급":(gameContent.gameLevel==2)?"중급":"고급"}</td>
                             <td>${gameContent.maxSubscribers}명</td>
                             <td class="subscribeDate">${gameContent.subscribeDate}개월</td>
                             <td class="price">${gameContent.price}원</td>
