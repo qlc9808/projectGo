@@ -35,14 +35,14 @@
             <div id="main-content" class="container p-5 col-10">
 
                 <c:if test="${users.userType != '3'}">
-                    <h1 style="text-align: center; font-weight: bold;">학습그룹 가입신청</h1>
+                    <h3 style="text-align: start; margin-left: 20px; font-weight: bold;">학습그룹 가입신청</h3>
                     <div class="container my-4 py-3" style="width: 1199px;">
                 </c:if>
                 <c:if test="${users.userType == '3'}">
-                    <h1 style="text-align: center; font-weight: bold;">학습그룹 가입신청</h1>
+                    <h3 style="text-align: start; margin-left: 20px; font-weight: bold;">학습그룹 가입신청</h3>
                     <div class="container my-4 py-3" style="width: 1302px;">
                 </c:if>
-                        <div class="slg-select-box">
+                        <div class="slg-select-box" style="display: flex; align-items: end; justify-content: end;">
                             <select id="slg-select">
                                 <option>선택없음</option>
                                 <option>그룹명</option>

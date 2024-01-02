@@ -8,7 +8,7 @@
         FROM     payments p, users u, gamecontents g
         WHERE    p.userid = u.id
         AND      p.contentId = g.id
-        ORDER BY p.id desc
+        ORDER BY purchaseDate desc
 
     </select>
     <select id="listSalesCount" resultType="int">
@@ -71,7 +71,7 @@
                 WHERE purchaseDate BETWEEN #{keywordDate1} and #{keywordDate2}
             </when>
         </choose>
-        ORDER BY p.id desc
+        ORDER BY purchaseDate desc
     </select>
     
     <select id="chartSelector1" parameterType="int" resultType="Payments">

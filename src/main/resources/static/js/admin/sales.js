@@ -17,7 +17,7 @@ $.ajax({
                 paymentType: item.paymentType,
                 status: item.status,
                 purchaseDate: item.purchaseDate,
-                discountPrice: item.discountPrice+"원"
+                discountPrice: item.discountPrice
             };
         });
 
@@ -28,15 +28,8 @@ $.ajax({
             scrollY: false,
             rowHeight: 'auto',
 //          rowHeaders: ['checkbox'],
+            rowHeaders: ['rowNum'],
             columns: [
-                {
-                    header: 'NO',
-                    name: 'id',
-                    align: 'center',
-                    sortable: true,
-                    sortingType: 'desc',
-                    width: 50
-                },
                 {
                     header: '구매자',
                     name: 'name',
@@ -47,7 +40,9 @@ $.ajax({
                     header: '구매한게임',
                     name: 'title',
                     align: 'center',
-                    width: 300
+                    width: 300,
+                    sortable: true,
+                    sortingType: 'desc'
                 },
                 {
                     header: '결제방법',
@@ -72,7 +67,11 @@ $.ajax({
                 {
                     header: '결제금액',
                     name: 'discountPrice',
-                    align: 'center'
+                    align: 'center',
+                    formatter: function(value) {
+                        console.log(value.value);
+                        return Number(value.value).toLocaleString() + '원';
+                    }
                 }
             ],
             pageOptions: {
@@ -80,7 +79,7 @@ $.ajax({
                 perPage: 10
             },
         });
-        
+
         // 그래프 생성
         let monthlySalesSum = Array(12).fill(0); // 월별 매출액 합계를 저장할 배열
         const monthlySalesCount = Array(12).fill(0); // 월별 매출액 개수를 저장할 배열
@@ -190,16 +189,26 @@ function search() {
             grid.clear();
             const searchInfo = response.searchInfo;
 
-            // 총 매출액과 전체 건수를 계산합니다.
             let totalSales = 0;
             let totalCount = 0;
 
-            for (let item of searchInfo) {
-                grid.appendRow(item);
+            searchInfo.forEach(function(item) {
+                const formattedItem = {
+                    id: item.id,
+                    name: item.name,
+                    title: item.title,
+                    paymentType: item.paymentType,
+                    status: item.status,
+                    purchaseDate: item.purchaseDate,
+                    discountPrice: item.discountPrice
+                };
+
+                grid.appendRow(formattedItem);
 
                 totalSales += item.discountPrice;
                 totalCount += 1;
-            }
+            });
+
             const formattedTotalSales = totalSales.toLocaleString();
             document.getElementById('total-discountPrice').value = formattedTotalSales;
             document.getElementById('totalCount').value = totalCount;
@@ -256,6 +265,7 @@ function chartSelector(value) {
         success: function (response) {
             console.log(response.chartSelectorList);
             chart.destroy();
+            document.getElementById('chart-area').style.display = 'block';
 
             if ( value > 1000 ) {
                 // 월별 그래프 생성
