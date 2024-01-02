@@ -29,8 +29,8 @@
         .container_top {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-around;
-            align-items: center;
+            justify-content: space-between;
+            /*align-items: center;*/
         }
         .carousel-item {
             height: 250px;
@@ -63,6 +63,12 @@
         td {
             text-align: start;
         }
+        .section-title {
+            color: #6D6A6A;
+            font-size: 20px;
+            font-weight: 600;
+            word-wrap: break-word
+        }
     </style>
 
     <style>
@@ -72,7 +78,7 @@
             min-width: 250px;
             height:auto;
             background:#fff;
-            border-radius:30px;
+            /*border-radius:30px;*/
             position:relative;
             z-index:10;
             margin:15px;
@@ -149,7 +155,7 @@
 
         .btn{
             min-width:60px;
-            margin:auto 30px;
+            margin:auto 10px;
             height:60px;
             border-radius:20px;
             background:rgb(242,243,248);
@@ -181,8 +187,8 @@
 <body>
     <%@ include file="/WEB-INF/components/TopBar.jsp"%>
     <main>
-        <div class="container px-5">
-            <div id="carouselExampleDark" class="carousel carousel-dark slide px-5">
+        <div class="container">
+            <div id="carouselExampleDark" class="carousel carousel-dark slide">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -211,20 +217,20 @@
         </div>
         <div class="d-flex ">
             <div id="main-content" class="container">
-                <div class="container px-5">
-                    <div class="container container_top mt-5 px-5">
-                        <div class="container col-6 ">
-                            <h3 class="mx-2"> 공지사항</h3>
-                            <hr class="mx-2">
+                <div class="">
+                    <div class=" container_top mt-5">
+                        <div class=" col-5 ">
+                            <label class="section-title"> 공지사항</label>
+                            <hr class="">
                             <table  class="table table-md text-center p-3 border">
                                 <thead>
                                 <tr>
-                                    <th style="width: 90%">제목</th>
-                                    <th style="width: 10%">공지일</th>
+                                    <th style="width: 90%;text-align: start;padding-left: 20px  ;">제목</th>
+                                    <th style="width: 10%">작성일</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
+                                <tr >
                                     <td>fdsafadasf</td>
                                     <td>2023/12/1</td>
                                 </tr>
@@ -240,9 +246,9 @@
                             </table>
                         </div>
 
-                        <div class="container col-6" >
-                            <h3 class="mx-2"> 인기 교육자료</h3>
-                            <hr class="mx-2">
+                        <div class=" col-6" >
+                            <label  class="section-title"> 인기 교육자료</label>
+                            <hr class="">
                             <div class="d-flex justify-content-around">
                                 <iframe width="45%" height="170px" src="https://www.youtube.com/embed/sSi4Nf0goLo"
                                         title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
@@ -255,12 +261,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class=" mt-5 px-5">
-                        <h3 class="mx-2"> 인기 게임</h3>
-                        <hr class="mx-2">
+                    <div class=" mt-5" >
+                        <h3 class=""> 인기 게임</h3>
+                        <hr class="">
                     </div>
                 </div>
-                <div class="">
+                <div class="my-3">
                     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
                     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 

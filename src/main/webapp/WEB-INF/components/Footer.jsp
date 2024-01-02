@@ -13,6 +13,7 @@
     }
     #footer-icon {
         font-size: 20px;
+        letter-spacing: 10px;
         color:white;
     }
     #footer-title {
@@ -20,39 +21,39 @@
         color: #F6D675;
     }
     #footer-cp {
-        font-size: 15px;
-        color: #F8FCF4;
+        font-size: 13px;
+        color: #9E9E9E;
         text-align: start;
     }
     #footer-team {
-        font-size: 13px;
+        font-size: 15px;
         color : #F8FCF4;
     }
     #footer-hr {
         color: white;
     }
     .footer-link {
-        font-size: 13px;
+        font-size: 15px;
         color: #9E9E9E;
     }
 </style>
-<footer class="py-5">
+<footer class="py-3">
     <div class="container justify-content-center">
         <div class="row  row-cols-1">
             <div class="col-2"></div>
             <div class="col-10 row  row-cols-1">
-                <div class="col-6">
+                <div class="col-6 my-3">
                     <h3 id="footer-title">(주)진격의 거민</h3>
-                    <p id="footer-team">팀원 : 황남오(팀장), 강한빛, 윤상엽, 이규현, 정송환, 차예지</p>
-                </div>
-                <div class="col-4">
-                    <div class="container  my-2">
+                    <span id="footer-team">팀원 : 황남오(팀장), 강한빛, 윤상엽, 이규현, 정송환, 차예지</span>
+                    <div class="">
                         <span><a class="footer-link" href="#">이용약관</a></span>
                         <span><a class="footer-link" href="#">개인정보처리방침</a></span>
                         <span><a class="footer-link" href="#">저작권보호정책</a></span>
                     </div>
                 </div>
-                <div class="col-2">
+                <div class="col-3">
+                </div>
+                <div class="col-3">
                     <div class="container my-3">
                         <h2 id="footer-icon">
                             <i class="bi bi-facebook"></i>
