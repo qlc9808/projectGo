@@ -41,11 +41,11 @@
         }
     </script>
     <style>
+
         .custom-select-box {
             width: 100px;
             height: 30px;
             margin-top: 30px;
-
         }
 
         .my-custom-class {
@@ -54,34 +54,36 @@
         }
 
         #searchType {
-            width: 300px;  /* 원하는 너비로 조절하세요 */
-
+            width: 300px;
         }
+
         input[name="keyword"] {
-            width: 600px;  /* 원하는 너비로 조절하세요 */
+            width: 600px;
             margin-left: 0px;
-
         }
+
         .col-15.my-5.d-flex.align-items-center {
-            width: 1400px;
-            margin-right: 0;
-            margin-left: -20px;
+            width: 1450px;
+            margin-right: 70px;
             padding-right: 0;
         }
+
         .p-4 {
-            width : 1600px;
+            width: 1600px;
             margin-left: 0;
             margin-right: 0;
         }
+
         .table-responsive {
-            width : 1350px;
+            width: 1350px;
             margin-left: -50px;
         }
 
-
-
-
-
+        .search-and-register {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 20px;
+        }
     </style>
 
     <%@ include file="/WEB-INF/components/Header.jsp"%>
@@ -92,45 +94,47 @@
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
     <%@ include file="/WEB-INF/components/AdminSidebar.jsp"%>
-    <div class="container col-9 justify-content-center align-items-center mb-2 p-3 pt-0">
-        <div class="container justify-content-end p-0">
-            <select id="pageSize" onchange="changePageSize()" class="custom-select-box">
-                <c:forEach var="size" items="${['10', '20', '30']}">
-                    <c:choose>
-                        <c:when test="${param.pageSize eq size or (empty param.pageSize and size eq '10')}">
-                            <option value="${size}" selected>${size}개씩 보기</option>
-                        </c:when>
-                        <c:otherwise>
-                            <option value="${size}">${size}개씩 보기</option>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-            </select>
-            <form action="QNASearch" method="get" class="container justify-content-center" style="text-align: center; margin-left: 50px;">
-                <div class="col-15 my-5 d-flex align-items-center">
-                    <label for="searchType" class="col-form-label col-1  mx-2">검색어</label>
-                    <div class="col-4">
-                        <select id="searchType" name="searchType" class="form-select">
-                            <option value="title" ${title ? 'selected' : ''}>제목</option>
-                            <option value="content" ${content ? 'selected' : ''}>내용</option>
-                            <option value="name" ${name ? 'selected' : ''}>작성자</option>
-                        </select>
+    <div class="container col-9 justify-content-center align-items-center mb-2 p-3 pt-0" style="text-align: center;">
+        <h1 style="margin-top: 50px; font-weight: bold; ">Q&A 리스트</h1>
+        <div class="container justify-content-end p-0" style="text-align: left; margin-left: 70px;">
+            <div class="search-and-register">
+                <form action="QNASearch" method="get" class="container justify-content-center" style="display: inline-block; text-align: center; margin-left: 0;">
+                    <div class="col-15 my-5 d-flex align-items-center" style="display: inline-block; text-align: left; margin-left: -20px;">
+                        <label for="searchType" class="col-form-label col-1  mx-2">검색어</label>
+                        <div class="col-4">
+                            <select id="searchType" name="searchType" class="form-select">
+                                <option value="title" ${title ? 'selected' : ''}>제목</option>
+                                <option value="content" ${content ? 'selected' : ''}>내용</option>
+                                <option value="name" ${name ? 'selected' : ''}>작성자</option>
+                            </select>
+                        </div>
+                        <div class="d-flex col-6 mx-2 my-custom-class">
+                            <label>
+                                <input type="text" name="keyword" class="form-control" placeholder="검색어를 입력하세요">
+                            </label>
+                            <button type="submit" class="btn btn-primary mx-3">검색</button>
+                        </div>
                     </div>
-                    <div class="d-flex col-6 mx-2 my-custom-class">
-                        <label>
-                            <input type="text" name="keyword" class="form-control" placeholder="검색어를 입력하세요">
-                        </label>
-                        <button type="submit" class="btn btn-primary mx-3">검색</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
         <div class="container table-container p-4" style="text-align: center;">
-            <div class="table-responsive" style="text-align: center; margin-left: 20px;">
+            <div class="table-responsive" style="text-align: left; margin-left: 50px;">
+                <select id="pageSize" onchange="changePageSize()" class="custom-select-box">
+                    <c:forEach var="size" items="${['10', '20', '30']}">
+                        <c:choose>
+                            <c:when test="${param.pageSize eq size or (empty param.pageSize and size eq '10')}">
+                                <option value="${size}" selected>${size}개씩 보기</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${size}">${size}개씩 보기</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </select>
+                <h5 style="text-align: right;">총 게시글 수 : ${totalQNAboard}</h5>
                 <table id="userTable" class="table table-md text-center p-3">
                     <thead>
-                    <h1>QNA 리스트</h1>
-                    <h5>총 게시글 수 : ${totalQNAboard}</h5>
                     <tr>
                         <th scope="col">순번</th>
                         <th scope="col">분류</th>

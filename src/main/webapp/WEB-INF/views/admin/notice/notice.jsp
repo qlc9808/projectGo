@@ -41,11 +41,11 @@
         }
     </script>
     <style>
+
         .custom-select-box {
             width: 100px;
             height: 30px;
             margin-top: 30px;
-
         }
 
         .my-custom-class {
@@ -54,31 +54,35 @@
         }
 
         #searchType {
-            width: 300px;  /* 원하는 너비로 조절하세요 */
-
+            width: 300px;
         }
+
         input[name="keyword"] {
-            width: 600px;  /* 원하는 너비로 조절하세요 */
+            width: 600px;
             margin-left: 0px;
-
         }
+
         .col-15.my-5.d-flex.align-items-center {
             width: 1450px;
             margin-right: 70px;
             padding-right: 0;
         }
+
         .p-4 {
-            width : 1600px;
+            width: 1600px;
             margin-left: 0;
             margin-right: 0;
         }
+
         .table-responsive {
-            width : 1350px;
+            width: 1350px;
             margin-left: -50px;
         }
+
         .search-and-register {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
+            margin-top: 20px;
         }
     </style>
 
@@ -89,23 +93,12 @@
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
-    <%@ include file="/WEB-INF/components/LookupSidebar.jsp"%>
+    <%@ include file="/WEB-INF/components/AdminSidebar.jsp"%>
     <div class="container col-9 justify-content-center align-items-center mb-2 p-3 pt-0" style="text-align: center;">
+        <h1 style="margin-top: 50px; font-weight: bold; ">공지 리스트</h1>
         <div class="container justify-content-end p-0" style="text-align: left; margin-left: 70px;">
-            <select id="pageSize" onchange="changePageSize()" class="custom-select-box">
-                <c:forEach var="size" items="${['10', '20', '30']}">
-                    <c:choose>
-                        <c:when test="${param.pageSize eq size or (empty param.pageSize and size eq '10')}">
-                            <option value="${size}" selected>${size}개씩 보기</option>
-                        </c:when>
-                        <c:otherwise>
-                            <option value="${size}">${size}개씩 보기</option>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-            </select>
             <div class="search-and-register">
-                <form action="QNASearch" method="get" class="container justify-content-center" style="display: inline-block; text-align: center; margin-left: 0;">
+                <form action="noticeSearch" method="get" class="container justify-content-center" style="display: inline-block; text-align: center; margin-left: 0;">
                     <div class="col-15 my-5 d-flex align-items-center" style="display: inline-block; text-align: left; margin-left: -20px;">
                         <label for="searchType" class="col-form-label col-1  mx-2">검색어</label>
                         <div class="col-4">
@@ -122,16 +115,26 @@
                             <button type="submit" class="btn btn-primary mx-3">검색</button>
                         </div>
                         <div style="display: flex; justify-content: center; align-items: center; margin-top: 22px; margin-left: -50px;">
-                <button style="float: right; margin-right: 12px;" id="regist-btn" type="button" class="btn btn-primary mb-4" onclick="location.href='noticeInsertForm'">등록</button>
+                            <button style="float: right; margin-right: 12px;" id="regist-btn" type="button" class="btn btn-primary mb-4" onclick="location.href='noticeInsertForm'">등록</button>
                         </div>
                     </div>
                 </form>
-
             </div>
         </div>
         <div class="container table-container p-4" style="text-align: center;">
-            <div class="table-responsive" style="text-align: center; margin-left: 50px;">
-                <h1>공지 리스트</h1>
+            <div class="table-responsive" style="text-align: left; margin-left: 50px;">
+                <select id="pageSize" onchange="changePageSize()" class="custom-select-box">
+                    <c:forEach var="size" items="${['10', '20', '30']}">
+                        <c:choose>
+                            <c:when test="${param.pageSize eq size or (empty param.pageSize and size eq '10')}">
+                                <option value="${size}" selected>${size}개씩 보기</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${size}">${size}개씩 보기</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </select>
                 <h5 style="text-align: right;">총 게시글 수 : ${totalnoticeboard}</h5>
                 <table id="userTable" class="table table-md text-center p-3">
                     <thead>
