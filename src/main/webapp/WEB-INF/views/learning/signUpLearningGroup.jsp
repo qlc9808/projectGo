@@ -52,7 +52,7 @@
                             <select id="slg-selected">
                                 <option></option>
                             </select>
-                            <button onclick="slgsearch(document.getElementById('slg-selected').value, document.getElementById('slg-select').value)" id="slg-search" class="slg-search">조회하기</button>
+                            <button onclick="slgsearch(document.getElementById('slg-selected').value, document.getElementById('slg-select').value)" id="slg-search" class="btn-primary">조회하기</button>
 
                         </div>
                         <div id="grid1"></div>

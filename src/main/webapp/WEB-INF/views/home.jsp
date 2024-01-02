@@ -180,7 +180,7 @@
 </head>
 <body>
     <%@ include file="/WEB-INF/components/TopBar.jsp"%>
-    <main>
+    <main style="margin-top: 7px;">
         <div class="container px-5">
             <div id="carouselExampleDark" class="carousel carousel-dark slide px-5">
                 <div class="carousel-indicators">
