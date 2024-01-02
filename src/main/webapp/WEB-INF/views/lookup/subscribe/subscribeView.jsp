@@ -12,6 +12,15 @@
     #gameImg{
         width: 110px;
     }
+    h4{
+        color: black;
+        font-weight: 600;
+        word-wrap: break-word;
+        text-align: left;
+    }
+    p{
+        text-align: right;
+    }
 </style>
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
@@ -22,14 +31,16 @@
         </div>
         <div id="main-content" class="container p-5 col-10">
             <%-- 이곳에 작성을 해주세요 --%>
-            <p>컨텐츠 조회 및 구독 신청</p>
+            <h4>게임 컨텐츠 조회</h4>
             <p>총 건수: ${subscribeTotalCount}</p>
 
-            <form action="/subscribe/subscribeClick" method="post">
+            <form action="/subscribe/subscribeClick">
                 <table class="table table-bordered">
-                    <tr>
-                        <th>No.</th> <th>콘텐츠 이미지</th> <th>가격 / 구독 기간(개월)</th> <th>상품 소개</th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>No.</th> <th>콘텐츠 이미지</th> <th>가격 / 구독 기간(개월)</th> <th>상품 소개</th>
+                        </tr>
+                    </thead>
 
                     <c:forEach var="gameContent" items="${subscribeGameList}">
                         <tr id="gameContent${gameContent.rn}">
@@ -46,19 +57,27 @@
             </form>
 
             <!-- 페이징 작업 -->
-            <ul class="pagination justify-content-center">
-                <c:if test="${page.startPage > page.pageBlock}">
-                    <a href="subscribeView?currentPage=${page.startPage - page.pageBlock}">[이전]</a>
-                </c:if>
+                <nav aria-label="Page navigation example ">
+                    <ul class="pagination justify-content-center">
+                        <c:if test="${page.startPage > page.pageBlock}">
+                            <li class="page-item">
+                                <a class="page-link ${page.currentPage == i ? "active":"" }" href="subscribeView?currentPage=${page.startPage - page.pageBlock}">이전</a>
+                            </li>
+                        </c:if>
 
-                <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
-                    <a href="subscribeView?currentPage=${i}">[${i}]</a>
-                </c:forEach>
+                        <c:forEach var="i" begin="${page.startPage}" end="${page.endPage}">
+                            <li class="page-item">
+                                <a class="page-link ${page.currentPage == i ? "active":"" }" href="subscribeView?currentPage=${i}">${i}</a>
+                            </li>
+                        </c:forEach>
 
-                <c:if test="${page.endPage < page.totalPage}">
-                    <a href="subscribeView?currentPage=${page.startPage + page.pageBlock}">[다음]</a>
-                </c:if>
-            </ul>
+                        <c:if test="${page.endPage < page.totalPage}">
+                            <li class="page-item">
+                                <a class="page-link ${page.currentPage == i ? "active":"" }" href="subscribeView?currentPage=${page.startPage + page.pageBlock}">다음</a>
+                            </li>
+                        </c:if>
+                    </ul>
+                </nav>
 
         </div>
     </div>
