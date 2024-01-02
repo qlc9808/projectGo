@@ -30,9 +30,6 @@ public class MainController {
         if (request.getParameter("error") != null) {
             model.addAttribute("error", "접근권한이 없습니다.");
         }
-        String userRole = String.valueOf(us.getLoggedInUserRole());
-        model.addAttribute("userRole",userRole);
-        log.info("userRole" + userRole);
 
         // 총 갯수(리스트에서 구독할 컨텐츠 조회 페이지)
         int subscribeTotalCount = gs.subscribeTotalCount();
