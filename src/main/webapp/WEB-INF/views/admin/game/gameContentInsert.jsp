@@ -58,6 +58,7 @@
     .table tr th {
         border: solid 0px;
         text-align: end;
+        white-space: nowrap; /* 줄바꿈을 방지 */
     }
 </style>
 <body>
@@ -70,10 +71,10 @@
         <div id="main-content" class="container p-5 col-10">
             <%-- 이곳에 작성을 해주세요 --%>
             <div class="container border">
-                <div class="my-3">
+                <div class="my-4">
                     <h1>게임콘텐츠 등록</h1>
                 </div>
-                <div class="mt-5 ">
+                <div class="m-5 px-5">
                     <form:form action="gameContentInsert" method="post" enctype="multipart/form-data" modelAttribute="gameContents">
                         <table class="table ">
                             <tr>
