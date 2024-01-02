@@ -36,11 +36,11 @@
 
                 <c:if test="${users.userType != '3'}">
                     <h3 style="text-align: start; margin-left: 20px; font-weight: bold;">학습그룹 가입신청</h3>
-                    <div class="container my-4 py-3" style="width: 1199px;">
+                    <div class="container my-4 py-3" style="width: 1191px;">
                 </c:if>
                 <c:if test="${users.userType == '3'}">
                     <h3 style="text-align: start; margin-left: 20px; font-weight: bold;">학습그룹 가입신청</h3>
-                    <div class="container my-4 py-3" style="width: 1302px;">
+                    <div class="container my-4 py-3" style="width: 1295px;">
                 </c:if>
                         <div class="slg-select-box" style="display: flex; align-items: end; justify-content: end;">
                             <select id="slg-select">

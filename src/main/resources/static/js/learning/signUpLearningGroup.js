@@ -50,14 +50,6 @@ function learningGroupList(value, category) {
 
             let columns = [
                 {
-                    header: 'NO',
-                    name: 'id',
-                    align: 'center',
-                    sortable: true,
-                    sortingType: 'desc',
-                    width: 50
-                },
-                {
                     header: '썸네일',
                     name: 'image',
                     align: 'center',
@@ -140,6 +132,7 @@ function learningGroupList(value, category) {
                 scrollY: false,
                 rowHeight: 'auto',
                 columns: columns,
+                rowHeaders: ['rowNum'],
                 pageOptions: {
                     useClient: true,
                     perPage: 5
