@@ -44,15 +44,26 @@
     <tr>
         <td>이메일</td>
         <td>${userDetail.email}</td>
-        <td>기타</td>
-        <td><c:choose>
-            <c:when test="${userDetail.consent1 == 1}">
-                EMAIL 수신동의
-            </c:when>
-            <c:otherwise>
-                EMAIL 수신거부
-            </c:otherwise>
-        </c:choose></td>
+        <td>메세지 수신</td>
+        <td>
+            <c:choose>
+                <c:when test="${userDetail.consent1 == 1}">
+                    EMAIL 수신동의
+                </c:when>
+                <c:otherwise>
+                    EMAIL 수신거부
+                </c:otherwise>
+            </c:choose>
+            /
+            <c:choose>
+                <c:when test="${userDetail.consent2 == 1}">
+                    SMS 수신동의
+                </c:when>
+                <c:otherwise>
+                    SMS 수신거부
+                </c:otherwise>
+            </c:choose>
+        </td>
     </tr>
 </table>
 <div class="d-flex justify-content-center align-items-center">
