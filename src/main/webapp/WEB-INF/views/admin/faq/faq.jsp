@@ -63,9 +63,8 @@
 
         }
         .col-15.my-5.d-flex.align-items-center {
-            width: 1400px;
-            margin-right: 0;
-            margin-left: -20px;
+            width: 1450px;
+            margin-right: 70px;
             padding-right: 0;
         }
         .p-4 {
@@ -77,11 +76,10 @@
             width : 1350px;
             margin-left: -50px;
         }
-
-
-
-
-
+        .search-and-register {
+            display: flex;
+            justify-content: space-between;
+        }
     </style>
 
     <%@ include file="/WEB-INF/components/Header.jsp"%>
@@ -91,9 +89,9 @@
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
-    <%@ include file="/WEB-INF/components/AdminSidebar.jsp"%>
-    <div class="container col-9 justify-content-center align-items-center mb-2 p-3 pt-0">
-        <div class="container justify-content-end p-0">
+    <%@ include file="/WEB-INF/components/LookupSidebar.jsp"%>
+    <div class="container col-9 justify-content-center align-items-center mb-2 p-3 pt-0" style="text-align: center;">
+        <div class="container justify-content-end p-0" style="text-align: left; margin-left: 70px;">
             <select id="pageSize" onchange="changePageSize()" class="custom-select-box">
                 <c:forEach var="size" items="${['10', '20', '30']}">
                     <c:choose>
@@ -106,35 +104,37 @@
                     </c:choose>
                 </c:forEach>
             </select>
-            <form action="FAQSearch" method="get" class="container justify-content-center" style="text-align: center; margin-left: 50px;">
-                <div class="col-15 my-5 d-flex align-items-center">
-                    <label for="searchType" class="col-form-label col-1  mx-2">검색어</label>
-                    <div class="col-4">
-                        <select id="searchType" name="searchType" class="form-select">
-                            <option value="title" ${title ? 'selected' : ''}>제목</option>
-                            <option value="content" ${content ? 'selected' : ''}>내용</option>
-                            <option value="name" ${name ? 'selected' : ''}>작성자</option>
-                        </select>
+            <div class="search-and-register">
+                <form action="QNASearch" method="get" class="container justify-content-center" style="display: inline-block; text-align: center; margin-left: 0;">
+                    <div class="col-15 my-5 d-flex align-items-center" style="display: inline-block; text-align: left; margin-left: -20px;">
+                        <label for="searchType" class="col-form-label col-1  mx-2">검색어</label>
+                        <div class="col-4">
+                            <select id="searchType" name="searchType" class="form-select">
+                                <option value="title" ${title ? 'selected' : ''}>제목</option>
+                                <option value="content" ${content ? 'selected' : ''}>내용</option>
+                                <option value="name" ${name ? 'selected' : ''}>작성자</option>
+                            </select>
+                        </div>
+                        <div class="d-flex col-6 mx-2 my-custom-class">
+                            <label>
+                                <input type="text" name="keyword" class="form-control" placeholder="검색어를 입력하세요">
+                            </label>
+                            <button type="submit" class="btn btn-primary mx-3">검색</button>
+                        </div>
+                        <div style="display: flex; justify-content: center; align-items: center; margin-top: 22px; margin-left: -50px;">
+                            <button style="float: right; margin-right: 12px;" id="regist-btn" type="button" class="btn btn-primary mb-4" onclick="location.href='FAQInsertForm'">등록</button>
+                        </div>
                     </div>
-                    <div class="d-flex col-6 mx-2 my-custom-class">
-                        <label>
-                            <input type="text" name="keyword" class="form-control" placeholder="검색어를 입력하세요">
-                        </label>
-                        <button type="submit" class="btn btn-primary mx-3">검색</button>
-                    </div>
-                </div>
-            </form>
-            <div class="container justify-content-end p-0">
-                <button style="float: right; margin-right: 12px;" id="regist-btn" type="button" class="btn btn-primary mb-4" onclick="location.href='FAQInsertForm'">등록</button>
-            </div>
+                </form>
+        </div>
         </div>
 
         <div class="container table-container p-4" style="text-align: center;">
-            <div class="table-responsive" style="text-align: center; margin-left: 20px;">
+            <div class="table-responsive" style="text-align: center; margin-left: 50px;">
+                <h1>FAQ 리스트</h1>
+                <h5 style="text-align: right;">총 게시글 수 : ${totalFAQboard}</h5>
                 <table id="userTable" class="table table-md text-center p-3">
                     <thead>
-                    <h1>FAQ 리스트</h1>
-                    <h5>총 게시글 수 : ${totalFAQboard}</h5>
                     <tr>
                         <th scope="col">순번</th>
                         <th scope="col">분류</th>
