@@ -70,8 +70,9 @@
     </delete>
 
     <select id="totalSearchnotice" parameterType="board" resultType="int">
-        SELECT count(*)
-        FROM  board
+        SELECT COUNT(*)
+        FROM BOARD b
+        INNER JOIN USERS U ON b.userId = U.id
         WHERE boardType = 1
         <if test="searchType == 'title'">
             AND REGEXP_LIKE(title, #{keyword}, 'i')
@@ -79,8 +80,8 @@
         <if test="searchType == 'content'">
             AND REGEXP_LIKE(content, #{keyword}, 'i')
         </if>
-        <if test="searchType == 'userId'">
-            AND REGEXP_LIKE(userId, #{keyword}, 'i')
+        <if test="searchType == 'name'">
+            AND REGEXP_LIKE(u.name, #{keyword}, 'i')
         </if>
         <if test="searchType == 'title_content'">
             AND (REGEXP_LIKE(title, #{keyword}, 'i') OR REGEXP_LIKE(content, #{keyword}, 'i'))
@@ -161,8 +162,9 @@
     </delete>
 
     <select id="totalSearchQNA" parameterType="board" resultType="int">
-        SELECT count(*)
-        FROM  board
+        SELECT COUNT(*)
+        FROM BOARD b
+        INNER JOIN USERS U ON b.userId = U.id
         WHERE boardType = 3
         <if test="searchType == 'title'">
             AND REGEXP_LIKE(title, #{keyword}, 'i')
@@ -241,8 +243,9 @@
     </update>
 
     <select id="totalSearchFAQ" parameterType="board" resultType="int">
-        SELECT count(*)
-        FROM  board
+        SELECT COUNT(*)
+        FROM BOARD b
+        INNER JOIN USERS U ON b.userId = U.id
         WHERE boardType = 2
         <if test="searchType == 'title'">
             AND REGEXP_LIKE(title, #{keyword}, 'i')

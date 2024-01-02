@@ -79,7 +79,7 @@
                                 <div id="file_info"></div>
                             </div>
                         <div id="existingFiles"></div>
-                        <button id="uploadBtn" type="button" style="width: 300px; margin-left: 204px;">파일 선택 및 업로드</button>
+                        <button id="uploadBtn" type="button" style="width: 300px; margin-left: 200px;">파일 선택 및 업로드</button>
                         <input type="file" id="file" name="file" multiple style="display: none;">
                     </div>
             </div>
