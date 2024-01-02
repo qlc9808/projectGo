@@ -110,9 +110,11 @@
                         <c:if test="${learningGroupList.size() == 0}">해당하는 학습그룹 정보가 없습니다.</c:if>
                         <div class="table">
                             <table class="table text-center">
-                                <tr>
-                                    <th></th><th>학습그룹명</th><th>게임콘텐츠명</th><th>그룹 T/O</th><th>구독기간</th><th>등록 학생수</th>
-                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th></th><th>학습그룹명</th><th>게임콘텐츠명</th><th>그룹 T/O</th><th>구독기간</th><th>등록 학생수</th>
+                                    </tr>
+                                </thead>
                                 <c:forEach var="groupList" items="${learningGroupList}">
                                     <tr>
                                         <td class="centered-content">

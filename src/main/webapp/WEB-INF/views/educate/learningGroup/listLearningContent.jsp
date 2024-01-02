@@ -62,9 +62,11 @@
                         <c:if test="${learningContentList.size() == 0}">해당하는 게임콘텐츠 정보가 없습니다.</c:if>
                         <div class="table">
                             <table class="table text-center">
-                                <tr>
-                                    <th> </th><th>게임콘텐츠명</th><th>학습구독기간</th><th>학습가능인원</th><th>그룹지정된인원</th>
-                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th> </th><th>게임콘텐츠명</th><th>학습구독기간</th><th>학습가능인원</th><th>그룹지정된인원</th>
+                                    </tr>
+                                </thead>
                                 <c:forEach var="contentList" items="${learningContentList}">
                                     <tr>
                                         <td class="centered-content">
