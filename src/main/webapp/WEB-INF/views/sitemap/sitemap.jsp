@@ -7,7 +7,7 @@
 <body>
 <%@ include file="/WEB-INF/components/TopBar.jsp"%>
 <main>
-    <div class="d-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-center align-items-center" style="margin-top: -80px;">
 
 
 <div style="width: 1440px; height: 1024px; position: relative; background: white">
