@@ -230,18 +230,22 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr >
-                                    <td>fdsafadasf</td>
-                                    <td>2024/12/25</td>
-                                </tr>
-                                <tr>
-                                    <td>하하하하</td>
-                                    <td>2023/12/01</td>
-                                </tr>
-                                <tr>
-                                    <td>하하하하</td>
-                                    <td>2023/12/01</td>
-                                </tr>
+                                <c:forEach var="notice" items="${listnoticeBoard}" varStatus="st">
+                                    <tr id="notice${st.index}">
+                                        <input type="hidden" value="${notice.id}" id="id${st.index}">
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${notice.isPinned eq true}">
+                                                    <a href="noticeDetail?id=${notice.id}" style="font-weight: bold;">${notice.title}</a>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <a href="noticeDetail?id=${notice.id}">${notice.title}</a>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
+                                        <td><fmt:formatDate value="${notice.createdAt}" type="date" pattern="YY/MM/dd"/></td>
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>
