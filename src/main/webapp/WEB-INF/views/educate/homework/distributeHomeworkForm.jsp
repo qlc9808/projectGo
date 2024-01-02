@@ -84,7 +84,7 @@
                     </form>
 
                 </div>
-                <div class="container border p-2 m-2" style="height: auto;">
+                <div class="container p-2 m-2" style="height: auto;">
                     <div class="table-responsive">
                         <table id="homework-table" class="table text-center">
                             <thead>

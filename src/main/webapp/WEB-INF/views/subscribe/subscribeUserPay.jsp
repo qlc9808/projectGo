@@ -32,9 +32,11 @@
             <p>총 건수: ${subscribeUserPayTotalCount}</p>
 
                 <table class="table table-bordered">
-                    <tr>
-                        <th>No.</th> <th>콘텐츠 이미지</th> <th>가격 / 구독 기간 (개월)</th> <th>결제일</th> <th>학습 그룹</th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>No.</th> <th>콘텐츠 이미지</th> <th>가격 / 구독 기간 (개월)</th> <th>결제일</th> <th>학습 그룹</th>
+                        </tr>
+                    </thead>
 
                     <c:forEach var="my" items="${mySubscribePayList}">
                         <tr>

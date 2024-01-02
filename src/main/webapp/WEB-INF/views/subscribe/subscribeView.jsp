@@ -53,9 +53,11 @@
 
             <form id="subscribeForm" action="/subscribe/subscribeClick" method="post">
                 <table class="table table-bordered">
-                    <tr>
-                        <th>구독</th> <th>No.</th> <th>콘텐츠 이미지</th> <th>가격 / 구독 기간(개월)</th> <th>상품 소개</th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>구독</th> <th>No.</th> <th>콘텐츠 이미지</th> <th>가격 / 구독 기간(개월)</th> <th>상품 소개</th>
+                        </tr>
+                    </thead>
 
                     <c:forEach var="gameContent" items="${subscribeGameList}">
                         <tr id="gameContent${gameContent.rn}">
