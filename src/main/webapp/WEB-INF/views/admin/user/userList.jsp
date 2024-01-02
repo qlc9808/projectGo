@@ -95,8 +95,8 @@
         </div>
         </div>
     <div class="container col-10 d-flex justify-content-center">
-        <button type="submit" class="btn btn-outline-secondary col-2 mx-3">검색</button>
-        <button type="reset" class="btn btn-outline-secondary col-2 mx-3">초기화</button>
+        <button type="submit" class="btn btn-primary col-3 mx-3">검색</button>
+        <button type="reset" class="btn btn-outline-secondary col-3 mx-3">초기화</button>
     </div>
     </form>
     </div>
