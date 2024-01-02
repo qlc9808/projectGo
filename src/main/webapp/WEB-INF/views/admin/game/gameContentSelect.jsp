@@ -59,7 +59,10 @@
         color: black;
         font-weight: 600;
         word-wrap: break-word;
-        text-align: center;
+        text-align: left;
+    }
+    p{
+        text-align: right;
     }
     .gameLevel{
         width: 85px;
@@ -94,12 +97,11 @@
 
                 <table class="table table-bordered">
                     <thead>
-                    <tr>
-                        <th>No.</th> <th>콘텐츠 이미지</th> <th>게임 콘텐츠명</th> <th>패키지 내용</th>
-                        <th>Level<br>
-                        <th>인원</th> <th>구독 기간</th> <th>정가</th> <th>할인율</th> <th>판매가</th> <th>공개 여부</th>
-                    </tr>
-
+                        <tr>
+                            <th>No.</th> <th>콘텐츠 이미지</th> <th>게임 콘텐츠명</th> <th>패키지 내용</th>
+                            <th>Level<br>
+                            <th>인원</th> <th>구독 기간</th> <th>정가</th> <th>할인율</th> <th>판매가</th> <th>공개 여부</th>
+                        </tr>
                     </thead>
 
                     <c:forEach var="gameContent" items="${gameContentsList}">

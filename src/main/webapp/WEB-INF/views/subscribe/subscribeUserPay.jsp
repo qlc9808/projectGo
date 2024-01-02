@@ -16,7 +16,10 @@
         color: black;
         font-weight: 600;
         word-wrap: break-word;
-        text-align: center;
+        text-align: left;
+    }
+    p{
+        text-align: right;
     }
 </style>
 <body>
