@@ -46,7 +46,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests((authorizeRequests) ->authorizeRequests
                 .requestMatchers("/homework/submissionHomework").hasRole(UsersRoleType.STUDENT.getLabel())
                 .requestMatchers("/homework/editSubmissionHomework").hasRole(UsersRoleType.STUDENT.getLabel())
-                .requestMatchers("/homework/**").hasRole(UsersRoleType.EDUCATOR.getLabel())
+                .requestMatchers("/homework/**").hasAnyRole(UsersRoleType.EDUCATOR.getLabel(),UsersRoleType.ADMIN.getLabel())
                 .anyRequest().permitAll()
         );
         http.formLogin(form -> form

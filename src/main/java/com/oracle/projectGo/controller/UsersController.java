@@ -135,14 +135,14 @@ private final UsersService us;
     @PostMapping(value = "userUpdate")
     public String userUpdate (Model model, Users users){
         UUID transactionId = UUID.randomUUID();
-
+        String userType1 = String.valueOf(us.getLoggedInUserRole());
         try {
             log.info("[{}]{}:{}", transactionId, "userUpdateForm", "start");
 
             int userUpdateResult = us.userUpdate(users);
             log.info("userUpdate = "+ userUpdateResult);
 
-
+            log.info("userType1 = "+userType1 );
 
         } catch (Exception e) {
             log.error("[{}]{}:{}", transactionId, "userUpdate", e.getMessage());
@@ -150,7 +150,7 @@ private final UsersService us;
             log.info("[{}]{}:{}", transactionId, "userUpdate", "end");
         }
 
-        if (users.getUserType().equals("1"))
+        if (userType1.equals("ADMIN"))
             return "redirect:userList";
         else {
             return "redirect:/";
