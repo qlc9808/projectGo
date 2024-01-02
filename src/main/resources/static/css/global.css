@@ -174,9 +174,9 @@ html {
 
 
 
-/*td{*/
-/*    white-space: nowrap; !* 줄바꿈을 방지 *!*/
-/*}*/
+thead{
+    white-space: nowrap; /* 줄바꿈을 방지 */
+}
 
 table td {
     /*text-align: center;*/

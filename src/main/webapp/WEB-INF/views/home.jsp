@@ -61,7 +61,7 @@
             word-wrap: break-word
         }
         td {
-            text-align: start;
+            text-align: center  ;
         }
         .section-title {
             color: #6D6A6A;
@@ -225,22 +225,22 @@
                             <table  class="table table-md text-center p-3 border">
                                 <thead>
                                 <tr>
-                                    <th style="width: 90%;text-align: start;padding-left: 20px  ;">제목</th>
-                                    <th style="width: 10%">작성일</th>
+                                    <th style="width: 80%;text-align: start;padding-left: 20px  ;">제목</th>
+                                    <th style="width: 20%">작성일</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr >
                                     <td>fdsafadasf</td>
-                                    <td>2023/12/1</td>
+                                    <td>2024/12/25</td>
                                 </tr>
                                 <tr>
                                     <td>하하하하</td>
-                                    <td>2023/12/1</td>
+                                    <td>2023/12/01</td>
                                 </tr>
                                 <tr>
                                     <td>하하하하</td>
-                                    <td>2023/12/1</td>
+                                    <td>2023/12/01</td>
                                 </tr>
                                 </tbody>
                             </table>
