@@ -275,21 +275,22 @@
                             <i class="las la-angle-left"></i>
                         </button>
                         <div class="card-content">
-                            <c:forEach var="i" begin="1" end="15">
+                            <%--<c:forEach var="i" begin="1" end="15">--%>
+                            <c:forEach var="gameContent" begin="0" end="14" items="${subscribeGameList}">
                                 <!-- Card -->
                                 <div class="card">
                                     <div class="card-img">
-                                        <img src="https://play-lh.googleusercontent.com/Xi9QHr6WJcxZyqGFCp8fxsGFl_JF_AbxKnb-J07sr6l8eNyZCD6V9kapDOuEwz7rR3c=w240-h480-rw"alt="">
-<%--                                        <img class="blur" src="https://photo-cdn.icons8.com/assets/sata/editor/object/244/fc8f52e5-219e-47a0-8475-b96d4f3e6529.png" alt="">--%>
+                                        <img id="gameImg" alt="UpLoad Image" src="${pageContext.request.contextPath}/upload/gameContents/${gameContent.imageName}">
+                                            <%--<img src="https://play-lh.googleusercontent.com/Xi9QHr6WJcxZyqGFCp8fxsGFl_JF_AbxKnb-J07sr6l8eNyZCD6V9kapDOuEwz7rR3c=w240-h480-rw"alt="">--%>
+                                            <%--                                        <img class="blur" src="https://photo-cdn.icons8.com/assets/sata/editor/object/244/fc8f52e5-219e-47a0-8475-b96d4f3e6529.png" alt="">--%>
                                     </div>
                                     <div class="card-text">
-                                        <h2>Basket Ball</h2>
-                                        <p>I show you how to make a card group easily and very functional with the use of flexbox and its magic and JavaScript.<p>
+                                        <h2>${gameContent.title}</h2>
+                                        <p>${gameContent.content}<p>
                                     </div>
                                 </div>
                                 <!-- Card End -->
                             </c:forEach>
-
                         </div>
                         <button id="next" class="btn">
                             <i class="las la-angle-right"></i>
