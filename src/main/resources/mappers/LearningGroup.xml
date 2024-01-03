@@ -38,15 +38,15 @@
                 AND       (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')) >= SYSDATE
                 AND       b.isDeleted = 0
         ]]>
-            <if test="keyword != null and keyword != ''">
-                AND b.title like '%' || #{keyword} || '%'
-            </if>
-                GROUP BY  a.id, a.userId, a.contentId, b.title, b.createdAt,
-                          (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')),
-                          b.maxSubscribers, c.groupSize
-                ) T
-            )
-            WHERE RN BETWEEN #{start} AND #{end}
+        <if test="keyword != null and keyword != ''">
+            AND b.title like '%' || #{keyword} || '%'
+        </if>
+        GROUP BY  a.id, a.userId, a.contentId, b.title, b.createdAt,
+                  (b.createdAt + NUMTODSINTERVAL(b.subscribeDate * 30, 'DAY')),
+                  b.maxSubscribers, c.groupSize
+            ) T
+        )
+        WHERE RN BETWEEN #{start} AND #{end}
     </select>
 
     <select id="NoInsertFormLearningContent" parameterType="GameContents" resultType="GameContents">

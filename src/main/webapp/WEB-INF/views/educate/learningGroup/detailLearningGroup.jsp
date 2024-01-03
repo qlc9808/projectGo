@@ -52,9 +52,11 @@
                         <h2 class="pb-3">가입 학생 리스트</h2>
                         <div class="table">
                             <table class="table text-center">
-                                <tr>
-                                    <th>No</th><th>학생이름</th><th>연락처</th><th>이메일</th><th>주소</th><th>가입일자</th>
-                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th>No</th><th>학생이름</th><th>연락처</th><th>이메일</th><th>주소</th><th>가입일자</th>
+                                    </tr>
+                                </thead>
                                 <c:forEach var="detailGroup" items="${detailLearningGroup}" varStatus="status">
                                     <tr>
                                         <td>${status.index + 1}</td>

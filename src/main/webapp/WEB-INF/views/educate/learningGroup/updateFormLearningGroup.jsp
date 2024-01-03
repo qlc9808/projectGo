@@ -4,7 +4,7 @@
 <html>
 <head>
     <%@ include file="/WEB-INF/components/Header.jsp"%>
-    <title>학습그룹 등록</title>
+    <title>학습그룹 수정</title>
     <link href="/css/homework.css" rel="stylesheet" type="text/css">
 </head>
 <style>
@@ -23,7 +23,7 @@
         <div class="container p-5 col-10">
             <div class="container border my-4 py-3">
                 <div class="container my-3 py-3">
-                    <h1>학습그룹 변경</h1>
+                    <h1>학습그룹 수정</h1>
                     <hr/>
                 </div>
 

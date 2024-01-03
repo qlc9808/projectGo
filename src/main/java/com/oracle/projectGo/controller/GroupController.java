@@ -49,6 +49,7 @@ public class GroupController {
 
             // LearningContent Count 조회
             int totalLearningContentCnt = groupService.totalLearningContentCnt(gameContents);
+            log.info("totalLearningContentCnt : " + totalLearningContentCnt);
 
             // paging 처리
             Paging page = new Paging(totalLearningContentCnt, currentPage);
@@ -57,6 +58,7 @@ public class GroupController {
 
             // LearningContentList 조회
             List<GameContents> learningContentList = groupService.learningContentList(gameContents);
+            log.info("learningContentList : " + learningContentList);
 
             model.addAttribute("learningContentCnt", totalLearningContentCnt);
             model.addAttribute("learningContentList", learningContentList);
@@ -80,20 +82,24 @@ public class GroupController {
             // 선택 페이지 : path = 1일때
             int path = 1;
             String keyword = request.getParameter("keyword");
+            log.info("keyword : " + keyword);
 
             gameContents.setUserId(userId);
             gameContents.setKeyword(keyword);
 
             // LearningContent Count 조회
             int totalLearningContentCnt = groupService.totalLearningContentCnt(gameContents);
-
-            // LearningContentList 조회
-            List<GameContents> learningContentList = groupService.learningContentList(gameContents);
+            log.info("totalLearningContentCnt : " + totalLearningContentCnt);
 
             // paging 처리
             Paging page = new Paging(totalLearningContentCnt, currentPage);
             gameContents.setStart(page.getStart());
             gameContents.setEnd(page.getEnd());
+            log.info("page : " + page);
+
+            // LearningContentList 조회
+            List<GameContents> learningContentList = groupService.learningContentList(gameContents);
+            log.info("learningContentList : " + learningContentList);
 
             model.addAttribute("learningContentCnt", totalLearningContentCnt);
             model.addAttribute("learningContentList", learningContentList);
@@ -111,7 +117,8 @@ public class GroupController {
 
     // 게임콘텐츠에서 그룹을 생성하는 폼
     @RequestMapping(value = "insertFormLearningContent")
-    public String insertFormLearningContent(GameContents gameContents, Model model){
+    public String insertFormLearningContent(GameContents gameContents, Model model, @RequestParam("subscribeEndDate") String subscribeEndDate){
+
         Users users = usersService.getLoggedInUserInfo();
         int userId = users.getId();
         gameContents.setUserId(userId);
@@ -123,6 +130,7 @@ public class GroupController {
             log.info("insertFormLearningContent : " + insertFormLearningContent);
 
             model.addAttribute("insertFormLearningContent", insertFormLearningContent);
+            model.addAttribute("subscribeEndDate",subscribeEndDate);
         } catch (Exception e) {
             log.error("GroupController insertFormLearningContent e.getMessage() : " + e.getMessage());
         } finally {

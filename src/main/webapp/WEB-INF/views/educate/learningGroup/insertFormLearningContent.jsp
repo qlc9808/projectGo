@@ -28,6 +28,76 @@
         // endDate input 필드의 max 속성을 설정합니다.
         document.getElementById("endDate").max = subscribeEndDate;
     }
+
+    // HTML 페이지가 로드되면 실행되는 함수
+    window.onload = function() {
+        // 'groupSize'라는 ID를 가진 input 요소를 찾고
+        var groupSizeInput = document.getElementById('groupSize');
+
+        // 만약 해당 요소가 존재한다면
+        if (groupSizeInput) {
+            // input 요소에 'input' 이벤트 리스너를 추가
+            groupSizeInput.addEventListener('input', function(e) {
+                var maxSubscribers = ${insertFormLearningContent.maxSubscribers}; // 이것은 예시이므로, 실제 최대 구독자 수로 변경하셔야 합니다.
+                var assignedPeople = ${insertFormLearningContent.assignedPeople}; // 이것도 예시이므로, 실제 할당된 사람들의 수로 변경하셔야 합니다.
+
+                // 사용자가 입력한 값
+                var inputValue = e.target.value;
+
+                // 만약 할당된 사람들의 수와 사용자가 입력한 수의 합이 최대 구독자 수를 초과한다면
+                if (assignedPeople + parseInt(inputValue) > maxSubscribers) {
+                    // 알림을 통해 사용자에게 알리고
+                    alert('입력하신 값이 너무 큽니다. ' + (maxSubscribers - assignedPeople) + ' 이하의 값을 입력해주세요.');
+
+                    // 입력된 값을 초기화합니다.
+                    e.target.value = '';
+                }
+            });
+        }
+    };
+
+    console.log(${subscribeEndDate})
+
+    window.onload = function() {
+        var startDateInput = document.getElementById('startDate');
+        var endDateInput = document.getElementById('endDate');
+
+        if (startDateInput && endDateInput) {
+            var subscribeEndDate = new Date(`${subscribeEndDate}`); // 이것은 예시이므로, 실제 구독 종료 날짜로 변경하셔야 합니다.
+
+            startDateInput.addEventListener('change', function(e) {
+                var today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                var selectedDate = new Date(e.target.value);
+
+                var endDate = new Date(endDateInput.value);
+
+                if (selectedDate < today) {
+                    alert('시작 날짜는 오늘 날짜 이후로 선택해주세요.');
+                    e.target.value = '';
+                } else if (selectedDate >= subscribeEndDate) {
+                    alert('시작 날짜는 종료 날짜 이전으로 선택해주세요.');
+                    e.target.value = '';
+                }
+            });
+
+            endDateInput.addEventListener('change', function(e) {
+                var startDate = new Date(startDateInput.value);
+                var selectedDate = new Date(e.target.value);
+
+                if (selectedDate <= startDate) {
+                    alert('종료 날짜는 시작 날짜 이후로 선택해주세요.');
+                    e.target.value = '';
+                } else if (selectedDate > subscribeEndDate) {
+                    alert('종료 날짜는 구독 종료 날짜 이전으로 선택해주세요.');
+                    e.target.value = '';
+                }
+            });
+        }
+    };
+
+
 </script>
 <body>
     <%@ include file="/WEB-INF/components/TopBar.jsp"%>
@@ -59,7 +129,7 @@
 
                     <%--컨텐츠 메인--%>
                     <div class="container p-5">
-                        <h2 class="pb-3">그룹 상세 정보</h2>
+                        <h2 class="pb-3">그룹 상세 정보 ${subscribeEndDate} </h2>
                         <form id="insertForm" action="/group/insertLearningGroup" method="post">
                             <div class="my-4">
                                 <input type="hidden" id="id" name="id" value="${insertFormLearningContent.contentId}">

@@ -30,7 +30,6 @@ public class LearningGroupDao {
 
         try {
             learningContentList = session.selectList("NoLearningContentList", gameContents);
-            log.info("learningContentList : " + learningContentList);
         } catch (Exception e) {
             log.info("LearningGroupDao learningContentList e.getMessage() : " + e.getMessage());
         }

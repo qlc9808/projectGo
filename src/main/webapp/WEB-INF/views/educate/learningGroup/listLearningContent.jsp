@@ -17,19 +17,24 @@
     function goToDetailLearningContent() {
         var radios = document.getElementsByName('gameContent');
         var checkedValue;
+        var subscribeEndDate;
+
         for (var i = 0; i < radios.length; i++) {
             if (radios[i].checked) {
                 checkedValue = radios[i].value;
+                subscribeEndDate = document.getElementById('subscribeEndDate').value;
                 break;
             }
         }
         if (checkedValue) {
             alert(checkedValue);
-            location.href = '/group/insertFormLearningContent?id=' + checkedValue;
+            // contentId와 subscribeEndDate를 함께 전달
+            location.href = '/group/insertFormLearningContent?id=' + checkedValue + '&subscribeEndDate=' + subscribeEndDate;
         } else {
             alert('게임콘텐츠를 선택해주세요.');
         }
     }
+
 </script>
 <body>
     <%@ include file="/WEB-INF/components/TopBar.jsp"%>
@@ -53,7 +58,7 @@
                     <div class="container p-2 m-2" style="height: auto;">
                         <p>게임 콘텐츠 수 : ${learningContentCnt}</p>
                         <form action="/group/listLearningContent1" class="d-flex justify-content-end align-items-center mb-3">
-                            <input  class="form-control keyword-input mr-3" type="text" name="keyword" value="${keyword}" placeholder="검색어를 입력하세요." id="keyword" style="flex-grow: 1;">
+                            <input  class="form-control keyword-input mr-3" type="text" name="keyword" value="${keyword}" placeholder="검색어를 입력하세요." id="keyword"  style="flex-grow: 1;" onkeydown="if(event.keyCode==13) submitForm();">
                             <button class="btn btn-primary mr-3" style="min-width: 90px;" onclick="submitForm();">조회하기</button>
                         </form>
                     </div>
