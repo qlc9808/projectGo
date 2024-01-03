@@ -211,52 +211,77 @@ public class AdminBoardController {
 
 	@RequestMapping(value = "/noticeUpdate")
 	public String noticeUpdate(@ModelAttribute Board board, @RequestParam("file") MultipartFile file, Model model) {
-
 		board.setBoardType("1");
 		int id = board.getId();
 
+		log.info("id->" + id);
 
-
-		log.info("id->"+id);
+		String filePath = board.getFilePath();
+		String fileName = board.getFileName();
+		String fileAddress = board.getFileAddress();
 
 		try {
+			// 기존 파일의 정보 가져오기
+			Board existingBoard = boardService.detailnotice(id);
+			String existingFilePath = existingBoard.getFilePath();
+			String existingFileName = existingBoard.getFileName();
+			String existingFileAddress = existingBoard.getFileAddress();
 
 			if (!file.isEmpty()) {
-				String fileName = file.getOriginalFilename();
+				// 새로운 파일이 전송된 경우
+				fileName = file.getOriginalFilename();
 				String absolutePath = new File(uploadDirectory).getAbsolutePath();
 				Path path = Paths.get(absolutePath, fileName);
 				file.transferTo(path.toFile());
 
-				// 파일 경로를 Board에 설정
-				board.setFilePath(path.toString());
-				board.setFileName(fileName);
-
-				// 파일 URL 생성. 실제 서비스에서는 적절한 URL로 변경해야 합니다.
-				String fileAddress = "http://localhost:8585/file/" + file.getOriginalFilename();
-				board.setFileAddress(fileAddress);  // Board 클래스에 setFileAddress 메서드가 필요합니다.
+				// 새로운 파일 정보 설정
+				filePath = path.toString();
+				fileAddress = "http://localhost:8585/file/" + file.getOriginalFilename();
+			} else {
+				// 새로운 파일이 전송되지 않은 경우, 기존 파일 정보 유지
+				filePath = existingFilePath;
+				fileName = existingFileName;
+				fileAddress = existingFileAddress;
 			}
 
-			boardService.noticeUpdate(board);
+			// 파일 정보를 모델에 추가
+			model.addAttribute("filePath", filePath);
+			model.addAttribute("fileName", fileName);
+			model.addAttribute("fileAddress", fileAddress);
 
+			// 기존 파일 정보 설정
+			board.setFilePath(filePath);
+			board.setFileName(fileName);
+			board.setFileAddress(fileAddress);
+
+			boardService.noticeUpdate(board);
 		} catch (Exception e) {
 			log.error("[{}]:{}", "admin noticeUpdate", e.getMessage());
 		} finally {
 			log.info("[{}]:{}", "admin noticeUpdate", "end");
 		}
-		return "redirect:/admin/board/noticeDetail?id="+id;
+		return "redirect:/admin/board/noticeDetail?id=" + id;
 	}
 
-	@GetMapping(value="/noticeUpdateForm")
+	@GetMapping(value = "/noticeUpdateForm")
 	public String noticeUpdateForm(int id, String currentPage, Model model) {
 		try {
 			log.info("[{}]:{}", "admin noticeUpdateForm", "start");
 
 			Board board = boardService.detailnotice(id);
 
+			// 기존 파일의 정보 가져오기
+			String filePath = board.getFilePath();
+			String fileName = board.getFileName();
+			String fileAddress = board.getFileAddress();
 
+			// 모델에 파일 정보를 추가
 			model.addAttribute("currentPage", currentPage);
-			model.addAttribute("id",id);
+			model.addAttribute("id", id);
 			model.addAttribute("board", board);
+			model.addAttribute("filePath", filePath);
+			model.addAttribute("fileName", fileName);
+			model.addAttribute("fileAddress", fileAddress);
 
 		} catch (Exception e) {
 			log.error("[{}]:{}", "admin noticeUpdateForm", e.getMessage());

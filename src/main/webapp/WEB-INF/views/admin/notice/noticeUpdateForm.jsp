@@ -96,6 +96,7 @@
 
         </div>
     </div>
+    </div>
 </main>
 </body>
 
@@ -125,14 +126,14 @@
         document.getElementById('saveButton').addEventListener('click', function (event) {
             event.preventDefault();
 
-            var formData = new FormData(document.getElementById('myForm'));
-
             var dropZoneFiles = document.getElementById('file').files;
-            if (dropZoneFiles.length > 0) {
-                for (var i = 0; i < dropZoneFiles.length; i++) {
-                    formData.append("files", dropZoneFiles[i]);
-                }
+            var form = document.getElementById('myForm'); // form 요소를 변수에 저장
+
+            var formData = new FormData(form); // 저장한 form 변수 사용
+            for (var i = 0; i < dropZoneFiles.length; i++) {
+                formData.append("files", dropZoneFiles[i]);
             }
+
 
             $.ajax({
                 url: "noticeUpdate?id=${board.id}&currentPage=${currentPage}",
