@@ -52,6 +52,18 @@
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/ab28fe18-d148-422b-8bf0-c490b0f8b8bb"/>
 </div>
 
+- 차예지
+<div align=center>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/aa774e5d-42b5-4c9f-aec8-903ca41581f2"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/4e10d893-7e92-4528-b85f-edc278452c4f"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/527bb061-c0df-4fd6-81fe-53a23c0b6272"/>
+</div>
+
+<div align=center>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/0ced80fa-afdd-4e86-835f-1fa763056e3a"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/fdf4ef7f-fac3-4869-ac24-c491f586d3f5"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/7fc4224a-bd28-4933-b72b-097e4175776e"/>
+</div>
 
 - 강한빛
 <div align=center>
