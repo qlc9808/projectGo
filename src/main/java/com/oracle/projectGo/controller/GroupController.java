@@ -117,7 +117,8 @@ public class GroupController {
 
     // 게임콘텐츠에서 그룹을 생성하는 폼
     @RequestMapping(value = "insertFormLearningContent")
-    public String insertFormLearningContent(GameContents gameContents, Model model, @RequestParam("subscribeEndDate") String subscribeEndDate){
+    public String insertFormLearningContent(GameContents gameContents, Model model, @RequestParam("subscribeEndDate") String subscribeEndDate,
+                                                                                    @RequestParam("paymentId") String paymentId){
 
         Users users = usersService.getLoggedInUserInfo();
         int userId = users.getId();
@@ -131,6 +132,7 @@ public class GroupController {
 
             model.addAttribute("insertFormLearningContent", insertFormLearningContent);
             model.addAttribute("subscribeEndDate",subscribeEndDate);
+            model.addAttribute("paymentId", paymentId);
         } catch (Exception e) {
             log.error("GroupController insertFormLearningContent e.getMessage() : " + e.getMessage());
         } finally {
