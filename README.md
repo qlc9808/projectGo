@@ -49,7 +49,7 @@
 <div align=center>
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/14b0ea2e-73f1-4760-b0dc-5a938d8c9ea5"/>
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/d63fe316-679c-4d01-ad08-d61406aa61d0"/>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/ab28fe18-d148-422b-8bf0-c490b0f8b8bb"/>
+    <div width="30%" height="200px"></div>
 </div>
 
 - 황남오
@@ -87,21 +87,27 @@
 
 <div align=center>
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/0751a0b6-d693-4f68-adcd-49bf1581d1de"/>
-    <div width="30%" height="200px" ></div>
-    <div width="30%" height="200px" ></div>
+    <div width="30%" height="200px"></div>
+    <div width="30%" height="200px"></div>
 </div>
 
 - 정송환
 <div align=center>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/78c79b33-4919-45a0-b2ff-45439eb785c9"/>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/248e08ad-e386-4c4b-9f62-7520459deaf3"/>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/9ddb693a-73e7-4ef3-bb21-4e2b27d2099b"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/ab28fe18-d148-422b-8bf0-c490b0f8b8bb"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/d4f96a78-5461-45de-b3f3-b3c157c930c6"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/09ffc47c-67c2-4710-bb30-12c0162426ab"/>
 </div>
 
 <div align=center>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/78c79b33-4919-45a0-b2ff-45439eb785c9"/>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/248e08ad-e386-4c4b-9f62-7520459deaf3"/>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/9ddb693a-73e7-4ef3-bb21-4e2b27d2099b"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/2f0ac4cf-748f-47bf-a83c-7a49c2110c3a"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/f37cd4ff-aeaa-4ea3-a70f-1a7633c49d93"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/3fe916c4-2bbf-452d-9a5a-0fc2af79b045"/>
+</div>
+
+<div align=center>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/a9c5e440-266b-4d18-82cf-03179230056c"/>
+    <div width="30%" height="200px"></div>
+    <div width="30%" height="200px"></div>
 </div>
 
 - 차예지
