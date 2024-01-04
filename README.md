@@ -53,15 +53,15 @@
 </div>
 - 황남오
 <div align=center>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/14b0ea2e-73f1-4760-b0dc-5a938d8c9ea5"/>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/d63fe316-679c-4d01-ad08-d61406aa61d0"/>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/ab28fe18-d148-422b-8bf0-c490b0f8b8bb"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/da46be79-95b1-49ae-9258-70bc764652f3"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/44fa0912-a79f-4ffe-8fcf-53b5b753538d"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/58ef7cfb-0a5c-4c5d-ab15-55b5f3a6ac5f"/>
 </div>
 
 <div align=center>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/14b0ea2e-73f1-4760-b0dc-5a938d8c9ea5"/>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/d63fe316-679c-4d01-ad08-d61406aa61d0"/>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/ab28fe18-d148-422b-8bf0-c490b0f8b8bb"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/dfdce0a3-de96-45f0-8e8e-b8e6d953a828"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/2d2df316-8423-411a-81e2-e899769e4d40"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/47dacbbd-1462-40ff-b24e-c79dd37a639d"/>
 </div>
 
 - 이규현
@@ -73,8 +73,8 @@
 
 <div align=center>
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/0751a0b6-d693-4f68-adcd-49bf1581d1de"/>
-    <img width="30%" height="200px" style="border: 0px;" />
-    <img width="30%" height="200px" style="border: 0px;" />
+    <img width="30%" height="200px" />
+    <img width="30%" height="200px" />
 </div>
 
 - 차예지
