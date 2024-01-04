@@ -61,9 +61,11 @@
 </div>
 
 <div align=center>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/60141871-4eda-4a9e-b1a8-012692b2717e"/>
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/fcda9f88-4966-4847-b2e6-51494f41db53"/>
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/8d859d5f-024f-43b5-8515-71419cc11d21"/>
 </div>
+
 
 <div align=left><h2>💡 주요 기능 상세</h2></div>
 
