@@ -175,14 +175,14 @@ public class GroupController {
             int totalLearningGroupCnt = groupService.totalLearningGroupCnt(learningGroup);
             log.info("totalLearningGroupCnt : " + totalLearningGroupCnt);
 
-            List<LearningGroup> learningGroupList = groupService.learningGroupList(learningGroup);
-            log.info("learningGroupList : " + learningGroupList);
-
             // paging 처리
             Paging page = new Paging(totalLearningGroupCnt, currentPage);
             learningGroup.setStart(page.getCurrentPage());
             learningGroup.setEnd(page.getEnd());
             log.info("page : " + page);
+
+            List<LearningGroup> learningGroupList = groupService.learningGroupList(learningGroup);
+            log.info("learningGroupList : " + learningGroupList);
 
             model.addAttribute("totalLearningGroupCnt", totalLearningGroupCnt);
             model.addAttribute("learningGroupList", learningGroupList);
@@ -216,14 +216,14 @@ public class GroupController {
             int totalLearningGroupCnt = groupService.totalLearningGroupCnt(learningGroup);
             log.info("totalLearningGroupCnt : " + totalLearningGroupCnt);
 
-            List<LearningGroup> learningGroupList = groupService.learningGroupList(learningGroup);
-            log.info("learningGroupList : " + learningGroupList);
-
             // paging 처리
             Paging page = new Paging(totalLearningGroupCnt, currentPage);
             learningGroup.setStart(page.getCurrentPage());
             learningGroup.setEnd(page.getEnd());
             log.info("page : " + page);
+
+            List<LearningGroup> learningGroupList = groupService.learningGroupList(learningGroup);
+            log.info("learningGroupList : " + learningGroupList);
 
             model.addAttribute("totalLearningGroupCnt", totalLearningGroupCnt);
             model.addAttribute("learningGroupList", learningGroupList);
