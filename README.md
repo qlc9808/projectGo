@@ -51,7 +51,7 @@
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/d63fe316-679c-4d01-ad08-d61406aa61d0"/>
     <div width="30%" height="200px"></div>
 </div>
-<br>
+<hr>
 
 - **황남오** : 학습 그룹 등록, 조회, 가입 승인
 <div align=center>
@@ -65,7 +65,7 @@
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/2d2df316-8423-411a-81e2-e899769e4d40"/>
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/47dacbbd-1462-40ff-b24e-c79dd37a639d"/>
 </div>
-<br>
+<hr>
 
 - **이규현** : 숙제 생성, 배포, 학습진도 조회
 <div align=center>
@@ -79,7 +79,7 @@
     <div width="30%" height="200px"></div>
     <div width="30%" height="200px"></div>
 </div>
-<br>
+<hr>
 
 - **윤상엽** : 공지, FAQ, Q&A, 게시물 등록
 <div align=center>
@@ -93,7 +93,7 @@
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/07f300d3-c557-465c-be9e-53df09d11cb9"/>
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/1618bf43-c406-4d07-8ffa-b7ac0cc3498a"/>
 </div>
-<br>
+<hr>
 
 - **차예지** : 게임콘텐츠 구매, 조회, 등록
 <div align=center>
@@ -107,7 +107,7 @@
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/fdf4ef7f-fac3-4869-ac24-c491f586d3f5"/>
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/7fc4224a-bd28-4933-b72b-097e4175776e"/>
 </div>
-<br>
+<hr>
 
 - **정송환** : 로그인, 회원가입, 회원조회
 <div align=center>
@@ -127,7 +127,7 @@
     <div width="30%" height="200px"></div>
     <div width="30%" height="200px"></div>
 </div>
-<br>
+<hr>
 
 - **강한빛** : 학습그룹 가입신청, 매출조회, 교육자료 등록
 <div align=center>
