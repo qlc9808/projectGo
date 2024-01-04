@@ -30,9 +30,11 @@
         }
 
         if(checkedValue) {
-            alert(checkedValue);
-            // contentId, subscribeEndDate, paymentId를 함께 전달
-            location.href = '/group/insertFormLearningContent?id=' + checkedValue + '&subscribeEndDate=' + subscribeEndDate + '&paymentId=' + paymentId;
+            var confirmResult = confirm('학습그룹을 생성하시겠습니까?'); // confirm 함수 사용
+            if (confirmResult) {
+                // contentId, subscribeEndDate, paymentId를 함께 전달
+                location.href = '/group/insertFormLearningContent?id=' + checkedValue + '&subscribeEndDate=' + subscribeEndDate + '&paymentId=' + paymentId;
+            }
         } else {
             alert('게임콘텐츠를 선택해주세요.');
         }
