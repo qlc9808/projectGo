@@ -52,7 +52,7 @@
     <div width="30%" height="200px"></div>
 </div>
 
-- 황남오
+- **황남오** : 학습 그룹 등록, 조회, 가입 승인
 <div align=center>
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/da46be79-95b1-49ae-9258-70bc764652f3"/>
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/44fa0912-a79f-4ffe-8fcf-53b5b753538d"/>
@@ -65,20 +65,7 @@
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/47dacbbd-1462-40ff-b24e-c79dd37a639d"/>
 </div>
 
-- 윤상엽
-<div align=center>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/dbca2853-fd38-48b5-8823-e74a00a063cc"/>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/be318d40-46af-4acb-badd-a7005b925ac5"/>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/b8cb3e97-f982-4fb5-8ccc-7aa8fccb0004"/>
-</div>
-
-<div align=center>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/d432ea81-c79b-4453-9dcc-67e13bc96ea9"/>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/07f300d3-c557-465c-be9e-53df09d11cb9"/>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/1618bf43-c406-4d07-8ffa-b7ac0cc3498a"/>
-</div>
-
-- 이규현
+- **이규현** : 숙제 생성, 배포, 학습진도 조회
 <div align=center>
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/78c79b33-4919-45a0-b2ff-45439eb785c9"/>
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/248e08ad-e386-4c4b-9f62-7520459deaf3"/>
@@ -91,7 +78,33 @@
     <div width="30%" height="200px"></div>
 </div>
 
-- 정송환
+- **윤상엽** : 공지, FAQ, Q&A, 게시물 등록
+<div align=center>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/dbca2853-fd38-48b5-8823-e74a00a063cc"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/be318d40-46af-4acb-badd-a7005b925ac5"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/b8cb3e97-f982-4fb5-8ccc-7aa8fccb0004"/>
+</div>
+
+<div align=center>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/d432ea81-c79b-4453-9dcc-67e13bc96ea9"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/07f300d3-c557-465c-be9e-53df09d11cb9"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/1618bf43-c406-4d07-8ffa-b7ac0cc3498a"/>
+</div>
+
+- **차예지** : 게임콘텐츠 구매, 조회, 등록
+<div align=center>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/aa774e5d-42b5-4c9f-aec8-903ca41581f2"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/4e10d893-7e92-4528-b85f-edc278452c4f"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/527bb061-c0df-4fd6-81fe-53a23c0b6272"/>
+</div>
+
+<div align=center>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/0ced80fa-afdd-4e86-835f-1fa763056e3a"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/fdf4ef7f-fac3-4869-ac24-c491f586d3f5"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/7fc4224a-bd28-4933-b72b-097e4175776e"/>
+</div>
+
+- **정송환** : 로그인, 회원가입, 회원조회
 <div align=center>
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/ab28fe18-d148-422b-8bf0-c490b0f8b8bb"/>
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/d4f96a78-5461-45de-b3f3-b3c157c930c6"/>
@@ -110,20 +123,7 @@
     <div width="30%" height="200px"></div>
 </div>
 
-- 차예지
-<div align=center>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/aa774e5d-42b5-4c9f-aec8-903ca41581f2"/>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/4e10d893-7e92-4528-b85f-edc278452c4f"/>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/527bb061-c0df-4fd6-81fe-53a23c0b6272"/>
-</div>
-
-<div align=center>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/0ced80fa-afdd-4e86-835f-1fa763056e3a"/>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/fdf4ef7f-fac3-4869-ac24-c491f586d3f5"/>
-    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/7fc4224a-bd28-4933-b72b-097e4175776e"/>
-</div>
-
-- 강한빛
+- **강한빛** : 학습그룹 가입신청, 매출조회, 교육자료 등록
 <div align=center>
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/083288aa-77ba-4b9c-aece-b81884b55604"/>
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/1d9bb579-9cfc-43a8-8175-24f9810f3c7d"/>
