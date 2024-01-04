@@ -87,8 +87,21 @@
 
 <div align=center>
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/0751a0b6-d693-4f68-adcd-49bf1581d1de"/>
-    <img width="30%" height="200px" />
-    <img width="30%" height="200px" />
+    <div width="30%" height="200px" ></div>
+    <div width="30%" height="200px" ></div>
+</div>
+
+- 정송환
+<div align=center>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/78c79b33-4919-45a0-b2ff-45439eb785c9"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/248e08ad-e386-4c4b-9f62-7520459deaf3"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/9ddb693a-73e7-4ef3-bb21-4e2b27d2099b"/>
+</div>
+
+<div align=center>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/78c79b33-4919-45a0-b2ff-45439eb785c9"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/248e08ad-e386-4c4b-9f62-7520459deaf3"/>
+    <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/9ddb693a-73e7-4ef3-bb21-4e2b27d2099b"/>
 </div>
 
 - 차예지
