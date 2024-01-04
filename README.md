@@ -73,8 +73,8 @@
 
 <div align=center>
     <img width="30%" height="200px" src="https://github.com/qlc9808/projectGo/assets/137845430/0751a0b6-d693-4f68-adcd-49bf1581d1de"/>
-    <img width="30%" height="200px" src=""/>
-    <img width="30%" height="200px" src=""/>
+    <img width="30%" height="200px" />
+    <img width="30%" height="200px" />
 </div>
 
 - 차예지
